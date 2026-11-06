@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مختبر الاتزان الكيميائي | كيمياء 2-2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Noto+Kufi+Arabic:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F1EBFC; --surface:#FFFFFF; --surface2:#F8F5FE; --ink:#1E1638; --muted:#5E5677; --line:#DCD2F1; --grid:rgba(124,77,214,.11); --head:var(--ink);
+  --cold:#2763D8; --hot:#DE4527; --mid:#8A4FC8; --amber:#D18A0B; --ok:#12916A; --bad:#C7362A; --chip:#ECE4FA; --green:#6D3FC4;
+  --cold-soft:#E3ECFC; --hot-soft:#FCE7E2; --ok-soft:#DFF4EC; --bad-soft:#FBE4E1;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16112A; --surface:#201A3A; --surface2:#271F45; --ink:#EEE9FA; --muted:#B3A9CF; --line:#3A3160; --grid:rgba(184,140,255,.08); --head:var(--ink);
+    --cold:#6E9BFF; --hot:#FF7B5E; --mid:#B88CFF; --amber:#F4BD4C; --ok:#3CC799; --bad:#FF6E61; --chip:#2D2552; --green:#7E55D6;
+    --cold-soft:#1C2C55; --hot-soft:#3A2028; --ok-soft:#143A33; --bad-soft:#3D1F25;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16112A; --surface:#201A3A; --surface2:#271F45; --ink:#EEE9FA; --muted:#B3A9CF; --line:#3A3160; --grid:rgba(184,140,255,.08); --head:var(--ink);
+  --cold:#6E9BFF; --hot:#FF7B5E; --mid:#B88CFF; --amber:#F4BD4C; --ok:#3CC799; --bad:#FF6E61; --chip:#2D2552; --green:#7E55D6;
+  --cold-soft:#1C2C55; --hot-soft:#3A2028; --ok-soft:#143A33; --bad-soft:#3D1F25;
+  color-scheme:dark;
+}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--thermal:linear-gradient(to left,var(--cold),var(--mid) 55%,var(--hot));}
+html{scroll-padding-top:env(safe-area-inset-top,0px);}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background-color:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:26px 26px;color:var(--ink);font-family:"IBM Plex Sans Arabic",system-ui,"Segoe UI",Tahoma,sans-serif;font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased}
+img,svg,canvas{max-width:100%}
+.kufi,h1,h2,h3,.lnum,.lcode,.gscore,.temp-big,.brand,.lcard h3,.final-band h3,.teacher .av{font-family:"Noto Kufi Arabic","IBM Plex Sans Arabic",system-ui,sans-serif}
+.hero h1{font-weight:800;line-height:1.35}
+h1,h2,h3,.lcard h3{color:var(--head)}
+.lhead h1{color:var(--head)}
+.teacher{display:flex;align-items:center;gap:12px;margin:6px 0 20px}
+.teacher .av{flex:0 0 48px;height:48px;border-radius:50%;background:var(--cold);color:#fff;display:grid;place-items:center;font-weight:700;font-size:18px}
+.teacher small{display:block;color:var(--muted);font-size:15px;line-height:1.4}
+.teacher b{display:block;font-size:17px;line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+a{color:var(--cold)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:6px}
+.f{font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;unicode-bidi:isolate;display:inline-block;max-width:100%}
+.tinput{font:inherit;font-size:15px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface2);color:var(--ink)}
+.hcard .f,.target .f,.sum .f,.ctable .f,.ediag .f{white-space:nowrap}
+.f sub,.fx sub{font-size:.68em}
+.ltr{direction:ltr;unicode-bidi:isolate}
+
+/* top bar */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:600}
+.brand-mark{width:34px;height:34px;border-radius:50%;background:var(--thermal);display:grid;place-items:center;color:#fff;font-size:15px}
+.top-tools{display:flex;align-items:center;gap:10px}
+.starpill{display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-weight:600}
+.starpill b{color:var(--amber)}
+.iconbtn{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer;font-size:14px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:10px;padding:11px 20px;font-weight:600;cursor:pointer;background:var(--ink);color:var(--bg);text-decoration:none;transition:transform .12s}
+.btn:active{transform:scale(.97)}
+.btn.cold{background:var(--cold);color:#fff}
+.btn.hot{background:var(--hot);color:#fff}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn.sm{padding:7px 14px;font-size:15px;border-radius:8px}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center;padding:26px 0 40px}
+.kicker{color:var(--muted);font-size:15px;margin:0 0 6px}
+.hero h1{font-size:clamp(2rem,4.6vw,3.25rem);line-height:1.22;margin:0 0 16px;font-weight:700;letter-spacing:-.01em}
+.hero h1 .grad{background:var(--thermal);-webkit-background-clip:text;background-clip:text;color:transparent}
+.idea{background:var(--surface);border-inline-start:5px solid var(--mid);border-radius:4px 12px 12px 4px;padding:12px 16px;margin:0 0 16px}
+.idea strong{color:var(--mid)}
+.hero p.lead{color:var(--muted);margin:0 0 20px;max-width:58ch}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.progress-line{margin-top:18px;color:var(--muted);font-size:15px}
+.credit-card{margin-top:20px;font-size:19px;color:var(--muted);line-height:1.6}
+.credit-card b{color:var(--mid);font-weight:700}
+.task-band{margin-top:-14px}
+.tb-in{display:flex;align-items:center;gap:16px}
+.tb-in .ti{flex:0 0 54px;height:54px;border-radius:14px;background:var(--thermal);display:grid;place-items:center;font-size:27px}
+.task-tile{display:flex;align-items:center;gap:14px;margin-top:18px;background:var(--surface);border:2px solid var(--mid);border-radius:16px;padding:12px 18px 12px 14px;text-decoration:none;color:var(--ink);max-width:440px;transition:transform .15s}
+.task-tile:hover{transform:translateY(-2px)}
+.task-tile .ti{flex:0 0 54px;height:54px;border-radius:14px;background:var(--thermal);display:grid;place-items:center;font-size:27px}
+.task-tile b{display:block;font-size:18px}
+.task-tile small{color:var(--muted);font-size:14px}
+
+.beaker-card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:16px;position:relative}
+.beaker-card canvas{display:block;width:100%;height:330px;touch-action:none;cursor:ew-resize;border-radius:14px;background:var(--surface2)}
+.beaker-read{display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:10px;flex-wrap:wrap}
+.temp-big{font-size:30px;font-weight:700;direction:ltr}
+.phase-tag{padding:3px 12px;border-radius:999px;font-weight:600;font-size:15px;background:var(--chip)}
+.beaker-card input[type=range]{width:100%;margin-top:8px}
+.hint{font-size:14px;color:var(--muted);margin:6px 0 0}
+
+/* path */
+h2.sec{font-size:clamp(1.35rem,2.6vw,1.8rem);margin:8px 0 6px}
+.sec-sub{color:var(--muted);margin:0 0 20px}
+.thermo-track{position:relative;height:14px;border-radius:999px;background:var(--thermal);margin:22px 0 0}
+.thermo-track .bulb{position:absolute;inset-inline-start:-8px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:var(--cold)}
+.lessons{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:-7px}
+.lcard{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:0 0 16px 16px;padding:26px 18px 18px;display:flex;flex-direction:column;gap:8px}
+.lcard .node{position:absolute;top:-8px;inset-inline-start:18px;width:30px;height:30px;border-radius:50%;background:var(--surface);border:4px solid var(--c);display:grid;place-items:center;font-size:13px;font-weight:700;color:var(--c)}
+.lcard.done .node{background:var(--c);color:#fff}
+.lcode{font-size:34px;font-weight:700;color:var(--c);line-height:1;direction:ltr;text-align:right}
+.lcard h3{margin:2px 0 0;font-size:19px;line-height:1.4}
+.lcard p{margin:0;color:var(--muted);font-size:15px;line-height:1.6;flex:1}
+.lmeta{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--muted)}
+.lmeta .st{color:var(--amber);font-weight:600}
+
+.badges{display:flex;flex-wrap:wrap;gap:14px;margin:8px 0 0}
+.badge{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px dashed var(--line);border-radius:999px;padding:6px 16px 6px 8px;color:var(--muted);font-size:15px}
+.badge i{font-style:normal;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--chip);filter:grayscale(1);opacity:.6;font-size:18px}
+.badge.on{border-style:solid;color:var(--ink);font-weight:600}
+.badge.on i{filter:none;opacity:1;background:var(--thermal)}
+
+.final-band{margin:36px 0;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;position:relative;overflow:hidden}
+.final-band::before{content:"";position:absolute;inset-block:0;inset-inline-start:0;width:6px;background:var(--thermal)}
+.final-band h3{margin:0 0 4px;font-size:22px}
+.final-band p{margin:0;color:var(--muted)}
+
+footer.foot{border-top:1px solid var(--line);margin-top:40px;padding:22px 0 30px;color:var(--muted);font-size:14px;text-align:center;line-height:1.7}
+footer.foot b{color:var(--ink)}
+
+/* lesson page */
+.crumbs{margin:6px 0 10px}
+.crumbs a{text-decoration:none;font-size:15px}
+.lhead{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:end;padding:10px 0 22px;border-bottom:1px solid var(--line)}
+.lnum{font-size:clamp(4rem,11vw,7.5rem);font-weight:700;line-height:.9;direction:ltr;background:var(--thermal);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lhead h1{margin:0;font-size:clamp(1.7rem,3.6vw,2.4rem);line-height:1.3}
+.lhead .en{color:var(--muted);direction:ltr;text-align:right;font-size:16px}
+.vocab{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
+.vocab span{background:var(--chip);border-radius:6px;padding:2px 10px;font-size:14px}
+
+.lgrid{display:grid;grid-template-columns:300px 1fr;gap:28px;margin-top:24px;align-items:start}
+.side{position:sticky;top:12px;display:flex;flex-direction:column;gap:16px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.box h4{margin:0 0 8px;font-size:16px}
+.tasks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.tasks li{display:flex;gap:10px;align-items:flex-start;font-size:15px;line-height:1.5;color:var(--muted)}
+.tasks li .ck{flex:0 0 22px;height:22px;border-radius:6px;border:2px solid var(--line);display:grid;place-items:center;font-size:13px;margin-top:1px}
+.tasks li.on{color:var(--ink)}
+.tasks li.on .ck{background:var(--ok);border-color:var(--ok);color:#fff}
+.tbar{height:8px;border-radius:99px;background:var(--chip);overflow:hidden;margin-top:12px}
+.tbar i{display:block;height:100%;background:var(--thermal);width:0;transition:width .4s}
+.side nav{display:flex;flex-direction:column;gap:2px}
+.side nav a{text-decoration:none;color:var(--muted);font-size:15px;padding:4px 8px;border-radius:6px}
+.side nav a:hover{background:var(--chip);color:var(--ink)}
+
+.learn ul{margin:0;padding-inline-start:20px}
+.learn li{margin:0 0 8px}
+.main-col{display:flex;flex-direction:column;gap:26px;min-width:0}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;min-width:0}
+.panel.sim{border-top:4px solid var(--c,var(--cold))}
+.panel h3{margin:0 0 4px;font-size:21px;line-height:1.4}
+.panel .tag{display:inline-block;font-size:13px;font-weight:600;color:var(--c,var(--cold));margin-bottom:4px}
+.panel .desc{color:var(--muted);margin:0 0 16px;font-size:15.5px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.ctrl{display:flex;flex-direction:column;gap:4px;font-size:15px;color:var(--muted);flex:1;min-width:180px}
+input[type=range]{accent-color:var(--mid);width:100%}
+input[type=number],input[type=text],input.ans,select{font:inherit;font-size:16px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface2);color:var(--ink);min-width:0}
+input.ans{width:150px;direction:ltr;text-align:center}
+.unit{color:var(--muted);font-size:15px}
+
+.prac{background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:14px}
+.prac p.q{margin:0 0 10px;font-size:16px}
+.prac .fb{margin:8px 0 0;font-size:15px;min-height:1.2em}
+.fb.ok{color:var(--ok)} .fb.bad{color:var(--bad)}
+.prac.solved{border-color:var(--ok);background:var(--ok-soft)}
+
+/* skier */
+.bars{display:grid;gap:8px;margin-top:12px}
+.bar{display:grid;grid-template-columns:120px 1fr 50px;gap:10px;align-items:center;font-size:14.5px}
+.bar .tr{height:16px;background:var(--chip);border-radius:99px;overflow:hidden}
+.bar .tr i{display:block;height:100%;border-radius:99px;transition:width .08s}
+.bar b{direction:ltr;text-align:left;font-weight:600}
+.switch{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-size:15px}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--surface2);border-radius:999px;padding:5px 14px;cursor:pointer;font-size:14.5px}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.thermos{display:grid;grid-template-columns:repeat(auto-fit,minmax(78px,1fr));gap:12px;margin-top:16px;align-items:end}
+.thermo{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:13.5px;text-align:center}
+.thermo .tube{width:22px;height:170px;border-radius:12px;background:var(--chip);position:relative;overflow:hidden;border:2px solid var(--line)}
+.thermo .tube i{position:absolute;bottom:0;inset-inline:0;background:linear-gradient(to top,var(--cold),var(--hot));transition:height .25s}
+.thermo b{direction:ltr;font-size:14px}
+
+/* options quiz */
+.opts{display:grid;gap:8px;margin-top:10px}
+.opt{text-align:start;border:1.5px solid var(--line);background:var(--surface2);border-radius:10px;padding:10px 14px;cursor:pointer;font-size:16px;line-height:1.5}
+.opt:hover:not([disabled]){border-color:var(--mid)}
+.opt.ok{background:var(--ok-soft);border-color:var(--ok)}
+.opt.bad{background:var(--bad-soft);border-color:var(--bad)}
+.opt[disabled]{cursor:default}
+
+/* calorimeter */
+.calo{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+.calo svg{width:100%;height:auto}
+.dtable{width:100%;border-collapse:collapse;font-size:15px}
+.dtable td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.dtable td:last-child{direction:ltr;text-align:left;font-weight:600}
+.ctable{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+.ctable th,.ctable td{padding:5px 8px;border-bottom:1px solid var(--line);text-align:start}
+.ctable td.n{direction:ltr;text-align:left}
+
+/* packs */
+.packs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.ediag{display:grid;grid-template-columns:1fr 150px;gap:16px;align-items:stretch;background:var(--surface2);border-radius:12px;padding:16px}
+.levels{position:relative;min-height:220px;border-inline-start:2px solid var(--muted);padding-inline-start:12px}
+.levels .axis{position:absolute;inset-inline-start:-28px;top:50%;transform:translateY(-50%) rotate(-90deg);font-size:13px;color:var(--muted);white-space:nowrap}
+.lv{position:absolute;inset-inline:12px;border-top:2px dashed var(--muted);font-size:15px;padding-top:2px}
+.lv span{background:var(--chip);padding:1px 8px;border-radius:6px}
+.lv.top{top:20px}.lv.bot{top:170px}
+.arrowv{position:absolute;inset-inline-end:30%;top:30px;height:140px;width:4px;border-radius:4px}
+.arrowv::after{content:"";position:absolute;inset-inline-start:-7px;border:9px solid transparent}
+.arrowv.down{background:var(--hot)} .arrowv.down::after{bottom:-14px;border-top-color:var(--hot)}
+.arrowv.up{background:var(--cold)} .arrowv.up::after{top:-14px;border-bottom-color:var(--cold)}
+.dhlabel{position:absolute;inset-inline-end:calc(30% + 14px);top:84px;font-weight:700;direction:ltr}
+.flow{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;text-align:center;font-size:14.5px;border-radius:10px;padding:10px}
+.flow .big{font-size:30px}
+
+/* heating curve */
+.hc canvas{width:100%;height:300px;display:block;background:var(--surface2);border-radius:12px}
+.seglist{display:grid;gap:6px;margin-top:12px}
+.seg{display:grid;grid-template-columns:24px 1fr auto;gap:10px;align-items:center;padding:6px 10px;border-radius:8px;font-size:14.5px;border:1px solid transparent}
+.seg.on{border-color:var(--mid);background:var(--chip)}
+.seg .dot{width:12px;height:12px;border-radius:50%}
+.seg b{direction:ltr}
+
+/* hess */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tab{border:1.5px solid var(--line);background:var(--surface2);border-radius:8px;padding:6px 14px;cursor:pointer;font-size:15px}
+.tab[aria-selected=true]{background:var(--mid);color:#fff;border-color:var(--mid)}
+.tab.solved::after{content:" ✓"}
+.target{background:var(--surface2);border:1.5px dashed var(--mid);border-radius:12px;padding:12px 14px;margin-bottom:12px;font-size:17px;overflow-x:auto}
+.hcard{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;background:var(--surface)}
+.hcard .eq{font-size:16.5px;overflow-x:auto;padding-bottom:2px}
+.hcard .dh{direction:ltr;font-weight:600;font-size:14.5px;color:var(--muted)}
+.hcard .tools{display:flex;gap:6px;flex-wrap:wrap}
+.sum{border-top:2px solid var(--ink);margin-top:8px;padding-top:10px;font-size:17px;overflow-x:auto}
+.status{margin-top:10px;padding:10px 14px;border-radius:10px;font-weight:600}
+.status.ok{background:var(--ok-soft);color:var(--ok)}
+.status.wait{background:var(--chip);color:var(--muted)}
+
+/* ladder */
+.ladwrap{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.ladder{position:relative;height:440px;background:var(--surface2);border-radius:12px}
+.ladder .ax{position:absolute;top:12px;bottom:12px;inset-inline-start:50%;width:3px;background:var(--thermal);transform:translateX(50%)}
+.lpt{position:absolute;transform:translateY(-50%);display:flex;align-items:center;gap:6px;cursor:pointer;border:0;background:transparent;padding:0;font-size:14px}
+.lpt .ln{width:34px;height:2px;background:var(--muted)}
+.lpt span{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:1px 8px;direction:ltr;white-space:nowrap}
+.lpt.r{inset-inline-start:calc(50% + 2px)}
+.lpt.l{inset-inline-end:calc(50% + 2px);flex-direction:row-reverse}
+.lpt.zero span{background:var(--chip)}
+.lpt:hover span,.lpt.sel span{border-color:var(--mid);box-shadow:0 0 0 2px var(--mid)}
+
+/* games */
+.game .gbox{background:var(--surface2);border-radius:14px;padding:20px;text-align:center;min-height:230px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px}
+.ghead{display:flex;justify-content:space-between;width:100%;font-weight:600;font-size:15px}
+.timer{direction:ltr}
+.gprompt{font-size:20px;font-weight:600;line-height:1.5;max-width:46ch}
+.gopts{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.gopts .opt{min-width:120px;text-align:center}
+.gscore{font-size:42px;font-weight:700;direction:ltr}
+.flash-ok{animation:fo .35s}
+.flash-bad{animation:fb .35s}
+@keyframes fo{50%{background:var(--ok-soft)}}
+@keyframes fb{50%{background:var(--bad-soft)}}
+.stars3{font-size:28px;letter-spacing:4px;color:var(--amber)}
+.stars3 .off{color:var(--line)}
+
+/* quiz runner */
+.qr .qtop{display:flex;justify-content:space-between;font-size:14.5px;color:var(--muted);margin-bottom:6px}
+.qr .qbar{height:6px;border-radius:99px;background:var(--chip);overflow:hidden;margin-bottom:14px}
+.qr .qbar i{display:block;height:100%;background:var(--thermal);transition:width .3s}
+.qr .qtext{font-size:18.5px;font-weight:600;line-height:1.6}
+.qr .exp{margin-top:12px;padding:10px 14px;border-radius:10px;font-size:15.5px}
+.qr .exp.ok{background:var(--ok-soft)} .qr .exp.bad{background:var(--bad-soft)}
+.qr .qnav{display:flex;justify-content:flex-end;margin-top:14px}
+.yr{display:inline-block;font-size:12.5px;font-weight:600;background:var(--chip);border-radius:6px;padding:1px 8px;margin-inline-start:6px;vertical-align:middle;color:var(--muted)}
+.result{text-align:center;padding:10px 0}
+.result .gscore{font-size:52px}
+.review{text-align:start;margin-top:16px;display:grid;gap:10px}
+.review div{background:var(--surface2);border-radius:10px;padding:10px 14px;font-size:15px;border-inline-start:4px solid var(--bad)}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:14px}
+.mode{border:1.5px solid var(--line);border-radius:14px;padding:16px;background:var(--surface2);cursor:pointer;text-align:start}
+.mode:hover{border-color:var(--mid)}
+.mode b{display:block;font-size:18px;margin-bottom:4px}
+.mode span{color:var(--muted);font-size:14.5px}
+
+.act{margin-top:20px;padding-top:18px;border-top:2px dashed var(--line)}
+.act-tag{display:inline-block;background:var(--chip);border-radius:8px;padding:2px 10px;margin-bottom:8px!important}
+.cmap{margin-top:16px;background:var(--surface2);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.cmap h4{margin:0 0 10px;font-size:16.5px}
+.cmap svg{display:block;width:100%;height:auto;max-width:640px;margin:0 auto}
+.cm-box{fill:var(--surface);stroke:var(--mid);stroke-width:2}
+.cm-main{fill:var(--mid)}
+.cm-k{fill:var(--chip);stroke:var(--line);stroke-width:1.5}
+.cm-x{fill:rgba(39,99,216,.14);stroke:var(--cold);stroke-width:1.5}
+.cm-d{fill:rgba(222,69,39,.12);stroke:var(--hot);stroke-width:1.5}
+.cm-t{fill:var(--ink);font-family:inherit;font-size:14px}
+.cm-tw{fill:#fff;font-family:inherit;font-size:14px}
+.cm-ln{stroke:var(--muted);stroke-width:2;fill:none}
+.cm-ah{fill:var(--muted)}
+.cm-note{margin:10px 0 0;font-size:15px;color:var(--muted);line-height:1.8}
+.flowmap{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px}
+.fstep{background:var(--surface);border:2px solid var(--mid);border-radius:12px;padding:8px 14px;text-align:center;font-size:15px;font-weight:600;max-width:200px}
+.fstep.k{border-color:var(--hot);background:var(--hot-soft)}
+.fstep small{display:block;font-weight:400;color:var(--muted);font-size:13px;direction:auto}
+.farr{font-size:22px;color:var(--mid);font-weight:700}
+.lc-img{background:var(--surface);border-radius:10px;padding:6px}
+.lc-img svg{display:block;width:100%;height:auto}
+.lab{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:center;background:var(--surface2);border:1px solid var(--line);border-radius:14px;padding:12px}
+.labsvg{width:100%;height:auto;display:block}
+.labside{display:flex;flex-direction:column;gap:10px}
+.lablbl{font-size:14px;color:var(--muted)}
+.watch{display:flex;align-items:center;gap:10px;background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:6px 14px;width:max-content}
+.watch b{font-size:24px;font-variant-numeric:tabular-nums}
+.ordgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.ord{background:var(--surface);border:2px solid var(--mid);border-radius:14px;padding:10px;text-align:center;display:flex;flex-direction:column;gap:4px}
+.ord em{font-style:normal;font-size:28px;font-weight:700;color:var(--hot)}
+.ord small{color:var(--muted)}
+@media (max-width:700px){.lab{grid-template-columns:1fr}}
+.frac{display:inline-flex;flex-direction:column;text-align:center;vertical-align:middle;margin:0 4px}
+.frac span{padding:0 6px}.frac span:first-child{border-bottom:2px solid currentColor}
+.kwrows{display:grid;gap:8px;margin:10px 0}
+.kwr{display:grid;grid-template-columns:minmax(110px,1fr) 1fr 80px;gap:8px;align-items:center;background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.kwprev{font-size:18px;background:var(--chip);border-radius:10px;padding:10px 14px;overflow-x:auto}
+.bars3{direction:ltr;display:flex;gap:18px;justify-content:center;align-items:flex-end;background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:12px}
+.b3{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:60px;font-size:14px}
+.b3t{position:relative;width:46px;height:170px;background:var(--chip);border-radius:8px;overflow:hidden}
+.b3t i{position:absolute;bottom:0;left:0;right:0;transition:height .1s}
+.b3t i.ghost{background:transparent;border:2px dashed var(--muted);z-index:2}
+.ssbtns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.col-btns{display:flex;flex-direction:column;gap:8px;align-items:stretch}
+.lpinfo{font-size:15px;line-height:1.9;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 12px}
+.tree{display:flex;flex-direction:column;align-items:center;gap:12px}
+.troot{background:var(--mid);color:#fff;font-weight:700;border-radius:14px;padding:10px 18px;text-align:center}
+.tkids{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;width:100%}
+.tnode{background:var(--surface);border:2px solid var(--mid);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:6px;font-size:14.5px;text-align:center}
+.tnode b{font-size:16px}.tnode span{background:var(--surface2);border-radius:8px;padding:4px 6px}.tnode span.tk{background:var(--hot-soft);font-weight:600}
+.steps{margin:10px 0;padding-inline-start:22px;display:grid;gap:8px}.steps li{background:var(--surface2);border-radius:8px;padding:6px 10px}
+.lcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:6px}
+.lc{background:var(--surface2);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:6px}
+.lc .ic{font-size:30px;line-height:1}
+.lc h5{margin:2px 0 0;font-size:17.5px}
+.lc p{margin:0;font-size:15.5px;line-height:1.7}
+.lc .ex{margin-top:auto;background:var(--chip);border-radius:10px;padding:8px 12px;font-size:14.5px;line-height:1.6}
+.lc .ex b{color:var(--green)}
+.simple{font-size:18px;background:var(--chip);border-radius:12px;padding:12px 16px;margin:4px 0 14px;line-height:1.8}
+.navlink{text-decoration:none;font-weight:600;font-size:15px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 14px;color:var(--ink)}
+/* bot */
+.bot-fab{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));inset-inline-end:16px;z-index:40;display:none;align-items:center;gap:8px;border:0;border-radius:999px;padding:12px 18px;background:var(--green);color:#fff;font-weight:600;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.22)}
+.bot-fab .em{font-size:20px}
+.bot-panel{position:fixed;bottom:calc(78px + env(safe-area-inset-bottom,0px));inset-inline-end:16px;z-index:41;width:min(400px,calc(100vw - 24px));height:min(580px,calc(100vh - 120px));display:none;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:0 12px 40px rgba(0,0,0,.25);overflow:hidden}
+.bot-panel.open{display:flex}
+.bot-head{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:var(--green);color:#fff}
+.bot-head b{font-size:16px}.bot-head small{display:block;opacity:.9;font-size:12.5px}
+.bot-head button{background:transparent;border:0;color:#fff;font-size:22px;cursor:pointer;line-height:1}
+.bot-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px;background:var(--surface2)}
+.msg{max-width:88%;padding:9px 13px;border-radius:14px;font-size:15.5px;line-height:1.75;white-space:normal;word-wrap:break-word}
+.msg.me{align-self:flex-start;background:var(--green);color:#fff;border-end-start-radius:4px}
+.msg.bot{align-self:flex-end;background:var(--surface);border:1px solid var(--line);border-end-end-radius:4px}
+.msg.err{align-self:center;background:var(--bad-soft);color:var(--bad);font-size:14px}
+.bot-sugg{display:flex;flex-wrap:wrap;gap:6px;padding:8px 12px 0}
+.bot-sugg button{border:1px solid var(--line);background:var(--surface2);border-radius:999px;padding:4px 10px;font-size:13.5px;cursor:pointer}
+.bot-form{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line)}
+.bot-form textarea{flex:1;resize:none;font:inherit;font-size:15.5px;border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--surface2);color:var(--ink);height:44px;max-height:110px}
+.bot-note{font-size:12px;color:var(--muted);text-align:center;padding:0 10px 8px}
+/* task */
+.notice{background:var(--chip);border-radius:12px;padding:14px 16px;line-height:1.8}
+.assign{background:var(--surface2);border:1.5px solid var(--green);border-radius:16px;padding:18px}
+.assign h3{margin:0 0 6px}
+.assign .due{display:inline-block;background:var(--chip);border-radius:8px;padding:2px 10px;font-size:14px;margin-top:6px}
+.assign .body{white-space:pre-wrap;margin:8px 0 0}
+.fld{display:flex;flex-direction:column;gap:4px;margin-top:12px;font-size:15px;color:var(--muted)}
+.fld input,.fld textarea{font:inherit;font-size:16px;padding:9px 11px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface2);color:var(--ink)}
+.fld textarea{min-height:90px;resize:vertical}
+.drop{border:2px dashed var(--line);border-radius:14px;padding:18px;text-align:center;margin-top:12px;cursor:pointer;background:var(--surface2)}
+.drop.over{border-color:var(--green);background:var(--chip)}
+.flist{display:grid;gap:6px;margin-top:10px}
+.fitem{display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:7px 12px;font-size:14.5px}
+.fitem a{word-break:break-all}
+.fitem button{border:0;background:transparent;color:var(--bad);cursor:pointer;font-size:14px}
+.stat{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:3px 12px;font-weight:600;font-size:14.5px}
+.stat.ok{background:var(--ok-soft);color:var(--ok)}.stat.no{background:var(--hot-soft);color:var(--hot)}
+.subcard{border:1px solid var(--line);border-radius:14px;padding:14px;background:var(--surface);display:grid;gap:6px}
+.subgrid{display:grid;gap:12px;margin-top:12px}
+.fb-box{background:var(--ok-soft);border-radius:10px;padding:10px 14px;margin-top:10px}
+.qfig{max-width:330px;margin:10px auto 4px;background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:6px 8px;font-weight:400}
+.qfig svg{display:block;width:100%;height:auto}
+#toast{position:fixed;inset-inline:0;bottom:calc(18px + env(safe-area-inset-bottom,0px));display:flex;justify-content:center;pointer-events:none;z-index:50}
+#toast div{background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:12px;font-weight:600;box-shadow:0 6px 24px rgba(0,0,0,.25);opacity:0;transform:translateY(10px);transition:all .25s;max-width:90vw}
+#toast div.show{opacity:1;transform:none}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .lessons{grid-template-columns:repeat(2,1fr);margin-top:14px}
+  .thermo-track{display:none}
+  .lcard{border-radius:16px}
+  .lgrid{grid-template-columns:1fr}
+  .side{position:static}
+  .side nav{display:none}
+  .calo{grid-template-columns:1fr}
+  .calo svg{max-width:220px;margin:0 auto;display:block}
+  .ladwrap{grid-template-columns:1fr}
+  .final-band{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .lessons{grid-template-columns:1fr}
+  .lhead{grid-template-columns:1fr;gap:4px}
+  .ediag{grid-template-columns:1fr}
+  .bar{grid-template-columns:96px 1fr 44px}
+  .panel{padding:16px}
+  .hcard{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+.report-band .rb-in{display:flex;flex-direction:column;gap:10px;width:100%}.rb-row{display:flex;gap:8px;flex-wrap:wrap}.rb-row input{flex:1;min-width:180px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit}
+.rb-code{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px dashed var(--mid);border-radius:12px;padding:8px 10px}.rb-code code{flex:1;word-break:break-all;font-size:12px;user-select:all}.rb-sum{margin:6px 0 0;font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#home"><span class="brand-mark">⇌</span><span>مختبر الاتزان</span></a>
+    <div class="top-tools">
+      <span class="starpill" title="مجموع النجوم"><b>★</b><span id="starCount">0</span></span>
+      <button class="iconbtn" id="themeBtn" type="button">الوضع الليلي</button>
+    </div>
+  </header>
+  <main id="app"></main>
+  <footer class="foot" style="font-size:12.5px">إعداد المعلمة: صباح داخل الأحمدي - الثانوية السادسة والثلاثون بالمدينة المنورة</footer>
+</div>
+<div id="toast" aria-live="polite"></div>
+<button type="button" class="bot-fab" id="botFab" aria-controls="botPanel" aria-expanded="false"><span class="em">🧪</span>اسألي مساعدك الكيميائي</button>
+<section class="bot-panel" id="botPanel" aria-label="اسألي مساعدك الكيميائي">
+  <div class="bot-head"><div><b>🧪 اسألي مساعدك الكيميائي</b><small>اسأليني عن الاتزان الكيميائي</small></div><button type="button" id="botClose" aria-label="إغلاق">×</button></div>
+  <div class="bot-msgs" id="botMsgs" aria-live="polite"></div>
+  <div class="bot-sugg" id="botSugg"></div>
+  <form class="bot-form" id="botForm"><textarea id="botIn" rows="1" placeholder="اكتبي سؤالك هنا…" aria-label="سؤالك"></textarea><button class="btn sm" type="submit" id="botSend" style="background:var(--green);color:#fff">إرسال</button></form>
+  <div class="bot-note">المساعد يساعدك على الفهم، فتحققي دائمًا من كتابك ومعلمتك.</div>
+</section>
+
+<script>
+"use strict";
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const LS='equil22-sabah-ch3-v1';
+let S={tasks:{},games:{},quiz:{},done:{},final:null,theme:null};
+try{const raw=localStorage.getItem(LS);if(raw)S=Object.assign(S,JSON.parse(raw));}catch(e){}
+function save(){try{localStorage.setItem(LS,JSON.stringify(S));}catch(e){}try{autoSync();}catch(e){}}
+const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let cleanups=[];
+function onCleanup(fn){cleanups.push(fn);}
+
+/* ---------- helpers ---------- */
+function fm(s){return String(s).replace(/([A-Za-z\)])(\d+)/g,'$1<sub>$2</sub>').replace(/\((s|l|g|aq)\)/g,'<sub>($1)</sub>');}
+function fmAll(root){$$('.f',root).forEach(e=>{if(!e.dataset.fm){e.innerHTML=fm(e.textContent);e.dataset.fm='1';e.setAttribute('dir','ltr');}});}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function parseNum(s){
+  s=String(s).trim().replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[٫]/g,'.').replace(/[,،\s]/g,'').replace(/[−–]/g,'-');
+  const m=s.match(/^([+-]?\d*\.?\d+)[×xX\*]10\^?([+-]?\d+)$/);
+  if(m)return parseFloat(m[1])*Math.pow(10,+m[2]);
+  if(s==='')return NaN; const v=Number(s); return isFinite(v)?v:NaN;
+}
+const SUP={'-':'⁻','0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'};
+function nice(x,p=3){
+  if(!isFinite(x))return '—';
+  const a=Math.abs(x);
+  if(a!==0&&(a>=1e5||a<1e-3)){const e=Math.floor(Math.log10(a));const m=x/Math.pow(10,e);return (+m.toFixed(p-1))+' × 10'+String(e).split('').map(c=>SUP[c]).join('');}
+  return String(+x.toPrecision(Math.max(p,String(Math.round(a)).length)));
+}
+function sci(x){const e=Math.floor(Math.log10(Math.abs(x)));return (x/Math.pow(10,e)).toFixed(2)+' × 10'+String(e).split('').map(c=>SUP[c]).join('');}
+function sgn(x){x=Math.round(x*10)/10;return (x>0?'+':'')+x;}
+function cssv(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
+function toast(msg){const t=$('#toast');t.innerHTML='<div>'+msg+'</div>';const d=t.firstChild;requestAnimationFrame(()=>d.classList.add('show'));setTimeout(()=>{d.classList.remove('show');},2600);}
+
+/* ---------- scoring ---------- */
+function gameStars(b){return b>=15?3:b>=10?2:b>=5?1:0;}
+function totalStars(){let n=Object.keys(S.tasks).length;for(const k in S.games)n+=gameStars(S.games[k]);for(const k in S.quiz)if(S.quiz[k]>=4)n+=3;if(S.final!=null&&S.final>=80)n+=5;return n;}
+function refreshStars(){$('#starCount').textContent=totalStars();}
+function completeTask(id){
+  if(S.tasks[id])return;S.tasks[id]=true;save();refreshStars();
+  const li=document.querySelector('[data-task-li="'+id+'"]');if(li){li.classList.add('on');li.querySelector('.ck').textContent='✓';}
+  updateTaskBar();toast('★ أحسنتِ! أنجزتِ مهمة جديدة');
+}
+function updateTaskBar(){const b=$('#tbar');if(!b)return;const n=+b.dataset.lesson;const ts=LESSONS[n-1].tasks;const d=ts.filter(t=>S.tasks[t.id]).length;b.style.width=(d/ts.length*100)+'%';const c=$('#tcount');if(c)c.textContent=d+' من '+ts.length;}
+
+/* ---------- theme ---------- */
+function effectiveDark(){return S.theme?S.theme==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;}
+function applyTheme(){if(S.theme)document.documentElement.setAttribute('data-theme',S.theme);else document.documentElement.removeAttribute('data-theme');$('#themeBtn').textContent=effectiveDark()?'الوضع النهاري':'الوضع الليلي';}
+$('#themeBtn').addEventListener('click',()=>{S.theme=effectiveDark()?'light':'dark';save();applyTheme();window.dispatchEvent(new Event('themechange'));});
+
+/* ---------- data ---------- */
+const TASK_FORM='https://forms.gle/LmYWNb5ZK4KPCCLS9';
+const LESSONS=[
+{n:1,code:'3-1',title:'حالة الاتزان الديناميكي',en:'A State of Dynamic Balance',c:'var(--cold)',
+ idea:'الاتزان الكيميائي حالة ديناميكية تتساوى فيها سرعتا التفاعلين الأمامي والعكسي، فتبقى تراكيز المواد ثابتة.',
+ blurb:'التفاعلات العكسية، الاتزان الديناميكي، قانون الاتزان وثابت الاتزان Keq.',
+ vocab:['التفاعل العكسي','الاتزان الكيميائي','قانون الاتزان الكيميائي','ثابت الاتزان','الاتزان المتجانس','الاتزان غير المتجانس'],
+ learn:[
+  {i:'🔁',t:'التفاعل العكسي',s:'تفاعل يحدث في الاتجاهين: الأمامي والعكسي، ونكتبه بسهمين متعاكسين ⇌.',ex:'إنتاج الأمونيا بطريقة هابر: <span class="f">N2(g) + 3H2(g) ⇌ 2NH3(g)</span>'},
+  {i:'⚖️',t:'الاتزان الكيميائي',s:'حالة تتساوى فيها سرعة التفاعل الأمامي وسرعة التفاعل العكسي، فتثبت التراكيز. ثبات التراكيز لا يعني تساويها.',ex:'مثل شخص يمشي على سلم كهربائي نازل بالسرعة نفسها: يتحرك باستمرار لكن مكانه لا يتغير.'},
+  {i:'🌀',t:'اتزان ديناميكي',s:'عند الاتزان لا يتوقف التفاعلان، بل يستمران بالسرعة نفسها، لذلك يسمى اتزانًا ديناميكيًا (حركيًا). ويحدث في نظام مغلق عند درجة حرارة ثابتة.',ex:'حوضان ينتقل الماء بينهما بمضختين بالسرعة نفسها: يبقى المستوى ثابتًا رغم استمرار النقل.'},
+  {i:'📐',t:'قانون الاتزان وثابت الاتزان',s:'Keq نسبة حاصل ضرب تراكيز النواتج إلى حاصل ضرب تراكيز المتفاعلات، كل تركيز مرفوع لمعامله في المعادلة الموزونة. قيمته ثابتة عند درجة حرارة معينة.',ex:'<span class="f">Keq = [NH3]² / [N2][H2]³</span>'},
+  {i:'🧩',t:'متجانس وغير متجانس',s:'المتجانس: جميع المواد في حالة فيزيائية واحدة. غير المتجانس: حالات مختلفة، ولا تُكتب المواد الصلبة والسوائل النقية في تعبير Keq.',ex:'<span class="f">2NaHCO3(s) ⇌ Na2CO3(s) + CO2(g) + H2O(g)</span> و <span class="f">Keq = [CO2][H2O]</span>'},
+  {i:'🔎',t:'ماذا تعني قيمة Keq؟',s:'إذا كان Keq > 1 فالنواتج أكثر من المتفاعلات عند الاتزان، وإذا كان Keq < 1 فالمتفاعلات أكثر.',ex:'<span class="f">H2 + I2 ⇌ 2HI</span> قيمة Keq = 49.7 عند 731 K، فالنواتج أكثر.'}],
+ tasks:[{id:'l1-equal',t:'راقبي تساوي سرعتي التفاعلين عند الاتزان'},{id:'l1-start',t:'ابدئي التفاعل مرة من المتفاعلات ومرة من النواتج'},{id:'l1-write',t:'اكتبي تعبيري ثابت اتزان صحيحين'},{id:'l1-lab',t:'أجري ثلاث محاولات في مختبر ثبات Keq'},{id:'l1-calc',t:'احسبي Keq لتفاعل تكوين الأمونيا'}],
+ groups:[{sim:'eqSim',cards:[0,1,2],maps:['tanks','eqMap']},{sim:'keqWrite',cards:[3,4],maps:['keqMap']},{sim:'keqLab',cards:[5],maps:['keqScale']}],game:'g1'},
+{n:2,code:'3-2',title:'العوامل المؤثرة في الاتزان الكيميائي',en:'Factors Affecting Chemical Equilibrium',c:'var(--mid)',
+ idea:'عندما تطرأ تغيرات على نظام متزن، يُزاح إلى موضع اتزان جديد.',
+ blurb:'مبدأ لوتشاتلييه، وأثر التركيز والحجم والضغط ودرجة الحرارة والمحفزات.',
+ vocab:['مبدأ لوتشاتلييه'],
+ learn:[
+  {i:'🧭',t:'مبدأ لوتشاتلييه',s:'إذا أثّر جهد (تغيير) على نظام في حالة اتزان، ينزاح الاتزان في الاتجاه الذي يخفف هذا الجهد.',ex:'العدّاء على آلة المشي: إذا زادت سرعة الآلة زاد سرعته ليبقى في مكانه.'},
+  {i:'🛒',t:'التغير في التركيز',s:'إضافة مادة تزيح الاتزان بعيدًا عنها، وإزالتها تزيحه نحوها. لا تتغير قيمة Keq.',ex:'رفوف المتجر: كلما اشترى الناس سلعة أعاد التاجر ملأها.'},
+  {i:'🎈',t:'الحجم والضغط',s:'تقليل الحجم (زيادة الضغط) يزيح الاتزان نحو عدد مولات الغاز الأقل. إذا تساوت مولات الغاز في الطرفين لا يتأثر الاتزان.',ex:'<span class="f">CO + 3H2 ⇌ CH4 + H2O</span>: 4 مولات غاز ← مولان، فينزاح نحو اليمين عند زيادة الضغط.'},
+  {i:'🌡️',t:'درجة الحرارة',s:'نعامل الحرارة كأنها مادة في المعادلة: رفع الحرارة يزيح الاتزان في الاتجاه الماص للحرارة. وهي العامل الوحيد الذي يغيّر قيمة Keq.',ex:'<span class="f">N2O4</span> (عديم اللون) + حرارة ⇌ <span class="f">2NO2</span> (بني): التسخين يزيد اللون البني.'},
+  {i:'⚡',t:'المحفزات',s:'تزيد سرعتي التفاعلين الأمامي والعكسي بالقدر نفسه، فيصل النظام إلى الاتزان أسرع، لكنها لا تزيح موضع الاتزان ولا تغيّر Keq.',ex:'مثل طريق مختصر يستعمله الذاهبون والعائدون معًا.'}],
+ tasks:[{id:'l2-sim',t:'جرّبي ثلاثة أنواع من الجهد في محاكي لوتشاتلييه'},{id:'l2-conc',t:'مختبر الثيوسيانات: فسّري تغير اللون الأحمر'},{id:'l2-press',t:'مختبر المحقن: اضغطي واسحبي المكبس'},{id:'l2-temp',t:'مختبر الحمامات: حدّدي نوع التفاعل من لون NO₂'},{id:'l2-cat',t:'قارني التفاعل المحفز وغير المحفز'}],
+ groups:[{sim:'shiftSim',cards:[0],maps:['lcMap']},{sim:'labConcEq',cards:[1]},{sim:'labPressure',cards:[2]},{sim:'labTempEq',cards:[3]},{sim:'catEq',cards:[4]}],game:'g2'},
+{n:3,code:'3-3',title:'استعمال ثوابت الاتزان',en:'Using Equilibrium Constants',c:'var(--hot)',
+ idea:'يمكن استعمال ثوابت الاتزان لحساب تراكيز المواد عند الاتزان، وذائبية المركبات، وتوقع تكوّن الرواسب.',
+ blurb:'حساب تراكيز الاتزان، ثابت حاصل الذائبية Ksp، الحاصل الأيوني Qsp، والأيون المشترك.',
+ vocab:['ثابت حاصل الذائبية','الحاصل الأيوني','الأيون المشترك','تأثير الأيون المشترك'],
+ learn:[
+  {i:'🧮',t:'حساب تراكيز الاتزان',s:'إذا عرفنا Keq وتراكيز بعض المواد، نعيد ترتيب تعبير Keq لإيجاد التركيز المجهول.',ex:'<span class="f">2H2S ⇌ 2H2 + S2</span>: إذا كان Keq = 2.27 × 10⁻³ فإن [H2] = 0.0377 mol/L'},
+  {i:'🧂',t:'ثابت حاصل الذائبية Ksp',s:'ثابت الاتزان لذوبان مركب أيوني قليل الذوبان: حاصل ضرب تراكيز أيوناته، كل منها مرفوع لمعامله. لا يُكتب الصلب.',ex:'<span class="f">BaSO4</span>: Ksp = 1.1 × 10⁻¹⁰، لذلك يشربه المريض قبل تصوير المعدة بالأشعة دون ضرر.'},
+  {i:'💧',t:'الذائبية المولارية s',s:'للمركب الذي نسبة أيوناته 1:1 تكون s = √Ksp.',ex:'<span class="f">CuCO3</span>: s = √(2.5 × 10⁻¹⁰) = 1.6 × 10⁻⁵ mol/L'},
+  {i:'🔮',t:'توقع تكوّن الراسب',s:'نحسب الحاصل الأيوني Qsp ونقارنه بـ Ksp: Qsp < Ksp غير مشبع ولا راسب، Qsp = Ksp مشبع، Qsp > Ksp يتكون راسب.',ex:'خلط <span class="f">NaCl</span> مع <span class="f">Pb(NO3)2</span>: Qsp = 2.5 × 10⁻⁷ أقل من Ksp = 1.7 × 10⁻⁵، فلا يتكون راسب.'},
+  {i:'🧲',t:'الأيون المشترك',s:'وجود أيون مشترك في المحلول يقلل ذائبية المركب الأيوني (تطبيق لمبدأ لوتشاتلييه).',ex:'ذائبية <span class="f">PbCrO4</span> تقل في محلول <span class="f">K2CrO4</span> لأن أيون الكرومات مشترك.'}],
+ tasks:[{id:'l3-calc',t:'احسبي تركيز H₂ عند الاتزان'},{id:'l3-sat',t:'مختبر الذوبان: أوصلي المحلول إلى الإشباع'},{id:'l3-s',t:'احسبي الذائبية المولارية لـ CuCO₃'},{id:'l3-prec',t:'مختبر الرواسب: لاحظي خلطًا بِراسب وآخر دون راسب'},{id:'l3-q',t:'احسبي Qsp لخليط PbCl₂'},{id:'l3-common',t:'مختبر الأيون المشترك: فسّري نقص الذائبية'}],
+ groups:[{sim:'eqCalc',cards:[0]},{sim:'labKsp',cards:[1,2],maps:['kspMap']},{sim:'labPrecip',cards:[3],maps:['qspMap']},{sim:'labCommon',cards:[4]}],game:'g3'}
+];
+const BADGES=[['l1','⚖️','حارسة الاتزان'],['l2','🧭','خبيرة لوتشاتلييه'],['l3','🧂','سيدة الذائبية'],['final','🏆','بطلة التحصيلي']];
+
+const QUIZ={
+1:[
+ {q:'عند الاتزان الكيميائي تكون:',o:['سرعة التفاعل الأمامي مساوية لسرعة التفاعل العكسي','تراكيز المتفاعلات مساوية لتراكيز النواتج','سرعة التفاعلين صفرًا','المتفاعلات قد استُهلكت كليًا'],a:0,e:'التفاعلان مستمران بالسرعة نفسها، والتراكيز ثابتة لا متساوية.'},
+ {q:'تعبير Keq للتفاعل <span class="f">N2(g) + 3H2(g) ⇌ 2NH3(g)</span>:',o:['[NH3]² / [N2][H2]³','[N2][H2]³ / [NH3]²','[NH3] / [N2][H2]','2[NH3] / 3[N2][H2]'],a:0,e:'النواتج في البسط والمتفاعلات في المقام، وكل تركيز مرفوع لمعامله.'},
+ {q:'في تعبير ثابت الاتزان غير المتجانس لا نكتب:',o:['المواد الصلبة والسوائل النقية','الغازات','المحاليل المائية','النواتج'],a:0,e:'تراكيزها (كثافتها) ثابتة فتدمج في قيمة K.'},
+ {q:'إذا كانت قيمة Keq لتفاعل ما 4.6 × 10⁻³¹ فإن:',o:['المتفاعلات أكثر بكثير من النواتج عند الاتزان','النواتج أكثر بكثير','التراكيز متساوية','التفاعل لم يبدأ'],a:0,e:'Keq < 1 يعني أن المتفاعلات هي السائدة.'},
+ {q:'احسبي Keq للتفاعل <span class="f">N2O4 ⇌ 2NO2</span> إذا كان [NO2] = 0.0627 M و [N2O4] = 0.0185 M:',o:['0.212','3.39','0.0627','1.18 × 10⁻³'],a:0,e:'Keq = 0.0627² ÷ 0.0185 = 0.212.'}],
+2:[
+ {q:'ينص مبدأ لوتشاتلييه على أن النظام المتزن عند تعرضه لجهد:',o:['ينزاح في الاتجاه الذي يخفف الجهد','يتوقف عن التفاعل','لا يتأثر أبدًا','تتغير قيمة Keq دائمًا'],a:0,e:'الإزاحة تقلل أثر التغيير.'},
+ {q:'في التفاعل <span class="f">CO + 3H2 ⇌ CH4 + H2O</span> إضافة المزيد من CO تؤدي إلى:',o:['إزاحة الاتزان نحو اليمين وتكوين مزيد من النواتج','إزاحته نحو اليسار','تغيير قيمة Keq','عدم حدوث أي تغيير'],a:0,e:'إضافة متفاعل تزيح الاتزان نحو النواتج.'},
+ {q:'زيادة الضغط على التفاعل <span class="f">H2(g) + Cl2(g) ⇌ 2HCl(g)</span>:',o:['لا تؤثر في موضع الاتزان','تزيحه نحو اليمين','تزيحه نحو اليسار','تزيد Keq'],a:0,e:'عدد مولات الغاز متساوٍ في الطرفين (2 = 2).'},
+ {q:'التفاعل <span class="f">N2O4 ⇌ 2NO2</span> ماص للحرارة. عند تبريد الخليط:',o:['يقل اللون البني وتقل قيمة Keq','يزداد اللون البني','لا يتغير اللون','تزداد Keq'],a:0,e:'التبريد يزيح الاتزان نحو الاتجاه الطارد (N2O4) فتقل Keq.'},
+ {q:'العامل المحفز في نظام متزن:',o:['يجعل النظام يصل إلى الاتزان أسرع دون أن يغير موضعه','يزيح الاتزان نحو النواتج','يزيد قيمة Keq','يزيد سرعة التفاعل الأمامي فقط'],a:0,e:'يسرّع التفاعلين بالقدر نفسه.'}],
+3:[
+ {q:'تعبير Ksp لـ <span class="f">Mg(OH)2(s) ⇌ Mg²⁺ + 2OH⁻</span>:',o:['[Mg²⁺][OH⁻]²','[Mg²⁺][OH⁻]','[Mg(OH)2]','2[Mg²⁺][OH⁻]'],a:0,e:'لا يُكتب الصلب، والأيون مرفوع لمعامله.'},
+ {q:'الذائبية المولارية لمركب نسبته 1:1 وقيمة Ksp له 1.0 × 10⁻¹⁰:',o:['1.0 × 10⁻⁵ mol/L','1.0 × 10⁻¹⁰ mol/L','1.0 × 10⁻²⁰ mol/L','5.0 × 10⁻¹¹ mol/L'],a:0,e:'s = √Ksp = 1.0 × 10⁻⁵.'},
+ {q:'إذا كان Qsp > Ksp فإن:',o:['يتكون راسب','المحلول غير مشبع','المحلول مشبع ولا يحدث تغيير','تزداد الذائبية'],a:0,e:'الأيونات أكثر مما يحتمله المحلول فتترسب.'},
+ {q:'تقل ذائبية PbCrO4 في محلول K2CrO4 بسبب:',o:['تأثير الأيون المشترك','ارتفاع درجة الحرارة','العامل المحفز','زيادة الحجم'],a:0,e:'أيون الكرومات مشترك فينزاح الاتزان نحو الصلب.'},
+ {q:'إذا كان Keq = 2.27 × 10⁻³ للتفاعل <span class="f">2H2S ⇌ 2H2 + S2</span>، و[H2S] = 0.184 M و[S2] = 0.0540 M، فإن [H2]:',o:['0.0377 M','0.00142 M','0.184 M','0.0540 M'],a:0,e:'[H2] = √(Keq × [H2S]² ÷ [S2]) = 0.0377 M.'}]
+};
+
+const TAH=[
+ {y:'2021',q:'حالة النظام عندما تتساوى سرعتا التفاعل الأمامي والعكسي:',o:['الاتزان الكيميائي','سرعة التفاعل الكيميائي','المعقد النشط','التفاعل غير المتزن'],a:0,e:'هذا تعريف الاتزان الكيميائي.'},
+ {y:'2023',q:'أي الآتي ليس من خواص الاتزان؟',o:['تظل درجة الحرارة ثابتة','يزيد حجم التفاعل','التفاعل يتم في نظام مغلق','المتفاعلات والنواتج في حالة اتزان'],a:1,e:'الاتزان يحدث في نظام مغلق عند حرارة ثابتة، ولا علاقة له بزيادة الحجم.'},
+ {y:'2023',q:'إذا وصل تفاعل ما إلى حالة اتزان فإن:',o:['حركة الجزيئات الناتجة تبقى كما هي','سرعتي التفاعل الأمامي والعكسي مختلفتان','حركة الجزيئات المتفاعلة تبقى كما هي','سرعتي التفاعل الأمامي والعكسي متساويتان'],a:3,e:'الاتزان ديناميكي تتساوى فيه السرعتان.'},
+ {y:'2021',q:'ما ثابت الاتزان للتفاعل <span class="f">Zn(s) + 2Ag⁺(aq) ⇌ Zn²⁺(aq) + 2Ag(s)</span>؟',o:['Keq = [Ag⁺]² / [Zn²⁺]','Keq = [Ag]² / [Zn]','Keq = [Zn²⁺] / [Ag⁺]²','Keq = [Zn²⁺][Ag]² / [Zn][Ag⁺]²'],a:2,e:'الفلزان صلبان فلا يُكتبان.'},
+ {y:'2021',q:'إذا كان تركيز المتفاعلات أكبر من تركيز النواتج عند الاتزان، فإن:',o:['Keq = 0','Keq = 1','Keq < 1','Keq > 1'],a:2,e:'المقام أكبر من البسط.'},
+ {y:'2022',q:'إذا كانت قيمة ثابت الاتزان Keq لتفاعل ما كبيرة، فإن ذلك يعني أنه عند الاتزان:',o:['سرعة التفاعل العكسي أعلى بكثير من الأمامي','تركيز المتفاعلات أعلى بكثير من النواتج','عدم حدوث تفاعل بين المواد','تركيز النواتج أعلى بكثير من المتفاعلات'],a:3,e:'Keq الكبيرة تعني سيادة النواتج.'},
+ {y:'2021',q:'ما قيمة ثابت الاتزان للتفاعل <span class="f">I2(g) + H2(g) ⇌ 2HI(g)</span> علمًا أن [I2] = 4 M و[H2] = 5 M و[HI] = 10 M؟',o:['5','6','7','8'],a:0,e:'10² ÷ (4 × 5) = 100 ÷ 20 = 5.'},
+ {y:'2024',q:'ما قانون الاتزان للتفاعل <span class="f">2H2O2(g) ⇌ 2H2O(g) + O2(g)</span>؟',o:['Keq = [O2]','Keq = [H2O]²[O2]','Keq = [O] / [H2O2]²','Keq = [H2O]²[O2] / [H2O2]²'],a:3,e:'كل المواد غازية فتُكتب جميعها.'},
+ {y:'2023',q:'في حالة الاتزان الكيميائي تكون سرعتا التفاعل الأمامي والعكسي:',o:['عالية','صفر','متساوية','مختلفة'],a:2,e:'تتساوى السرعتان.'},
+ {y:'2025',q:'ما قيمة ثابت الاتزان للتفاعل <span class="f">3H2(g) + N2(g) ⇌ 2NH3(g)</span> إذا كانت [NH3] = 2 M و[N2] = 1 M و[H2] = 2 M؟',o:['0.5','2','4','8'],a:0,e:'2² ÷ (1 × 2³) = 4 ÷ 8 = 0.5.'},
+ {y:'2022',q:'إذا كان التفاعل <span class="f">CO(g) + H2O(g) ⇌ CO2(g) + H2</span> في حالة اتزان، فإن إضافة المزيد من CO يؤدي إلى:',o:['نقص سرعة التفاعل الأمامي','تكوين مزيد من المواد الناتجة','زيادة سرعة التفاعل العكسي','تكوين مزيد من المواد المتفاعلة'],a:1,e:'إضافة متفاعل تزيح الاتزان نحو النواتج.'},
+ {y:'2023',q:'عند زيادة تركيز N2 مع كمية كافية من الأكسجين في التفاعل <span class="f">N2 + 2O2 ⇌ 2NO2</span> فإن التفاعل:',o:['لا يتأثر','ينشط باتجاه تكوين O2','ينشط باتجاه تكوين NO2','ينشط باتجاه تكوين N2'],a:2,e:'ينزاح نحو النواتج.'},
+ {y:'2021',q:'في التفاعل <span class="f">2NaCl(s) ⇌ 2Na(s) + Cl2(g)</span> إذا نقص حجم الوعاء ماذا يحدث؟',o:['زيادة NaCl','نقص NaCl','زيادة Na','زيادة Cl2'],a:0,e:'ينزاح نحو عدد مولات الغاز الأقل (اليسار، صفر مول غاز).'},
+ {y:'2025',q:'أي التغيرات الآتية يزيح التفاعل لتكوين المزيد من الميثانول؟ <span class="f">CO + 2H2 ⇌ CH3OH + heat</span>',o:['زيادة درجة الحرارة','زيادة حجم وعاء التفاعل','إضافة CO','إضافة عامل محفز'],a:2,e:'إضافة متفاعل تزيح الاتزان نحو اليمين.'},
+ {y:'2024',q:'ما أثر ارتفاع درجة الحرارة في التفاعل المتزن <span class="f">N2O4 + 55.3 kJ ⇌ 2NO2</span>؟',o:['زيادة كمية NO2','نقص قيمة Keq','زيادة كمية N2O4','نقص كمية NO2'],a:0,e:'التفاعل ماص، فالتسخين يزيحه نحو NO2.'},
+ {y:'2025',q:'عند رفع درجة الحرارة في تفاعل طارد للحرارة، ما الذي يحدث لثابت الاتزان؟',o:['يزداد','يقل','ثابت','لا يتأثر'],a:1,e:'ينزاح نحو المتفاعلات فتقل Keq.'},
+ {y:'2024',q:'لإزاحة الاتزان نحو اليسار في التفاعل <span class="f">A + B ⇌ C + D + Heat</span> نقوم بـ:',o:['إضافة حرارة','سحب حرارة','زيادة أحد المتفاعلات','إزالة أحد النواتج'],a:0,e:'الحرارة في طرف النواتج، فإضافتها تزيح الاتزان نحو اليسار.'},
+ {y:'2023',q:'عند نقص درجة الحرارة لتفاعل ماص موجود في حالة اتزان:',o:['يتجه التفاعل نحو اليمين','يزيد تركيز المتفاعلات','تزيد قيمة ثابت الاتزان','لا يتأثر تركيز النواتج'],a:1,e:'التبريد يزيح الماص نحو المتفاعلات.'},
+ {y:'2025',q:'كيف نزيد كمية المتفاعلات في التفاعل <span class="f">CO + 2H2 ⇌ CH3OH</span> + حرارة؟',o:['رفع درجة الحرارة','إضافة كمية CO','زيادة الضغط','إضافة عامل محفز'],a:0,e:'رفع الحرارة يزيح الطارد نحو اليسار.'},
+ {y:'2021',q:'عند زيادة درجة الحرارة لتفاعل طارد للحرارة موجود في حالة اتزان:',o:['يتجه التفاعل نحو اليمين','يقل تركيز المتفاعلات','تنخفض قيمة ثابت الاتزان','يزيد تركيز النواتج'],a:2,e:'ينزاح نحو المتفاعلات فتقل Keq.'},
+ {y:'2021',q:'العامل الوحيد الذي يغير من قيمة ثابت الاتزان:',o:['الضغط والحجم','التركيز','العامل المحفز','درجة الحرارة'],a:3,e:'Keq ثابت عند درجة حرارة معينة.'},
+ {y:'2021',q:'العلاقة بين ثابت الاتزان ودرجة الحرارة في التفاعل الطارد للحرارة:',o:['ثابتة','تربيعية عكسية','عكسية','طردية'],a:2,e:'كلما زادت الحرارة قلت Keq.'},
+ {y:'2023',q:'عند رفع درجة حرارة التفاعل <span class="f">CH4 + 2O2 ⇌ CO2 + 2H2O</span> + حرارة، يؤدي ذلك إلى:',o:['نقص كمية CH4','نقص كمية O2','نقص كمية H2O','زيادة كمية CO2'],a:2,e:'التفاعل طارد فينزاح نحو اليسار وتقل النواتج.'},
+ {y:'2024',q:'تفاعل ماص للحرارة في حالة اتزان، أي العوامل تزيد قيمة ثابت الاتزان حسب مبدأ لوتشاتلييه؟',o:['العامل المحفز','نقص درجة الحرارة','إضافة النواتج','زيادة درجة الحرارة'],a:3,e:'للتفاعل الماص: العلاقة طردية بين Keq والحرارة.'},
+ {y:'2024',q:'أي من الآتي لا يؤثر في حالة الاتزان؟',o:['زيادة درجة الحرارة','تقليل الحجم','العامل المحفز','زيادة تركيز المتفاعلات'],a:2,e:'المحفز يسرّع التفاعلين بالقدر نفسه.'},
+ {y:'2025',q:'لا يؤثر العامل المحفز في قيمة ثابت الاتزان لأنه:',o:['يؤثر في سرعة التفاعل الأمامي أكثر من العكسي','يؤثر في سرعة التفاعل العكسي أكثر من الأمامي','يؤثر في سرعة التفاعل العكسي فقط','يؤثر في سرعتي التفاعلين الأمامي والعكسي على حد سواء'],a:3,e:'التأثير متساوٍ في الاتجاهين.'},
+ {y:'2022',q:'وفقًا للمعادلة <span class="f">CaCO3(s) ⇌ CaO(s) + CO2(g)</span>، أي العوامل لا يؤثر في حالة الاتزان لتحلل كربونات الكالسيوم حراريًا؟',o:['إضافة عامل محفز','تغير تركيز CO2','رفع درجة الحرارة','إنقاص حجم الوعاء'],a:0,e:'المحفز لا يزيح الاتزان.'},
+ {y:'2025',q:'لماذا يُعطى المريض كبريتات الباريوم BaSO4 قبل فحص الأشعة السينية للجهاز الهضمي؟',o:['لأن ثابت حاصل الذائبية له منخفض','لأن أيونات الكبريتات تعادل أيونات الهيدروكسيد في المعدة','لأن أيونات الكبريتات تعادل أيونات الهيدرونيوم في المعدة','لأن ثابت حاصل الذائبية له مرتفع'],a:0,e:'ذائبيته قليلة جدًا فلا تصل أيونات الباريوم السامة إلى الجسم.'},
+ {y:'2025',q:'تعبير Ksp للتفاعل <span class="f">Mg(OH)2(s) ⇌ Mg²⁺(aq) + 2OH⁻(aq)</span>:',o:['[Mg²⁺][OH⁻]','2[Mg²⁺][OH⁻]','[Mg²⁺][OH⁻]²','2[Mg²⁺][OH⁻]²'],a:2,e:'المعامل يصبح أسًا.'},
+ {y:'2025',q:'في أي الحالات الآتية يتكون راسب؟',o:['Qsp > Ksp','Qsp = Ksp','Qsp < Ksp','Qsp ≈ Ksp'],a:0,e:'يتكون الراسب عندما يتجاوز الحاصل الأيوني قيمة Ksp.'},
+ {y:'2025',q:'إذا كان Qsp < Ksp فإن المحلول:',o:['غير مشبع ويتكون راسب','غير مشبع ولا يتكون راسب','مشبع ويتكون راسب','مشبع ولا يتكون راسب'],a:1,e:'يمكن أن يذوب مزيد من المادة.'},
+ {y:'2022',q:'ماذا يحدث للذوبان عند وجود الأيونات المشتركة؟',o:['يقل','يزداد','يثبت','لا يتأثر'],a:0,e:'تأثير الأيون المشترك يقلل الذائبية.'},
+ {y:'2020',q:'تفاعل يحدث في الاتجاهين الأمامي والعكسي:',o:['التفاعل المكتمل','التفاعل غير المتزن','التفاعل غير النشط','التفاعل العكسي'],a:3,e:'تعريف التفاعل العكسي.'},
+ {y:'--',q:'كتابة معادلة التفاعل بسهم مزدوج تعني أن التفاعل وصل إلى:',o:['المعقد النشط','التساوي','الاتزان الكيميائي','التفاعل القياسي'],a:2,e:'السهمان المتعاكسان يدلان على الاتزان.'},
+ {y:'--',q:'التعبير عن ثابت الاتزان للتفاعل <span class="f">2H2O2(l) ⇌ 2H2O(g) + O2(g)</span>:',o:['Keq = [H2O][O2]','Keq = [H2O][O2]²','Keq = [H2O]²[O2]','Keq = [H2O]²[O2]²'],a:2,e:'H2O2 سائل فلا يُكتب.'},
+ {y:'--',q:'إذا كانت المتفاعلات والنواتج في حالات فيزيائية مختلفة، فإن التفاعل:',o:['في حالة اتزان متجانس','في حالة اتزان غير متجانس','في حالة توقف','مكتمل'],a:1,e:'تعريف الاتزان غير المتجانس.'},
+ {y:'--',q:'أي الآتي صحيح عند حالة الاتزان؟',o:['يعد الاتزان حالة ساكنة','سرعة المتفاعلات والنواتج مختلفة','تتحول المتفاعلات كلها إلى نواتج','تراكيز المتفاعلات والنواتج ثابتة'],a:3,e:'التراكيز ثابتة والاتزان ديناميكي.'},
+ {y:'--',q:'في التفاعل <span class="f">2H2S(g) ⇌ 2H2(g) + S2(s)</span> إذا كانت قيمة Keq عند الاتزان كبيرة، فإن:',o:['التفاعل لا يمكن حدوثه','تراكيز المواد الناتجة أكبر','تراكيز المواد المتفاعلة أكبر','التفاعل بطيء جدًا'],a:1,e:'Keq الكبيرة تعني سيادة النواتج.'},
+ {y:'--',q:'تعبير ثابت الاتزان للتفاعل <span class="f">2NaHCO3(s) ⇌ Na2CO3(s) + CO2(g) + H2O(g)</span>:',o:['Keq = 1 / [H2O][CO2]','Keq = [CO2][H2O]','Keq = [CO2][H2O]²','Keq = [NaHCO3]² / [H2O][CO2]'],a:1,e:'المواد الصلبة لا تُكتب.'},
+ {y:'--',q:'إذا كان تركيز المواد الناتجة أكبر من تركيز المواد المتفاعلة عند الاتزان، فهذا يعني أن:',o:['Keq = 0','Keq < 1','Keq = 1','Keq > 1'],a:3,e:'البسط أكبر من المقام.'},
+ {y:'--',q:'احسبي قيمة Keq للتفاعل <span class="f">N2O4(g) ⇌ 2NO2(g)</span> علمًا أن [NO2] = 2 mol/L و[N2O4] = 1 mol/L:',o:['1','2','1/4','4'],a:3,e:'2² ÷ 1 = 4.'},
+ {y:'--',q:'القيمة العددية لنسبة تراكيز النواتج إلى تراكيز المتفاعلات:',o:['رتبة التفاعل','ثابت سرعة التفاعل','ثابت اتزان التفاعل','مردود التفاعل'],a:2,e:'هذا ثابت الاتزان.'},
+ {y:'--',q:'أي الآتي يعد من العوامل المؤثرة في الاتزان الكيميائي؟',o:['التغير في الحجم والضغط','التغير في التركيز','تغير درجة الحرارة','جميع ما سبق'],a:3,e:'كلها جهود تؤثر في الاتزان.'},
+ {y:'2020',q:'في التفاعل <span class="f">N2 + 3H2(g) ⇌ 2NH3(g)</span> عند زيادة تركيز غاز الهيدروجين H2، فإن تركيز الأمونيا NH3:',o:['ينقص للربع','يزيد','لا يتغير','ينقص للنصف'],a:1,e:'ينزاح الاتزان نحو النواتج.'},
+ {y:'--',q:'ماذا يحدث عند زيادة تركيز N2 في التفاعل <span class="f">N2 + 3H2(g) ⇌ 2NH3(g)</span>؟ يُزاح التفاعل نحو:',o:['المتفاعلات','النواتج','لا يتأثر','يتوقف التفاعل'],a:1,e:'إضافة متفاعل تزيح نحو النواتج.'},
+ {y:'--',q:'زيادة تركيز أحد المتفاعلات تؤدي إلى إزاحة التفاعل نحو:',o:['اليمين فتزداد النواتج','اليسار فتزداد المتفاعلات','اليمين فتنقص النواتج','اليسار فتنقص المتفاعلات'],a:0,e:'يُستهلك المتفاعل المضاف وتتكون نواتج أكثر.'},
+ {y:'2020',q:'في التفاعل <span class="f">CO(g) + 3H2(g) ⇌ CH4(g) + H2O(g)</span> إذا زاد الضغط فإن الاتزان:',o:['لا يتأثر','يزاح نحو عدد المولات الأقل','يزاح نحو المتفاعلات','يزاح نحو عدد المولات الأكثر'],a:1,e:'4 مولات غاز ← 2 مول.'},
+ {y:'2020',q:'إذا زاد الضغط في تفاعل متزن فإن ذلك يؤدي إلى إزاحة التفاعل باتجاه:',o:['عدد المولات الأكبر','عدد المولات الأقل','التركيز الأكبر','لا يتأثر التفاعل'],a:1,e:'لتخفيف الضغط.'},
+ {y:'2020',q:'في التفاعل <span class="f">H2(g) + Cl2(g) ⇌ 2HCl(g)</span> إذا زاد الضغط فإن الاتزان:',o:['لا يتأثر','يزاح نحو المتفاعلات','يزاح نحو النواتج','يزاح نحو عدد المولات الأكثر'],a:0,e:'2 مول غاز في كل طرف.'},
+ {y:'--',q:'إذا زاد الضغط في التفاعل <span class="f">CO(g) + 3H2(g) ⇌ CH4(g) + H2O(g)</span> فإن موضع الاتزان يزاح نحو:',o:['لا يتأثر','المتفاعلات','النواتج','عدد المولات الأكثر'],a:2,e:'النواتج عدد مولاتها أقل.'},
+ {y:'--',q:'أي التغيرات الآتية لا يؤثر في موضع الاتزان للتفاعل <span class="f">N2O4(g) ⇌ 2NO2(g)</span>؟',o:['زيادة درجة الحرارة','إضافة مادة محفزة','تقليص حجم الوعاء','خفض درجة الحرارة'],a:1,e:'الحرارة والحجم يؤثران، أما المحفز فلا.'},
+ {y:'--',q:'ماذا يحدث لثابت الاتزان عند رفع درجة الحرارة للتفاعل الماص للحرارة؟',o:['يقل','يزداد','يثبت','لا يتغير'],a:1,e:'ينزاح نحو النواتج فتزداد Keq.'},
+ {y:'--',q:'العلاقة بين ثابت الاتزان ودرجة الحرارة في التفاعل الماص للحرارة:',o:['ثابتة','تربيعية عكسية','عكسية','طردية'],a:3,e:'كلما زادت الحرارة زادت Keq.'},
+ {y:'--',q:'سحب الحرارة من التفاعل <span class="f">PCl5(g) ⇌ PCl3(g) + Cl2(g) + Heat</span> يغير حالة الاتزان نحو:',o:['اليسار فتزداد النواتج','اليمين فتزداد النواتج','اليسار فتزداد المتفاعلات','اليمين فيتوقف التفاعل'],a:1,e:'الحرارة ناتج، فسحبها يزيح نحو اليمين.'},
+ {y:'--',q:'ماذا يحدث للنواتج عند رفع درجة الحرارة للتفاعل <span class="f">CO(g) + 3H2(g) ⇌ CH4(g) + H2O(g) + Heat</span>؟',o:['لا تتأثر','تقل','تزداد','تتضاعف'],a:1,e:'الطارد ينزاح نحو اليسار عند التسخين.'},
+ {y:'--',q:'في التفاعل <span class="f">CO(g) + 3H2(g) ⇌ CH4(g) + H2O(g) + Heat</span>، سحب الحرارة يغير حالة الاتزان نحو:',o:['اليسار فتزيد النواتج','اليمين فتزيد النواتج','اليسار فتزيد المتفاعلات','اليمين فيتوقف التفاعل'],a:1,e:'إزالة ناتج (الحرارة) تزيح نحو اليمين.'},
+ {y:'--',q:'في المعادلة <span class="f">Fe2O3 + 3CO ⇌ 3CO2 + 2Fe + 25 kJ</span> إذا قلّت درجة الحرارة، فأي الآتي صحيح؟',o:['زيادة Fe2O3','زيادة CO','زيادة CO2','نقصان Fe'],a:2,e:'التبريد يزيح الطارد نحو اليمين.'},
+ {y:'--',q:'في التفاعل <span class="f">PCl3 + Cl2 ⇌ PCl5</span> + حرارة، ماذا سيحدث إذا زادت درجة الحرارة؟',o:['تقل كمية PCl3','تزيد كمية PCl5','تقل كمية Cl2','تقل قيمة Keq'],a:3,e:'التفاعل طارد، فالتسخين يزيحه نحو اليسار وتقل Keq.'},
+ {y:'--',q:'ماذا سيحدث لو اتجه الاتزان إلى اليسار في التفاعل <span class="f">A + B ⇌ C + D + Heat</span>؟',o:['تنقص درجة الحرارة','تزداد درجة الحرارة','تزداد النواتج','تنقص المتفاعلات'],a:0,e:'الاتجاه نحو اليسار ماص للحرارة فيمتص حرارة.'},
+ {y:'--',q:'تقل ذائبية كرومات الرصاص كلما زاد تركيز محلول كرومات البوتاسيوم الذائبة فيه، يسمى هذا تأثير:',o:['الأيون المشترك','الأيون الموجب','الأيون السالب','الأيون المتفرج'],a:0,e:'تعريف تأثير الأيون المشترك.'}
+];
+
+/* ---------- views ---------- */
+const app=$('#app');
+function route(){
+  cleanups.forEach(f=>{try{f();}catch(e){}});cleanups=[];
+  const h=location.hash.replace('#','');
+  if(new RegExp('^lesson-[1-'+LESSONS.length+']$').test(h))viewLesson(+h.slice(7));
+  else if(h==='final')viewFinal();
+  else viewHome();
+  fmAll(app);refreshStars();window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',route);
+
+function badgeHTML(){return '<div class="badges">'+BADGES.map(b=>{const on=b[0]==='final'?(S.final!=null&&S.final>=80):S.done[b[0].slice(1)];return `<div class="badge ${on?'on':''}"><i>${b[1]}</i>${b[2]}</div>`;}).join('')+'</div>';}
+function lessonStars(L){let n=L.tasks.filter(t=>S.tasks[t.id]).length;n+=gameStars(S.games[L.game]||0);if((S.quiz[L.n]||0)>=4)n+=3;return n;}
+function lessonMax(L){return L.tasks.length+3+3;}
+
+const CH_NO=3;
+/* ---------- progress report code for the teacher ---------- */
+const RKEY=LS+'-name';
+function repHash(str){let h=7;for(const c of str)h=(h*31+c.codePointAt(0))%1000003;return h;}
+function repCode(name){const total=LESSONS.length;const done=LESSONS.filter(L=>S.done[L.n]).length;const max=LESSONS.reduce((a,L)=>a+lessonMax(L),0)+5;
+  const p={v:1,c:CH_NO,n:name.trim(),d:done,t:total,f:S.final==null?null:S.final,s:totalStars(),m:max,ts:Date.now()};const body=JSON.stringify(p);
+  return 'KIM-'+btoa(unescape(encodeURIComponent(body))).replace(/=+$/,'')+'-'+repHash(body).toString(36);}
+function reportHTML(){let nm='';try{nm=localStorage.getItem(RKEY)||'';}catch(e){}
+  return `<section class="final-band report-band"><div class="rb-in"><div><h3>📤 تقرير التقدم للمعلمة</h3><p>اكتبي اسمك الثلاثي ثم اضغطي «احفظي تقدمي لدى المعلمة»؛ بعدها يُحدَّث تقدمك تلقائيًا كلما أنجزتِ شيئًا جديدًا. ويمكنك أيضًا إنشاء رمز التقدم وإرساله لمعلمتك.</p></div>
+   <div class="rb-row"><input type="text" id="repName" placeholder="اسم الطالبة" value="${nm.replace(/"/g,'&quot;')}" aria-label="اسم الطالبة"><button type="button" class="btn hot" id="repSync">☁️ احفظي تقدمي لدى المعلمة</button><button type="button" class="btn cold" id="repGo">أنشئي الرمز</button></div>
+   <div id="repOut"></div></div></section>`;}
+function bindReport(){const go=$('#repGo');if(!go)return;
+  $('#repSync').addEventListener('click',async()=>{const nm=$('#repName').value.trim(),out=$('#repOut');if(nm.split(/\s+/).length<2){out.innerHTML='<p class="fb bad">اكتبي اسمك الثنائي أو الثلاثي حتى تتعرف عليك المعلمة.</p>';return;}
+    try{localStorage.setItem(RKEY,nm);}catch(e){}out.innerHTML='<p class="fb">جارٍ الحفظ…</p>';
+    try{await syncProgress(true);out.innerHTML=`<p class="fb ok">✓ حُفظ تقدمك لدى المعلمة باسم «${esc(nm)}». سيُحدَّث تلقائيًا عند أي إنجاز جديد.</p>`;}catch(e){out.innerHTML='<p class="fb bad">تعذّر الحفظ الآن. تحققي من الاتصال بالإنترنت، أو أنشئي رمز التقدم وأرسليه لمعلمتك.</p>';}});go.addEventListener('click',()=>{const nm=$('#repName').value.trim();const out=$('#repOut');
+  if(nm.split(/\s+/).length<2){out.innerHTML='<p class="fb bad">اكتبي اسمك الثنائي أو الثلاثي حتى تتعرف عليك المعلمة.</p>';return;}
+  try{localStorage.setItem(RKEY,nm);}catch(e){}const code=repCode(nm);const done=LESSONS.filter(L=>S.done[L.n]).length;
+  out.innerHTML=`<div class="rb-code"><code class="ltr" id="repCode">${code}</code><button type="button" class="btn sm" id="repCopy">📋 انسخي الرمز</button></div><p class="rb-sum">الدروس المنجزة: <b>${done} من ${LESSONS.length}</b> | الاختبار الختامي: <b>${S.final==null?'لم يُنجز':S.final+'%'}</b> | النجوم: <b>${totalStars()}</b></p>`;
+  $('#repCopy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(code);toast('تم نسخ الرمز ✓');}catch(e){const r=document.createRange();r.selectNodeContents($('#repCode'));const sel=getSelection();sel.removeAllRanges();sel.addRange(r);toast('حدّدي الرمز وانسخيه يدويًا');}});});}
+
+
+/* ---------- مزامنة التقدم مع قاعدة البيانات (Cloudflare D1) ---------- */
+let _syncT=null;
+async function syncProgress(manual){let nm='';try{nm=localStorage.getItem(RKEY)||'';}catch(e){}if(!nm)return false;
+  const done=LESSONS.filter(L=>S.done[L.n]).length,max=LESSONS.reduce((a,L)=>a+lessonMax(L),0)+5;
+  try{const r=await fetch('/api/progress',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:nm,chapter:CH_NO,done,total:LESSONS.length,final:S.final==null?null:S.final,stars:totalStars(),max})});
+    if(!r.ok)throw 0;try{localStorage.setItem(RKEY+'-synced','1');}catch(e){}return true;}catch(e){if(manual)throw e;return false;}}
+function autoSync(){let on='';try{on=localStorage.getItem(RKEY+'-synced');}catch(e){}if(!on)return;clearTimeout(_syncT);_syncT=setTimeout(()=>syncProgress(false),3000);}
+
+function viewHome(){
+  const done=Object.keys(S.done).filter(k=>S.done[k]).length;
+  app.innerHTML=`
+  <section class="hero">
+    <div>
+      <p class="kicker">كيمياء 2-2، الفصل الثالث، رحلة تعليمية تفاعلية</p>
+      <h1 style="margin-bottom:6px">مختبر <span class="grad">الاتزان الكيميائي</span></h1>
+      <div class="teacher"><span class="av">ص</span><div><small>إعداد المعلمة:</small><b>صباح داخل الأحمدي</b></div></div>
+      <p class="idea"><strong>الفكرة العامة:</strong> كثير من التفاعلات لا تكتمل، بل تصل إلى حالة اتزان ديناميكي يصفها ثابت الاتزان، وتستجيب لتغير الظروف وفق مبدأ لوتشاتلييه.</p>
+      <p class="lead">ثلاثة دروس تجرّبين فيها بنفسك: تشغّلين مضختين لتري معنى الاتزان الديناميكي، وتبنين تعابير ثابت الاتزان، وتجرين تجارب لوتشاتلييه في المختبر الافتراضي بالتركيز والضغط والحرارة، وتذيبين الأملاح حتى الإشباع وتتوقعين تكوّن الرواسب. اجمعي النجوم والشارات، وأنجزي مهام كل درس، وتحدّي نفسك في ألعاب الـ45 ثانية. في نهاية كل درس اختبار قصير، وفي آخر الرحلة اختبار ختامي من أسئلة التحصيلي.</p>
+      <div class="hero-actions">
+        <a class="btn cold" href="#lesson-1">ابدئي الرحلة</a>
+        <a class="btn ghost" href="#final">الاختبار الختامي</a>
+      </div>
+      <p class="progress-line">أنجزتِ ${done} من ${LESSONS.length} دروس</p>
+    </div>
+    <div class="beaker-card">
+      <canvas id="beaker" aria-label="محاكاة اتزان N2O4 و NO2 عند درجات حرارة مختلفة"></canvas>
+      <input type="range" dir="ltr" id="bT" min="250" max="400" value="300" step="5" aria-label="درجة الحرارة">
+      <div class="beaker-read"><span class="temp-big" id="bTv">300 K</span><span class="phase-tag" id="bPh"></span></div>
+      <p class="hint" id="bHint">اسحبي على الوعاء لتغيير درجة الحرارة.</p>
+    </div>
+  </section>
+  <section>
+    <h2 class="sec">مسار الدروس</h2>
+    <p class="sec-sub">من فهم الاتزان إلى التحكم فيه ثم استعمال ثوابته.</p>
+    <div class="thermo-track"><span class="bulb"></span></div>
+    <div class="lessons">
+      ${LESSONS.map(L=>`<article class="lcard ${S.done[L.n]?'done':''}" style="--c:${L.c}">
+        <span class="node">${S.done[L.n]?'✓':L.n}</span>
+        <div class="lcode">${L.code}</div>
+        <h3>${L.title}</h3>
+        <p>${L.blurb}</p>
+        <div class="lmeta"><span class="st">★ ${lessonStars(L)} / ${lessonMax(L)}</span><a class="btn sm ghost" href="#lesson-${L.n}">ادخلي</a></div>
+      </article>`).join('')}
+    </div>
+  </section>
+  <section style="margin-top:34px">
+    <h2 class="sec">الشارات</h2>
+    <p class="sec-sub">تحصلين على شارة كل درس عند اجتياز اختباره القصير بأربع إجابات صحيحة أو أكثر.</p>
+    ${badgeHTML()}
+  </section>
+  <section class="final-band">
+    <div><h3>الاختبار الختامي: تجميعات التحصيلي</h3><p>${TAH.length} سؤالًا من اختبارات التحصيلي السابقة في الاتزان الكيميائي، مع تصحيح فوري وشرح لكل إجابة.${S.final!=null?' أفضل نتيجة لك: '+S.final+'%':''}</p></div>
+    <a class="btn hot" href="#final">ابدئي الاختبار</a>
+  </section>
+  <section class="final-band task-band"><div class="tb-in"><span class="ti">📝</span><div><h3>مهمة أدائية</h3><p>اقرئي المهمة وارفعي إجابتها من خلال النموذج.</p></div></div>${TASK_FORM?`<a class="btn cold" href="${TASK_FORM}" target="_blank" rel="noopener">افتحي المهمة</a>`:`<span class="btn ghost" aria-disabled="true" style="opacity:.6;cursor:default">يُضاف الرابط قريبًا</span>`}</section>
+  ${reportHTML()}`;
+  initBeaker();bindReport();
+}
+
+/* ---------- lesson view ---------- */
+function viewLesson(n){
+  const L=LESSONS[n-1];
+  app.innerHTML=`
+  <div class="crumbs"><a href="#home">→ الصفحة الرئيسة</a></div>
+  <header class="lhead">
+    <div class="lnum">${L.code}</div>
+    <div><h1>${L.title}</h1><div class="en">${L.en}</div>
+      <p class="idea" style="margin:10px 0 0"><strong>الفكرة الرئيسة:</strong> ${L.idea}</p>
+      <div class="vocab">${L.vocab.map(v=>'<span>'+v+'</span>').join('')}</div></div>
+  </header>
+  <div class="lgrid">
+    <aside class="side">
+      <div class="box"><h4>مهام الدرس <span id="tcount" style="color:var(--muted);font-weight:400;font-size:14px"></span></h4>
+        <ul class="tasks">${L.tasks.map(t=>`<li data-task-li="${t.id}" class="${S.tasks[t.id]?'on':''}"><span class="ck">${S.tasks[t.id]?'✓':''}</span><span>${t.t}</span></li>`).join('')}</ul>
+        <div class="tbar"><i id="tbar" data-lesson="${n}"></i></div></div>
+      <div class="box"><nav>${L.groups.map(g=>`<a href="#" data-jump="sim-${g.sim}">${SIMS[g.sim].title}</a>`).join('')}<a href="#" data-jump="game">لعبة 45 ثانية</a><a href="#" data-jump="quiz">الاختبار القصير</a></nav></div>
+    </aside>
+    <div class="main-col">
+      ${L.groups.map((g,i)=>`<section class="panel sim" id="sim-${g.sim}" style="--c:${L.c}">
+        <span class="tag">الجزء ${i+1}: الفكرة ببساطة</span>
+        <div class="lcards">${g.cards.map(k=>L.learn[k]).map(c=>`<div class="lc"><span class="ic">${c.i}</span><h5>${c.t}</h5><p>${c.s}</p>${c.img?`<div class="lc-img">${VIS[c.img].html()}</div>`:''}<div class="ex"><b>مثال:</b> ${c.ex}</div></div>`).join('')}</div>
+        ${(g.maps||[]).map(m=>`<div class="cmap" data-vis="${m}">${VIS[m].html()}</div>`).join('')}
+        <div class="act"><span class="tag act-tag">🔬 نشاط تفاعلي</span>${SIMS[g.sim].html()}</div>${(g.after||[]).map(m=>`<div class="cmap" data-vis="${m}">${VIS[m].html()}</div>`).join('')}</section>`).join('')}
+      <section class="panel game" id="game"><span class="tag" style="color:var(--amber)">تحدّي 45 ثانية</span>${GAMES[L.game].html}</section>
+      <section class="panel" id="quiz"><span class="tag">اختبار الدرس ${L.code}</span><h3>اختبار قصير</h3><p class="desc">خمسة أسئلة. أجيبي عن أربعة منها أو أكثر بشكل صحيح لتحصلي على شارة الدرس و3 نجوم.${S.quiz[n]!=null?' أفضل نتيجة لك: '+S.quiz[n]+' من 5.':''}</p><div id="quizBox"></div></section>
+      <div class="row" style="justify-content:space-between">
+        ${n>1?`<a class="btn ghost" href="#lesson-${n-1}">الدرس السابق</a>`:'<span></span>'}
+        ${n<LESSONS.length?`<a class="btn cold" href="#lesson-${n+1}">الدرس التالي</a>`:`<a class="btn hot" href="#final">إلى الاختبار الختامي</a>`}
+      </div>
+    </div>
+  </div>`;
+  $$('[data-jump]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const t=document.getElementById(a.dataset.jump);if(t)t.scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'});}));
+  updateTaskBar();
+  fmAll(app);
+  L.groups.forEach(g=>SIMS[g.sim].init(document.getElementById('sim-'+g.sim)));
+  $$('[data-vis]',app).forEach(el=>{const v=VIS[el.dataset.vis];if(v&&v.init)v.init(el);});
+  bindPrac(app);
+  initGame($('#game'),GAMES[L.game]);
+  quizRunner($('#quizBox'),QUIZ[n],{onDone:(sc)=>{
+    const prev=S.quiz[n]||0;S.quiz[n]=Math.max(prev,sc);
+    if(sc>=4&&!S.done[n]){S.done[n]=true;save();refreshStars();const b=BADGES[n-1];toast(b[1]+' حصلتِ على شارة: '+b[2]);}
+    else{save();refreshStars();}
+  }});
+}
+
+/* ---------- practice widgets ---------- */
+function prac(prompt,unit,ans,tol,task,hint){
+  return `<div class="prac" data-ans="${ans}" data-tol="${tol}" data-task="${task||''}" data-hint="${hint||''}">
+    <p class="q">${prompt}</p>
+    <div class="row"><input class="ans" inputmode="decimal" aria-label="إجابتك" placeholder="إجابتك"><span class="unit f">${unit}</span><button type="button" class="btn sm">تحقّقي</button></div>
+    <p class="fb" aria-live="polite"></p></div>`;
+}
+function bindPrac(root){
+  $$('.prac[data-ans]',root).forEach(p=>{
+    const inp=$('input',p),btn=$('button',p),fb=$('.fb',p);
+    if(p.dataset.task&&S.tasks[p.dataset.task])p.classList.add('solved');
+    const check=()=>{const v=parseNum(inp.value),a=+p.dataset.ans,t=+p.dataset.tol;
+      if(isNaN(v)){fb.className='fb bad';fb.textContent='اكتبي رقمًا، مثل 9.6e5 أو 960000.';return;}
+      if(Math.abs(v-a)<=t*Math.abs(a)){fb.className='fb ok';fb.textContent='✓ إجابة صحيحة! الناتج ≈ '+nice(a);p.classList.add('solved');if(p.dataset.task)completeTask(p.dataset.task);}
+      else{fb.className='fb bad';fb.textContent='✗ ليست صحيحة بعد. '+(p.dataset.hint?'تلميح: '+p.dataset.hint:'');}};
+    btn.addEventListener('click',check);inp.addEventListener('keydown',e=>{if(e.key==='Enter')check();});
+  });
+}
+function mcq(root,sel,q,opts,a,onOk){
+  const box=$(sel,root);
+  box.innerHTML=`<p class="q" style="margin:0 0 6px;font-weight:600">${q}</p><div class="opts">${opts.map((o,i)=>`<button type="button" class="opt" data-i="${i}">${o}</button>`).join('')}</div><p class="fb" aria-live="polite"></p>`;
+  $$('.opt',box).forEach(b=>b.addEventListener('click',()=>{const i=+b.dataset.i;$$('.opt',box).forEach(x=>x.classList.remove('ok','bad'));
+    if(i===a){b.classList.add('ok');$('.fb',box).className='fb ok';$('.fb',box).textContent='✓ صحيح!';onOk&&onOk();}
+    else{b.classList.add('bad');$('.fb',box).className='fb bad';$('.fb',box).textContent='✗ حاولي مرة أخرى.';}}));
+}
+
+/* ---------- helpers ---------- */
+const AR=id=>`<defs><marker id="${id}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="cm-ah"/></marker></defs>`;
+function flowMap(title,steps,note){return `<h4>${title}</h4><div class="flowmap">${steps.map((s,i)=>(i?'<span class="farr" aria-hidden="true">←</span>':'')+`<div class="fstep${s.k?' k':''}">${s.t}${s.s?`<small>${s.s}</small>`:''}</div>`).join('')}</div>${note?`<p class="cm-note">${note}</p>`:''}`;}
+function bubbleAnim(g,{x0,x1,y0,yTop,rate,dur,onTick,onEnd}){
+  const NS='http://www.w3.org/2000/svg';let raf=0,acc=0,last=performance.now();const t0=last;const bs=[];
+  const step=t=>{const dt=(t-last)/1000;last=t;const k=Math.min(1,(t-t0)/dur);acc+=rate*dt;
+    while(acc>=1){acc--;const c=document.createElementNS(NS,'circle');const x=x0+Math.random()*(x1-x0);c.setAttribute('cx',x);c.setAttribute('cy',y0);c.setAttribute('r',1.5+Math.random()*2.5);c.setAttribute('fill','rgba(255,255,255,.85)');c.setAttribute('stroke','rgba(60,90,140,.6)');g.appendChild(c);bs.push({c,x,y:y0,v:40+Math.random()*50});}
+    for(let i=bs.length-1;i>=0;i--){const b=bs[i];b.y-=b.v*dt;b.c.setAttribute('cy',b.y);if(b.y<yTop){b.c.remove();bs.splice(i,1);}}
+    onTick&&onTick(k);if(k<1)raf=requestAnimationFrame(step);else{bs.forEach(b=>b.c.remove());onEnd&&onEnd();}};
+  raf=requestAnimationFrame(step);onCleanup(()=>cancelAnimationFrame(raf));
+}
+function tween(ms,f,done){if(reduced){f(1);done&&done();return;}const t0=performance.now();let raf=0;const s=t=>{const k=Math.min(1,(t-t0)/ms);f(1-Math.pow(1-k,3));if(k<1)raf=requestAnimationFrame(s);else done&&done();};raf=requestAnimationFrame(s);onCleanup(()=>cancelAnimationFrame(raf));}
+const BEAKER=(liq,extra='')=>`<path d="M100 60 L100 222 Q100 236 114 236 L246 236 Q260 236 260 222 L260 60" fill="none" stroke="currentColor" stroke-width="3"/><line x1="94" y1="60" x2="106" y2="60" stroke="currentColor" stroke-width="3"/><line x1="254" y1="60" x2="266" y2="60" stroke="currentColor" stroke-width="3"/>
+  <path d="M102 120 L258 120 L258 222 Q258 234 246 234 L114 234 Q102 234 102 222 Z" fill="${liq}" id="lqd"/>${[90,130,170,210].map(y=>`<line x1="240" y1="${y}" x2="258" y2="${y}" stroke="currentColor" opacity=".5"/>`).join('')}${extra}<g id="bub"></g>`;
+function labShell(id,title,desc,controls){return `<h3>🔬 ${title}</h3><p class="desc">${desc}</p>
+  <div class="lab"><svg viewBox="0 0 360 260" id="${id}S" class="labsvg" role="img" aria-label="${title}"></svg>
+  <div class="labside">${controls}<p class="fb" id="${id}Msg" style="min-height:1.4em"></p></div></div>`;}
+function radioChips(id,opts){return `<div class="chips" id="${id}">${opts.map((o,i)=>`<button type="button" class="chip" data-v="${o[0]}" aria-pressed="${i===0}">${o[1]}</button>`).join('')}</div>`;}
+function chipVal(root,id){const b=$(`#${id} .chip[aria-pressed=true]`,root);return b?b.dataset.v:null;}
+function bindChips(root,id,cb){$$(`#${id} .chip`,root).forEach(b=>b.addEventListener('click',()=>{$$(`#${id} .chip`,root).forEach(x=>x.setAttribute('aria-pressed',x===b));cb&&cb(b.dataset.v);}));}
+function upsertRow(tb,key,cells){let tr=tb.querySelector(`tr[data-k="${key}"]`);if(!tr){tr=document.createElement('tr');tr.dataset.k=key;tb.appendChild(tr);}tr.innerHTML=cells.map(c=>`<td class="n">${c}</td>`).join('');}
+function addRow(tb,cells){const tr=document.createElement('tr');tr.innerHTML=cells.map(c=>`<td class="n">${c}</td>`).join('');tb.appendChild(tr);}
+function bisect(f,lo,hi){for(let i=0;i<80;i++){const m=(lo+hi)/2;if(f(m)>0)hi=m;else lo=m;}return (lo+hi)/2;}
+function setMsg(root,id,t,ok=true){const m=$(`#${id}Msg`,root);if(m){m.className='fb '+(ok?'ok':'bad');m.innerHTML=t;}}
+const supN=v=>v===1?'':String(v).split('').map(c=>SUP[c]).join('');
+
+/* ---------- hero: N2O4 ⇌ 2NO2 ---------- */
+function initBeaker(){
+  const cv=$('#beaker'),rng=$('#bT');if(!cv)return;const ctx=cv.getContext('2d');let W=0,H=0,T=300,raf=0;const r=6;let P=[];const ev={f:[],b:[]};
+  const fit=()=>{const b=cv.getBoundingClientRect(),d=window.devicePixelRatio||1;W=b.width;H=b.height;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);};
+  fit();const ro=new ResizeObserver(fit);ro.observe(cv);
+  const sp=()=>(reduced?0.5:1.4)*Math.sqrt(T/300)*(0.5+Math.random());
+  const mk=(t,x,y)=>{const a=Math.random()*6.283,v=sp();return{t,x:x??(r+Math.random()*(W-2*r)),y:y??(r+Math.random()*(H-2*r)),vx:Math.cos(a)*v,vy:Math.sin(a)*v};};
+  for(let i=0;i<26;i++)P.push(mk('D'));
+  const setT=v=>{T=Math.max(250,Math.min(400,Math.round(v)));rng.value=T;$('#bTv').textContent=T+' K';};
+  rng.addEventListener('input',()=>setT(+rng.value));
+  let drag=false,sx=0,sT=0;cv.addEventListener('pointerdown',e=>{drag=true;sx=e.clientX;sT=T;cv.setPointerCapture(e.pointerId);});
+  cv.addEventListener('pointermove',e=>{if(drag)setT(sT+(e.clientX-sx)*0.4);});cv.addEventListener('pointerup',()=>drag=false);
+  const loop=()=>{const now=performance.now();const kf=0.0022*Math.exp((T-300)/22);
+    const add=[],rm=new Set();
+    for(const p of P){if(p.t==='D'&&Math.random()<kf){rm.add(p);add.push(mk('M',p.x-4,p.y),mk('M',p.x+4,p.y));ev.f.push(now);}}
+    for(let i=0;i<P.length;i++){const a=P[i];if(a.t!=='M'||rm.has(a))continue;for(let j=i+1;j<P.length;j++){const b=P[j];if(b.t!=='M'||rm.has(b))continue;const dx=b.x-a.x,dy=b.y-a.y;if(dx*dx+dy*dy<4*r*r&&Math.random()<0.5){rm.add(a);rm.add(b);add.push({t:'D',x:(a.x+b.x)/2,y:(a.y+b.y)/2,vx:(a.vx+b.vx)/2,vy:(a.vy+b.vy)/2});ev.b.push(now);break;}}}
+    if(rm.size)P=P.filter(p=>!rm.has(p)).concat(add);
+    for(const p of P){p.x+=p.vx;p.y+=p.vy;if(p.x<r||p.x>W-r){p.vx*=-1;p.x=Math.max(r,Math.min(W-r,p.x));}if(p.y<r||p.y>H-r){p.vy*=-1;p.y=Math.max(r,Math.min(H-r,p.y));}}
+    const nM=P.filter(p=>p.t==='M').length,nD=P.length-nM;
+    ctx.clearRect(0,0,W,H);ctx.fillStyle=`rgba(160,82,45,${0.04+0.5*nM/(nM+2*nD)})`;ctx.fillRect(0,0,W,H);
+    for(const p of P){if(p.t==='D'){ctx.fillStyle='#C9D3E0';ctx.strokeStyle='#8090a6';[-4,4].forEach(o=>{ctx.beginPath();ctx.arc(p.x+o,p.y,r-1,0,7);ctx.fill();ctx.stroke();});}else{ctx.beginPath();ctx.arc(p.x,p.y,r,0,7);ctx.fillStyle='#A0522D';ctx.fill();}}
+    ev.f=ev.f.filter(t=>now-t<4000);ev.b=ev.b.filter(t=>now-t<4000);
+    $('#bPh').innerHTML=`<span class="ltr">N₂O₄: ${nD} | NO₂: ${nM}</span>`;
+    $('#bHint').innerHTML=`السرعة الأمامية ≈ ${(ev.f.length/4).toFixed(1)} في الثانية، والعكسية ≈ ${(ev.b.length/4).toFixed(1)} في الثانية. ${Math.abs(ev.f.length-ev.b.length)<=3?'السرعتان متقاربتان: النظام في حالة اتزان ديناميكي.':'النظام يتجه نحو اتزان جديد…'} اسحبي لتغيير الحرارة وراقبي اللون البني.`;
+    raf=requestAnimationFrame(loop);};
+  setT(300);loop();onCleanup(()=>{cancelAnimationFrame(raf);ro.disconnect();});
+}
+
+/* ---------- concept maps & illustrations ---------- */
+const VIS={
+ tanks:{html:()=>`<h4>🚰 صورة تفاعلية: حوضان ومضختان (تشبيه الاتزان الديناميكي)</h4>
+  <svg viewBox="0 0 600 260" id="tkS" role="img" aria-label="حوضان ينتقل بينهما الماء"></svg>
+  <div class="row"><label class="ctrl">قوة المضخة الأمامية (من الحوض A إلى B): <b id="tkFv" class="ltr"></b><input type="range" dir="ltr" id="tkF" min="1" max="5" step="1" value="3"></label>
+  <label class="ctrl">قوة المضخة العكسية (من B إلى A): <b id="tkRv" class="ltr"></b><input type="range" dir="ltr" id="tkR" min="1" max="5" step="1" value="1"></label></div>
+  <div class="row" style="margin-top:6px"><button type="button" class="btn sm cold" id="tkGo">▶ شغّلي المضختين</button></div>
+  <p class="cm-note" id="tkT">الحوض A يمثل المتفاعلات والحوض B يمثل النواتج. كمية الماء المنقولة في الدقيقة تتناسب مع ارتفاع الماء في الحوض.</p>`,
+  init(root){let A=1,B=0,raf=0;
+    const draw=()=>{const kf=+$('#tkF',root).value,kr=+$('#tkR',root).value,ff=kf*A,fr=kr*B;const hA=A*150,hB=B*150;
+      $('#tkS',root).innerHTML=`${[[60,'A','المتفاعلات',hA],[400,'B','النواتج',hB]].map(([x,l,s,h])=>`<rect x="${x}" y="50" width="140" height="160" fill="none" stroke="currentColor" stroke-width="3"/><rect x="${x+2}" y="${208-h}" width="136" height="${h}" fill="rgba(63,169,221,.55)"/><text x="${x+70}" y="40" text-anchor="middle" font-size="15" font-weight="700" fill="currentColor">${l}: ${s}</text><text x="${x+70}" y="232" text-anchor="middle" font-size="13" fill="currentColor" direction="ltr">${(h/150).toFixed(2)}</text>`).join('')}
+       <path d="M200 90 L400 90" stroke="#DE4527" stroke-width="${2+ff*1.2}" fill="none"/><path d="M392 82 L404 90 L392 98Z" fill="#DE4527"/><text x="300" y="80" text-anchor="middle" font-size="13" fill="#DE4527" font-weight="700">أمامي: ${ff.toFixed(2)}</text>
+       <path d="M400 170 L200 170" stroke="#2763D8" stroke-width="${2+fr*1.2}" fill="none"/><path d="M208 162 L196 170 L208 178Z" fill="#2763D8"/><text x="300" y="195" text-anchor="middle" font-size="13" fill="#2763D8" font-weight="700">عكسي: ${fr.toFixed(2)}</text>`;
+      $('#tkFv',root).textContent=kf;$('#tkRv',root).textContent=kr;
+      if(Math.abs(ff-fr)<0.02&&B>0.01)$('#tkT',root).innerHTML=`<b>وصل النظام إلى الاتزان:</b> سرعة النقل الأمامي تساوي العكسي، فثبت مستوى الماء في الحوضين، لكنهما غير متساويين! النسبة B/A = <b class="ltr">${(B/A).toFixed(2)}</b> = قوة الأمامية ÷ قوة العكسية، مثل ثابت الاتزان.`;};
+    $('#tkGo',root).addEventListener('click',()=>{cancelAnimationFrame(raf);A=1;B=0;$('#tkT',root).textContent='المضختان تعملان… راقبي السرعتين.';let last=performance.now();
+      const step=t=>{const dt=Math.min(0.05,(t-last)/1000)*(reduced?3:1);last=t;const kf=+$('#tkF',root).value,kr=+$('#tkR',root).value;const d=(kf*A-kr*B)*dt*0.35;A-=d;B+=d;draw();if(Math.abs(kf*A-kr*B)>0.005)raf=requestAnimationFrame(step);else draw();};raf=requestAnimationFrame(step);});
+    ['#tkF','#tkR'].forEach(s=>$(s,root).addEventListener('input',()=>{draw();}));
+    onCleanup(()=>cancelAnimationFrame(raf));draw();}},
+ eqMap:{html:()=>`<h4>🗺️ خريطة مفاهيم: الاتزان الكيميائي</h4>
+  <svg viewBox="0 0 640 300" role="img" aria-label="خريطة مفاهيم الاتزان">${AR('em1')}
+   <rect x="210" y="10" width="220" height="50" rx="14" class="cm-main"/><text x="320" y="41" text-anchor="middle" class="cm-tw" font-size="17" font-weight="700">الاتزان الكيميائي</text>
+   ${[[110,'يحدث في','نظام مغلق','وعند درجة حرارة ثابتة'],[320,'تكون فيه','سرعة الأمامي = سرعة العكسي','والتفاعلان مستمران'],[530,'نتيجته','تراكيز ثابتة','وليست متساوية بالضرورة']].map(([x,l,a,b])=>`<path d="M320 60 L${x} 112" class="cm-ln" marker-end="url(#em1)"/><text x="${(320+x)/2+(x<320?-14:x>320?14:8)}" y="88" text-anchor="middle" class="cm-t" font-size="12">${l}</text><rect x="${x-95}" y="114" width="190" height="62" rx="12" class="cm-box"/><text x="${x}" y="140" text-anchor="middle" class="cm-t" font-weight="700" font-size="13.5">${a}</text><text x="${x}" y="162" text-anchor="middle" class="cm-t" font-size="12">${b}</text>`).join('')}
+   <path d="M320 176 L320 210" class="cm-ln" marker-end="url(#em1)"/>
+   <rect x="120" y="212" width="400" height="70" rx="14" class="cm-k"/><text x="320" y="238" text-anchor="middle" class="cm-t" font-weight="700">لذلك نسميه اتزانًا ديناميكيًا (حركيًا)</text><text x="320" y="262" text-anchor="middle" class="cm-t" font-size="13">ويوصف بثابت الاتزان Keq</text>
+  </svg>`},
+ keqMap:{html:()=>flowMap('🗺️ خريطة مفاهيم: خطوات كتابة تعبير ثابت الاتزان',[{t:'المعادلة الموزونة'},{t:'النواتج في البسط',k:1},{t:'المتفاعلات في المقام',k:1},{t:'كل تركيز مرفوع لمعامله'},{t:'احذفي المواد',s:'الصلبة (s) والسائلة (l) النقية'}],'مثال: <span class="f">H2(g) + I2(g) ⇌ 2HI(g)</span> ← <span class="f">Keq = [HI]² / [H2][I2]</span>')},
+ keqScale:{html:()=>`<h4>⚖️ صورة تفاعلية: ميزان قيمة Keq</h4>
+  <svg viewBox="0 0 500 220" id="ksS" role="img" aria-label="ميزان يميل نحو النواتج أو المتفاعلات"></svg>
+  <label class="ctrl">قيمة ثابت الاتزان: <b class="ltr" id="ksV"></b><input type="range" dir="ltr" id="ksR" min="-4" max="4" step="1" value="0"></label>
+  <p class="cm-note" id="ksT"></p>`,
+  init(root){const up=()=>{const e=+$('#ksR',root).value,K=Math.pow(10,e),ang=Math.max(-18,Math.min(18,e*4.5));
+    const nR=Math.round(10/(1+K)*1),nP=10-nR;
+    $('#ksS',root).innerHTML=`<polygon points="250,200 230,170 270,170" fill="var(--muted)"/><g transform="rotate(${ang} 250 165)"><rect x="70" y="160" width="360" height="8" rx="4" fill="var(--mid)"/>
+      ${[[110,'المتفاعلات',nR,'#3B7BFF'],[390,'النواتج',nP,'#DE4527']].map(([x,l,n,c])=>`<line x1="${x}" y1="160" x2="${x}" y2="120" stroke="currentColor"/><rect x="${x-55}" y="80" width="110" height="40" rx="8" fill="var(--surface)" stroke="currentColor"/>${[...Array(n)].map((_,i)=>`<circle cx="${x-44+(i%5)*22}" cy="${92+Math.floor(i/5)*16}" r="6" fill="${c}"/>`).join('')}<text x="${x}" y="70" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">${l}</text>`).join('')}</g>`;
+    $('#ksV',root).textContent='Keq = 10'+String(e).split('').map(c=>SUP[c]).join('')+(e===0?' = 1':'');
+    $('#ksT',root).innerHTML=e>0?'Keq > 1: تراكيز النواتج أكبر من تراكيز المتفاعلات عند الاتزان، فيميل الميزان نحو النواتج.':e<0?'Keq < 1: تراكيز المتفاعلات أكبر عند الاتزان، فيميل الميزان نحو المتفاعلات. مثال: <span class="f">N2 + O2 ⇌ 2NO</span> قيمة Keq صغيرة جدًا عند 298 K.':'Keq = 1: تراكيز النواتج والمتفاعلات متقاربة.';fmAll(root);};
+    $('#ksR',root).addEventListener('input',up);up();}},
+ lcMap:{html:()=>`<h4>🗺️ خريطة مفاهيم: العوامل المؤثرة في الاتزان (مبدأ لوتشاتلييه)</h4>
+  <div class="tree"><div class="troot">جهد يؤثر على نظام متزن ← ينزاح الاتزان ليخفف الجهد</div>
+  <div class="tkids">${[['🛒 التركيز','إضافة مادة: ينزاح بعيدًا عنها','إزالة مادة: ينزاح نحوها','Keq لا يتغير'],['🎈 الحجم والضغط','زيادة الضغط: نحو مولات الغاز الأقل','نقص الضغط: نحو مولات الغاز الأكثر','مولات متساوية: لا يتأثر'],['🌡️ درجة الحرارة','رفعها: نحو الاتجاه الماص','خفضها: نحو الاتجاه الطارد','العامل الوحيد الذي يغيّر Keq'],['⚡ المحفز','يسرّع التفاعلين بالقدر نفسه','يصل للاتزان أسرع','لا يزيح الاتزان ولا يغيّر Keq']].map(([h,...l])=>`<div class="tnode"><b>${h}</b>${l.map((x,i)=>`<span class="${i===2?'tk':''}">${x}</span>`).join('')}</div>`).join('')}</div></div>`},
+ kspMap:{html:()=>flowMap('🗺️ خريطة مفاهيم: ثابت حاصل الذائبية',[{t:'مركب أيوني قليل الذوبان',s:'مثل BaSO4'},{t:'يذوب جزء قليل منه',s:'صلب ⇌ أيونات',k:1},{t:'Ksp = حاصل ضرب تراكيز الأيونات',s:'كل أيون مرفوع لمعامله',k:1},{t:'لا يُكتب الصلب'},{t:'Ksp صغيرة جدًا',s:'= ذائبية قليلة'}],'مثال: <span class="f">BaSO4(s) ⇌ Ba²⁺(aq) + SO4²⁻(aq)</span>، لذلك <span class="f">Ksp = [Ba²⁺][SO4²⁻] = 1.1 × 10⁻¹⁰</span>')},
+ qspMap:{html:()=>`<h4>🗺️ خريطة مفاهيم: مقارنة Qsp مع Ksp</h4><div class="ordgrid">${[['Qsp < Ksp','غير مشبع','يذوب المزيد، ولا يتكون راسب','💧'],['Qsp = Ksp','مشبع','حالة اتزان، لا يحدث تغيير','⚖️'],['Qsp > Ksp','فوق المشبع','يتكون راسب حتى يصبح Qsp = Ksp','🧂']].map(([a,b,c,e])=>`<div class="ord"><em class="ltr" style="font-size:22px">${a}</em><b>${e} ${b}</b><small>${c}</small></div>`).join('')}</div><p class="cm-note">Qsp (الحاصل الأيوني) يُحسب بالطريقة نفسها التي يُحسب بها Ksp، لكن بالتراكيز الحالية بعد الخلط.</p>`}
+};
+
+/* ---------- SIMS ---------- */
+const SIMS={};
+function plotSetup(cv){const ctx=cv.getContext('2d');const o={ctx,W:0,H:0};o.fit=()=>{const b=cv.getBoundingClientRect(),d=window.devicePixelRatio||1;o.W=b.width;o.H=b.height;cv.width=o.W*d;cv.height=o.H*d;ctx.setTransform(d,0,0,d,0,0);};o.fit();return o;}
+
+SIMS.eqSim={title:'الوصول إلى الاتزان',
+html:()=>`<h3>الوصول إلى الاتزان: <span class="f">A ⇌ B</span></h3><p class="desc">غيّري ثابتي سرعة التفاعلين الأمامي والعكسي، ثم ابدئي التفاعل. راقبي التراكيز في الرسم الأول، والسرعتين في الرسم الثاني.</p>
+ <div class="hc"><canvas id="esC" style="height:340px" aria-label="رسمان: التراكيز والسرعات مع الزمن"></canvas></div>
+ <div class="row" style="margin-top:10px"><label class="ctrl">ثابت سرعة التفاعل الأمامي kf: <b class="ltr" id="esFv"></b><input type="range" dir="ltr" id="esF" min="0.2" max="1" step="0.1" value="0.6"></label>
+ <label class="ctrl">ثابت سرعة التفاعل العكسي kr: <b class="ltr" id="esRv"></b><input type="range" dir="ltr" id="esR" min="0.1" max="1" step="0.1" value="0.2"></label></div>
+ <div class="row" style="margin-top:8px"><button type="button" class="btn sm cold" id="esA">ابدئي من المتفاعلات ([A] = 1 M)</button><button type="button" class="btn sm hot" id="esB">ابدئي من النواتج ([B] = 1 M)</button></div>
+ <div class="status wait" id="esOut" style="margin-top:10px">اختاري نقطة البداية.</div>
+ <div id="esQ" style="margin-top:12px"></div>`,
+init(root){
+  const P=plotSetup($('#esC',root));let start=null,prog=1,raf=0;const seen=new Set();
+  const lab=()=>{$('#esFv',root).textContent=$('#esF',root).value;$('#esRv',root).textContent=$('#esR',root).value;};
+  function draw(){const {ctx,W,H}=P;if(!W)return;const kf=+$('#esF',root).value,kr=+$('#esR',root).value,A0=start==='B'?0:1;const Aeq=kr/(kf+kr);
+    const A=t=>Aeq+(A0-Aeq)*Math.exp(-(kf+kr)*t),Tm=10;ctx.clearRect(0,0,W,H);ctx.direction='ltr';const ink=cssv('--muted');ctx.font='12px sans-serif';
+    const panels=[[10,H/2-14,'التركيز (M)'],[H/2+8,H-26,'السرعة']];
+    panels.forEach(([y0,y1,l],pi)=>{ctx.strokeStyle=ink;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(48,y0);ctx.lineTo(48,y1);ctx.lineTo(W-12,y1);ctx.stroke();ctx.fillStyle=ink;ctx.save();ctx.translate(14,(y0+y1)/2);ctx.rotate(-Math.PI/2);ctx.textAlign='center';ctx.fillText(l,0,0);ctx.restore();
+      if(!start)return;const X=t=>48+t/Tm*(W-64),Y=v=>y1-v/(pi?Math.max(kf,kr):1)*(y1-y0-8);const tEnd=Tm*prog;
+      const series=pi===0?[[t=>A(t),'#2763D8','[A]'],[t=>1-A(t),'#DE4527','[B]']]:[[t=>kf*A(t),'#2763D8','سرعة الأمامي'],[t=>kr*(1-A(t)),'#DE4527','سرعة العكسي']];
+      series.forEach(([f,c,n],si)=>{ctx.strokeStyle=c;ctx.lineWidth=2.5;ctx.beginPath();for(let t=0;t<=tEnd;t+=0.05){const x=X(t),y=Y(f(t));t===0?ctx.moveTo(x,y):ctx.lineTo(x,y);}ctx.stroke();ctx.fillStyle=c;ctx.textAlign='left';ctx.fillText(n,W-110,y0+14+si*15);});
+      if(prog>=1){const te=Math.log(50)/(kf+kr);if(te<Tm){ctx.setLineDash([5,4]);ctx.strokeStyle=ink;ctx.beginPath();ctx.moveTo(X(te),y0);ctx.lineTo(X(te),y1);ctx.stroke();ctx.setLineDash([]);if(pi===0){ctx.fillStyle=ink;ctx.textAlign='center';ctx.fillText('الاتزان',X(te),y0+10);}}}});
+    ctx.fillStyle=ink;ctx.textAlign='center';ctx.fillText('الزمن',W/2,H-6);
+    if(start&&prog>=1){const Ae=Aeq,Be=1-Aeq;$('#esOut',root).className='status ok';$('#esOut',root).innerHTML=`عند الاتزان: [A] = ${Ae.toFixed(2)} M و [B] = ${Be.toFixed(2)} M، والسرعتان متساويتان (${(kf*Ae).toFixed(2)} = ${(kr*Be).toFixed(2)}).<br><span class="ltr">Keq = [B]/[A] = ${(Be/Ae).toFixed(2)} = kf/kr</span>`;}}
+  const run=s=>{start=s;seen.add(s);prog=0;cancelAnimationFrame(raf);const t0=performance.now();const st=t=>{prog=reduced?1:Math.min(1,(t-t0)/2500);draw();if(prog<1)raf=requestAnimationFrame(st);else if(seen.size===2)completeTask('l1-start');};raf=requestAnimationFrame(st);};
+  $('#esA',root).addEventListener('click',()=>run('A'));$('#esB',root).addEventListener('click',()=>run('B'));
+  ['#esF','#esR'].forEach(s=>$(s,root).addEventListener('input',()=>{lab();prog=1;draw();}));
+  const ro=new ResizeObserver(()=>{P.fit();draw();});ro.observe($('#esC',root));onCleanup(()=>{ro.disconnect();cancelAnimationFrame(raf);});
+  lab();draw();
+  mcq(root,'#esQ','ماذا يحدث للسرعتين عند الوصول إلى الاتزان؟',['تتساويان، ويستمر التفاعلان دون توقف','تصبحان صفرًا ويتوقف التفاعل','تصبح سرعة الأمامي أكبر دائمًا','تتساوى تراكيز A و B'],0,()=>completeTask('l1-equal'));
+}};
+
+const KW=[
+ {eq:'N2(g) + 3H2(g) ⇌ 2NH3(g)',sp:[['N2(g)','r',1],['H2(g)','r',3],['NH3(g)','p',2]]},
+ {eq:'H2(g) + I2(g) ⇌ 2HI(g)',sp:[['H2(g)','r',1],['I2(g)','r',1],['HI(g)','p',2]]},
+ {eq:'2NaHCO3(s) ⇌ Na2CO3(s) + CO2(g) + H2O(g)',sp:[['NaHCO3(s)','x',2],['Na2CO3(s)','x',1],['CO2(g)','p',1],['H2O(g)','p',1]]},
+ {eq:'C2H5OH(l) ⇌ C2H5OH(g)',sp:[['C2H5OH(l)','x',1],['C2H5OH(g)','p',1]]},
+ {eq:'2H2O2(l) ⇌ 2H2O(g) + O2(g)',sp:[['H2O2(l)','x',2],['H2O(g)','p',2],['O2(g)','p',1]]}
+];
+const nameOnly=s=>s.replace(/\((s|l|g|aq)\)$/,'');
+SIMS.keqWrite={title:'بناء تعبير ثابت الاتزان',
+html:()=>`<h3>ابني تعبير ثابت الاتزان</h3><p class="desc">اختاري تفاعلًا، ثم حدّدي لكل مادة مكانها (بسط أو مقام أو لا تُكتب) والأس الذي تُرفع إليه، وتحقّقي.</p>
+ <div class="tabs" id="kwT">${KW.map((r,i)=>`<button type="button" class="tab" data-i="${i}" aria-selected="${i===0}">تفاعل ${i+1}</button>`).join('')}</div>
+ <div class="target" id="kwE"></div><div id="kwRows" class="kwrows"></div>
+ <div class="kwprev">التعبير الذي بنيتِه: <span id="kwP" class="ltr"></span></div>
+ <div class="row" style="margin-top:10px"><button type="button" class="btn sm" id="kwC">تحقّقي</button></div><p class="fb" id="kwF"></p>`,
+init(root){let cur=0;const solved=new Set();
+  const term=(n,e)=>`[${fm(nameOnly(n))}]${e>1?supN(e):''}`;
+  const prev=()=>{const rows=$$('.kwr',root);let num=[],den=[];rows.forEach(r=>{const role=$('select.role',r).value,e=+$('select.exp',r).value;if(role==='p')num.push(term(r.dataset.n,e));if(role==='r')den.push(term(r.dataset.n,e));});
+    $('#kwP',root).innerHTML=`Keq = <span class="frac"><span>${num.join('')||'1'}</span><span>${den.join('')||'1'}</span></span>`;};
+  const render=()=>{const R=KW[cur];$('#kwE',root).innerHTML=`<span class="f">${R.eq}</span>`;
+    $('#kwRows',root).innerHTML=R.sp.map(([n])=>`<div class="kwr" data-n="${n}"><span class="f">${n}</span><select class="role" aria-label="المكان"><option value="">اختاري</option><option value="p">في البسط</option><option value="r">في المقام</option><option value="x">لا تُكتب</option></select><select class="exp" aria-label="الأس"><option>1</option><option>2</option><option>3</option></select></div>`).join('');
+    fmAll(root);$$('#kwRows select',root).forEach(s=>s.addEventListener('change',prev));$('#kwF',root).textContent='';prev();};
+  $$('#kwT .tab',root).forEach(t=>t.addEventListener('click',()=>{cur=+t.dataset.i;$$('#kwT .tab',root).forEach(x=>x.setAttribute('aria-selected',x===t));render();}));
+  $('#kwC',root).addEventListener('click',()=>{const R=KW[cur];const rows=$$('.kwr',root);let ok=true,why='';
+    rows.forEach((r,i)=>{const [n,role,c]=R.sp[i];const ur=$('select.role',r).value,ue=+$('select.exp',r).value;if(ur!==role)ok=false;if(role!=='x'&&ue!==c){ok=false;why='تذكّري: الأس يساوي معامل المادة في المعادلة الموزونة.';}});
+    const f=$('#kwF',root);if(ok){f.className='fb ok';f.textContent='✓ تعبير صحيح!';solved.add(cur);$$('#kwT .tab',root)[cur].classList.add('solved');if(solved.size>=2)completeTask('l1-write');}
+    else{f.className='fb bad';f.textContent='✗ راجعي: النواتج في البسط، والمتفاعلات في المقام، والمواد الصلبة (s) والسائلة (l) لا تُكتب. '+why;}});
+  render();
+}};
+
+SIMS.keqLab={title:'مختبر ثبات Keq',
+html:()=>`<h3>🔬 مختبر: ثبات قيمة Keq (الجدول 3-1)</h3><p class="desc">التفاعل <span class="f">H2(g) + I2(g) ⇌ 2HI(g)</span> عند 731 K في وعاء حجمه 1 L. اختاري كميات ابتدائية مختلفة، وأجري التفاعل حتى الاتزان، ثم قارني قيم Keq.</p>
+ <div class="row"><label class="ctrl">[H₂] الابتدائي (M)<select id="klH"><option>1.0000</option><option>2.0000</option><option>0.5000</option><option>0</option></select></label>
+ <label class="ctrl">[I₂] الابتدائي (M)<select id="klI"><option>2.0000</option><option>1.0000</option><option>0.5000</option><option>0</option></select></label>
+ <label class="ctrl">[HI] الابتدائي (M)<select id="klHI"><option>0</option><option>1.0000</option><option>5.0000</option></select></label>
+ <button type="button" class="btn sm hot" id="klGo" style="align-self:flex-end">🧪 أجري التفاعل</button></div>
+ <div class="bars3" id="klB"></div>
+ <table class="ctable" style="margin-top:10px"><tr><th>المحاولة</th><th>[H₂] عند الاتزان</th><th>[I₂] عند الاتزان</th><th>[HI] عند الاتزان</th><th>Keq = [HI]²/[H₂][I₂]</th></tr><tbody id="klT"></tbody></table>
+ <p class="fb" id="klF"></p>
+ ${prac('احسبي Keq للتفاعل <span class="f">N2(g) + 3H2(g) ⇌ 2NH3(g)</span> إذا كانت [NH3] = 0.933 M و [N2] = 0.533 M و [H2] = 1.600 M.','',0.399,0.01,'l1-calc','Keq = [NH3]² ÷ ([N2][H2]³)')}
+ ${prac('احسبي Keq للاتزان <span class="f">N2O4(g) ⇌ 2NO2(g)</span> إذا كانت [N2O4] = 0.0185 M و [NO2] = 0.0627 M.','',0.2125,0.01,'','Keq = [NO2]² ÷ [N2O4]')}
+ ${prac('احسبي Keq للاتزان <span class="f">CO(g) + 3H2(g) ⇌ CH4(g) + H2O(g)</span> إذا كانت [CO] = 0.0613 M و [H2] = 0.1839 M و [CH4] = [H2O] = 0.0387 M.','',3.93,0.01,'','[CH4][H2O] ÷ ([CO][H2]³)')}`,
+init(root){const K=49.7;let n=0;
+  const bars=(h,i,hi)=>{const mx=Math.max(2.2,h,i,hi);$('#klB',root).innerHTML=[['H₂',h,'#3B7BFF'],['I₂',i,'#8A4FC8'],['HI',hi,'#DE4527']].map(([l,v,c])=>`<div class="b3"><div class="b3t"><i style="height:${v/mx*100}%;background:${c}"></i></div><b class="ltr">${v.toFixed(4)}</b><span>${l}</span></div>`).join('');};
+  bars(1,2,0);
+  $('#klGo',root).addEventListener('click',()=>{const a=+$('#klH',root).value,b=+$('#klI',root).value,c=+$('#klHI',root).value;const F=$('#klF',root);
+    if((a===0||b===0)&&c===0){F.className='fb bad';F.textContent='يلزم وجود H₂ و I₂ معًا، أو وجود HI، حتى يحدث تفاعل.';return;}
+    const x=bisect(x=>(c+2*x)**2-K*(a-x)*(b-x),-c/2+1e-12,Math.min(a,b)-1e-12);
+    const e=[a-x,b-x,c+2*x];$('#klGo',root).disabled=true;
+    tween(1600,k=>bars(a+(e[0]-a)*k,b+(e[1]-b)*k,c+(e[2]-c)*k),()=>{$('#klGo',root).disabled=false;n++;addRow($('#klT',root),[n,e[0].toFixed(4),e[1].toFixed(4),e[2].toFixed(4),(e[2]**2/(e[0]*e[1])).toFixed(2)]);
+      F.className='fb ok';F.textContent=n<3?`سجّلتِ ${n} من 3 محاولات. غيّري الكميات الابتدائية وأعيدي.`:'لاحظي: مواضع الاتزان مختلفة، لكن قيمة Keq ثابتة (49.7) عند درجة الحرارة نفسها.';if(n>=3)completeTask('l1-lab');});});
+}};
+
+/* ----- lesson 2 ----- */
+SIMS.shiftSim={title:'محاكي مبدأ لوتشاتلييه',
+html:()=>`<h3>محاكي مبدأ لوتشاتلييه: إنتاج الميثان</h3><p class="desc"><span class="f">CO(g) + 3H2(g) ⇌ CH4(g) + H2O(g)</span> و ΔH = −206.5 kJ (طارد). النظام متزن عند 1200 K. اختاري جهدًا وراقبي كيف ينزاح الاتزان.</p>
+ <div class="bars3 b4" id="ssB"></div>
+ <div class="ssbtns">${[['addCO','➕ إضافة CO'],['remH2O','➖ إزالة H₂O'],['addCH4','➕ إضافة CH₄'],['comp','🔽 تقليل الحجم (زيادة الضغط)'],['exp','🔼 زيادة الحجم'],['heat','🔥 رفع الحرارة'],['cool','❄️ خفض الحرارة'],['cat','⚡ إضافة محفز']].map(([k,l])=>`<button type="button" class="btn sm ghost" data-a="${k}">${l}</button>`).join('')}<button type="button" class="btn sm" id="ssR">↺ إعادة</button></div>
+ <div class="status wait" id="ssOut" style="margin-top:10px">النظام في حالة اتزان: Keq = 3.933</div>`,
+init(root){let C,K,busy=false;const used=new Set();const NM=['CO','H₂','CH₄','H₂O'],CL=['#3B7BFF','#8A4FC8','#DE4527','#1FAE7A'];
+  const reset=()=>{C=[0.3,0.1,0.059,0.02];K=3.933;bars(C,null);$('#ssOut',root).className='status wait';$('#ssOut',root).textContent='النظام في حالة اتزان: Keq = 3.933';};
+  function bars(v,old){const mx=Math.max(1.1,...v);$('#ssB',root).innerHTML=v.map((x,i)=>`<div class="b3"><div class="b3t">${old?`<i class="ghost" style="height:${old[i]/mx*100}%"></i>`:''}<i style="height:${x/mx*100}%;background:${CL[i]}"></i></div><b class="ltr">${x.toFixed(4)}</b><span>${NM[i]}</span></div>`).join('');}
+  const solve=(c,K)=>{const f=x=>(c[2]+x)*(c[3]+x)-K*(c[0]-x)*Math.pow(c[1]-3*x,3);const x=bisect(f,-Math.min(c[2],c[3])+1e-12,Math.min(c[0],c[1]/3)-1e-12);return [c[0]-x,c[1]-3*x,c[2]+x,c[3]+x];};
+  $$('[data-a]',root).forEach(b=>b.addEventListener('click',()=>{if(busy)return;const a=b.dataset.a;const old=C.slice();let d=C.slice(),msg='',cat='';
+    if(a==='addCO'){d[0]+=0.7;cat='c';msg='أضفنا CO (متفاعل)';}if(a==='remH2O'){d[3]*=0.5;cat='c';msg='أزلنا نصف H₂O (ناتج)';}if(a==='addCH4'){d[2]+=0.1;cat='c';msg='أضفنا CH₄ (ناتج)';}
+    if(a==='comp'){d=d.map(x=>x*2);cat='p';msg='قلّلنا الحجم إلى النصف فتضاعفت التراكيز';}if(a==='exp'){d=d.map(x=>x/2);cat='p';msg='ضاعفنا الحجم فقلّت التراكيز إلى النصف';}
+    if(a==='heat'){K*=0.4;cat='t';msg='رفعنا الحرارة: التفاعل طارد، فتقل قيمة Keq';}if(a==='cool'){K*=2.5;cat='t';msg='خفضنا الحرارة: التفاعل طارد، فتزداد قيمة Keq';}
+    if(a==='cat'){used.add('k');$('#ssOut',root).className='status ok';$('#ssOut',root).innerHTML='⚡ المحفز يسرّع التفاعلين الأمامي والعكسي بالقدر نفسه: لا إزاحة، ولا تغير في التراكيز أو Keq. فقط يُبلغ الاتزان أسرع.';if(used.size>=3)completeTask('l2-sim');return;}
+    used.add(cat);busy=true;bars(d,old);const e=solve(d,K);const dir=e[2]>d[2]+1e-6?'right':e[2]<d[2]-1e-6?'left':'none';
+    setTimeout(()=>tween(1400,k=>bars(d.map((x,i)=>x+(e[i]-x)*k),old),()=>{busy=false;C=e;
+      $('#ssOut',root).className='status ok';$('#ssOut',root).innerHTML=`${msg} ← ${dir==='right'?'<b>انزاح الاتزان نحو اليمين</b> (تكوين مزيد من CH₄ و H₂O)':dir==='left'?'<b>انزاح الاتزان نحو اليسار</b> (تكوين مزيد من CO و H₂)':'لم ينزح الاتزان'}.<br>Keq = <b class="ltr">${K.toFixed(3)}</b>${cat==='t'?' (قيمة توضيحية بعد تغير الحرارة)':' (لم تتغير)'}`;if(used.size>=3)completeTask('l2-sim');}),600);}));
+  $('#ssR',root).addEventListener('click',reset);reset();
+}};
+
+SIMS.labConcEq={title:'مختبر: التركيز والاتزان',
+html:()=>labShell('lq','مختبر: اتزان أيونات الثيوسيانات الحديدية','<span class="f">Fe³⁺(aq) + SCN⁻(aq) ⇌ FeSCN²⁺(aq)</span>، حيث أيون Fe³⁺ أصفر باهت، وSCN⁻ عديم اللون، وFeSCN²⁺ أحمر. الأنبوب الأيسر للمقارنة، والأيمن للتجربة. أضيفي المواد وراقبي اللون.',
+ `<div class="lablbl">أضيفي إلى أنبوب التجربة</div><div class="col-btns"><button type="button" class="btn sm ghost" data-a="fe">💧 قطرات FeCl₃ (تزيد Fe³⁺)</button><button type="button" class="btn sm ghost" data-a="scn">💧 قطرات KSCN (تزيد SCN⁻)</button><button type="button" class="btn sm ghost" data-a="rem">💧 Na₂HPO₄ (يزيل Fe³⁺)</button><button type="button" class="btn sm" data-a="reset">↺ أنبوب جديد</button></div>`)+
+ `<table class="ctable" style="margin-top:12px"><tr><th>المادة المضافة</th><th>اللون مقارنة بالأنبوب المرجعي</th><th>اتجاه الإزاحة</th></tr><tbody id="lqT"></tbody></table><div id="lqQ" style="margin-top:12px"></div>`,
+init(root){const K=600;let fe,scn;const done=new Set();
+  const eq=(f,s)=>bisect(x=>x-K*(f-x)*(s-x),0,Math.min(f,s));
+  const col=x=>`rgba(${170+40*(1-x/0.0024)},${25},${25},${Math.min(.95,0.12+x/0.0024*0.8)})`;
+  const tube=(cx,x,lbl)=>`<path d="M${cx-22} 40 L${cx-22} 200 Q${cx-22} 228 ${cx} 228 Q${cx+22} 228 ${cx+22} 200 L${cx+22} 40" fill="none" stroke="currentColor" stroke-width="3"/><path d="M${cx-20} 90 L${cx+20} 90 L${cx+20} 200 Q${cx+20} 226 ${cx} 226 Q${cx-20} 226 ${cx-20} 200Z" fill="${col(x)}" ${lbl==='exp'?'id="lqL"':''}/><text x="${cx}" y="250" text-anchor="middle" font-size="12" fill="currentColor">${lbl==='exp'?'التجربة':'المرجع'}</text>`;
+  const x0=eq(0.0012,0.0012);
+  const scene=x=>{$('#lqS',root).innerHTML=tube(110,x0,'ref')+tube(250,x,'exp')+`<g id="drops"></g>`;};
+  const reset=()=>{fe=0.0012;scn=0.0012;scene(eq(fe,scn));setMsg(root,'lq','');};
+  $$('[data-a]',root).forEach(b=>b.addEventListener('click',()=>{const a=b.dataset.a;if(a==='reset'){reset();return;}
+    const xBefore=eq(fe,scn);if(a==='fe')fe+=0.0012;if(a==='scn')scn+=0.0012;if(a==='rem'){fe-=0.75*(fe-xBefore);}
+    const xA=eq(fe,scn);const g=$('#drops',root);g.innerHTML=[0,1,2].map(i=>`<circle cx="250" cy="${10+i*8}" r="4" fill="${a==='fe'?'#E3B23C':a==='scn'?'#ddd':'#cfe8ff'}" stroke="#888"><animate attributeName="cy" from="${10+i*8}" to="95" dur="0.6s" begin="${i*0.15}s" fill="freeze"/></circle>`).join('');
+    tween(1500,k=>$('#lqL',root).setAttribute('fill',col(xBefore+(xA-xBefore)*k)),()=>{g.innerHTML='';done.add(a);
+      const darker=xA>xBefore;upsertRow($('#lqT',root),a,[a==='fe'?'FeCl₃ (Fe³⁺)':a==='scn'?'KSCN (SCN⁻)':'Na₂HPO₄ (يزيل Fe³⁺)',darker?'أحمر أغمق':'أفتح (أقل احمرارًا)',darker?'نحو اليمين (يتكون FeSCN²⁺)':'نحو اليسار (يتفكك FeSCN²⁺)']);
+      setMsg(root,'lq',darker?'زاد تركيز أحد المتفاعلات فانزاح الاتزان نحو اليمين وزاد اللون الأحمر.':'نقص تركيز Fe³⁺ فانزاح الاتزان نحو اليسار لتعويضه، فبهت اللون.');
+      if(done.size>=3&&!$('#lqQ .opts',root))mcq(root,'#lqQ','وفق مبدأ لوتشاتلييه، لماذا بهت اللون الأحمر عند إضافة Na₂HPO₄؟',['لأنه أزال أيونات Fe³⁺ فانزاح الاتزان نحو اليسار لتعويضها','لأنه محفز','لأنه زاد قيمة Keq','لأنه رفع درجة الحرارة'],0,()=>completeTask('l2-conc'));});}));
+  reset();
+}};
+
+SIMS.labPressure={title:'مختبر: الضغط والاتزان',
+html:()=>labShell('lp','مختبر: محقن غاز N₂O₄ و NO₂','محقن مغلق فيه خليط متزن: <span class="f">N2O4(g) ⇌ 2NO2(g)</span>، حيث N₂O₄ عديم اللون و NO₂ بني. في الطرف الأيسر مول غاز واحد، وفي الأيمن مولان. اضغطي المكبس أو اسحبيه وراقبي اللون وعدد المولات.',
+ `<label class="ctrl">حجم الغاز في المحقن: <b class="ltr" id="lpVv">100 mL</b><input type="range" dir="ltr" id="lpV" min="40" max="100" step="20" value="100"></label><div class="lpinfo" id="lpI"></div>`)+`<div id="lpQ" style="margin-top:12px"></div>`,
+init(root){const Kc=0.0046,n0=0.004;let V=0.1,y;const seen=new Set();
+  const yeq=V=>{const KV=Kc*V;return(-KV+Math.sqrt(KV*KV+16*KV*n0))/8;};y=yeq(V);
+  const frac=y=>2*y/(n0+y);
+  const draw=(V,y)=>{const f=frac(y),len=40+V*1000*2.2;const a=Math.max(.05,Math.min(.9,(f-0.12)/0.2*0.75));
+    let seed=5;const rnd=()=>{seed=(seed*9301+49297)%233280;return seed/233280;};
+    const nN=Math.round((n0-y)*2500),nM=Math.round(2*y*2500);
+    const mol=[...Array(nN)].map(()=>{const x=40+rnd()*(len-16),yy=110+rnd()*50;return `<circle cx="${x-3}" cy="${yy}" r="3.2" fill="#E6EBF2" stroke="#8090a6"/><circle cx="${x+3}" cy="${yy}" r="3.2" fill="#E6EBF2" stroke="#8090a6"/>`;}).join('')+[...Array(nM)].map(()=>`<circle cx="${40+rnd()*(len-16)}" cy="${110+rnd()*50}" r="3.4" fill="#8B3A12"/>`).join('');
+    $('#lpS',root).innerHTML=`<rect x="30" y="100" width="290" height="70" rx="8" fill="none" stroke="currentColor" stroke-width="3"/><rect x="32" y="102" width="${len}" height="66" fill="rgba(160,82,45,${a})"/>${mol}<rect x="${32+len}" y="96" width="12" height="78" rx="3" fill="#888"/><rect x="${44+len}" y="128" width="${300-len}" height="14" fill="#aaa"/><rect x="330" y="110" width="14" height="50" rx="3" fill="#888"/><rect x="18" y="125" width="14" height="20" fill="#888"/>
+      <text x="175" y="200" text-anchor="middle" font-size="13" fill="currentColor">نسبة NO₂ البني في الخليط: ${Math.round(f*100)}%</text><circle cx="112" cy="218" r="3.2" fill="#E6EBF2" stroke="#8090a6"/><circle cx="119" cy="218" r="3.2" fill="#E6EBF2" stroke="#8090a6"/><text x="128" y="222" font-size="11" fill="currentColor" direction="ltr">N₂O₄</text><circle cx="200" cy="218" r="3.4" fill="#8B3A12"/><text x="208" y="222" font-size="11" fill="currentColor" direction="ltr">NO₂</text>`;
+    $('#lpI',root).innerHTML=`مولات N₂O₄: <b class="ltr">${((n0-y)*1000).toFixed(2)} mmol</b><br>مولات NO₂: <b class="ltr">${(2*y*1000).toFixed(2)} mmol</b><br>مولات الغاز الكلية: <b class="ltr">${((n0+y)*1000).toFixed(2)} mmol</b>`;};
+  draw(V,y);
+  $('#lpV',root).addEventListener('change',()=>{const nv=+$('#lpV',root).value/1000;if(nv===V)return;const comp=nv<V;V=nv;$('#lpVv',root).textContent=Math.round(V*1000)+' mL';$('#lpV',root).disabled=true;
+    draw(V,y);setMsg(root,'lp',comp?'ضغطتِ المكبس فزاد الضغط… راقبي ما يحدث للخليط.':'سحبتِ المكبس فقلّ الضغط… راقبي ما يحدث للخليط.');
+    const y2=yeq(V),y1=y;setTimeout(()=>tween(1800,k=>{y=y1+(y2-y1)*k;draw(V,y);},()=>{$('#lpV',root).disabled=false;seen.add(comp?'c':'e');
+      setMsg(root,'lp',comp?'انزاح الاتزان نحو N₂O₄ (مول غاز واحد بدل مولين) لتقليل عدد مولات الغاز وتخفيف الضغط، فقلّ NO₂ البني وأصبح اللون أفتح.':'انزاح الاتزان نحو NO₂ (عدد مولات أكبر) لتعويض نقص الضغط، فزاد NO₂ وأصبح اللون بنيًا أغمق.');
+      if(seen.size===2&&!$('#lpQ .opts',root))mcq(root,'#lpQ','عند تقليل حجم المحقن (زيادة الضغط)، ينزاح الاتزان نحو:',['N₂O₄ لأن عدد مولات الغاز فيه أقل، فيفتح اللون','NO₂ لأن عدد مولاته أكبر، فيغمق اللون','لا ينزاح الاتزان','يتوقف التفاعل'],0,()=>completeTask('l2-press'));}),700);});
+}};
+
+SIMS.labTempEq={title:'مختبر: الحرارة والاتزان',
+html:()=>labShell('lt','مختبر: أنبوب N₂O₄ و NO₂ في حمامات مختلفة','<span class="f">N2O4(g)</span> + حرارة ⇌ <span class="f">2NO2(g)</span> بني. ضعي الأنبوب المغلق في حمام ثلجي أو ماء بدرجة الغرفة أو ماء ساخن، وراقبي اللون.',
+ `<div class="lablbl">اختاري الحمام</div>${radioChips('ltB',[['0','❄️ حمام ثلجي <span class="ltr">0 °C</span>'],['25','🌡️ درجة الغرفة <span class="ltr">25 °C</span>'],['80','🔥 ماء ساخن <span class="ltr">80 °C</span>']])}<button type="button" class="btn hot" id="ltGo">ضعي الأنبوب في الحمام</button>`)+
+ `<table class="ctable" style="margin-top:12px"><tr><th>الحمام</th><th>لون الغاز</th><th>الاتجاه السائد</th></tr><tbody id="ltT"></tbody></table><div id="ltQ" style="margin-top:12px"></div>`,
+init(root){const A={0:0.12,25:0.4,80:0.85};let cur=0.4;const seen=new Set();
+  const scene=(T,a)=>{const bath=T==0?'rgba(170,215,240,.6)':T==25?'rgba(200,210,220,.35)':'rgba(240,120,90,.35)';
+    $('#ltS',root).innerHTML=`<rect x="70" y="120" width="220" height="115" rx="10" fill="${bath}" stroke="currentColor" stroke-width="2"/>${T==0?[...Array(7)].map((_,i)=>`<rect x="${85+i*28}" y="${130+(i%3)*14}" width="16" height="14" rx="3" fill="#fff" opacity=".8"/>`).join(''):''}${T==80?[...Array(6)].map((_,i)=>`<path d="M${95+i*32} 115 q6 -10 0 -20 q-6 -10 0 -20" stroke="#bbb" fill="none"/>`).join(''):''}
+      <path d="M160 30 L160 200 Q160 222 180 222 Q200 222 200 200 L200 30" fill="none" stroke="currentColor" stroke-width="3"/><rect x="156" y="22" width="48" height="12" rx="3" fill="#555"/><path id="ltG" d="M162 36 L198 36 L198 200 Q198 220 180 220 Q162 220 162 200Z" fill="rgba(160,82,45,${a})"/><text x="180" y="252" text-anchor="middle" font-size="12" fill="currentColor" direction="ltr">${T} °C</text>`;};
+  bindChips(root,'ltB',v=>scene(+v,cur));scene(0,cur);
+  $('#ltGo',root).addEventListener('click',()=>{const T=+chipVal(root,'ltB');const from=cur,to=A[T];scene(T,from);$('#ltGo',root).disabled=true;
+    tween(1800,k=>{cur=from+(to-from)*k;$('#ltG',root).setAttribute('fill',`rgba(160,82,45,${cur})`);},()=>{$('#ltGo',root).disabled=false;seen.add(T);
+      upsertRow($('#ltT',root),T,[T==0?'ثلجي 0 °C':T==25?'الغرفة 25 °C':'ساخن 80 °C',T==0?'شبه عديم اللون':T==25?'بني فاتح':'بني غامق',T==0?'N₂O₄ (نحو اليسار)':T==25?'خليط متزن':'NO₂ (نحو اليمين)']);
+      setMsg(root,'lt',T==80?'التسخين أزاح الاتزان نحو اليمين (الاتجاه الماص) فزاد NO₂ البني، وتزداد Keq.':T==0?'التبريد أزاح الاتزان نحو اليسار (الاتجاه الطارد) فقلّ NO₂، وتقل Keq.':'عند درجة الغرفة يوجد الغازان معًا.');
+      if(seen.size>=3&&!$('#ltQ .opts',root))mcq(root,'#ltQ','من نتائجك: هل التفاعل N₂O₄ ⇌ 2NO₂ ماص أم طارد للحرارة؟',['ماص للحرارة، لأن التسخين أزاح الاتزان نحو NO₂','طارد للحرارة، لأن التسخين زاد NO₂','لا يمكن معرفة ذلك','لا تؤثر الحرارة فيه'],0,()=>completeTask('l2-temp'));});});
+}};
+
+SIMS.catEq={title:'المحفز والاتزان',
+html:()=>`<h3>المحفز والاتزان</h3><p class="desc">قارني تركيز الناتج مع الزمن في تفاعل دون محفز وتفاعل مع محفز يبدآن من التراكيز نفسها.</p>
+ <div class="hc"><canvas id="ceC" aria-label="منحنيا التفاعل المحفز وغير المحفز"></canvas></div>
+ <div class="row" style="margin-top:8px"><button type="button" class="btn sm cold" id="ceGo">▶ ابدئي التفاعلين</button></div>
+ <div id="ceQ" style="margin-top:12px"></div>`,
+init(root){const P=plotSetup($('#ceC',root));let prog=0,raf=0;
+  const draw=()=>{const {ctx,W,H}=P;if(!W)return;ctx.clearRect(0,0,W,H);ctx.direction='ltr';const ink=cssv('--muted');ctx.strokeStyle=ink;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(48,12);ctx.lineTo(48,H-30);ctx.lineTo(W-12,H-30);ctx.stroke();ctx.fillStyle=ink;ctx.font='12px sans-serif';ctx.textAlign='center';ctx.fillText('الزمن',W/2,H-8);
+    ctx.save();ctx.translate(16,H/2);ctx.rotate(-Math.PI/2);ctx.fillText('تركيز الناتج',0,0);ctx.restore();
+    const X=t=>48+t/10*(W-64),Y=v=>H-30-v*(H-60);const eqv=0.7;
+    [[1.6,'#2763D8','مع محفز'],[0.35,'#DE4527','دون محفز']].forEach(([k,c,l],i)=>{ctx.strokeStyle=c;ctx.lineWidth=2.5;ctx.beginPath();for(let t=0;t<=10*prog;t+=0.05){const v=eqv*(1-Math.exp(-k*t));t===0?ctx.moveTo(X(t),Y(v)):ctx.lineTo(X(t),Y(v));}ctx.stroke();ctx.fillStyle=c;ctx.textAlign='left';ctx.fillText(l,W-100,24+i*16);});
+    ctx.setLineDash([5,4]);ctx.strokeStyle=ink;ctx.beginPath();ctx.moveTo(48,Y(eqv));ctx.lineTo(W-12,Y(eqv));ctx.stroke();ctx.setLineDash([]);ctx.fillStyle=ink;ctx.textAlign='left';ctx.fillText('تركيز الاتزان (نفسه)',52,Y(eqv)-6);};
+  $('#ceGo',root).addEventListener('click',()=>{cancelAnimationFrame(raf);const t0=performance.now();const s=t=>{prog=reduced?1:Math.min(1,(t-t0)/3000);draw();if(prog<1)raf=requestAnimationFrame(s);};raf=requestAnimationFrame(s);});
+  const ro=new ResizeObserver(()=>{P.fit();draw();});ro.observe($('#ceC',root));onCleanup(()=>{ro.disconnect();cancelAnimationFrame(raf);});draw();
+  mcq(root,'#ceQ','ما الذي يغيّره المحفز في نظام الاتزان؟',['الزمن اللازم للوصول إلى الاتزان فقط','تركيز الناتج عند الاتزان','قيمة Keq','اتجاه الإزاحة نحو النواتج'],0,()=>completeTask('l2-cat'));
+}};
+
+/* ----- lesson 3 ----- */
+SIMS.eqCalc={title:'حساب تراكيز الاتزان',
+html:()=>`<h3>حساب تراكيز الاتزان خطوة بخطوة</h3><p class="desc">ما تركيز H₂ عند الاتزان للتفاعل <span class="f">2H2S(g) ⇌ 2H2(g) + S2(g)</span> إذا كان Keq = 2.27 × 10⁻³ و [H2S] = 0.184 mol/L و [S2] = 0.0540 mol/L؟</p>
+ <ol class="steps" id="ecS"></ol><div class="row"><button type="button" class="btn sm cold" id="ecN">اكشفي الخطوة التالية</button></div>
+ ${prac('الآن أنتِ: احسبي [H2] عند الاتزان في المثال السابق.','mol/L',0.0377,0.02,'l3-calc','[H2]² = Keq × [H2S]² ÷ [S2]، ثم خذي الجذر التربيعي.')}
+ ${prac('<span class="f">CO(g) + 3H2(g) ⇌ CH4(g) + H2O(g)</span> و Keq = 3.933. ما [CH4] إذا كانت [CO] = 0.850 M و [H2] = 1.333 M و [H2O] = 0.286 M؟','mol/L',27.7,0.02,'','[CH4] = Keq × [CO][H2]³ ÷ [H2O]')}
+ ${prac('<span class="f">CO(g) + 2H2(g) ⇌ CH3OH(g)</span> و Keq = 10.5. ما [CO] في خليط اتزان يحتوي على 0.933 M من H2 و 1.32 M من CH3OH؟','mol/L',0.1444,0.02,'','[CO] = [CH3OH] ÷ (Keq × [H2]²)')}`,
+init(root){const S=['اكتبي تعبير ثابت الاتزان: <span class="ltr">Keq = [H2]²[S2] / [H2S]²</span>','أعيدي الترتيب لعزل المجهول: <span class="ltr">[H2]² = Keq × [H2S]² / [S2]</span>','عوّضي: <span class="ltr">[H2]² = (2.27 × 10⁻³)(0.184)² / 0.0540 = 1.42 × 10⁻³</span>','خذي الجذر: <span class="ltr">[H2] = 0.0377 mol/L</span>','قيّمي: Keq < 1 فالمتفاعلات أكثر، لذا [H2] أقل من [H2S]، والإجابة معقولة.'];let i=0;
+  $('#ecN',root).addEventListener('click',()=>{if(i<S.length){$('#ecS',root).insertAdjacentHTML('beforeend',`<li>${S[i++]}</li>`);fmAll(root);}if(i>=S.length)$('#ecN',root).disabled=true;});}};
+
+const SALTS={AgCl:[1.8e-10,'كلوريد الفضة'],BaSO4:[1.1e-10,'كبريتات الباريوم'],CaCO3:[3.4e-9,'كربونات الكالسيوم'],CuCO3:[2.5e-10,'كربونات النحاس II'],ZnCO3:[1.5e-10,'كربونات الخارصين'],PbCrO4:[2.3e-13,'كرومات الرصاص']};
+SIMS.labKsp={title:'مختبر: الذوبان والإشباع',
+html:()=>labShell('lk','مختبر: أذيبي الملح حتى الإشباع','أضيفي ملاعق صغيرة من ملح قليل الذوبان إلى 1 L من الماء (كل ملعقة = 1.0 × 10⁻⁵ mol)، وراقبي متى يتوقف الذوبان ويبدأ الصلب بالتراكم.',
+ `<div class="lablbl">الملح</div>${radioChips('lkSalt',Object.keys(SALTS).map(k=>[k,`<span class="f">${k}</span>`]))}<label class="ctrl">عدد الملاعق المضافة: <b id="lkNv">0</b><input type="range" dir="ltr" id="lkN" min="0" max="10" step="1" value="0"></label><div class="lpinfo" id="lkI"></div>`)+
+ `<div id="lkQ" style="margin-top:12px"></div>
+ ${prac('استعملي Ksp لكربونات النحاس <span class="f">CuCO3</span> (2.5 × 10⁻¹⁰) لحساب ذائبيتها المولارية عند 298 K.','mol/L',1.58e-5,0.03,'l3-s','s = √Ksp لأن نسبة الأيونات 1:1')}
+ ${prac('احسبي الذائبية المولارية لـ <span class="f">AgCl</span> (Ksp = 1.8 × 10⁻¹⁰).','mol/L',1.34e-5,0.03,'','s = √(1.8 × 10⁻¹⁰)')}
+ ${prac('احسبي الذائبية المولارية لـ <span class="f">PbCrO4</span> (Ksp = 2.3 × 10⁻¹³).','mol/L',4.8e-7,0.03,'','s = √(2.3 × 10⁻¹³)')}`,
+init(root){
+  const up=()=>{const k=chipVal(root,'lkSalt'),n=+$('#lkN',root).value;const Ksp=SALTS[k][0],s=Math.sqrt(Ksp),added=n*1e-5,dis=Math.min(added,s),und=Math.max(0,added-s);
+    const ions=Math.round(dis/6e-5*36);let seed=3;const rnd=()=>{seed=(seed*9301+49297)%233280;return seed/233280;};
+    const svg=$('svg.labsvg',root);
+    svg.innerHTML=BEAKER('rgba(190,225,245,.45)',[...Array(ions)].map((_,i)=>`<circle cx="${110+rnd()*140}" cy="${128+rnd()*96}" r="3" fill="${i%2?'#3B7BFF':'#DE4527'}"/>`).join('')+[...Array(Math.round(und/1e-5*8))].map((_,i)=>`<rect x="${120+rnd()*120}" y="${222+rnd()*8}" width="5" height="5" fill="#eee" stroke="#999"/>`).join(''));
+    $('#lkNv',root).textContent=n;
+    $('#lkI',root).innerHTML=`<span class="ltr">Ksp = ${sci(Ksp)}</span><br>الذائبية: <span class="ltr">s = √Ksp = <b>${sci(s)} mol/L</b></span><br>المضاف: <b class="ltr">${n?sci(added):'0'} mol</b><br>الذائب: <b class="ltr">${dis?sci(dis):'0'} mol</b><br>الحالة: <b>${added<s?'غير مشبع (يذوب كل الملح)':'مشبع ✓ (يتراكم الصلب في القاع)'}</b>`;
+    if(added>=s&&n>0&&!$('#lkQ .opts',root))mcq(root,'#lkQ','بدأ الصلب يتراكم في قاع الكأس ولا يذوب مهما حرّكتِ. المحلول الآن:',['مشبع، وفي حالة اتزان بين الصلب والأيونات','غير مشبع','فوق المشبع ويستمر الذوبان','لا يحتوي أيونات'],0,()=>completeTask('l3-sat'));};
+  bindChips(root,'lkSalt',up);$('#lkN',root).addEventListener('input',up);up();
+}};
+
+const PAIRS=[
+ {k:'PbCl2',a:['Pb(NO3)2','Pb²⁺',1],b:['NaCl','Cl⁻',1],m:1,n:2,Ksp:1.7e-5,col:'#f4f4f4'},
+ {k:'AgCl',a:['AgNO3','Ag⁺',1],b:['NaCl','Cl⁻',1],m:1,n:1,Ksp:1.8e-10,col:'#f4f4f4'},
+ {k:'PbF2',a:['Pb(NO3)2','Pb²⁺',1],b:['NaF','F⁻',1],m:1,n:2,Ksp:3.3e-8,col:'#f4f4f4'},
+ {k:'PbI2',a:['Pb(NO3)2','Pb²⁺',1],b:['KI','I⁻',1],m:1,n:2,Ksp:9.8e-9,col:'#F2C53D'},
+ {k:'Ag2SO4',a:['AgNO3','Ag⁺',1],b:['K2SO4','SO4²⁻',1],m:2,n:1,Ksp:1.2e-5,col:'#f4f4f4'}
+];
+SIMS.labPrecip={title:'مختبر: توقع الراسب',
+html:()=>labShell('lr','مختبر: هل يتكون راسب؟','اختاري محلولين وتركيزيهما، ثم اخلطي حجمين متساويين منهما. سيُحسب الحاصل الأيوني Qsp ويُقارن بـ Ksp.',
+ `<div class="lablbl">الراسب المحتمل</div>${radioChips('lrP',PAIRS.map((p,i)=>[i,`<span class="f">${p.k}</span>`]))}
+  <div class="row"><label class="ctrl" id="lrAl"><span class="lb">تركيز المحلول الأول</span><select id="lrA"><option>0.0001</option><option>0.001</option><option selected>0.01</option><option>0.1</option></select></label><label class="ctrl" id="lrBl"><span class="lb">تركيز المحلول الثاني</span><select id="lrB"><option>0.0001</option><option selected>0.001</option><option>0.01</option><option>0.1</option></select></label></div>
+  <button type="button" class="btn hot" id="lrGo">🧪 اخلطي المحلولين</button>`)+
+ `<div class="status wait" id="lrOut" style="margin-top:10px"></div>
+ <table class="ctable" style="margin-top:10px"><tr><th>الخليط</th><th>Qsp</th><th>Ksp</th><th>النتيجة</th></tr><tbody id="lrT"></tbody></table>
+ ${prac('مثال الكتاب: أُضيف 100 mL من <span class="f">0.0100 M NaCl</span> إلى 100 mL من <span class="f">0.0200 M Pb(NO3)2</span>. احسبي Qsp لـ PbCl2 (تذكري أن كل تركيز يصبح النصف بعد الخلط).','',2.5e-7,0.03,'l3-q','[Pb²⁺] = 0.0100 و [Cl⁻] = 0.00500، ثم Qsp = [Pb²⁺][Cl⁻]²')}`,
+init(root){const seen=new Set();
+  const lab=()=>{const p=PAIRS[+chipVal(root,'lrP')];$('#lrAl .lb',root).innerHTML='تركيز <span class="ltr">'+fm(p.a[0])+' (M)</span>';$('#lrBl .lb',root).innerHTML='تركيز <span class="ltr">'+fm(p.b[0])+' (M)</span>';scene(p,false);};
+  const scene=(p,ppt,k=0)=>{const NS=[...Array(ppt?Math.round(60*k):0)].map((_,i)=>`<circle cx="${110+((i*37)%140)}" cy="${130+((i*53)%60)+k*40*((i%3)/2)}" r="3" fill="${p.col}" stroke="#999"/>`).join('');
+    $('svg.labsvg',root).innerHTML=BEAKER(ppt?`rgba(230,230,230,${0.35+0.35*k})`:'rgba(190,225,245,.45)',NS+(ppt&&k>=1?`<rect x="112" y="222" width="136" height="10" rx="4" fill="${p.col}" stroke="#aaa"/>`:'')+`<text x="180" y="252" text-anchor="middle" font-size="11" fill="currentColor" direction="ltr">${p.a[0]} + ${p.b[0]}</text>`);};
+  bindChips(root,'lrP',lab);
+  $('#lrGo',root).addEventListener('click',()=>{const p=PAIRS[+chipVal(root,'lrP')],A=+$('#lrA',root).value/2,B=+$('#lrB',root).value/2;
+    const c1=A*(p.m===2?1:1),c2=B;const Q=Math.pow(c1,p.m)*Math.pow(c2,p.n);const ppt=Q>p.Ksp;seen.add(ppt?'y':'n');
+    const expr=`Qsp = [${p.a[1]}]${p.m>1?'²':''}[${p.b[1]}]${p.n>1?'²':''} = (${c1})${p.m>1?'²':''}(${c2})${p.n>1?'²':''} = ${sci(Q)}`;
+    $('#lrOut',root).className='status '+(ppt?'ok':'wait');$('#lrOut',root).innerHTML=`بعد الخلط: [${p.a[1]}] = ${c1} M و [${p.b[1]}] = ${c2} M<br><span class="ltr">${expr}</span><br>${ppt?`Qsp > Ksp (${sci(p.Ksp)}) ← <b>يتكون راسب من ${p.k}</b>`:`Qsp < Ksp (${sci(p.Ksp)}) ← <b>لا يتكون راسب</b> (المحلول غير مشبع)`}`;
+    tween(1500,k=>scene(p,ppt,k));addRow($('#lrT',root),[`${p.a[0]} ${A*2} M + ${p.b[0]} ${B*2} M`,sci(Q),sci(p.Ksp),ppt?'راسب':'لا راسب']);
+    if(seen.size===2)completeTask('l3-prec');});
+  lab();
+}};
+
+SIMS.labCommon={title:'مختبر: الأيون المشترك',
+html:()=>labShell('lc','مختبر: ذائبية PbCrO₄ وتأثير الأيون المشترك','أضيفي كمية ثابتة من كرومات الرصاص الصلبة إلى ماء نقي، ثم إلى محاليل K₂CrO₄ بتراكيز مختلفة، وقارني الذائبية.',
+ `<label class="ctrl">تركيز K₂CrO₄ (الأيون المشترك CrO₄²⁻): <b class="ltr" id="lcCv"></b><input type="range" dir="ltr" id="lcC" min="0" max="4" step="1" value="0"></label><div class="lpinfo" id="lcI"></div>`)+
+ `<table class="ctable" style="margin-top:12px"><tr><th>[CrO₄²⁻] المضاف</th><th>ذائبية PbCrO₄ (mol/L)</th></tr><tbody id="lcT"></tbody></table><div id="lcQ" style="margin-top:12px"></div>`,
+init(root){const Ksp=2.3e-13,L=[0,1e-4,1e-3,1e-2,0.1];const seen=new Set();
+  const up=()=>{const c=L[+$('#lcC',root).value];const s=(-c+Math.sqrt(c*c+4*Ksp))/2;const ratio=s/Math.sqrt(Ksp);
+    const dots=Math.max(0,Math.round(24*Math.pow(ratio,0.25)));const solid=Math.round(6+14*(1-Math.pow(ratio,0.25)));
+    $('svg.labsvg',root).innerHTML=BEAKER(c?`rgba(245,215,80,${0.25+0.1*(+$('#lcC',root).value)})`:'rgba(190,225,245,.45)',[...Array(dots)].map((_,i)=>`<circle cx="${112+((i*41)%136)}" cy="${128+((i*29)%90)}" r="3" fill="#8A4FC8"/>`).join('')+[...Array(solid)].map((_,i)=>`<rect x="${118+((i*23)%124)}" y="${220+(i%3)*4}" width="7" height="6" fill="#F2B90C" stroke="#a88300"/>`).join(''));
+    $('#lcCv',root).textContent=c?sci(c)+' M':'0 (ماء نقي)';
+    $('#lcI',root).innerHTML=`الذائبية: <b class="ltr">${sci(s)} mol/L</b><br>${c?`أقل من الماء النقي بنحو <b class="ltr">${Math.round(1/ratio).toLocaleString('en')}</b> مرة`:'في الماء النقي: s = √Ksp'}`;
+    upsertRow($('#lcT',root),String(c),[c?sci(c):'0',sci(s)]);[...$('#lcT',root).children].sort((a,b)=>+a.dataset.k-+b.dataset.k).forEach(tr=>$('#lcT',root).appendChild(tr));seen.add(c);
+    if(seen.size>=3&&!$('#lcQ .opts',root))mcq(root,'#lcQ','لماذا قلّت ذائبية PbCrO₄ في محلول K₂CrO₄؟',['لأن أيون CrO₄²⁻ المشترك أزاح اتزان الذوبان نحو الصلب (مبدأ لوتشاتلييه)','لأن Ksp تغيرت','لأن الحرارة انخفضت','لأن K₂CrO₄ محفز'],0,()=>completeTask('l3-common'));};
+  $('#lcC',root).addEventListener('input',up);up();
+}};
+
+/* ---------- games ---------- */
+const GAMES={
+ g1:{title:'متجانس أم غير متجانس؟ ومن يسود؟',gen:(()=>{const H=[['N2(g) + 3H2(g) ⇌ 2NH3(g)',0],['2NaHCO3(s) ⇌ Na2CO3(s) + CO2(g) + H2O(g)',1],['H2(g) + I2(g) ⇌ 2HI(g)',0],['C2H5OH(l) ⇌ C2H5OH(g)',1],['CaCO3(s) ⇌ CaO(s) + CO2(g)',1],['2SO2(g) + O2(g) ⇌ 2SO3(g)',0],['I2(s) ⇌ I2(g)',1],['N2O4(g) ⇌ 2NO2(g)',0]];let deck=[];
+   return()=>{if(Math.random()<0.5){if(!deck.length)deck=shuffle(H);const x=deck.pop();return{p:`<span class="f">${x[0]}</span><br>نوع الاتزان؟`,o:['اتزان متجانس','اتزان غير متجانس'],a:x[1]};}
+     const e=[-31,-12,-5,-2,2,3,5,9][Math.floor(Math.random()*8)],m=(1+Math.random()*8).toFixed(1);return{p:`Keq = <span class="ltr">${m} × 10${String(e).split('').map(c=>SUP[c]).join('')}</span><br>ما الذي يسود عند الاتزان؟`,o:['النواتج','المتفاعلات'],a:e>0?0:1};};})()},
+ g2:{title:'يمين أم يسار؟',gen:()=>{const R=[['N2(g) + 3H2(g) ⇌ 2NH3(g) + حرارة',-2,1],['N2O4(g) + حرارة ⇌ 2NO2(g)',1,0],['CO(g) + 3H2(g) ⇌ CH4(g) + H2O(g) + حرارة',-2,1],['PCl5(g) + حرارة ⇌ PCl3(g) + Cl2(g)',1,0],['2SO2(g) + O2(g) ⇌ 2SO3(g) + حرارة',-1,1],['H2(g) + Cl2(g) ⇌ 2HCl(g) + حرارة',0,1]];
+   const r=R[Math.floor(Math.random()*R.length)],[eq,dn,exo]=r;const S=[['إضافة مادة متفاعلة',0],['إضافة مادة ناتجة',1],['إزالة مادة ناتجة',0],['زيادة الضغط (تقليل الحجم)',dn<0?0:dn>0?1:2],['تقليل الضغط (زيادة الحجم)',dn<0?1:dn>0?0:2],['رفع درجة الحرارة',exo?1:0],['خفض درجة الحرارة',exo?0:1],['إضافة عامل محفز',2]];const s=S[Math.floor(Math.random()*S.length)];
+   return{p:`<span class="f">${eq}</span><br>${s[0]}: ينزاح الاتزان…`,o:['نحو اليمين','نحو اليسار','لا يتأثر'],a:s[1]};}},
+ g3:{title:'هل يتكون راسب؟',gen:()=>{const e=-(4+Math.floor(Math.random()*10)),m=+(1+Math.random()*8).toFixed(1);const t=Math.floor(Math.random()*3);const qe=t===0?e+1+Math.floor(Math.random()*2):t===1?e-1-Math.floor(Math.random()*2):e;const sup=x=>String(x).split('').map(c=>SUP[c]).join('');
+   return{p:`<span class="ltr">Ksp = ${m} × 10${sup(e)}</span><br><span class="ltr">Qsp = ${m} × 10${sup(qe)}</span>`,o:['يتكون راسب','لا يتكون راسب (غير مشبع)','مشبع دون تغيير'],a:qe>e?0:qe<e?1:2};}}
+};
+Object.values(GAMES).forEach(g=>{g.html=`<h3>${g.title}</h3><p class="desc">لديك 45 ثانية. أجيبي عن أكبر عدد من الأسئلة: 5 إجابات صحيحة = نجمة، 10 = نجمتان، 15 = ثلاث نجوم.</p><div class="gbox" aria-live="polite"></div>`;});
+
+function initGame(root,g){
+  const box=$('.gbox',root);const id=Object.keys(GAMES).find(k=>GAMES[k]===g);let timer=null,score=0,left=45,deck=[],busy=false;
+  const starRow=n=>'<div class="stars3">'+[1,2,3].map(i=>`<span class="${i<=n?'':'off'}">★</span>`).join('')+'</div>';
+  const intro=()=>{const b=S.games[id]||0;box.innerHTML=`${starRow(gameStars(b))}<p style="margin:0">أفضل نتيجة: <b>${b}</b></p><button type="button" class="btn hot">ابدئي التحدي</button>`;$('button',box).addEventListener('click',start);};
+  const next=()=>{let it;
+    if(g.gen)it=g.gen();else{if(!deck.length)deck=shuffle(g.items);const x=deck.pop();it={p:x[0],o:g.labels,a:x[1]};}
+    box.innerHTML=`<div class="ghead"><span>النقاط: ${score}</span><span class="timer">⏱ ${left}s</span></div><div class="gprompt">${g.gen?it.p:fm(it.p)}</div><div class="gopts">${it.o.map((o,i)=>`<button type="button" class="opt" data-i="${i}">${o}</button>`).join('')}</div>`;
+    fmAll(box);busy=false;
+    $$('.opt',box).forEach(b=>b.addEventListener('click',()=>{if(busy)return;busy=true;const ok=+b.dataset.i===it.a;
+      if(ok){score++;b.classList.add('ok');box.classList.add('flash-ok');}else{b.classList.add('bad');$$('.opt',box)[it.a].classList.add('ok');box.classList.add('flash-bad');}
+      setTimeout(()=>{box.classList.remove('flash-ok','flash-bad');if(left>0)next();},ok?260:650);}));};
+  const tick=()=>{left--;const t=$('.timer',box);if(t)t.textContent='⏱ '+left+'s';if(left<=0)end();};
+  const start=()=>{score=0;left=45;deck=[];next();clearInterval(timer);timer=setInterval(tick,1000);};
+  const end=()=>{clearInterval(timer);const prev=S.games[id]||0;const before=gameStars(prev);if(score>prev){S.games[id]=score;save();refreshStars();}
+    const st=gameStars(Math.max(prev,score));
+    box.innerHTML=`<div class="gscore">${score}</div><p style="margin:0">إجابة صحيحة في 45 ثانية</p>${starRow(gameStars(score))}<p style="margin:0;color:var(--muted)">أفضل نتيجة: ${Math.max(prev,score)}</p><button type="button" class="btn hot">العبي مرة أخرى</button>`;
+    $('button',box).addEventListener('click',start);if(st>before)toast('★ نجوم جديدة من التحدي!');};
+  onCleanup(()=>clearInterval(timer));intro();
+}
+
+/* ---------- quiz runner ---------- */
+function quizRunner(el,qs,opt){
+  let order,idx,score,wrong;
+  const begin=()=>{order=qs.map(q=>{const p=shuffle(q.o.map((t,i)=>({t,i})));return{...q,opts:p,ans:p.findIndex(x=>x.i===q.a)};});if(opt.shuffle!==false)order=shuffle(order);idx=0;score=0;wrong=[];show();};
+  const show=()=>{const q=order[idx];
+    el.innerHTML=`<div class="qr"><div class="qtop"><span>السؤال ${idx+1} من ${order.length}${q.y?'<span class="yr">'+(q.y==='--'?'تجميعات':'تحصيلي '+q.y)+'</span>':''}</span><span class="qsc">صحيحة: ${score}</span></div>
+     <div class="qbar"><i style="width:${idx/order.length*100}%"></i></div>
+     <div class="qtext">${q.q}</div>
+     <div class="opts">${q.opts.map((o,i)=>`<button type="button" class="opt" data-i="${i}"><span dir="auto">${fm(o.t)}</span></button>`).join('')}</div>
+     <div class="qx"></div></div>`;
+    fmAll(el);
+    $$('.opt',el).forEach(b=>b.addEventListener('click',()=>{const i=+b.dataset.i;$$('.opt',el).forEach(x=>x.disabled=true);
+      const ok=i===q.ans;if(ok)score++;else wrong.push(q);b.classList.add(ok?'ok':'bad');$$('.opt',el)[q.ans].classList.add('ok');
+      $('.qx',el).innerHTML=`<div class="exp ${ok?'ok':'bad'}"><b>${ok?'✓ إجابة صحيحة.':'✗ الإجابة الصحيحة: '+fm(q.opts[q.ans].t)}</b> ${q.e||''}</div><div class="qnav"><button type="button" class="btn">${idx<order.length-1?'السؤال التالي':'عرض النتيجة'}</button></div>`;
+      $('.qsc',el).textContent='صحيحة: '+score;
+      $('.qnav button',el).addEventListener('click',()=>{idx++;if(idx<order.length)show();else finish();});
+      $('.qnav button',el).focus();}));};
+  const finish=()=>{const pct=Math.round(score/order.length*100);opt.onDone&&opt.onDone(score,order.length,pct);
+    const msg=pct>=90?'ممتاز! أداء متقن.':pct>=80?'رائع! أنتِ مستعدة.':pct>=60?'جيد، راجعي الأسئلة التي أخطأتِ فيها.':'لا بأس، راجعي الدروس وحاولي مرة أخرى.';
+    el.innerHTML=`<div class="qr result"><div class="gscore">${score} / ${order.length}</div><p style="margin:4px 0;font-weight:600">${pct}%: ${msg}</p>
+     <div class="row" style="justify-content:center;margin-top:10px"><button type="button" class="btn" id="qAgain">أعيدي الاختبار</button>${opt.extra||''}</div>
+     ${wrong.length?'<div class="review"><b>راجعي هذه الأسئلة:</b>'+wrong.map(w=>`<div>${w.q}<br><b>الإجابة:</b> <span dir="auto">${fm(w.opts[w.ans].t)}</span>. ${w.e||''}</div>`).join('')+'</div>':''}</div>`;
+    fmAll(el);$('#qAgain',el).addEventListener('click',()=>opt.restart?opt.restart():begin());};
+  if(opt.autostart===false)return{begin};begin();return{begin};
+}
+
+/* ---------- final ---------- */
+function viewFinal(){
+  app.innerHTML=`<div class="crumbs"><a href="#home">→ الصفحة الرئيسة</a></div>
+  <header class="lhead"><div class="lnum">⇌</div><div><h1>الاختبار الختامي</h1><div class="en">تجميعات الاختبار التحصيلي: الاتزان الكيميائي</div>
+   <p class="idea" style="margin:10px 0 0"><strong>تعليمات:</strong> اختاري نوع الاختبار. بعد كل إجابة يظهر التصحيح مع شرح قصير. احصلي على 80% أو أكثر لتنالي شارة <b>بطلة التحصيلي</b> و5 نجوم.${S.final!=null?' أفضل نتيجة لك: '+S.final+'%.':''}</p></div></header>
+  <section class="panel" style="margin-top:24px" id="finBox"></section>`;
+  const box=$('#finBox');
+  const modes=()=>{box.innerHTML=`<h3>اختاري نوع الاختبار</h3><div class="modes">
+    <button type="button" class="mode" data-m="all"><b>الاختبار الكامل</b><span>جميع الأسئلة (${TAH.length} سؤالًا) بترتيب عشوائي.</span></button>
+    <button type="button" class="mode" data-m="20"><b>اختبار سريع</b><span>20 سؤالًا عشوائيًا من بنك التجميعات.</span></button>
+    <button type="button" class="mode" data-m="recent"><b>أسئلة 2024 و 2025</b><span>الأسئلة الأحدث فقط.</span></button></div>`;
+    $$('.mode',box).forEach(b=>b.addEventListener('click',()=>{const m=b.dataset.m;let qs=TAH;if(m==='20')qs=shuffle(TAH).slice(0,20);if(m==='recent')qs=TAH.filter(q=>q.y==='2024'||q.y==='2025');
+      quizRunner(box,qs,{restart:modes,extra:'<a class="btn ghost" href="#home">الصفحة الرئيسة</a>',onDone:(sc,tot,pct)=>{const prev=S.final;S.final=Math.max(prev||0,pct);save();refreshStars();if(pct>=80&&!(prev>=80))toast('🏆 حصلتِ على شارة بطلة التحصيلي!');}});}));};
+  modes();
+}
+
+/* ---------- runtime capabilities ---------- */
+const capP={};
+function cap(n){if(!window.claude||typeof window.claude.use!=='function')return Promise.resolve(null);if(!capP[n])capP[n]=window.claude.use(n).catch(()=>null);return capP[n];}
+let viewTok=0;
+function esc(t){return String(t==null?'':t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+/* ---------- chemistry advisor bot ---------- */
+/* تعليمات المساعد محفوظة في الخادم: lib/rules.js */
+const BOT={turns:[],busy:false,ctl:null,sample:null};
+function botFmt(t){let h=esc(t);h=h.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');h=h.replace(/^\s*[-•]\s+/gm,'• ');return h.replace(/\n/g,'<br>');}
+function botAdd(cls,html){const m=document.createElement('div');m.className='msg '+cls;m.innerHTML=html;$('#botMsgs').appendChild(m);$('#botMsgs').scrollTop=1e9;return m;}
+function botSugg(){const n=(location.hash.match(/lesson-(\d)/)||[])[1];const base={1:['ما معنى الاتزان الديناميكي؟','كيف أكتب تعبير ثابت الاتزان؟','لماذا لا نكتب المواد الصلبة في Keq؟'],2:['اشرحي لي مبدأ لوتشاتلييه بمثال','ماذا يحدث للاتزان عند زيادة الضغط؟','لماذا لا يزيح المحفز الاتزان؟'],3:['كيف أحسب الذائبية من Ksp؟','متى يتكون راسب؟','ما تأثير الأيون المشترك؟']}[n]||['اشرحي لي الاتزان الكيميائي ببساطة','ما مبدأ لوتشاتلييه؟','كيف أحسب Keq؟'];
+  $('#botSugg').innerHTML=base.map(q=>`<button type="button">${esc(q)}</button>`).join('');$$('#botSugg button').forEach(b=>b.addEventListener('click',()=>botAsk(b.textContent)));}
+async function botAsk(q){
+  q=(q||'').trim();if(!q||BOT.busy)return;BOT.busy=true;$('#botSend').disabled=true;$('#botIn').value='';
+  botAdd('me',esc(q));BOT.turns.push({role:'user',content:q.slice(0,1500)});
+  const bub=botAdd('bot','<span style="color:var(--muted)">يفكّر المساعد…</span>');
+  const n=(location.hash.match(/lesson-(\d)/)||[])[1];
+  BOT.ctl=new AbortController();const to=setTimeout(()=>BOT.ctl.abort(),45000);
+  try{
+    const r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},signal:BOT.ctl.signal,
+      body:JSON.stringify({ch:CH_NO,lesson:n?LESSONS[n-1].code+' '+LESSONS[n-1].title:'',messages:BOT.turns.slice(-10)})});
+    let data={};try{data=await r.json();}catch(e){}
+    if(!r.ok||!data.text){const err=new Error('x');err.code=data.error||('http_'+r.status);throw err;}
+    bub.innerHTML=botFmt(data.text);BOT.turns.push({role:'assistant',content:data.text});$('#botMsgs').scrollTop=1e9;
+  }catch(e){
+    BOT.turns.pop();bub.remove();
+    const code=e&&e.code;
+    if(code==='rate_limited')botAdd('err','وصلتِ إلى الحد المسموح من الأسئلة الآن. حاولي بعد قليل.');
+    else if(code==='not_configured')botAdd('err','المساعد غير مفعّل بعد. أخبري معلمتك.');
+    else if(e&&e.name==='AbortError')botAdd('err','استغرق الرد وقتًا طويلًا. حاولي مرة أخرى.');
+    else botAdd('err','تعذّر الحصول على إجابة الآن. حاولي مرة أخرى بعد قليل.');
+  }finally{clearTimeout(to);BOT.busy=false;$('#botSend').disabled=false;}
+}
+function initBot(){
+  const fab=$('#botFab'),panel=$('#botPanel');
+  const open=v=>{panel.classList.toggle('open',v);fab.setAttribute('aria-expanded',v);if(v){botSugg();if(!$('#botMsgs').children.length)botAdd('bot','مرحبًا! أنا مساعدك الكيميائي 🧪<br>اسأليني عن أي فكرة في الفصل الثالث: الاتزان الديناميكي، ثابت الاتزان، مبدأ لوتشاتلييه، أو حاصل الذائبية.');setTimeout(()=>$('#botIn').focus(),50);}};
+  fab.addEventListener('click',()=>open(!panel.classList.contains('open')));
+  $('#botClose').addEventListener('click',()=>open(false));
+  $('#botForm').addEventListener('submit',e=>{e.preventDefault();botAsk($('#botIn').value);});
+  $('#botIn').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();botAsk($('#botIn').value);}});
+  window.addEventListener('hashchange',()=>{if(panel.classList.contains('open'))botSugg();});
+  fab.style.display='inline-flex';
+}
+
+/* ---------- assignment (المهمة) ---------- */
+const OK_TYPES=/^(image\/(png|jpeg|gif|webp)|application\/pdf|text\/plain|text\/csv|text\/markdown)$/;
+function guessType(f){if(f.type)return f.type;const e=(f.name.split('.').pop()||'').toLowerCase();return {png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',gif:'image/gif',webp:'image/webp',pdf:'application/pdf',txt:'text/plain',csv:'text/csv',md:'text/markdown'}[e]||'';}
+function fsize(b){return b>1048576?(b/1048576).toFixed(1)+' MB':Math.max(1,Math.round(b/1024))+' KB';}
+function fdate(iso){try{return new Date(iso).toLocaleString('ar-SA',{dateStyle:'medium',timeStyle:'short'});}catch(e){return iso;}}
+function fileLink(f){return `<a href="/_blob/${esc(f.id)}" target="_blank" rel="noopener"><bdi>${esc(f.name)}</bdi></a> <span style="color:var(--muted)">(${fsize(f.size||0)})</span>`;}
+
+function viewTask(){
+  app.innerHTML=`<div class="crumbs"><a href="#home">→ الصفحة الرئيسة</a></div>
+  <header class="lhead"><div class="lnum">📎</div><div><h1>مهمة الفصل الأول</h1><div class="en">الطاقة والتغيرات الكيميائية</div>
+   <p class="idea" style="margin:10px 0 0"><strong>طريقة التسليم:</strong> اقرئي المهمة، ثم ارفعي ملف إجابتك (صورة أو PDF) واضغطي «سلّمي المهمة». يمكنك تعديل تسليمك قبل الموعد.</p></div></header>
+  <section class="panel" style="margin-top:24px" id="taskBox"><p class="hint">جارٍ تحميل المهمة…</p></section>`;
+  initTask(++viewTok);
+}
+async function initTask(tok){
+  const box=$('#taskBox');
+  const [db,user]=await Promise.all([cap('db'),cap('user')]);
+  if(tok!==viewTok)return;
+  if(!db){box.innerHTML=`<div class="notice">📎 رفع المهام يعمل عند فتح المنصة من داخل claude.ai بحساب مسجّل الدخول، بعد أن تشاركها المعلمة معك. إن لم يظهر نموذج التسليم، فأرسلي إجابتك لمعلمتك بالطريقة التي تحددها.</div>`;return;}
+  const teacher=user?await user.canEdit():false;
+  const uid=user?await user.id():null;
+  if(tok!==viewTok)return;
+  let A=null,aLoaded=false;
+  let mine=null,mineLoaded=false,draft=null,assets=null,assetsChecked=false;
+  let subs=[],subsLoaded=false,showOld=false;
+  box.innerHTML=`<div id="aBox"><p class="hint">جارٍ تحميل المهمة…</p></div><div id="sBox"></div>`;
+  const slow=setTimeout(()=>{if(!aLoaded)$('#aBox')&&($('#aBox').innerHTML='<div class="notice">تعذّر الوصول إلى المهمة الآن. تحققي من اتصالك ثم افتحي الصفحة لاحقًا.</div>');},10000);
+  onCleanup(()=>clearTimeout(slow));
+  const unA=db.doc('assignment/current').onSnapshot(sn=>{if(!sn.metadata.fromCache){aLoaded=true;clearTimeout(slow);}A=sn.exists?sn.data():null;renderA();if(teacher)renderSubs();else renderMine();},
+    ()=>{clearTimeout(slow);aLoaded=true;$('#aBox').innerHTML='<div class="notice">تعذّر تحميل المهمة.</div>';});
+  onCleanup(unA);
+
+  function renderA(){
+    const el=$('#aBox');if(!el)return;
+    const card=A?`<div class="assign"><h3>${esc(A.title)}</h3><div class="body">${esc(A.details)}</div>${A.due?`<span class="due">📅 آخر موعد للتسليم: ${esc(A.due)}</span>`:''}</div>`:'<div class="notice">لم تُنشر مهمة بعد.</div>';
+    if(!teacher){el.innerHTML=card;return;}
+    el.innerHTML=`${card}<details style="margin-top:14px" ${A?'':'open'}><summary style="cursor:pointer;font-weight:600">✏️ تعديل المهمة أو نشر مهمة جديدة (يظهر لك فقط بصفتك المعلمة)</summary>
+      <label class="fld">عنوان المهمة<input id="aT" value="${esc(A?A.title:'')}"></label>
+      <label class="fld">تفاصيل المهمة<textarea id="aD">${esc(A?A.details:'')}</textarea></label>
+      <label class="fld">آخر موعد للتسليم<input id="aDue" value="${esc(A?A.due:'')}" placeholder="مثال: الخميس 12 جمادى الأولى"></label>
+      <div class="row" style="margin-top:12px"><button type="button" class="btn sm" id="aSave" ${A?'':'disabled'}>حفظ التعديلات</button><button type="button" class="btn sm hot" id="aNew">نشر كمهمة جديدة</button></div>
+      <p class="hint">«نشر كمهمة جديدة» يبدأ تسليمًا جديدًا، فتظهر تسليمات المهمة السابقة في قائمة منفصلة.</p><p class="fb" id="aFb"></p></details>`;
+    const save=async(isNew)=>{const t=$('#aT').value.trim(),d=$('#aD').value.trim(),due=$('#aDue').value.trim();if(!t||!d){$('#aFb').className='fb bad';$('#aFb').textContent='اكتبي العنوان والتفاصيل.';return;}
+      $('#aSave').disabled=$('#aNew').disabled=true;
+      try{await db.doc('assignment/current').set({id:isNew||!A?('a'+Date.now()):A.id,title:t,details:d,due,updatedAt:new Date().toISOString()});toast(isNew?'نُشرت المهمة الجديدة':'حُفظت التعديلات');}
+      catch(e){$('#aFb').className='fb bad';$('#aFb').textContent='تعذّر الحفظ. تأكدي أنك صاحبة المنصة أو محررة فيها.';}
+      finally{if($('#aNew')){$('#aNew').disabled=false;$('#aSave').disabled=!A;}}};
+    $('#aSave').addEventListener('click',()=>save(false));$('#aNew').addEventListener('click',()=>save(true));
+  }
+
+  /* --- student --- */
+  if(!teacher){
+    if(!uid){$('#sBox').innerHTML='<div class="notice" style="margin-top:14px">سجّلي الدخول إلى حسابك لتتمكني من تسليم المهمة.</div>';return;}
+    cap('assets').then(a=>{assets=a;assetsChecked=true;renderMine();});
+    const unM=db.doc('submissions/'+uid).onSnapshot(sn=>{mineLoaded=true;mine=sn.exists?sn.data():null;if(!draft&&mine)draft={name:mine.name||'',note:mine.note||'',files:(mine.files||[]).slice()};renderMine();},()=>{mineLoaded=true;renderMine();});
+    onCleanup(unM);
+  }
+  function renderMine(){
+    const el=$('#sBox');if(!el||teacher||!uid)return;
+    if(!A){el.innerHTML='';return;}
+    if(!mineLoaded){el.innerHTML='<p class="hint" style="margin-top:14px">جارٍ التحقق من تسليمك…</p>';return;}
+    if(!draft)draft={name:'',note:'',files:[]};
+    const done=mine&&mine.aid===A.id;
+    const status=done?`<span class="stat ok">✓ سلّمتِ المهمة في ${esc(fdate(mine.at))}</span>`:`<span class="stat no">لم تُسلّمي بعد</span>`;
+    const fb=done&&(mine.feedback||mine.grade)?`<div class="fb-box"><b>ملاحظات المعلمة:</b> ${esc(mine.feedback||'')}${mine.grade?`<br><b>الدرجة:</b> ${esc(mine.grade)}`:''}</div>`:'';
+    let form='';
+    if(assetsChecked&&!assets){form=`<div class="notice" style="margin-top:12px">لا تملكين صلاحية رفع الملفات في هذه المنصة. اطلبي من معلمتك مشاركة المنصة معك بصلاحية «مساهِمة» (Contributor).</div>`;}
+    else{form=`<label class="fld">اسمك وشعبتك<input id="sName" value="${esc(draft.name)}" placeholder="مثال: نورة محمد، 2/3"></label>
+      <div class="drop" id="sDrop" tabindex="0" role="button">📤 اضغطي لاختيار ملف الإجابة أو اسحبيه إلى هنا<br><small style="color:var(--muted)">صور (JPG أو PNG) أو PDF، حتى 20 MB للملف. ملفات Word احفظيها PDF أولًا.</small><input type="file" id="sFile" multiple accept="image/png,image/jpeg,image/webp,application/pdf,.txt" hidden></div>
+      <div class="flist" id="sList">${draft.files.map((f,i)=>`<div class="fitem"><span>${f.id?fileLink(f):esc(f.name)+' <span style="color:var(--muted)">جارٍ الرفع…</span>'}</span>${f.id?`<button type="button" data-rm="${i}">حذف</button>`:''}</div>`).join('')}</div>
+      <label class="fld">ملاحظة لمعلمتك (اختياري)<textarea id="sNote" style="min-height:70px">${esc(draft.note)}</textarea></label>
+      <div class="row" style="margin-top:12px"><button type="button" class="btn" id="sSend" style="background:var(--green);color:#fff">${done?'تحديث التسليم':'سلّمي المهمة'}</button></div><p class="fb" id="sFb"></p>`;}
+    el.innerHTML=`<div style="margin-top:18px"><h3 style="margin:0 0 8px">تسليمك</h3>${status}${fb}${form}</div>`;
+    if(!assets)return;
+    const fi=$('#sFile'),dr=$('#sDrop');
+    $('#sName').addEventListener('input',e=>draft.name=e.target.value);$('#sNote').addEventListener('input',e=>draft.note=e.target.value);
+    dr.addEventListener('click',()=>fi.click());dr.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();fi.click();}});
+    dr.addEventListener('dragover',e=>{e.preventDefault();dr.classList.add('over');});dr.addEventListener('dragleave',()=>dr.classList.remove('over'));
+    dr.addEventListener('drop',e=>{e.preventDefault();dr.classList.remove('over');addFiles(e.dataTransfer.files);});
+    fi.addEventListener('change',()=>addFiles(fi.files));
+    $$('[data-rm]',el).forEach(b=>b.addEventListener('click',()=>{const f=draft.files[+b.dataset.rm];draft.files.splice(+b.dataset.rm,1);const inSaved=mine&&(mine.files||[]).some(x=>x.id===f.id);if(!inSaved&&f.id)assets.delete(f.id).catch(()=>{});renderMine();}));
+    $('#sSend').addEventListener('click',submit);
+  }
+  async function addFiles(list){
+    const fb=()=>$('#sFb');
+    for(const f of Array.from(list)){
+      const t=guessType(f);
+      if(!OK_TYPES.test(t)){if(fb()){fb().className='fb bad';fb().textContent='الملف «'+f.name+'» بصيغة غير مدعومة. استعملي صورة JPG أو PNG أو ملف PDF.';}continue;}
+      if(f.size>20*1048576){if(fb()){fb().className='fb bad';fb().textContent='الملف «'+f.name+'» أكبر من 20 MB.';}continue;}
+      const item={name:f.name,size:f.size};draft.files.push(item);renderMine();
+      try{const r=await assets.upload(f,{type:t});item.id=r.id;item.size=r.sizeBytes;item.type=r.contentType;}
+      catch(e){draft.files.splice(draft.files.indexOf(item),1);if(fb()){fb().className='fb bad';fb().textContent=e&&e.code==='quota_exceeded'?'امتلأت مساحة التخزين في المنصة. أخبري معلمتك.':'تعذّر رفع «'+f.name+'». جرّبي مرة أخرى أو بصيغة أخرى.';}}
+      renderMine();
+    }
+  }
+  async function submit(){
+    const fb=$('#sFb');
+    if(draft.files.some(f=>!f.id)){fb.className='fb bad';fb.textContent='انتظري حتى يكتمل رفع الملفات.';return;}
+    if(!draft.name.trim()){fb.className='fb bad';fb.textContent='اكتبي اسمك وشعبتك.';return;}
+    if(!draft.files.length){fb.className='fb bad';fb.textContent='ارفعي ملف إجابتك أولًا.';return;}
+    $('#sSend').disabled=true;
+    try{await db.doc('submissions/'+uid).set({aid:A.id,name:draft.name.trim(),note:draft.note.trim(),files:draft.files.map(f=>({id:f.id,name:f.name,size:f.size||0,type:f.type||''})),at:new Date().toISOString()});toast('📎 تم تسليم المهمة بنجاح');}
+    catch(e){fb.className='fb bad';fb.textContent=e&&e.code==='invalid_argument'?'لا تملكين صلاحية التسليم. اطلبي من معلمتك صلاحية «مساهِمة».':'تعذّر التسليم الآن. حاولي مرة أخرى.';if($('#sSend'))$('#sSend').disabled=false;}
+  }
+
+  /* --- teacher --- */
+  if(teacher){
+    const unS=db.collection('submissions').onSnapshot(q=>{subsLoaded=true;subs=q.docs.map(d=>({uid:d.id,...d.data()}));renderSubs();},()=>{subsLoaded=true;renderSubs();});
+    onCleanup(unS);
+  }
+  async function renderSubs(){
+    const el=$('#sBox');if(!el||!teacher)return;
+    if(!subsLoaded){el.innerHTML='<p class="hint" style="margin-top:14px">جارٍ تحميل التسليمات…</p>';return;}
+    const cur=subs.filter(x=>A&&x.aid===A.id).sort((a,b)=>(b.at||'').localeCompare(a.at||''));
+    const old=subs.filter(x=>!A||x.aid!==A.id);
+    let names={};try{if(user)names=await user.profiles(subs.map(x=>x.uid));}catch(e){}
+    if(!$('#sBox'))return;
+    const card=x=>{const p=names[x.uid];const acc=p&&p.name?` <span style="color:var(--muted);font-size:13.5px">(${esc(p.name)})</span>`:'';
+      return `<div class="subcard"><div class="row" style="justify-content:space-between"><b>${esc(x.name||'بدون اسم')}${acc}</b><span class="hint" style="margin:0">${esc(fdate(x.at))}</span></div>
+      ${x.note?`<div style="font-size:15px">📝 ${esc(x.note)}</div>`:''}
+      <div class="flist">${(x.files||[]).map(f=>`<div class="fitem"><span>${fileLink(f)}</span></div>`).join('')}</div>
+      <div class="row"><input class="ans" style="width:110px;text-align:center" data-g="${esc(x.uid)}" value="${esc(x.grade||'')}" placeholder="الدرجة" aria-label="الدرجة"><input class="tinput" style="flex:1;min-width:160px" data-f="${esc(x.uid)}" value="${esc(x.feedback||'')}" placeholder="ملاحظة للطالبة" aria-label="ملاحظة"><button type="button" class="btn sm" data-sv="${esc(x.uid)}">حفظ</button></div></div>`;};
+    el.innerHTML=`<div style="margin-top:20px"><h3 style="margin:0 0 4px">تسليمات الطالبات (${cur.length})</h3><p class="hint" style="margin:0">تظهر هذه القائمة لك فقط. الدرجة والملاحظة تظهران للطالبة في صفحة تسليمها.</p>
+      <div class="subgrid">${cur.length?cur.map(card).join(''):'<div class="notice">لم تصل تسليمات لهذه المهمة بعد.</div>'}</div>
+      ${old.length?`<button type="button" class="btn sm ghost" id="oldT" style="margin-top:14px">${showOld?'إخفاء':'عرض'} تسليمات المهام السابقة (${old.length})</button>${showOld?`<div class="subgrid">${old.map(card).join('')}</div>`:''}`:''}</div>`;
+    const oT=$('#oldT');if(oT)oT.addEventListener('click',()=>{showOld=!showOld;renderSubs();});
+    $$('[data-sv]',el).forEach(b=>b.addEventListener('click',async()=>{const id=b.dataset.sv;b.disabled=true;
+      try{await db.doc('submissions/'+id).update({grade:$(`[data-g="${id}"]`,el).value.trim(),feedback:$(`[data-f="${id}"]`,el).value.trim()});toast('حُفظت الملاحظة');}
+      catch(e){toast('تعذّر الحفظ');}finally{b.disabled=false;}}));
+  }
+}
+
+applyTheme();
+initBot();
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{applyTheme();window.dispatchEvent(new Event('themechange'));});
+route();
+</script>
+</body>
+</html>

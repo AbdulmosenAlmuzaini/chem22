@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مختبر الهيدروكربونات | كيمياء 2-2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Noto+Kufi+Arabic:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F1EBFC; --surface:#FFFFFF; --surface2:#F8F5FE; --ink:#1E1638; --muted:#5E5677; --line:#DCD2F1; --grid:rgba(124,77,214,.11); --head:var(--ink);
+  --cold:#2763D8; --hot:#DE4527; --mid:#8A4FC8; --amber:#D18A0B; --ok:#12916A; --bad:#C7362A; --chip:#ECE4FA; --green:#6D3FC4;
+  --cold-soft:#E3ECFC; --hot-soft:#FCE7E2; --ok-soft:#DFF4EC; --bad-soft:#FBE4E1;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16112A; --surface:#201A3A; --surface2:#271F45; --ink:#EEE9FA; --muted:#B3A9CF; --line:#3A3160; --grid:rgba(184,140,255,.08); --head:var(--ink);
+    --cold:#6E9BFF; --hot:#FF7B5E; --mid:#B88CFF; --amber:#F4BD4C; --ok:#3CC799; --bad:#FF6E61; --chip:#2D2552; --green:#7E55D6;
+    --cold-soft:#1C2C55; --hot-soft:#3A2028; --ok-soft:#143A33; --bad-soft:#3D1F25;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16112A; --surface:#201A3A; --surface2:#271F45; --ink:#EEE9FA; --muted:#B3A9CF; --line:#3A3160; --grid:rgba(184,140,255,.08); --head:var(--ink);
+  --cold:#6E9BFF; --hot:#FF7B5E; --mid:#B88CFF; --amber:#F4BD4C; --ok:#3CC799; --bad:#FF6E61; --chip:#2D2552; --green:#7E55D6;
+  --cold-soft:#1C2C55; --hot-soft:#3A2028; --ok-soft:#143A33; --bad-soft:#3D1F25;
+  color-scheme:dark;
+}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--thermal:linear-gradient(to left,var(--cold),var(--mid) 55%,var(--hot));}
+html{scroll-padding-top:env(safe-area-inset-top,0px);}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background-color:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:26px 26px;color:var(--ink);font-family:"IBM Plex Sans Arabic",system-ui,"Segoe UI",Tahoma,sans-serif;font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased}
+img,svg,canvas{max-width:100%}
+.kufi,h1,h2,h3,.lnum,.lcode,.gscore,.temp-big,.brand,.lcard h3,.final-band h3,.teacher .av{font-family:"Noto Kufi Arabic","IBM Plex Sans Arabic",system-ui,sans-serif}
+.hero h1{font-weight:800;line-height:1.35}
+h1,h2,h3,.lcard h3{color:var(--head)}
+.lhead h1{color:var(--head)}
+.teacher{display:flex;align-items:center;gap:12px;margin:6px 0 20px}
+.teacher .av{flex:0 0 48px;height:48px;border-radius:50%;background:var(--cold);color:#fff;display:grid;place-items:center;font-weight:700;font-size:18px}
+.teacher small{display:block;color:var(--muted);font-size:15px;line-height:1.4}
+.teacher b{display:block;font-size:17px;line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+a{color:var(--cold)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:6px}
+.f{font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;unicode-bidi:isolate;display:inline-block;max-width:100%}
+.tinput{font:inherit;font-size:15px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface2);color:var(--ink)}
+.hcard .f,.target .f,.sum .f,.ctable .f,.ediag .f{white-space:nowrap}
+.f sub,.fx sub{font-size:.68em}
+.ltr{direction:ltr;unicode-bidi:isolate}
+
+/* top bar */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:600}
+.brand-mark{width:34px;height:34px;border-radius:50%;background:var(--thermal);display:grid;place-items:center;color:#fff;font-size:15px}
+.top-tools{display:flex;align-items:center;gap:10px}
+.starpill{display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-weight:600}
+.starpill b{color:var(--amber)}
+.iconbtn{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer;font-size:14px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:10px;padding:11px 20px;font-weight:600;cursor:pointer;background:var(--ink);color:var(--bg);text-decoration:none;transition:transform .12s}
+.btn:active{transform:scale(.97)}
+.btn.cold{background:var(--cold);color:#fff}
+.btn.hot{background:var(--hot);color:#fff}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn.sm{padding:7px 14px;font-size:15px;border-radius:8px}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center;padding:26px 0 40px}
+.kicker{color:var(--muted);font-size:15px;margin:0 0 6px}
+.hero h1{font-size:clamp(2rem,4.6vw,3.25rem);line-height:1.22;margin:0 0 16px;font-weight:700;letter-spacing:-.01em}
+.hero h1 .grad{background:var(--thermal);-webkit-background-clip:text;background-clip:text;color:transparent}
+.idea{background:var(--surface);border-inline-start:5px solid var(--mid);border-radius:4px 12px 12px 4px;padding:12px 16px;margin:0 0 16px}
+.idea strong{color:var(--mid)}
+.hero p.lead{color:var(--muted);margin:0 0 20px;max-width:58ch}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.progress-line{margin-top:18px;color:var(--muted);font-size:15px}
+.credit-card{margin-top:20px;font-size:19px;color:var(--muted);line-height:1.6}
+.credit-card b{color:var(--mid);font-weight:700}
+.task-band{margin-top:-14px}
+.tb-in{display:flex;align-items:center;gap:16px}
+.tb-in .ti{flex:0 0 54px;height:54px;border-radius:14px;background:var(--thermal);display:grid;place-items:center;font-size:27px}
+.task-tile{display:flex;align-items:center;gap:14px;margin-top:18px;background:var(--surface);border:2px solid var(--mid);border-radius:16px;padding:12px 18px 12px 14px;text-decoration:none;color:var(--ink);max-width:440px;transition:transform .15s}
+.task-tile:hover{transform:translateY(-2px)}
+.task-tile .ti{flex:0 0 54px;height:54px;border-radius:14px;background:var(--thermal);display:grid;place-items:center;font-size:27px}
+.task-tile b{display:block;font-size:18px}
+.task-tile small{color:var(--muted);font-size:14px}
+
+.beaker-card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:16px;position:relative}
+.beaker-card canvas{display:block;width:100%;height:330px;touch-action:none;cursor:ew-resize;border-radius:14px;background:var(--surface2)}
+.beaker-read{display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:10px;flex-wrap:wrap}
+.temp-big{font-size:30px;font-weight:700;direction:ltr}
+.phase-tag{padding:3px 12px;border-radius:999px;font-weight:600;font-size:15px;background:var(--chip)}
+.beaker-card input[type=range]{width:100%;margin-top:8px}
+.hint{font-size:14px;color:var(--muted);margin:6px 0 0}
+
+/* path */
+h2.sec{font-size:clamp(1.35rem,2.6vw,1.8rem);margin:8px 0 6px}
+.sec-sub{color:var(--muted);margin:0 0 20px}
+.thermo-track{position:relative;height:14px;border-radius:999px;background:var(--thermal);margin:22px 0 0}
+.thermo-track .bulb{position:absolute;inset-inline-start:-8px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:var(--cold)}
+.lessons{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;margin-top:-7px}
+.lcard{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:0 0 16px 16px;padding:26px 18px 18px;display:flex;flex-direction:column;gap:8px}
+.lcard .node{position:absolute;top:-8px;inset-inline-start:18px;width:30px;height:30px;border-radius:50%;background:var(--surface);border:4px solid var(--c);display:grid;place-items:center;font-size:13px;font-weight:700;color:var(--c)}
+.lcard.done .node{background:var(--c);color:#fff}
+.lcode{font-size:34px;font-weight:700;color:var(--c);line-height:1;direction:ltr;text-align:right}
+.lcard h3{margin:2px 0 0;font-size:19px;line-height:1.4}
+.lcard p{margin:0;color:var(--muted);font-size:15px;line-height:1.6;flex:1}
+.lmeta{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--muted)}
+.lmeta .st{color:var(--amber);font-weight:600}
+
+.badges{display:flex;flex-wrap:wrap;gap:14px;margin:8px 0 0}
+.badge{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px dashed var(--line);border-radius:999px;padding:6px 16px 6px 8px;color:var(--muted);font-size:15px}
+.badge i{font-style:normal;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--chip);filter:grayscale(1);opacity:.6;font-size:18px}
+.badge.on{border-style:solid;color:var(--ink);font-weight:600}
+.badge.on i{filter:none;opacity:1;background:var(--thermal)}
+
+.final-band{margin:36px 0;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;position:relative;overflow:hidden}
+.final-band::before{content:"";position:absolute;inset-block:0;inset-inline-start:0;width:6px;background:var(--thermal)}
+.final-band h3{margin:0 0 4px;font-size:22px}
+.final-band p{margin:0;color:var(--muted)}
+
+footer.foot{border-top:1px solid var(--line);margin-top:40px;padding:22px 0 30px;color:var(--muted);font-size:14px;text-align:center;line-height:1.7}
+footer.foot b{color:var(--ink)}
+
+/* lesson page */
+.crumbs{margin:6px 0 10px}
+.crumbs a{text-decoration:none;font-size:15px}
+.lhead{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:end;padding:10px 0 22px;border-bottom:1px solid var(--line)}
+.lnum{font-size:clamp(4rem,11vw,7.5rem);font-weight:700;line-height:.9;direction:ltr;background:var(--thermal);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lhead h1{margin:0;font-size:clamp(1.7rem,3.6vw,2.4rem);line-height:1.3}
+.lhead .en{color:var(--muted);direction:ltr;text-align:right;font-size:16px}
+.vocab{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
+.vocab span{background:var(--chip);border-radius:6px;padding:2px 10px;font-size:14px}
+
+.lgrid{display:grid;grid-template-columns:300px 1fr;gap:28px;margin-top:24px;align-items:start}
+.side{position:sticky;top:12px;display:flex;flex-direction:column;gap:16px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.box h4{margin:0 0 8px;font-size:16px}
+.tasks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.tasks li{display:flex;gap:10px;align-items:flex-start;font-size:15px;line-height:1.5;color:var(--muted)}
+.tasks li .ck{flex:0 0 22px;height:22px;border-radius:6px;border:2px solid var(--line);display:grid;place-items:center;font-size:13px;margin-top:1px}
+.tasks li.on{color:var(--ink)}
+.tasks li.on .ck{background:var(--ok);border-color:var(--ok);color:#fff}
+.tbar{height:8px;border-radius:99px;background:var(--chip);overflow:hidden;margin-top:12px}
+.tbar i{display:block;height:100%;background:var(--thermal);width:0;transition:width .4s}
+.side nav{display:flex;flex-direction:column;gap:2px}
+.side nav a{text-decoration:none;color:var(--muted);font-size:15px;padding:4px 8px;border-radius:6px}
+.side nav a:hover{background:var(--chip);color:var(--ink)}
+
+.learn ul{margin:0;padding-inline-start:20px}
+.learn li{margin:0 0 8px}
+.main-col{display:flex;flex-direction:column;gap:26px;min-width:0}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;min-width:0}
+.panel.sim{border-top:4px solid var(--c,var(--cold))}
+.panel h3{margin:0 0 4px;font-size:21px;line-height:1.4}
+.panel .tag{display:inline-block;font-size:13px;font-weight:600;color:var(--c,var(--cold));margin-bottom:4px}
+.panel .desc{color:var(--muted);margin:0 0 16px;font-size:15.5px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.ctrl{display:flex;flex-direction:column;gap:4px;font-size:15px;color:var(--muted);flex:1;min-width:180px}
+input[type=range]{accent-color:var(--mid);width:100%}
+input[type=number],input[type=text],input.ans,select{font:inherit;font-size:16px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface2);color:var(--ink);min-width:0}
+input.ans{width:150px;direction:ltr;text-align:center}
+.unit{color:var(--muted);font-size:15px}
+
+.prac{background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:14px}
+.prac p.q{margin:0 0 10px;font-size:16px}
+.prac .fb{margin:8px 0 0;font-size:15px;min-height:1.2em}
+.fb.ok{color:var(--ok)} .fb.bad{color:var(--bad)}
+.prac.solved{border-color:var(--ok);background:var(--ok-soft)}
+
+/* skier */
+.bars{display:grid;gap:8px;margin-top:12px}
+.bar{display:grid;grid-template-columns:120px 1fr 50px;gap:10px;align-items:center;font-size:14.5px}
+.bar .tr{height:16px;background:var(--chip);border-radius:99px;overflow:hidden}
+.bar .tr i{display:block;height:100%;border-radius:99px;transition:width .08s}
+.bar b{direction:ltr;text-align:left;font-weight:600}
+.switch{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-size:15px}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--surface2);border-radius:999px;padding:5px 14px;cursor:pointer;font-size:14.5px}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.thermos{display:grid;grid-template-columns:repeat(auto-fit,minmax(78px,1fr));gap:12px;margin-top:16px;align-items:end}
+.thermo{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:13.5px;text-align:center}
+.thermo .tube{width:22px;height:170px;border-radius:12px;background:var(--chip);position:relative;overflow:hidden;border:2px solid var(--line)}
+.thermo .tube i{position:absolute;bottom:0;inset-inline:0;background:linear-gradient(to top,var(--cold),var(--hot));transition:height .25s}
+.thermo b{direction:ltr;font-size:14px}
+
+/* options quiz */
+.opts{display:grid;gap:8px;margin-top:10px}
+.opt{text-align:start;border:1.5px solid var(--line);background:var(--surface2);border-radius:10px;padding:10px 14px;cursor:pointer;font-size:16px;line-height:1.5}
+.opt:hover:not([disabled]){border-color:var(--mid)}
+.opt.ok{background:var(--ok-soft);border-color:var(--ok)}
+.opt.bad{background:var(--bad-soft);border-color:var(--bad)}
+.opt[disabled]{cursor:default}
+
+/* calorimeter */
+.calo{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+.calo svg{width:100%;height:auto}
+.dtable{width:100%;border-collapse:collapse;font-size:15px}
+.dtable td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.dtable td:last-child{direction:ltr;text-align:left;font-weight:600}
+.ctable{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+.ctable th,.ctable td{padding:5px 8px;border-bottom:1px solid var(--line);text-align:start}
+.ctable td.n{direction:ltr;text-align:left}
+
+/* packs */
+.packs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.ediag{display:grid;grid-template-columns:1fr 150px;gap:16px;align-items:stretch;background:var(--surface2);border-radius:12px;padding:16px}
+.levels{position:relative;min-height:220px;border-inline-start:2px solid var(--muted);padding-inline-start:12px}
+.levels .axis{position:absolute;inset-inline-start:-28px;top:50%;transform:translateY(-50%) rotate(-90deg);font-size:13px;color:var(--muted);white-space:nowrap}
+.lv{position:absolute;inset-inline:12px;border-top:2px dashed var(--muted);font-size:15px;padding-top:2px}
+.lv span{background:var(--chip);padding:1px 8px;border-radius:6px}
+.lv.top{top:20px}.lv.bot{top:170px}
+.arrowv{position:absolute;inset-inline-end:30%;top:30px;height:140px;width:4px;border-radius:4px}
+.arrowv::after{content:"";position:absolute;inset-inline-start:-7px;border:9px solid transparent}
+.arrowv.down{background:var(--hot)} .arrowv.down::after{bottom:-14px;border-top-color:var(--hot)}
+.arrowv.up{background:var(--cold)} .arrowv.up::after{top:-14px;border-bottom-color:var(--cold)}
+.dhlabel{position:absolute;inset-inline-end:calc(30% + 14px);top:84px;font-weight:700;direction:ltr}
+.flow{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;text-align:center;font-size:14.5px;border-radius:10px;padding:10px}
+.flow .big{font-size:30px}
+
+/* heating curve */
+.hc canvas{width:100%;height:300px;display:block;background:var(--surface2);border-radius:12px}
+.seglist{display:grid;gap:6px;margin-top:12px}
+.seg{display:grid;grid-template-columns:24px 1fr auto;gap:10px;align-items:center;padding:6px 10px;border-radius:8px;font-size:14.5px;border:1px solid transparent}
+.seg.on{border-color:var(--mid);background:var(--chip)}
+.seg .dot{width:12px;height:12px;border-radius:50%}
+.seg b{direction:ltr}
+
+/* hess */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tab{border:1.5px solid var(--line);background:var(--surface2);border-radius:8px;padding:6px 14px;cursor:pointer;font-size:15px}
+.tab[aria-selected=true]{background:var(--mid);color:#fff;border-color:var(--mid)}
+.tab.solved::after{content:" ✓"}
+.target{background:var(--surface2);border:1.5px dashed var(--mid);border-radius:12px;padding:12px 14px;margin-bottom:12px;font-size:17px;overflow-x:auto}
+.hcard{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;background:var(--surface)}
+.hcard .eq{font-size:16.5px;overflow-x:auto;padding-bottom:2px}
+.hcard .dh{direction:ltr;font-weight:600;font-size:14.5px;color:var(--muted)}
+.hcard .tools{display:flex;gap:6px;flex-wrap:wrap}
+.sum{border-top:2px solid var(--ink);margin-top:8px;padding-top:10px;font-size:17px;overflow-x:auto}
+.status{margin-top:10px;padding:10px 14px;border-radius:10px;font-weight:600}
+.status.ok{background:var(--ok-soft);color:var(--ok)}
+.status.wait{background:var(--chip);color:var(--muted)}
+
+/* ladder */
+.ladwrap{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.ladder{position:relative;height:440px;background:var(--surface2);border-radius:12px}
+.ladder .ax{position:absolute;top:12px;bottom:12px;inset-inline-start:50%;width:3px;background:var(--thermal);transform:translateX(50%)}
+.lpt{position:absolute;transform:translateY(-50%);display:flex;align-items:center;gap:6px;cursor:pointer;border:0;background:transparent;padding:0;font-size:14px}
+.lpt .ln{width:34px;height:2px;background:var(--muted)}
+.lpt span{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:1px 8px;direction:ltr;white-space:nowrap}
+.lpt.r{inset-inline-start:calc(50% + 2px)}
+.lpt.l{inset-inline-end:calc(50% + 2px);flex-direction:row-reverse}
+.lpt.zero span{background:var(--chip)}
+.lpt:hover span,.lpt.sel span{border-color:var(--mid);box-shadow:0 0 0 2px var(--mid)}
+
+/* games */
+.game .gbox{background:var(--surface2);border-radius:14px;padding:20px;text-align:center;min-height:230px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px}
+.ghead{display:flex;justify-content:space-between;width:100%;font-weight:600;font-size:15px}
+.timer{direction:ltr}
+.gprompt{font-size:20px;font-weight:600;line-height:1.5;max-width:46ch}
+.gopts{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.gopts .opt{min-width:120px;text-align:center}
+.gscore{font-size:42px;font-weight:700;direction:ltr}
+.flash-ok{animation:fo .35s}
+.flash-bad{animation:fb .35s}
+@keyframes fo{50%{background:var(--ok-soft)}}
+@keyframes fb{50%{background:var(--bad-soft)}}
+.stars3{font-size:28px;letter-spacing:4px;color:var(--amber)}
+.stars3 .off{color:var(--line)}
+
+/* quiz runner */
+.qr .qtop{display:flex;justify-content:space-between;font-size:14.5px;color:var(--muted);margin-bottom:6px}
+.qr .qbar{height:6px;border-radius:99px;background:var(--chip);overflow:hidden;margin-bottom:14px}
+.qr .qbar i{display:block;height:100%;background:var(--thermal);transition:width .3s}
+.qr .qtext{font-size:18.5px;font-weight:600;line-height:1.6}
+.qr .exp{margin-top:12px;padding:10px 14px;border-radius:10px;font-size:15.5px}
+.qr .exp.ok{background:var(--ok-soft)} .qr .exp.bad{background:var(--bad-soft)}
+.qr .qnav{display:flex;justify-content:flex-end;margin-top:14px}
+.yr{display:inline-block;font-size:12.5px;font-weight:600;background:var(--chip);border-radius:6px;padding:1px 8px;margin-inline-start:6px;vertical-align:middle;color:var(--muted)}
+.result{text-align:center;padding:10px 0}
+.result .gscore{font-size:52px}
+.review{text-align:start;margin-top:16px;display:grid;gap:10px}
+.review div{background:var(--surface2);border-radius:10px;padding:10px 14px;font-size:15px;border-inline-start:4px solid var(--bad)}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:14px}
+.mode{border:1.5px solid var(--line);border-radius:14px;padding:16px;background:var(--surface2);cursor:pointer;text-align:start}
+.mode:hover{border-color:var(--mid)}
+.mode b{display:block;font-size:18px;margin-bottom:4px}
+.mode span{color:var(--muted);font-size:14.5px}
+
+.act{margin-top:20px;padding-top:18px;border-top:2px dashed var(--line)}
+.act-tag{display:inline-block;background:var(--chip);border-radius:8px;padding:2px 10px;margin-bottom:8px!important}
+.cmap{margin-top:16px;background:var(--surface2);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.cmap h4{margin:0 0 10px;font-size:16.5px}
+.cmap svg{display:block;width:100%;height:auto;max-width:640px;margin:0 auto}
+.cm-box{fill:var(--surface);stroke:var(--mid);stroke-width:2}
+.cm-main{fill:var(--mid)}
+.cm-k{fill:var(--chip);stroke:var(--line);stroke-width:1.5}
+.cm-x{fill:rgba(39,99,216,.14);stroke:var(--cold);stroke-width:1.5}
+.cm-d{fill:rgba(222,69,39,.12);stroke:var(--hot);stroke-width:1.5}
+.cm-t{fill:var(--ink);font-family:inherit;font-size:14px}
+.cm-tw{fill:#fff;font-family:inherit;font-size:14px}
+.cm-ln{stroke:var(--muted);stroke-width:2;fill:none}
+.cm-ah{fill:var(--muted)}
+.cm-note{margin:10px 0 0;font-size:15px;color:var(--muted);line-height:1.8}
+.flowmap{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px}
+.fstep{background:var(--surface);border:2px solid var(--mid);border-radius:12px;padding:8px 14px;text-align:center;font-size:15px;font-weight:600;max-width:200px}
+.fstep.k{border-color:var(--hot);background:var(--hot-soft)}
+.fstep small{display:block;font-weight:400;color:var(--muted);font-size:13px;direction:auto}
+.farr{font-size:22px;color:var(--mid);font-weight:700}
+.lc-img{background:var(--surface);border-radius:10px;padding:6px}
+.lc-img svg{display:block;width:100%;height:auto}
+.lab{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:center;background:var(--surface2);border:1px solid var(--line);border-radius:14px;padding:12px}
+.labsvg{width:100%;height:auto;display:block}
+.labside{display:flex;flex-direction:column;gap:10px}
+.lablbl{font-size:14px;color:var(--muted)}
+.watch{display:flex;align-items:center;gap:10px;background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:6px 14px;width:max-content}
+.watch b{font-size:24px;font-variant-numeric:tabular-nums}
+.ordgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.ord{background:var(--surface);border:2px solid var(--mid);border-radius:14px;padding:10px;text-align:center;display:flex;flex-direction:column;gap:4px}
+.ord em{font-style:normal;font-size:28px;font-weight:700;color:var(--hot)}
+.ord small{color:var(--muted)}
+@media (max-width:700px){.lab{grid-template-columns:1fr}}
+.frac{display:inline-flex;flex-direction:column;text-align:center;vertical-align:middle;margin:0 4px}
+.frac span{padding:0 6px}.frac span:first-child{border-bottom:2px solid currentColor}
+.kwrows{display:grid;gap:8px;margin:10px 0}
+.kwr{display:grid;grid-template-columns:minmax(110px,1fr) 1fr 80px;gap:8px;align-items:center;background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.kwprev{font-size:18px;background:var(--chip);border-radius:10px;padding:10px 14px;overflow-x:auto}
+.bars3{direction:ltr;display:flex;gap:18px;justify-content:center;align-items:flex-end;background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:12px}
+.b3{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:60px;font-size:14px}
+.b3t{position:relative;width:46px;height:170px;background:var(--chip);border-radius:8px;overflow:hidden}
+.b3t i{position:absolute;bottom:0;left:0;right:0;transition:height .1s}
+.b3t i.ghost{background:transparent;border:2px dashed var(--muted);z-index:2}
+.ssbtns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.col-btns{display:flex;flex-direction:column;gap:8px;align-items:stretch}
+.lpinfo{font-size:15px;line-height:1.9;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 12px}
+.tree{display:flex;flex-direction:column;align-items:center;gap:12px}
+.troot{background:var(--mid);color:#fff;font-weight:700;border-radius:14px;padding:10px 18px;text-align:center}
+.tkids{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;width:100%}
+.tnode{background:var(--surface);border:2px solid var(--mid);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:6px;font-size:14.5px;text-align:center}
+.tnode b{font-size:16px}.tnode span{background:var(--surface2);border-radius:8px;padding:4px 6px}.tnode span.tk{background:var(--hot-soft);font-weight:600}
+.steps{margin:10px 0;padding-inline-start:22px;display:grid;gap:8px}.steps li{background:var(--surface2);border-radius:8px;padding:6px 10px}
+.tl{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:10px;position:relative}
+.tlb{border:2px solid var(--line);background:var(--surface);border-radius:12px;padding:6px 14px;cursor:pointer;display:flex;flex-direction:column;align-items:center;font:inherit;color:inherit;min-width:100px}
+.tlb b{font-size:18px;color:var(--mid)}.tlb[aria-pressed=true]{border-color:var(--mid);background:var(--chip)}
+.tlbody{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.cmp{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;text-align:center}.cmp>div{display:flex;flex-direction:column;font-size:20px}.cmp small{font-size:13px;color:var(--muted)}.cmp .vs{font-size:14px;color:var(--muted)}
+.dlgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:center;margin-top:8px}.dlgrid svg{width:100%;height:auto;background:var(--surface2);border-radius:12px}
+#plS{width:100%;height:auto;background:var(--surface2);border-radius:12px;margin-bottom:8px}
+@media (max-width:700px){.dlgrid{grid-template-columns:1fr}}
+.molbox{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px 10px;margin:8px auto;max-width:520px;overflow-x:auto;font-weight:400}
+.optsvg{display:inline-block;width:150px;max-width:100%;vertical-align:middle}.optsvg svg{width:100%;height:auto;max-height:110px}
+.molbox svg.mol{display:block;width:100%;height:auto;max-height:230px}
+.molcv{width:100%;height:280px;display:block;background:var(--surface2);border-radius:12px;touch-action:none;cursor:grab}
+.mdgrid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:14px;align-items:start;margin-top:10px}
+.srbox{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:center;margin-top:10px}
+.srname{font-size:26px;font-weight:700;color:var(--mid)}.srf{margin:6px 0;font-size:15px}
+.nbd{margin-top:10px}.nbname{font-size:18px;background:var(--chip);border-radius:10px;padding:10px 14px;margin-top:6px}
+.chal{background:var(--surface2);border:2px solid var(--amber);border-radius:14px;padding:14px}
+.chal-h{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.chal-q{font-weight:600}.chal .nx{margin-top:8px}
+.isogrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:10px}
+.isocard{background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:6px;cursor:pointer;color:inherit;display:flex;flex-direction:column;gap:6px;align-items:center;font:inherit}
+.isocard svg{width:100%;height:auto;max-height:150px}
+.isocard.yes{border-color:var(--ok);background:var(--ok-soft)}.isocard.no{border-color:var(--bad);background:var(--bad-soft)}.isocard.same{border-color:var(--amber)}
+.isocard.as{cursor:default}
+.ctgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}.ctgrid svg{background:var(--surface2);border-radius:12px;width:100%;height:auto}
+.chslots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:8px}.chslots select{width:100%;min-width:0}.chslots .ctrl{min-width:0}.ctgrid>*,.mdgrid>*,.srbox>*{min-width:0}
+#chS{width:100%;height:auto;background:var(--surface2);border-radius:12px}
+#hMol{justify-content:center;margin-top:8px}
+@media (max-width:700px){.mdgrid,.srbox,.ctgrid{grid-template-columns:1fr}.chslots{grid-template-columns:1fr 1fr}}
+.lcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:6px}
+.lc{background:var(--surface2);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:6px}
+.lc .ic{font-size:30px;line-height:1}
+.lc h5{margin:2px 0 0;font-size:17.5px}
+.lc p{margin:0;font-size:15.5px;line-height:1.7}
+.lc .ex{margin-top:auto;background:var(--chip);border-radius:10px;padding:8px 12px;font-size:14.5px;line-height:1.6}
+.lc .ex b{color:var(--green)}
+.simple{font-size:18px;background:var(--chip);border-radius:12px;padding:12px 16px;margin:4px 0 14px;line-height:1.8}
+.navlink{text-decoration:none;font-weight:600;font-size:15px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 14px;color:var(--ink)}
+/* bot */
+.bot-fab{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));inset-inline-end:16px;z-index:40;display:none;align-items:center;gap:8px;border:0;border-radius:999px;padding:12px 18px;background:var(--green);color:#fff;font-weight:600;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.22)}
+.bot-fab .em{font-size:20px}
+.bot-panel{position:fixed;bottom:calc(78px + env(safe-area-inset-bottom,0px));inset-inline-end:16px;z-index:41;width:min(400px,calc(100vw - 24px));height:min(580px,calc(100vh - 120px));display:none;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:0 12px 40px rgba(0,0,0,.25);overflow:hidden}
+.bot-panel.open{display:flex}
+.bot-head{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:var(--green);color:#fff}
+.bot-head b{font-size:16px}.bot-head small{display:block;opacity:.9;font-size:12.5px}
+.bot-head button{background:transparent;border:0;color:#fff;font-size:22px;cursor:pointer;line-height:1}
+.bot-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px;background:var(--surface2)}
+.msg{max-width:88%;padding:9px 13px;border-radius:14px;font-size:15.5px;line-height:1.75;white-space:normal;word-wrap:break-word}
+.msg.me{align-self:flex-start;background:var(--green);color:#fff;border-end-start-radius:4px}
+.msg.bot{align-self:flex-end;background:var(--surface);border:1px solid var(--line);border-end-end-radius:4px}
+.msg.err{align-self:center;background:var(--bad-soft);color:var(--bad);font-size:14px}
+.bot-sugg{display:flex;flex-wrap:wrap;gap:6px;padding:8px 12px 0}
+.bot-sugg button{border:1px solid var(--line);background:var(--surface2);border-radius:999px;padding:4px 10px;font-size:13.5px;cursor:pointer}
+.bot-form{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line)}
+.bot-form textarea{flex:1;resize:none;font:inherit;font-size:15.5px;border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--surface2);color:var(--ink);height:44px;max-height:110px}
+.bot-note{font-size:12px;color:var(--muted);text-align:center;padding:0 10px 8px}
+/* task */
+.notice{background:var(--chip);border-radius:12px;padding:14px 16px;line-height:1.8}
+.assign{background:var(--surface2);border:1.5px solid var(--green);border-radius:16px;padding:18px}
+.assign h3{margin:0 0 6px}
+.assign .due{display:inline-block;background:var(--chip);border-radius:8px;padding:2px 10px;font-size:14px;margin-top:6px}
+.assign .body{white-space:pre-wrap;margin:8px 0 0}
+.fld{display:flex;flex-direction:column;gap:4px;margin-top:12px;font-size:15px;color:var(--muted)}
+.fld input,.fld textarea{font:inherit;font-size:16px;padding:9px 11px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface2);color:var(--ink)}
+.fld textarea{min-height:90px;resize:vertical}
+.drop{border:2px dashed var(--line);border-radius:14px;padding:18px;text-align:center;margin-top:12px;cursor:pointer;background:var(--surface2)}
+.drop.over{border-color:var(--green);background:var(--chip)}
+.flist{display:grid;gap:6px;margin-top:10px}
+.fitem{display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:7px 12px;font-size:14.5px}
+.fitem a{word-break:break-all}
+.fitem button{border:0;background:transparent;color:var(--bad);cursor:pointer;font-size:14px}
+.stat{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:3px 12px;font-weight:600;font-size:14.5px}
+.stat.ok{background:var(--ok-soft);color:var(--ok)}.stat.no{background:var(--hot-soft);color:var(--hot)}
+.subcard{border:1px solid var(--line);border-radius:14px;padding:14px;background:var(--surface);display:grid;gap:6px}
+.subgrid{display:grid;gap:12px;margin-top:12px}
+.fb-box{background:var(--ok-soft);border-radius:10px;padding:10px 14px;margin-top:10px}
+.qfig{max-width:330px;margin:10px auto 4px;background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:6px 8px;font-weight:400}
+.qfig svg{display:block;width:100%;height:auto}
+#toast{position:fixed;inset-inline:0;bottom:calc(18px + env(safe-area-inset-bottom,0px));display:flex;justify-content:center;pointer-events:none;z-index:50}
+#toast div{background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:12px;font-weight:600;box-shadow:0 6px 24px rgba(0,0,0,.25);opacity:0;transform:translateY(10px);transition:all .25s;max-width:90vw}
+#toast div.show{opacity:1;transform:none}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .lessons{grid-template-columns:repeat(2,1fr);margin-top:14px}
+  .thermo-track{display:none}
+  .lcard{border-radius:16px}
+  .lgrid{grid-template-columns:1fr}
+  .side{position:static}
+  .side nav{display:none}
+  .calo{grid-template-columns:1fr}
+  .calo svg{max-width:220px;margin:0 auto;display:block}
+  .ladwrap{grid-template-columns:1fr}
+  .final-band{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .lessons{grid-template-columns:1fr}
+  .lhead{grid-template-columns:1fr;gap:4px}
+  .ediag{grid-template-columns:1fr}
+  .bar{grid-template-columns:96px 1fr 44px}
+  .panel{padding:16px}
+  .hcard{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+.report-band .rb-in{display:flex;flex-direction:column;gap:10px;width:100%}.rb-row{display:flex;gap:8px;flex-wrap:wrap}.rb-row input{flex:1;min-width:180px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit}
+.rb-code{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px dashed var(--mid);border-radius:12px;padding:8px 10px}.rb-code code{flex:1;word-break:break-all;font-size:12px;user-select:all}.rb-sum{margin:6px 0 0;font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#home"><span class="brand-mark">C</span><span>مختبر الهيدروكربونات</span></a>
+    <div class="top-tools">
+      <span class="starpill" title="مجموع النجوم"><b>★</b><span id="starCount">0</span></span>
+      <button class="iconbtn" id="themeBtn" type="button">الوضع الليلي</button>
+    </div>
+  </header>
+  <main id="app"></main>
+  <footer class="foot" style="font-size:12.5px">إعداد المعلمة: صباح داخل الأحمدي - الثانوية السادسة والثلاثون بالمدينة المنورة</footer>
+</div>
+<div id="toast" aria-live="polite"></div>
+<button type="button" class="bot-fab" id="botFab" aria-controls="botPanel" aria-expanded="false"><span class="em">🧪</span>اسألي مساعدك الكيميائي</button>
+<section class="bot-panel" id="botPanel" aria-label="اسألي مساعدك الكيميائي">
+  <div class="bot-head"><div><b>🧪 اسألي مساعدك الكيميائي</b><small>اسأليني عن الهيدروكربونات</small></div><button type="button" id="botClose" aria-label="إغلاق">×</button></div>
+  <div class="bot-msgs" id="botMsgs" aria-live="polite"></div>
+  <div class="bot-sugg" id="botSugg"></div>
+  <form class="bot-form" id="botForm"><textarea id="botIn" rows="1" placeholder="اكتبي سؤالك هنا…" aria-label="سؤالك"></textarea><button class="btn sm" type="submit" id="botSend" style="background:var(--green);color:#fff">إرسال</button></form>
+  <div class="bot-note">المساعد يساعدك على الفهم، فتحققي دائمًا من كتابك ومعلمتك.</div>
+</section>
+
+<script>
+"use strict";
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const LS='hydro22-sabah-ch4-v1';
+let S={tasks:{},games:{},quiz:{},done:{},final:null,theme:null};
+try{const raw=localStorage.getItem(LS);if(raw)S=Object.assign(S,JSON.parse(raw));}catch(e){}
+function save(){try{localStorage.setItem(LS,JSON.stringify(S));}catch(e){}try{autoSync();}catch(e){}}
+const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let cleanups=[];
+function onCleanup(fn){cleanups.push(fn);}
+
+/* ---------- helpers ---------- */
+function fm(s){return String(s).replace(/([A-Za-z\)])(\d+)/g,'$1<sub>$2</sub>').replace(/\((s|l|g|aq)\)/g,'<sub>($1)</sub>');}
+function fmo(t){return String(t).trim().startsWith('<')?t:fm(t);}
+function fmAll(root){$$('.f',root).forEach(e=>{if(!e.dataset.fm){e.innerHTML=fm(e.textContent);e.dataset.fm='1';e.setAttribute('dir','ltr');}});}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function parseNum(s){
+  s=String(s).trim().replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[٫]/g,'.').replace(/[,،\s]/g,'').replace(/[−–]/g,'-');
+  const m=s.match(/^([+-]?\d*\.?\d+)[×xX\*]10\^?([+-]?\d+)$/);
+  if(m)return parseFloat(m[1])*Math.pow(10,+m[2]);
+  if(s==='')return NaN; const v=Number(s); return isFinite(v)?v:NaN;
+}
+const SUP={'-':'⁻','0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'};
+function nice(x,p=3){
+  if(!isFinite(x))return '—';
+  const a=Math.abs(x);
+  if(a!==0&&(a>=1e5||a<1e-3)){const e=Math.floor(Math.log10(a));const m=x/Math.pow(10,e);return (+m.toFixed(p-1))+' × 10'+String(e).split('').map(c=>SUP[c]).join('');}
+  return String(+x.toPrecision(Math.max(p,String(Math.round(a)).length)));
+}
+function sci(x){const e=Math.floor(Math.log10(Math.abs(x)));return (x/Math.pow(10,e)).toFixed(2)+' × 10'+String(e).split('').map(c=>SUP[c]).join('');}
+function sgn(x){x=Math.round(x*10)/10;return (x>0?'+':'')+x;}
+function cssv(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
+function toast(msg){const t=$('#toast');t.innerHTML='<div>'+msg+'</div>';const d=t.firstChild;requestAnimationFrame(()=>d.classList.add('show'));setTimeout(()=>{d.classList.remove('show');},2600);}
+
+/* ---------- scoring ---------- */
+function gameStars(b){return b>=15?3:b>=10?2:b>=5?1:0;}
+function PASS(k){return Math.ceil(((QUIZ[k]||[]).length||5)*0.8);}
+function totalStars(){let n=Object.keys(S.tasks).length;for(const k in S.games)n+=gameStars(S.games[k]);for(const k in S.quiz)if(S.quiz[k]>=PASS(k))n+=3;if(S.final!=null&&S.final>=80)n+=5;return n;}
+function refreshStars(){$('#starCount').textContent=totalStars();}
+function completeTask(id){
+  if(S.tasks[id])return;S.tasks[id]=true;save();refreshStars();
+  const li=document.querySelector('[data-task-li="'+id+'"]');if(li){li.classList.add('on');li.querySelector('.ck').textContent='✓';}
+  updateTaskBar();toast('★ أحسنتِ! أنجزتِ مهمة جديدة');
+}
+function updateTaskBar(){const b=$('#tbar');if(!b)return;const n=+b.dataset.lesson;const ts=LESSONS[n-1].tasks;const d=ts.filter(t=>S.tasks[t.id]).length;b.style.width=(d/ts.length*100)+'%';const c=$('#tcount');if(c)c.textContent=d+' من '+ts.length;}
+
+/* ---------- theme ---------- */
+function effectiveDark(){return S.theme?S.theme==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;}
+function applyTheme(){if(S.theme)document.documentElement.setAttribute('data-theme',S.theme);else document.documentElement.removeAttribute('data-theme');$('#themeBtn').textContent=effectiveDark()?'الوضع النهاري':'الوضع الليلي';}
+$('#themeBtn').addEventListener('click',()=>{S.theme=effectiveDark()?'light':'dark';save();applyTheme();window.dispatchEvent(new Event('themechange'));});
+
+/* ---------- hydrocarbon engine (names & drawings) ---------- */
+const STEM=['','ميث','إيث','بروب','بيوت','بنت','هكس','هبت','أوكت','نون','ديك'];
+const MULT=['','','ثنائي ','ثلاثي ','رباعي '];
+const SUBN={e:'إيثيل',m:'ميثيل'};
+function parentName(n,bond,cyc){const st=STEM[n];if(cyc)return st+'ان حلقي';if(!bond)return st+'ان';const suf=bond.o===2?'ين':'اين';return (n>=4?bond.p+'-':'')+st+suf;}
+function lexLess(a,b){for(let i=0;i<Math.min(a.length,b.length);i++){if(a[i]!==b[i])return a[i]<b[i];}return false;}
+function chainName(n,subs=[],bond=null){
+  const opt=rev=>{const P=p=>rev?n+1-p:p;const s=subs.map(x=>({p:P(x.p),t:x.t}));const b=bond?{p:rev?n-bond.p:bond.p,o:bond.o}:null;return{s,b};};
+  const A=opt(false),B=opt(true);let pick=A;
+  const key=o=>[o.b?o.b.p:0].concat(o.s.map(x=>x.p).sort((a,b)=>a-b));
+  const kA=key(A),kB=key(B);
+  if(lexLess(kB,kA))pick=B;else if(!lexLess(kA,kB)){const eA=A.s.filter(x=>x.t==='e').map(x=>x.p).sort((a,b)=>a-b),eB=B.s.filter(x=>x.t==='e').map(x=>x.p).sort((a,b)=>a-b);if(lexLess(eB,eA))pick=B;}
+  const parts=['e','m'].map(t=>{const ps=pick.s.filter(x=>x.t===t).map(x=>x.p).sort((a,b)=>a-b);return ps.length?ps.join(',')+'-'+MULT[ps.length]+SUBN[t]:'';}).filter(Boolean);
+  const par=parentName(n,pick.b);return parts.length?parts.join('-')+(/^\d/.test(par)?'-':' ')+par:par;
+}
+function svgLabel(t,x,y,size=15,anchor='middle'){let out='';for(const m of t.matchAll(/([A-Za-z]+)|(\d+)|([^A-Za-z\d]+)/g)){if(m[2])out+=`<tspan font-size="${size*0.68}" dy="4">${m[2]}</tspan><tspan dy="-4"></tspan>`;else out+=(m[1]||m[3]).replace(/&/g,'&amp;');}return `<text x="${x}" y="${y}" text-anchor="${anchor}" font-size="${size}" font-weight="600" fill="currentColor" direction="ltr">${out}</text>`;}
+function hLab(h){return h===0?'C':h===1?'CH':'CH'+h;}
+function drawChain(n,subs=[],bond=null,opt={}){
+  const dx=opt.dx||72,W=Math.max(220,(n-1)*dx+90),x0=45,yM=95;const ord=i=>bond&&bond.p===i?bond.o:1;
+  const cnt=Array(n+1).fill(0);subs.forEach(s=>cnt[s.p]++);
+  let s=`<svg viewBox="0 0 ${W} 190" class="mol" role="img" aria-label="صيغة بنائية">`;
+  for(let i=1;i<n;i++){const xa=x0+(i-1)*dx+22,xb=x0+i*dx-22,o=ord(i);[...Array(o)].forEach((_,k)=>{const off=(k-(o-1)/2)*6;s+=`<line x1="${xa}" y1="${yM-5+off}" x2="${xb}" y2="${yM-5+off}" stroke="currentColor" stroke-width="2"/>`;});}
+  const used={};
+  for(let i=1;i<=n;i++){const nb=(i>1?ord(i-1):0)+(i<n?ord(i):0);const h=4-nb-cnt[i];s+=svgLabel(hLab(h),x0+(i-1)*dx,yM);}
+  subs.forEach(sb=>{const k=used[sb.p]=(used[sb.p]||0)+1;const up=k===1;const x=x0+(sb.p-1)*dx;const y1=up?yM-20:yM+6,y2=up?yM-44:yM+30;
+    s+=`<line x1="${x}" y1="${y1}" x2="${x}" y2="${y2}" stroke="currentColor" stroke-width="2"/>`;
+    if(sb.t==='m')s+=svgLabel('CH3',x,up?y2-6:y2+18);
+    else{s+=svgLabel('CH2',x,up?y2-6:y2+18);const y3=up?y2-22:y2+24,y4=up?y2-42:y2+44;s+=`<line x1="${x}" y1="${y3}" x2="${x}" y2="${y4}" stroke="currentColor" stroke-width="2"/>`+svgLabel('CH3',x,up?y4-6:y4+18);}});
+  let top=70,bot=110;Object.keys(used).forEach(p=>{const list=subs.filter(x=>x.p==+p);list.forEach((x,k)=>{if(k===0)top=Math.min(top,x.t==='e'?-30:28);else bot=Math.max(bot,x.t==='e'?222:152);});});
+  return s.replace('viewBox="0 0 '+W+' 190"',`viewBox="0 ${top} ${W} ${bot-top}"`)+'</svg>';
+}
+function molFormula(n,bond,cyc){const h=cyc?2*n:!bond?2*n+2:bond.o===2?2*n:2*n-2;return `C${n>1?n:''}H${h}`;}
+/* benzene ring */
+function ringName(subs){if(!subs.length)return 'بنزين';if(subs.length===1)return SUBN[subs[0].t]+' بنزين';
+  let best=null;for(let st=0;st<6;st++)for(const dir of[1,-1]){const s=subs.map(x=>({p:((dir*(x.p-st))%6+6)%6+1,t:x.t}));const key=s.map(x=>x.p).sort((a,b)=>a-b);const eK=s.filter(x=>x.t==='e').map(x=>x.p).sort((a,b)=>a-b);
+    if(!best||lexLess(key,best.key)||(!lexLess(best.key,key)&&lexLess(eK,best.eK)))best={s,key,eK};}
+  const parts=['e','m'].map(t=>{const ps=best.s.filter(x=>x.t===t).map(x=>x.p).sort((a,b)=>a-b);return ps.length?ps.join(',')+'-'+MULT[ps.length]+SUBN[t]:'';}).filter(Boolean);return parts.join('-')+' بنزين';}
+function drawRing(subs=[],mode='circle',sz=1){const cx=120,cy=110,R=48;const P=k=>[cx+R*Math.sin(k*Math.PI/3),cy-R*Math.cos(k*Math.PI/3)];
+  let s=`<svg viewBox="0 0 240 220" class="mol" role="img" aria-label="حلقة بنزين">`;
+  for(let k=0;k<6;k++){const a=P(k),b=P(k+1);s+=`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="currentColor" stroke-width="2.5"/>`;
+    if(mode!=='circle'&&((k%2===0)===(mode==='A'))){const ia=[cx+(a[0]-cx)*0.78,cy+(a[1]-cy)*0.78],ib=[cx+(b[0]-cx)*0.78,cy+(b[1]-cy)*0.78];s+=`<line x1="${ia[0]}" y1="${ia[1]}" x2="${ib[0]}" y2="${ib[1]}" stroke="currentColor" stroke-width="2.5"/>`;}}
+  if(mode==='circle')s+=`<circle cx="${cx}" cy="${cy}" r="${R*0.6}" fill="none" stroke="currentColor" stroke-width="2.5"/>`;
+  subs.forEach(x=>{const k=x.p-1,a=P(k),o=[cx+(a[0]-cx)*1.45,cy+(a[1]-cy)*1.45];s+=`<line x1="${a[0]}" y1="${a[1]}" x2="${cx+(a[0]-cx)*1.25}" y2="${cy+(a[1]-cy)*1.25}" stroke="currentColor" stroke-width="2"/>`+svgLabel(x.t==='m'?'CH3':'C2H5',o[0],o[1]+5,14);});
+  return s+'</svg>';}
+const MOL=(svg)=>`<div class="molbox">${svg}</div>`;
+/* cyclic structures with substituents */
+function cycSub(n,subs=[],dbls=[],opt={}){const cx=110,cy=100,R=n===3?48:n===4?44:48,off=n===4?-135:-90;const V=[...Array(n)].map((_,k)=>{const a=(off+k*360/n)*Math.PI/180;return[cx+R*Math.cos(a),cy+R*Math.sin(a)];});
+  let s=`<svg viewBox="0 0 220 200" class="mol" role="img" aria-label="مركب حلقي"><polygon points="${V.map(v=>v.join(',')).join(' ')}" fill="none" stroke="currentColor" stroke-width="2.5"/>`;
+  dbls.forEach(([i,j])=>{const a=V[i],b=V[j],ia=[cx+(a[0]-cx)*0.8,cy+(a[1]-cy)*0.8],ib=[cx+(b[0]-cx)*0.8,cy+(b[1]-cy)*0.8];s+=`<line x1="${ia[0]}" y1="${ia[1]}" x2="${ib[0]}" y2="${ib[1]}" stroke="currentColor" stroke-width="2.5"/>`;});
+  if(opt.circle)s+=`<circle cx="${cx}" cy="${cy}" r="${R*0.58}" fill="none" stroke="currentColor" stroke-width="2.3"/>`;
+  subs.forEach(([k,l])=>{const a=V[k],e=[cx+(a[0]-cx)*1.3,cy+(a[1]-cy)*1.3],o=[cx+(a[0]-cx)*1.62,cy+(a[1]-cy)*1.62];s+=`<line x1="${a[0]}" y1="${a[1]}" x2="${e[0]}" y2="${e[1]}" stroke="currentColor" stroke-width="2"/>`+svgLabel(l,o[0],o[1]+5,13);});
+  return s+'</svg>';}
+const OPT=svg=>`<span class="optsvg">${svg}</span>`;
+
+/* ---------- data ---------- */
+const TASK_FORM='https://forms.gle/M9cJZgAia1eNeK6r5';
+const C=(n,s,b)=>MOL(drawChain(n,s||[],b||null));
+const NM=(n,s,b)=>chainName(n,s||[],b||null);
+function cycloSVG(n){const cx=110,cy=95,R=55;let p=[];for(let k=0;k<n;k++){const a=-Math.PI/2+k*2*Math.PI/n;p.push([cx+R*Math.cos(a),cy+R*Math.sin(a)]);}return `<svg viewBox="0 0 220 190" class="mol" role="img" aria-label="ألكان حلقي"><polygon points="${p.map(q=>q.join(',')).join(' ')}" fill="none" stroke="currentColor" stroke-width="3"/>${p.map(q=>`<circle cx="${q[0]}" cy="${q[1]}" r="4" fill="currentColor"/>`).join('')}</svg>`;}
+const LESSONS=[
+{n:1,code:'4-1',title:'مقدمة إلى الهيدروكربونات',en:'Introduction to Hydrocarbons',c:'var(--cold)',
+ idea:'الهيدروكربونات مركبات عضوية تتكون من الكربون والهيدروجين فقط، وهي المصدر الرئيس للوقود.',
+ blurb:'المركبات العضوية، روابط الكربون، نماذج التمثيل، وتكرير النفط.',
+ vocab:['المركبات العضوية','الهيدروكربونات','الهيدروكربون المشبع','الهيدروكربون غير المشبع','التقطير التجزيئي','التكسير الحراري'],
+ learn:[
+  {i:'🧪',t:'المركبات العضوية',s:'مركبات تحتوي على الكربون، ما عدا أكاسيد الكربون والكربونات والكربيدات. ظُن قديمًا أنها لا تُصنع إلا في المخلوقات الحية حتى حضّر العالم فوهلر اليوريا في المختبر عام 1828.',ex:'السكر والدهون والبلاستيك والوقود كلها مركبات عضوية.'},
+  {i:'4️⃣',t:'الكربون رباعي الروابط',s:'تكوّن ذرة الكربون أربع روابط تساهمية، فترتبط بذرات كربون أخرى مكوّنة سلاسل مستقيمة ومتفرعة وحلقات.',ex:'لهذا يوجد ملايين المركبات العضوية.',img:'carbon4'},
+  {i:'🔗',t:'الهيدروكربونات',s:'أبسط المركبات العضوية، تتكون من الكربون والهيدروجين فقط.',ex:'الغاز الطبيعي معظمه ميثان <span class="f">CH4</span>.'},
+  {i:'🧱',t:'نماذج تمثيل الجزيئات',s:'الصيغة الجزيئية، والصيغة البنائية، ونموذج الكرة والعصا، والنموذج الفراغي الذي يبيّن حجم الذرات وتداخلها.',ex:'جربي النماذج في النشاط أدناه.'},
+  {i:'⚖️',t:'مشبع وغير مشبع',s:'الهيدروكربون المشبع روابطه أحادية فقط، وغير المشبع فيه رابطة ثنائية أو ثلاثية على الأقل.',ex:'<span class="f">C2H6</span> مشبع، و <span class="f">C2H4</span> غير مشبع.'},
+  {i:'🛢️',t:'تكرير النفط',s:'التقطير التجزيئي يفصل النفط إلى أجزاء حسب درجات غليانها، والتكسير الحراري يكسر الجزيئات الكبيرة إلى جزيئات أصغر وأكثر فائدة.',ex:'رقم الأوكتان يقيس جودة الجازولين في منع الفرقعة، وتصنّف المضخات في المملكة إلى 91 و 95.'}],
+ tasks:[{id:'l1-models',t:'استكشفي نماذج تمثيل ثلاثة جزيئات'},{id:'l1-sat',t:'ميّزي الهيدروكربون المشبع من غير المشبع'},{id:'l1-dist',t:'حدّدي أجزاء النفط الخمسة في برج التقطير'},{id:'l1-crack',t:'فسّري هدف التكسير الحراري'}],
+ groups:[{sim:'models',cards:[0,1,2,3,4],maps:['orgMap']},{sim:'distill',cards:[5],maps:['refineMap']}],game:'g1'},
+{n:2,code:'4-2',title:'الألكانات',en:'Alkanes',c:'#4F7BE8',
+ idea:'الألكانات هيدروكربونات تحتوي على روابط أحادية فقط.',
+ blurb:'السلسلة المتماثلة، تسمية الألكانات المستقيمة والمتفرعة والحلقية، وخواصها.',
+ vocab:['الألكانات','السلسلة المتماثلة','السلسلة الرئيسة','المجموعات البديلة','مجموعة الألكيل','الألكانات الحلقية'],
+ learn:[
+  {i:'📏',t:'الألكانات',s:'هيدروكربونات مشبعة صيغتها العامة <span class="f">CnH2n+2</span>.',ex:'الميثان <span class="f">CH4</span>، الإيثان <span class="f">C2H6</span>، البروبان <span class="f">C3H8</span>.'},
+  {i:'🪜',t:'السلسلة المتماثلة',s:'سلسلة مركبات يختلف كل مركب فيها عن الذي يليه بمجموعة <span class="f">CH2</span>.',ex:'الميثان ← الإيثان ← البروبان ← البيوتان.'},
+  {i:'🔤',t:'أسماء الألكانات',s:'مقطع يدل على عدد ذرات الكربون، ثم «ان»: ميث 1، إيث 2، بروب 3، بيوت 4، بنت 5، هكس 6، هبت 7، أوكت 8، نون 9، ديك 10.',ex:'<span class="f">C6H14</span> هو الهكسان.'},
+  {i:'🌿',t:'الألكانات المتفرعة',s:'مجموعة الألكيل ألكان نُزعت منه ذرة هيدروجين، وترتبط بالسلسلة الرئيسة: ميثيل <span class="f">–CH3</span> وإيثيل <span class="f">–C2H5</span>.',ex:'2-ميثيل بيوتان.'},
+  {i:'🏷️',t:'قواعد التسمية',s:'أطول سلسلة، ثم الترقيم من الطرف الأقرب للتفرع، ثم مواقع المجموعات وأسماؤها، مع ثنائي وثلاثي للمتكرر، وترتيبها أبجديًا (إيثيل قبل ميثيل).',ex:'2,3-ثنائي ميثيل بنتان، و 3-إيثيل-2-ميثيل هكسان.'},
+  {i:'⭕',t:'الألكانات الحلقية',s:'ذرات الكربون مرتبطة في حلقة، ونكتب «حلقي» بعد اسم الألكان. صيغتها العامة <span class="f">CnH2n</span>.',ex:'هكسان حلقي <span class="f">C6H12</span>.'},
+  {i:'💧',t:'خواص الألكانات',s:'غير قطبية فلا تذوب في الماء، وتزداد درجة غليانها بزيادة طول السلسلة، وتحترق مطلقة طاقة كبيرة.',ex:'الزيت (ألكانات طويلة) يطفو على الماء ولا يمتزج به.'}],
+ tasks:[{id:'l2-series',t:'استكشفي السلسلة المتماثلة حتى الديكان'},{id:'l2-trend',t:'استنتجي علاقة درجة الغليان بطول السلسلة'},{id:'l2-build',t:'ابني ثلاثة ألكانات متفرعة وسمّيها'},{id:'l2-chal',t:'أجيبي عن ثلاثة تحديات تسمية متتالية'},{id:'l2-cyc',t:'سمّي ألكانًا حلقيًا'}],
+ groups:[{sim:'series',cards:[0,1,2,6]},{sim:'nameBuilder',cards:[3,4],maps:['nameMap']},{sim:'cyclo',cards:[5]}],game:'g2'},
+{n:3,code:'4-3',title:'الألكينات والألكاينات',en:'Alkenes and Alkynes',c:'var(--mid)',
+ idea:'الألكينات والألكاينات هيدروكربونات تحتوي على رابطة ثنائية أو ثلاثية واحدة على الأقل بين ذرتي كربون.',
+ blurb:'الرابطة الثنائية والثلاثية، التسمية، والإيثيلين ونضج الفواكه.',
+ vocab:['الألكينات','الألكاينات'],
+ learn:[
+  {i:'🔀',t:'الألكينات',s:'هيدروكربونات غير مشبعة فيها رابطة ثنائية <span class="f">C=C</span>، صيغتها العامة <span class="f">CnH2n</span>، وتنتهي أسماؤها بـ«ين».',ex:'الإيثين (الإيثيلين) <span class="f">C2H4</span>.'},
+  {i:'⚡',t:'الألكاينات',s:'فيها رابطة ثلاثية <span class="f">C≡C</span>، صيغتها العامة <span class="f">CnH2n−2</span>، وتنتهي أسماؤها بـ«اين».',ex:'الإيثاين (الأسيتيلين) <span class="f">C2H2</span> يُستعمل في اللحام.'},
+  {i:'🔢',t:'تسمية غير المشبعة',s:'نختار أطول سلسلة تحتوي الرابطة المتعددة، ونرقّم من الطرف الأقرب إليها، ونكتب رقم أول ذرة فيها قبل الاسم.',ex:'<span class="f">CH2=CH–CH2–CH3</span> اسمه 1-بيوتين.'},
+  {i:'🍌',t:'الإيثيلين ونضج الفواكه',s:'الإيثيلين هرمون نباتي تطلقه الفواكه الناضجة، فيسرّع نضجها ونضج ما حولها.',ex:'وضع موزة ناضجة مع أفوكادو في كيس مغلق يُنضجه بسرعة.'},
+  {i:'🔗',t:'روابط سيجما وباي',s:'الرابطة الأحادية رابطة سيجما. الثنائية سيجما وباي. والثلاثية رابطة سيجما ورابطتا باي.',ex:'في الإيثاين <span class="f">H–C≡C–H</span>: ثلاث روابط سيجما ورابطتا باي.'},
+  {i:'🔥',t:'الخواص',s:'غير قطبية كالألكانات، لكنها أنشط كيميائيًا بسبب الرابطة الثنائية أو الثلاثية.',ex:'الأسيتيلين يحترق بلهب شديد الحرارة يصهر الفلزات.'}],
+ tasks:[{id:'l3-ene',t:'ابني ألكينًا وسمّيه'},{id:'l3-yne',t:'ابني ألكاينًا وسمّيه'},{id:'l3-namech',t:'أجيبي عن تحديي تسمية'},{id:'l3-eth',t:'تجربة الإيثيلين: فسّري سرعة النضج'}],
+ groups:[{sim:'bondBuilder',cards:[0,1,2,4],maps:['unsatMap']},{sim:'ethylene',cards:[3,5]}],game:'g3'},
+{n:4,code:'4-4',title:'متشكلات الهيدروكربونات',en:'Hydrocarbon Isomers',c:'#B45AA6',
+ idea:'بعض الهيدروكربونات لها الصيغة الجزيئية نفسها، ولكن تراكيبها مختلفة.',
+ blurb:'المتشكلات البنائية والهندسية (سيس وترانس) والضوئية.',
+ vocab:['المتشكلات','المتشكلات البنائية','المتشكلات الفراغية','المتشكلات الهندسية','المتشكلات الضوئية','ذرة الكربون غير المتماثلة'],
+ learn:[
+  {i:'👯',t:'المتشكلات',s:'مركبان أو أكثر لها الصيغة الجزيئية نفسها، لكن تراكيبها مختلفة، فتختلف خواصها.',ex:'كلمتا «ربح» و«حرب» من الحروف نفسها بترتيب مختلف.'},
+  {i:'🧩',t:'المتشكلات البنائية',s:'تختلف في ترتيب ارتباط الذرات بعضها ببعض.',ex:'البيوتان و 2-ميثيل بروبان صيغتهما <span class="f">C4H10</span>.'},
+  {i:'🔄',t:'المتشكلات الفراغية',s:'الذرات مرتبطة بالترتيب نفسه، لكن تختلف اتجاهاتها في الفراغ.',ex:'نوعاها: الهندسية والضوئية.'},
+  {i:'↔️',t:'المتشكلات الهندسية',s:'تنتج لأن الرابطة الثنائية لا تسمح بالدوران: سيس (المجموعتان في الجهة نفسها) وترانس (في جهتين متقابلتين).',ex:'سيس-2-بيوتين وترانس-2-بيوتين.'},
+  {i:'🤚',t:'المتشكلات الضوئية',s:'تنتج عن ذرة كربون غير متماثلة ترتبط بأربع مجموعات مختلفة، فيكون للجزيء صورتان كل منهما صورة مرآة للأخرى ولا تتطابقان.',ex:'يدك اليمنى ويدك اليسرى.'},
+  {i:'🔦',t:'الدوران الضوئي',s:'المتشكلات الضوئية تؤثر في الضوء المستقطب (ضوء أمواجه في مستوى واحد): متشكل D يدير مستوى الاستقطاب إلى اليمين (مع عقارب الساعة)، ومتشكل L يديره إلى اليسار (عكس عقارب الساعة). ويسمى هذا التأثير الدوران الضوئي.',ex:'L-مينثول له نكهة النعناع المنعشة، أما صورته في المرآة D-مينثول فليس له التأثير نفسه.'}],
+ tasks:[{id:'l4-iso',t:'اكتشفي متشكلات C₅H₁₂ الثلاثة'},{id:'l4-bp',t:'قارني درجات غليان المتشكلات'},{id:'l4-cis',t:'بدّلي بين سيس وترانس وحاولي التدوير'},{id:'l4-chi',t:'كوّني ذرة كربون غير متماثلة'},{id:'l4-mirror',t:'فسّري عدم تطابق صورتي المرآة'}],
+ groups:[{sim:'structIso',cards:[0,1],maps:['isoMap']},{sim:'cisTrans',cards:[2,3]},{sim:'chiral',cards:[4,5],maps:['hands','polar']}],game:'g4'},
+{n:5,code:'4-5',title:'الهيدروكربونات الأروماتية',en:'Aromatic Hydrocarbons',c:'var(--hot)',
+ idea:'الهيدروكربونات الأروماتية مركبات حلقية غير مشبعة شديدة الثبات بسبب إلكتروناتها غير المتمركزة.',
+ blurb:'تركيب البنزين، الإلكترونات غير المتمركزة، تسمية مشتقات البنزين، والمركبات الأليفاتية.',
+ vocab:['المركبات الأروماتية','المركبات الأليفاتية'],
+ learn:[
+  {i:'💍',t:'البنزين',s:'صيغته <span class="f">C6H6</span>، حلقة من ست ذرات كربون. اقترح كيكولي أن الروابط الأحادية والثنائية تتبادل في الحلقة.',ex:'شاهدي التركيبين في النشاط أدناه.'},
+  {i:'📜',t:'قصة صيغة البنزين',s:'عزله فاراداي عام 1825، وعُرفت صيغته <span class="f">C6H6</span> فاستنتج العلماء أنه غير مشبع، لكنه لا يتفاعل كالألكينات. اقترح كيكولي عام 1865 الحلقة السداسية، وفسّر باولينج عام 1930 ثباته بالإلكترونات غير المتمركزة.',ex:'قال كيكولي إنه رأى في المنام أفعى تعض ذيلها، فخطرت له فكرة الحلقة.'},
+  {i:'☁️',t:'الإلكترونات غير المتمركزة',s:'إلكترونات الروابط الثنائية لا تبقى بين ذرتين، بل تتشارك بين ذرات الحلقة كلها، فنرسمها دائرة داخل الحلقة. وهذا سبب ثبات البنزين الكبير.',ex:'لذلك لا يتفاعل البنزين بسهولة كالألكينات.'},
+  {i:'🌸',t:'الأروماتية والأليفاتية',s:'المركبات الأروماتية تحتوي حلقة بنزين، والأليفاتية لا تحتويها، مثل الألكانات والألكينات والألكاينات.',ex:'سُميت أروماتية لأن بعضها له رائحة مميزة.'},
+  {i:'🏷️',t:'تسمية مشتقات البنزين',s:'نسمي المجموعات المرتبطة بالحلقة، ونرقّم ذرات الحلقة بحيث تأخذ المجموعات أصغر الأرقام.',ex:'1,2-ثنائي ميثيل بنزين.'},
+  {i:'⚠️',t:'مخاطر بعض الأروماتية',s:'بعض المركبات الأروماتية مسرطنة، مثل البنزين، والبنزوبايرين الموجود في سناج المداخن ودخان التبغ.',ex:'النفثالين (حلقتان ملتحمتان) يُستعمل في كرات العث.'}],
+ tasks:[{id:'l5-kek',t:'قارني تركيبي كيكولي بالحلقة غير المتمركزة'},{id:'l5-deloc',t:'شاهدي الإلكترونات المتمركزة وغير المتمركزة'},{id:'l5-ring',t:'ابني ثلاثة مشتقات للبنزين وسمّيها'},{id:'l5-ringch',t:'أجيبي عن تحديي تسمية'},{id:'l5-sort',t:'صنّفي المركبات إلى أروماتية وأليفاتية'}],
+ groups:[{sim:'benzene',cards:[0,1,2],maps:['bzHistory'],after:['deloc','aromMap']},{sim:'ringBuilder',cards:[4]},{sim:'aromSort',cards:[3,5]}],game:'g5'}
+];
+const BADGES=[['l1','🛢️','مستكشفة الهيدروكربونات'],['l2','📏','خبيرة الألكانات'],['l3','🍌','صديقة الإيثيلين'],['l4','👯','صائدة المتشكلات'],['l5','💍','سيدة البنزين'],['final','🏆','بطلة التحصيلي']];
+
+const QN=(q,svg,ans,dist,e)=>({q:q+svg,o:[ans,...dist],a:0,e:e||('الاسم الصحيح: '+ans)});
+const QUIZ={
+1:[
+ {q:'المركبات العضوية هي مركبات تحتوي على:',o:['الكربون، ما عدا أكاسيده والكربونات والكربيدات','الهيدروجين فقط','الأكسجين دائمًا','الفلزات'],a:0,e:'هذا تعريف المركبات العضوية.'},
+ {q:'الهيدروكربون مركب يتكون من:',o:['الكربون والهيدروجين فقط','الكربون والأكسجين','الهيدروجين والأكسجين','الكربون والنيتروجين'],a:0,e:'هيدرو (هيدروجين) + كربون.'},
+ {q:'عدد الروابط التساهمية التي تكوّنها ذرة الكربون:',o:['4','2','3','6'],a:0,e:'للكربون أربعة إلكترونات تكافؤ.'},
+ {q:'الهيدروكربون المشبع هو الذي يحتوي على:',o:['روابط أحادية فقط','رابطة ثنائية واحدة على الأقل','رابطة ثلاثية','حلقة بنزين'],a:0,e:'«مشبع» بأكبر عدد من ذرات الهيدروجين.'},
+ {q:'أي الآتي هيدروكربون غير مشبع؟',o:['C2H4','C2H6','CH4','C3H8'],a:0,e:'C2H4 فيه رابطة ثنائية.'},
+ {q:'تُفصل مكونات النفط الخام حسب درجات غليانها بعملية:',o:['التقطير التجزيئي','التكسير الحراري','الاحتراق','الترشيح'],a:0,e:'تتكثف الأجزاء على ارتفاعات مختلفة من البرج.'},
+ {q:'تحويل الجزيئات الكبيرة إلى جزيئات أصغر بالحرارة في غياب الأكسجين يسمى:',o:['التكسير الحراري','التقطير التجزيئي','البلمرة','التكثيف'],a:0,e:'يزيد كمية البنزين الناتجة من النفط.'},
+ {q:'النموذج الذي يبيّن حجم الذرات وتداخلها في الجزيء:',o:['النموذج الفراغي','الصيغة الجزيئية','الصيغة البنائية','نموذج الكرة والعصا'],a:0,e:'يُسمى أيضًا نموذج الملء الفراغي.'}],
+2:[
+ {q:'الصيغة العامة للألكانات:',o:['CnH2n+2','CnH2n','CnH2n−2','CnHn'],a:0,e:'مثل C3H8.'},
+ {q:'اسم الألكان المستقيم <span class="f">C5H12</span>:',o:['البنتان','البيوتان','الهكسان','البروبان'],a:0,e:'بنت = 5.'},
+ {q:'الصيغة الجزيئية للهبتان:',o:['C7H16','C7H14','C6H14','C8H18'],a:0,e:'n = 7 و H = 2×7 + 2 = 16.'},
+ QN('ما اسم المركب الآتي حسب نظام الأيوباك؟',C(4,[{p:2,t:'m'}]),NM(4,[{p:2,t:'m'}]),['3-ميثيل بيوتان','2-ميثيل بنتان','بنتان'],'أطول سلسلة 4 ذرات، والميثيل على الذرة 2 بالترقيم من الطرف الأقرب.'),
+ QN('ما اسم المركب الآتي؟',C(5,[{p:2,t:'m'},{p:3,t:'m'}]),NM(5,[{p:2,t:'m'},{p:3,t:'m'}]),['3,4-ثنائي ميثيل بنتان','2-ميثيل-3-ميثيل بنتان','2,3-ثنائي ميثيل بيوتان']),
+ QN('ما اسم المركب الآتي؟',C(5,[{p:3,t:'e'}]),NM(5,[{p:3,t:'e'}]),['3-ميثيل بنتان','2-إيثيل بنتان','هبتان'],'السلسلة الرئيسة 5 ذرات، والإيثيل على الذرة 3.'),
+ QN('ما اسم المركب الآتي؟',C(4,[{p:2,t:'m'},{p:2,t:'m'}]),NM(4,[{p:2,t:'m'},{p:2,t:'m'}]),['2,3-ثنائي ميثيل بيوتان','3,3-ثنائي ميثيل بيوتان','2-ميثيل بنتان']),
+ QN('ما اسم المركب الآتي؟',C(6,[{p:3,t:'e'},{p:2,t:'m'}]),NM(6,[{p:3,t:'e'},{p:2,t:'m'}]),['2-ميثيل-3-إيثيل هكسان','4-إيثيل-5-ميثيل هكسان','3-إيثيل-2-ميثيل بنتان'],'نرتب المجموعات أبجديًا: إيثيل قبل ميثيل.'),
+ QN('ما اسم المركب الحلقي الآتي؟',MOL(cycloSVG(6)),'هكسان حلقي',['هكسان','بنتان حلقي','بنزين'],'ست ذرات كربون في حلقة بروابط أحادية.'),
+ {q:'لا تذوب الألكانات في الماء لأنها:',o:['غير قطبية','قطبية','أيونية','تحتوي روابط ثنائية'],a:0,e:'الشبيه يذيب الشبيه، والماء قطبي.'}],
+3:[
+ {q:'الصيغة العامة للألكينات:',o:['CnH2n','CnH2n+2','CnH2n−2','CnHn'],a:0,e:'مثل C2H4.'},
+ {q:'الصيغة العامة للألكاينات:',o:['CnH2n−2','CnH2n','CnH2n+2','CnH2n+1'],a:0,e:'مثل C2H2.'},
+ QN('ما اسم المركب الآتي؟',C(4,[],{p:1,o:2}),NM(4,[],{p:1,o:2}),['2-بيوتين','1-بيوتاين','بيوتان'],'نرقّم من الطرف الأقرب للرابطة الثنائية.'),
+ QN('ما اسم المركب الآتي؟',C(4,[],{p:2,o:3}),NM(4,[],{p:2,o:3}),['1-بيوتاين','2-بيوتين','3-بيوتاين']),
+ QN('ما اسم المركب الآتي؟',C(5,[{p:4,t:'m'}],{p:2,o:2}),NM(5,[{p:4,t:'m'}],{p:2,o:2}),['2-ميثيل-3-بنتين','4-ميثيل-3-بنتين','2-ميثيل-2-بنتين'],'الترقيم يعطي الرابطة الثنائية الرقم الأصغر أولًا.'),
+ QN('ما اسم المركب الآتي؟',C(5,[],{p:1,o:3}),NM(5,[],{p:1,o:3}),['2-بنتاين','1-بنتين','بنتان']),
+ {q:'الهيدروكربون الذي تطلقه الفواكه فيسرّع نضجها:',o:['الإيثيلين (الإيثين)','الميثان','البروبان','البنزين'],a:0,e:'الإيثيلين هرمون نباتي.'},
+ {q:'يستعمل الأسيتيلين في لحام الفلزات لأن:',o:['احتراقه يعطي لهبًا شديد الحرارة','لا يحترق','غير سام','سائل عند درجة الغرفة'],a:0,e:'لهب الأسيتيلين والأكسجين يصهر الفلزات.'},
+ {q:'الألكينات أنشط كيميائيًا من الألكانات بسبب:',o:['وجود الرابطة الثنائية','أنها قطبية','كتلتها الكبيرة','أنها أيونية'],a:0,e:'الرابطة الثنائية موقع للتفاعل.'}],
+4:[
+ {q:'المتشكلات مركبات لها:',o:['الصيغة الجزيئية نفسها وتراكيب مختلفة','الصيغة البنائية نفسها','الخواص نفسها تمامًا','عدد ذرات الكربون فقط نفسه'],a:0,e:'تعريف المتشكلات.'},
+ {q:'البيوتان و 2-ميثيل بروبان مثال على المتشكلات:',o:['البنائية','الهندسية','الضوئية','الأروماتية'],a:0,e:'يختلف ترتيب ارتباط الذرات.'},
+ {q:'عدد المتشكلات البنائية للصيغة <span class="f">C5H12</span>:',o:['3','2','4','5'],a:0,e:'البنتان، 2-ميثيل بيوتان، 2,2-ثنائي ميثيل بروبان.'},
+ QN('ما اسم هذا المتشكل من متشكلات <span class="f">C5H12</span>؟',C(3,[{p:2,t:'m'},{p:2,t:'m'}]),NM(3,[{p:2,t:'m'},{p:2,t:'m'}]),['2-ميثيل بيوتان','بنتان','2,3-ثنائي ميثيل بروبان']),
+ QN('ما اسم هذا المتشكل من متشكلات <span class="f">C6H14</span>؟',C(5,[{p:3,t:'m'}]),NM(5,[{p:3,t:'m'}]),['2-ميثيل بنتان','3-ميثيل هكسان','3-إيثيل بيوتان']),
+ {q:'سيس-2-بيوتين وترانس-2-بيوتين متشكلات:',o:['هندسية','بنائية','ضوئية','غير متشابهة الصيغة'],a:0,e:'الفرق في اتجاه المجموعات حول الرابطة الثنائية.'},
+ {q:'في المتشكل «سيس» تكون المجموعتان:',o:['في الجهة نفسها من الرابطة الثنائية','في جهتين متقابلتين','على ذرة الكربون نفسها','خارج الجزيء'],a:0,e:'سيس = الجهة نفسها، ترانس = متقابلتان.'},
+ {q:'تنتج المتشكلات الضوئية عن وجود:',o:['ذرة كربون ترتبط بأربع مجموعات مختلفة','رابطة ثنائية','حلقة بنزين','رابطة ثلاثية'],a:0,e:'تسمى ذرة الكربون غير المتماثلة (الكيرالية).'},
+ {q:'أي المركبات الآتية لا توجد له متشكلات هندسية؟',o:['1-بيوتين','2-بيوتين','2-بنتين','3-هكسين'],a:0,e:'في 1-بيوتين ترتبط ذرة الكربون الطرفية بذرتي هيدروجين متماثلتين.'}],
+5:[
+ {q:'تحتوي الهيدروكربونات الأروماتية على:',o:['حلقة بنزين','رابطة ثلاثية فقط','روابط أحادية فقط','ذرة أكسجين'],a:0,e:'تعريف الأروماتية.'},
+ {q:'يعود ثبات البنزين الكبير إلى:',o:['الإلكترونات غير المتمركزة المشتركة بين ذرات الحلقة','الروابط الثلاثية','كتلته الكبيرة','أنه أيوني'],a:0,e:'نرسمها دائرة داخل الحلقة.'},
+ {q:'الصيغة الجزيئية للبنزين:',o:['C6H6','C6H12','C6H14','C6H10'],a:0,e:'ست ذرات كربون وست ذرات هيدروجين.'},
+ QN('ما اسم المركب الآتي؟',MOL(drawRing([{p:1,t:'m'}])),'ميثيل بنزين',['1-ميثيل بنزين','بنزين','هكسان'],'لا حاجة للرقم عند وجود مجموعة واحدة.'),
+ QN('ما اسم المركب الآتي؟',MOL(drawRing([{p:1,t:'m'},{p:2,t:'m'}])),ringName([{p:1,t:'m'},{p:2,t:'m'}]),['1,3-ثنائي ميثيل بنزين','1,6-ثنائي ميثيل بنزين','ثنائي ميثيل هكسان']),
+ QN('ما اسم المركب الآتي؟',MOL(drawRing([{p:1,t:'m'},{p:4,t:'m'}])),ringName([{p:1,t:'m'},{p:4,t:'m'}]),['1,3-ثنائي ميثيل بنزين','1,2-ثنائي ميثيل بنزين','1,5-ثنائي ميثيل بنزين']),
+ QN('ما اسم المركب الآتي؟',MOL(drawRing([{p:1,t:'e'},{p:3,t:'m'}])),ringName([{p:1,t:'e'},{p:3,t:'m'}]),['1-ميثيل-3-إيثيل بنزين','1-إيثيل-5-ميثيل بنزين','3-إيثيل-1-ميثيل بنزين'],'نعطي الرقم 1 للمجموعة الأسبق أبجديًا (إيثيل) عند تساوي الأرقام.'),
+ {q:'المركبات العضوية التي لا تحتوي حلقة بنزين تسمى:',o:['الأليفاتية','الأروماتية','الحلقية الأروماتية','غير العضوية'],a:0,e:'مثل الألكانات والألكينات والألكاينات.'},
+ {q:'النفثالين مركب أروماتي يتكون من:',o:['حلقتي بنزين ملتحمتين','حلقة بنزين واحدة','سلسلة مستقيمة','حلقة خماسية'],a:0,e:'يُستعمل في كرات العث.'}]
+};
+
+const F=s=>`<span class="f">${s}</span>`;
+const M=svg=>MOL(svg);
+const SKEL={
+ ene:`<svg viewBox="0 0 200 110" class="mol"><line x1="70" y1="55" x2="130" y2="55" stroke="currentColor" stroke-width="2.5"/><line x1="70" y1="47" x2="130" y2="47" stroke="currentColor" stroke-width="2.5"/>${svgLabel('C',70,57)}${svgLabel('C',130,57)}<line x1="62" y1="45" x2="35" y2="15" stroke="currentColor" stroke-width="2.5"/><line x1="62" y1="60" x2="35" y2="95" stroke="currentColor" stroke-width="2.5"/><line x1="138" y1="45" x2="165" y2="15" stroke="currentColor" stroke-width="2.5"/><line x1="138" y1="60" x2="165" y2="95" stroke="currentColor" stroke-width="2.5"/></svg>`,
+ ane:`<svg viewBox="0 0 200 110" class="mol"><line x1="78" y1="51" x2="122" y2="51" stroke="currentColor" stroke-width="2.5"/>${svgLabel('C',70,57)}${svgLabel('C',130,57)}${[[70,20],[70,90],[40,51],[130,20],[130,90],[160,51]].map(([x,y])=>`<line x1="${x===70||x===130?x:(x<100?62:138)}" y1="${y===51?51:(y<51?40:62)}" x2="${x}" y2="${y}" stroke="currentColor" stroke-width="2.5"/>`).join('')}</svg>`,
+ yne:`<svg viewBox="0 0 200 110" class="mol">${[-6,0,6].map(o=>`<line x1="80" y1="${51+o}" x2="120" y2="${51+o}" stroke="currentColor" stroke-width="2.3"/>`).join('')}${svgLabel('C',70,57)}${svgLabel('C',130,57)}<line x1="20" y1="51" x2="60" y2="51" stroke="currentColor" stroke-width="2.5"/><line x1="140" y1="51" x2="180" y2="51" stroke="currentColor" stroke-width="2.5"/></svg>`,
+ trans:`<svg viewBox="0 0 220 110" class="mol" role="img" aria-label="ترانس-2-بيوتين"><polyline points="20,85 75,55 145,55 200,25" fill="none" stroke="currentColor" stroke-width="3"/><line x1="78" y1="63" x2="142" y2="63" stroke="currentColor" stroke-width="3"/></svg>`,
+ wxyz:`<svg viewBox="0 0 320 130" class="mol" role="img" aria-label="متشكلان ضوئيان">${[[80,'X','Y'],[240,'Y','X']].map(([cx,r,b])=>`<line x1="${cx-40}" y1="65" x2="${cx+40}" y2="65" stroke="currentColor" stroke-width="2"/><line x1="${cx}" y1="25" x2="${cx}" y2="105" stroke="currentColor" stroke-width="2"/>${svgLabel('C',cx,70)}${svgLabel('W',cx,20)}${svgLabel('Z',cx-52,70)}${svgLabel(r,cx+52,70)}${svgLabel(b,cx,122)}`).join('')}</svg>`
+};
+const R6=(subs,mode)=>drawRing(subs,mode||'circle');
+const TAH=[
+ {y:'2024',q:'فرع الكيمياء الذي يهتم بدراسة مركبات الكربون:',o:['الكيمياء العضوية','الكيمياء غير العضوية','الكيمياء الفيزيائية','الكيمياء الحرارية'],a:0,e:'الكيمياء العضوية تدرس مركبات الكربون.'},
+ {y:'2021',q:'ما عدد الروابط التي يكوّنها الكربون مع غيره من الذرات؟',o:['4','2','3','1'],a:0,e:'الكربون رباعي التكافؤ.'},
+ {y:'2021',q:'فرع من فروع علم الكيمياء يهتم بدراسة المواد البلاستيكية:',o:['العضوية','النووية','التحليلية','اللاعضوية'],a:0,e:'البلاستيك مركبات عضوية.'},
+ {y:'2024',q:'العنصر الأساسي في المركبات العضوية:',o:['الهيدروجين','الأكسجين','النيتروجين','الكربون'],a:3,e:'جميعها تحتوي على الكربون.'},
+ {y:'2023',q:'أي الآتي مركب عضوي؟',o:['HCl','NaOH','NaCl','CH4'],a:3,e:'الميثان هيدروكربون.'},
+ {y:'2023',q:'الرابطة في الهيدروكربونات:',o:['أيونية','هيدروجينية','تساهمية','فلزية'],a:2,e:'يتشارك الكربون والهيدروجين الإلكترونات.'},
+ {y:'2024',q:'العملية التي يتم فيها تبخير النفط عند درجة الغليان، ثم جمع المشتقات المختلفة أثناء تكثفها عند درجات حرارة متباينة:',o:['التقطير التجزيئي','التكسير الحراري','تدوير المخلفات','الاحتراق البخاري'],a:0,e:'تعريف التقطير التجزيئي.'},
+ {y:'2024',q:'يعمل على تحويل جزيئات النفط الكبيرة إلى جازولين:',o:['التكسير الحراري','التقطير التجزيئي','التقطير البسيط','البلمرة'],a:0,e:'يكسر الجزيئات الكبيرة إلى أصغر.'},
+ {y:'2025',q:'أي المركبات الآتية يحتوي على روابط سيجما فقط؟',o:['C2H4','C2H2','C3H6','CH4'],a:3,e:'الميثان روابطه أحادية (سيجما) فقط.'},
+ {y:'2023',q:'أي من المركبات الآتية تحتوي على روابط سيجما فقط؟',o:['C3H8','C2H2','C3H4','C6H10'],a:0,e:'البروبان ألكان مشبع.'},
+ {y:'2023',q:'الصيغة العامة للألكينات:',o:['CnH2n','CnH2n+1','CnH2n+2','CnH2n−2'],a:0,e:'مثل C2H4.'},
+ {y:'2023',q:'أي المركبات الهيدروكربونية الآتية تحوي رابطة ثنائية؟',o:['C3H6','C2H6','C4H10','CH4'],a:0,e:'C3H6 بروبين (CnH2n).'},
+ {y:'2025',q:'أي المركبات التالية غير مشبع؟',o:['C6H14','C2H6','C4H8','C4H10'],a:2,e:'C4H8 ألكين.'},
+ {y:'2025',q:'أي المركبات التالية غير مشبع؟',o:['C6H14','C2H6','C2H2','C4H10'],a:2,e:'C2H2 ألكاين.'},
+ {y:'2021',q:'أي المركبات التالية يحوي رابطة ثلاثية؟',o:['C2H2','CH4','C2H4','C3H8'],a:0,e:'الإيثاين.'},
+ {y:'2021',q:'إذا صُنف المركب <span class="f">C3Hn</span> بأنه ألكاين، فإن عدد ذرات الهيدروجين يساوي:',o:['8','6','4','2'],a:2,e:'CnH2n−2 = 2(3) − 2 = 4.'},
+ {y:'2024',q:'صيغة الألكاينات المفتوحة (غير الحلقية):',o:['CnH2n+2','CnH2n','CnH2n−2','CnH2n−1'],a:2,e:'الحلقية صيغتها مختلفة.'},
+ {y:'2024',q:'ما اسم المركب '+F('CH3CH2CH2CH2CH3')+' حسب قواعد IUPAC؟',o:['بنتان','هكسان','بنتين','هكسين'],a:0,e:'خمس ذرات كربون وروابط أحادية.'},
+ {y:'2022',q:'أي المركبات التالية يُعد مشبعًا؟',o:[OPT(drawRing([])),OPT(SKEL.ene),OPT(SKEL.ane),OPT(SKEL.yne)],a:2,e:'الروابط الأحادية فقط تعني مركبًا مشبعًا.'},
+ {y:'2025',q:'ما الاسم النظامي للمركب التالي؟'+M(drawChain(6,[{p:5,t:'m'}])),o:['2-ميثيل هكسان','3-ميثيل هكسان','2-ميثيل هبتان','3-ميثيل هبتان'],a:0,e:'نرقّم من الطرف الأقرب للتفرع.'},
+ {y:'2025',q:'أي مما يلي يمثل صيغة 2-ميثيل بيوتان حسب قواعد IUPAC؟',o:[F('CH3CH=CHCH3'),F('CH3–CH2–CH2–CH3'),F('CH3–C(CH3)2–CH2CH3'),F('CH3CH(CH3)CH2CH3')],a:3,e:'سلسلة من 4 ذرات وميثيل على الذرة 2.'},
+ {y:'2025',q:'ما اسم المركب التالي؟'+M(drawChain(6,[{p:3,t:'m'},{p:3,t:'m'}])),o:['4,4-ثنائي ميثيل هكسان','3,3-ثنائي ميثيل هكسان','2-إيثيل-2-ميثيل بنتان','3-إيثيل-3-ميثيل بنتان'],a:1,e:'أطول سلسلة 6 ذرات تمر عبر مجموعة الإيثيل.'},
+ {y:'2024',q:'اسم المركب '+F('CH3CH2CH2CH2CH3')+' (الميثيل مرسوم على الذرة الطرفية):',o:['بنتان','ميثيل بيوتان','1-ميثيل بيوتان','1-ميثيل بنتان'],a:0,e:'الميثيل الطرفي جزء من السلسلة الرئيسة، فهو بنتان.'},
+ {y:'2024',q:'الاسم النظامي للمركب '+F('CH3CH(CH3)CH2CH2CH3')+' حسب قواعد IUPAC:',o:['3-ميثيل بنتان','2-ميثيل بنتان','2-ميثيل بيوتان','ميثيل بيوتان'],a:1,e:'سلسلة من 5 ذرات، والميثيل على الذرة 2.'},
+ {y:'2024',q:'الصيغة البنائية المكثفة للمركب 2,2-ثنائي ميثيل بنتان:',o:[F('C2H5C(CH3)(C2H5)CH2CH3'),F('CH3C(CH3)2CH2CH2CH3'),F('CH3C(CH3)2CH2CH3'),F('CH3CH(CH3)CH2CH2CH2CH3')],a:1,e:'سلسلة من 5 ذرات، ومجموعتا ميثيل على الذرة 2.'},
+ {y:'2024',q:'اسم المركب في الشكل حسب قواعد IUPAC:'+M(drawChain(6,[{p:4,t:'m'},{p:5,t:'m'}])),o:['2,3-ثنائي ميثيل هكسان','4,5-ثنائي ميثيل هكسان','4,5-ثنائي ميثيل بيوتان','2,3-ثنائي ميثيل بنتان'],a:0,e:'نرقّم من اليمين لتأخذ مجموعتا الميثيل الرقمين 2 و 3.'},
+ {y:'2023',q:'ما اسم المركب حسب قواعد IUPAC؟'+M(drawChain(3,[{p:2,t:'m'},{p:2,t:'m'}])),o:['2,2-ثنائي ميثيل بروبان (نيوبنتان)','3-ميثيل بيوتان','2-إيثيل بروبان','بنتان'],a:0,e:'سلسلة من 3 ذرات عليها مجموعتا ميثيل.'},
+ {y:'2024',q:'اسم المركب حسب قواعد تسمية IUPAC:'+M(drawChain(5,[{p:2,t:'m'},{p:4,t:'m'}])),o:['2,3-ثنائي ميثيل بنتان','2,4-ثنائي ميثيل بيوتان','4,4-ثنائي ميثيل بيوتان','2,4-ثنائي ميثيل بنتان'],a:3,e:'السلسلة 5 ذرات والميثيل على الذرتين 2 و 4.'},
+ {y:'2025',q:'ما اسم المركب التالي؟'+M(drawChain(6,[{p:3,t:'m'},{p:4,t:'m'}])),o:['3,4-ثنائي إيثيل هكسان','3,4-ثنائي ميثيل هكسان','3,4-ثنائي إيثيل بنتان','3,4-ثنائي ميثيل بنتان'],a:1,e:'سلسلة من 6 ذرات، والميثيل على 3 و 4.'},
+ {y:'2025',q:'ما اسم المركب التالي؟'+M(cycSub(4,[[1,'CH3']])),o:['ميثيل بنتان حلقي','إيثيل بنتان حلقي','ميثيل بيوتان حلقي','إيثيل بيوتان حلقي'],a:2,e:'حلقة رباعية وعليها ميثيل.'},
+ {y:'2021',q:'اسم المركب في الشكل:'+M(cycSub(5,[[0,'CH2CH3']])),o:['2-إيثيل بنتان','إيثيل هبتان حلقي','إيثيل بنتان حلقي','2-إيثيل بنتان حلقي'],a:2,e:'لا حاجة للرقم عند وجود مجموعة واحدة على الحلقة.'},
+ {y:'2021',q:'الاسم النظامي للمركب وفقًا لـ IUPAC:'+M(cycSub(6,[[1,'CH3'],[2,'CH3'],[3,'CH3']])),o:['1,3,6-ثلاثي ميثيل هكسان','1,2,3-ثلاثي ميثيل هكسان حلقي','1,3,6-ثلاثي ميثيل هكسان حلقي','1,2,3-ثلاثي ميثيل هكسان'],a:1,e:'المجموعات على ثلاث ذرات متتالية: 1 و 2 و 3.'},
+ {y:'2021',q:'اسم المركب في الشكل المجاور:'+M(cycSub(4,[[1,'CH2CH3']])),o:['إيثيل بيوتان','2-إيثيل بيوتان','إيثيل بيوتان حلقي','4-إيثيل بيوتان حلقي'],a:2,e:'حلقة رباعية عليها إيثيل.'},
+ {y:'2023',q:'اسم هذا المركب:'+M(cycSub(6,[[2,'CH3'],[4,'CH3']])),o:['1,5-ثنائي ميثيل هكسان حلقي','1,3-ثنائي ميثيل هكسان حلقي','1,4-ثنائي ميثيل هكسان حلقي','1,3-ثنائي ميثيل هكسان'],a:1,e:'بين المجموعتين ذرة واحدة، فالموقعان 1 و 3.'},
+ {y:'2024',q:'اسم المركب حسب قواعد تسمية IUPAC:'+M(cycSub(6,[[0,'CH3'],[1,'C2H5']])),o:['1-ميثيل-2-إيثيل هكسان حلقي','1-إيثيل-2-ميثيل هكسان حلقي','1-إيثيل-2-ميثيل هكسان','1-إيثيل-2-بروبيل هكسان حلقي'],a:1,e:'الإيثيل يأخذ الرقم 1 لأنه الأسبق أبجديًا.'},
+ {y:'2025',q:'ما اسم المركب حسب قواعد IUPAC؟'+M(cycSub(6,[[4,'CH3'],[2,'C2H5']])),o:['1-إيثيل-2-ميثيل هكسان حلقي','1-إيثيل-3-ميثيل هكسان حلقي','1-ميثيل-3-إيثيل هكسان حلقي','1-إيثيل-3-ميثيل هكسان'],a:1,e:'الموقعان 1 و 3، والإيثيل أولًا أبجديًا.'},
+ {y:'2024',q:'اسم المركب الآتي:'+M(cycSub(6,[[1,'CH3'],[2,'CH3'],[4,'CH3']])),o:['1,2,4-ثلاثي ميثيل هكسان حلقي','1,4,6-ثلاثي ميثيل هكسان حلقي','1,2,3-ثلاثي ميثيل هكسان حلقي','1,3,4-ثلاثي ميثيل هكسان حلقي'],a:0,e:'أصغر مجموعة أرقام ممكنة هي 1 و 2 و 4.'},
+ {y:'2025',q:'اسم المركب في الشكل:'+M(cycSub(6,[[5,'CH3'],[2,'CH3']])),o:['1,4-ثنائي ميثيل هكسان حلقي','1,4-ثنائي ميثيل هكسان','1,3-ثنائي إيثيل هكسان حلقي','1,3-ثنائي إيثيل هكسان'],a:0,e:'المجموعتان متقابلتان على الحلقة: 1 و 4.'},
+ {y:'2025',q:'اسم المركب في الشكل: '+F('CH3CH2CH2CH=CHCH(CH3)CH3'),o:['2-ميثيل-3-هبتين','6-ميثيل-4-هبتين','3-ميثيل-4-هبتين','6-ميثيل-3-هبتين'],a:0,e:'نرقّم من الطرف الأقرب للرابطة الثنائية.'},
+ {y:'2025',q:'نوع الروابط في المركب <span class="f">C2H4</span>:',o:['رابطتان باي وواحدة سيجما','رابطة سيجما و 5 باي','رابطة باي و 5 سيجما','رابطتان سيجما و 4 باي'],a:2,e:'4 روابط C–H سيجما + رابطة C=C (سيجما + باي).'},
+ {y:'2025',q:'الاسم النظامي للمركب حسب قواعد IUPAC:'+M(cycSub(6,[[1,'CH3'],[3,'CH3']],[[1,2]])),o:['1,3-ثنائي ميثيل هكسين حلقي','1-ميثيل-3-ميثيل هكسين حلقي','1,3-ثنائي إيثيل هكسان حلقي','1,3-ثنائي إيثيل هكسين حلقي'],a:0,e:'الرابطة الثنائية بين الذرتين 1 و 2.'},
+ {y:'2024',q:'الاسم النظامي IUPAC للمركب:'+M(cycSub(5,[[1,'CH3'],[2,'CH3']],[[1,2]])),o:['1,2-ثنائي ميثيل بنتين حلقي','1,2-ثنائي ميثيل هكسين حلقي','2,3-ثنائي ميثيل بنتان','2,3-ثنائي ميثيل هبتان حلقي'],a:0,e:'حلقة خماسية فيها رابطة ثنائية عليها مجموعتا ميثيل.'},
+ {y:'2024',q:'اسم المركب النظامي '+F('CH3CH=CHCH3')+':',o:['2-بيوتين','بيوتاين','3-بيوتين','2-بروبين'],a:0,e:'الرابطة الثنائية تبدأ من الذرة 2.'},
+ {y:'2021',q:'الاسم النظامي للمركب المجاور بحسب قواعد IUPAC:'+M(cycSub(6,[[2,'CH3']],[[1,2]])),o:['ميثان هكسين حلقي','ميثيل هكسين حلقي','ميثيل هكسان حلقي','1-ميثيل هكسان حلقي'],a:1,e:'يصح أيضًا 1-ميثيل هكسين حلقي.'},
+ {y:'2024',q:'أي المركبات التالية تنطبق عليه الصيغة الجزيئية <span class="f">C6H10</span>؟',o:[OPT(drawRing([])),OPT(cycSub(6)),OPT(cycSub(6,[],[[0,1],[2,3]])),OPT(cycSub(6,[],[[0,1]]))],a:3,e:'الهكسين الحلقي C6H10.'},
+ {y:'2022',q:'الأسيتيلين الاسم الشائع لـ:',o:['الإيثان','الإيثين','الإيثيلين','الإيثاين'],a:3,e:'C2H2.'},
+ {y:'2024',q:'ما أنشط الهيدروكربونات الآتية؟',o:['C2H6','C2H4','C4H10','C4H6'],a:3,e:'C4H6 فيه رابطة ثلاثية (أو رابطتان ثنائيتان).'},
+ {y:'2024',q:'صيغة الألكاينات الحلقية:',o:['CnH2n−4','CnH2n−2','CnH2n−3','CnH2n'],a:0,e:'الحلقة تنقص ذرتي هيدروجين أخريين.'},
+ {y:'--',q:'أقصى عدد من ذرات الهيدروجين يرتبط بذرة كربون واحدة:',o:['2','3','4','6'],a:2,e:'مثل الميثان CH4.'},
+ {y:'--',q:'يرتبط الكربون مع الهيدروجين برابطة تساهمية:',o:['أحادية','ثنائية','ثلاثية','ثنائية أو ثلاثية'],a:0,e:'للهيدروجين إلكترون واحد.'},
+ {y:'--',q:'فصل النفط إلى مكونات أبسط بتكثيفها عند درجات حرارة مختلفة:',o:['التقطير التجزيئي','التبخير السطحي','البلمرة','التكسير الحراري'],a:0,e:'تعريف التقطير التجزيئي.'},
+ {y:'--',q:'عملية يتم فيها تحويل جزيئات السلاسل الطويلة إلى جزيئات أصغر أكثر فائدة واستخدامًا:',o:['التقطير التجزيئي','التقطير البسيط','التكسير الحراري','البلمرة'],a:2,e:'تعريف التكسير الحراري.'},
+ {y:'--',q:'من طرق فصل النفط:',o:['الترشيح','التبلور','الكروماتوجرافيا','التقطير التجزيئي'],a:3,e:'يُفصل حسب درجات الغليان.'},
+ {y:'--',q:'أبسط المركبات العضوية والتي تحوي عنصري الكربون والهيدروجين فقط:',o:['الهيدروكربونات','الإسترات','الأمينات','الأحماض الكربوكسيلية'],a:0,e:'تعريف الهيدروكربونات.'},
+ {y:'--',q:'نوع الروابط في <span class="f">C4H10</span>:',o:['أحادية وثنائية','أحادية وثلاثية','أحادية فقط','ثنائية فقط'],a:2,e:'ألكان مشبع.'},
+ {y:'--',q:'أي من التالي ألكان؟',o:['CH3Cl','C2H2','C2H6','C4H9OH'],a:2,e:'الألكان هيدروكربون مشبع CnH2n+2.'},
+ {y:'2020',q:'أي المركبات التالية من الألكانات؟',o:['CH3Cl','C2H2','C2H6','C4H9OH'],a:2,e:'الإيثان.'},
+ {y:'--',q:'أي المركبات يحتوي على روابط سيجما فقط؟',o:['ألكان','ألكين','ألكين حلقي','ألكاين'],a:0,e:'الألكانات روابطها أحادية.'},
+ {y:'--',q:'أي التالي هيدروكربون مشبع؟',o:['C4H10','C7H12','C3H6','C2H4'],a:0,e:'CnH2n+2.'},
+ {y:'--',q:'كم عدد ذرات الهيدروجين في ألكاين يحوي 5 ذرات كربون؟',o:['1','5','8','10'],a:2,e:'2(5) − 2 = 8.'},
+ {y:'--',q:'أي التالي يحتوي على رابطة تساهمية ثلاثية؟',o:['C7H12','C2H4','C3H6','C4H10'],a:0,e:'C7H12 صيغته CnH2n−2.'},
+ {y:'--',q:'أي الآتي من الألكاينات؟',o:['C2H2','C3H8','C2H6','C2H4'],a:0,e:'الإيثاين.'},
+ {y:'--',q:'الرابطة الثلاثية بين ذرتي كربون في الألكاينات مكونة من:',o:['3 روابط π','3 روابط σ','رابطة σ ورابطتي π','رابطتي σ ورابطة π'],a:2,e:'كما في الكتاب: زوج يكوّن رابطة سيجما وزوجان يكوّنان رابطتي باي.'},
+ {y:'2020',q:'الصيغة العامة للألكانات:',o:['CnH2n+2','CnH2n−2','CnH2n+1','CnH2n−4'],a:0,e:'مثل CH4.'},
+ {y:'2020',q:'الروابط بين ذرات الكربون في الألكان:',o:['أيونية','تناسقية','ثنائية','أحادية'],a:3,e:'الألكانات مشبعة.'},
+ {y:'2020',q:'الصيغة الجزيئية للإيثان:',o:['CH4','C2H2','C2H4','C2H6'],a:3,e:'n = 2.'},
+ {y:'--',q:'الألكانات:',o:['تذوب في الماء لأنها قطبية','تذوب في الماء لأنها غير قطبية','لا تذوب في الماء لأنها قطبية','لا تذوب في الماء لأنها غير قطبية'],a:3,e:'الماء قطبي والألكانات غير قطبية.'},
+ {y:'--',q:'يُسمى المركب '+F('C2H5CH(CH3)CH2CH3')+':',o:['3-ميثيل بنتان','3-ميثيل بيوتان','4-ميثيل بنتان','4-ميثيل بيوتان'],a:0,e:'أطول سلسلة 5 ذرات تمر عبر الإيثيل.'},
+ {y:'--',q:'الصيغة البنائية للبروبان هي:',o:['C3H6','C3H4',F('CH2=CH–CH3'),F('CH3–CH2–CH3')],a:3,e:'ثلاث ذرات كربون بروابط أحادية.'},
+ {y:'--',q:'صيغة الأيزوبيوتان:',o:['CH3CH2CH2CH3','CH3CH2CH3','CH3CH(CH3)2','CH3CH3'],a:2,e:'الأيزوبيوتان هو 2-ميثيل بروبان.'},
+ {y:'2020',q:'الصيغة المكثفة للإيثيل:',o:['–CH2CH2CH2CH3','–CH2CH2CH3','–CH2CH3','–CH3'],a:2,e:'الإيثان بعد نزع ذرة هيدروجين.'},
+ {y:'--',q:'الصيغة الكيميائية '+F('CH3–CH(CH3)–CH3')+' تُسمى:',o:['2-ميثيل بيوتان','2-ميثيل بروبان','3-ميثيل بيوتان','3-ميثيل بروبان'],a:1,e:'سلسلة من 3 ذرات وميثيل على الذرة 2.'},
+ {y:'--',q:'الصيغة البنائية المكثفة للبروبان:',o:['CH3CH2CH2CH3','CH3CH2CH3','CH3CH(CH3)2','CH3CH3'],a:1,e:'ثلاث ذرات كربون.'},
+ {y:'--',q:'الصيغة البنائية المكثفة للبروبيل:',o:['–CH2CH3','–CH3','–CH2CH2CH3','–CH2CH2CH2CH3'],a:2,e:'البروبان بعد نزع ذرة هيدروجين.'},
+ {y:'--',q:'الصيغة الجزيئية للميثان:',o:['C2H2','CH4','C4H10','C8H18'],a:1,e:'أبسط هيدروكربون.'},
+ {y:'--',q:'اسم المركب في الشكل المجاور:'+M(cycSub(5,[[1,'CH3']])),o:['ميثيل بنتان حلقي','ميثيل بنتان','2-ميثيل بنتان','3-ميثيل بنتان حلقي'],a:0,e:'حلقة خماسية عليها ميثيل.'},
+ {y:'--',q:'اسم المركب في الشكل المجاور:'+M(cycSub(6,[[1,'CH3']])),o:['ميثيل هكسان حلقي','إيثيل بنزين','ميثان بنتان حلقي','2-ميثيل بنتان'],a:0,e:'حلقة سداسية عليها ميثيل.'},
+ {y:'2020',q:'أي المركبات التالية ينطبق عليه الصيغة الجزيئية <span class="f">C6H12</span>؟',o:[OPT(cycSub(6)),OPT(drawRing([])),OPT(cycSub(6,[],[[0,1]])),OPT(cycSub(6,[],[[0,1],[3,4]]))],a:0,e:'الهكسان الحلقي C6H12.'},
+ {y:'--',q:'اسم المركب التالي:'+M(drawChain(2,[],{p:1,o:2})),o:['إيثين','إيثاين','إيثان','إيثيل'],a:0,e:'رابطة ثنائية بين ذرتي كربون.'},
+ {y:'--',q:'ما اسم المركب التالي؟'+M(cycSub(5,[[2,'CH(CH3)2']],[[0,1]])),o:['إيثيل بنتان حلقي','1-أيزوبروبيل بنتين حلقي','3-أيزوبروبيل بنتين حلقي','3,3-ثنائي ميثيل بنتين حلقي'],a:2,e:'ذرتا الرابطة الثنائية 1 و 2، فالمجموعة على الذرة 3.'},
+ {y:'--',q:'أي التالي صيغته العامة <span class="f">CnH2n</span>؟',o:['الإيثان','الإيثيلين','الإيثاين','الإيثيل'],a:1,e:'الإيثيلين ألكين.'},
+ {y:'--',q:'ما اسم المركب التالي؟'+M(cycSub(4,[[1,'CH3']],[[2,3]])),o:['1-ميثيل-2-بيوتين','3-ميثيل بيوتين','3-ميثيل بيوتين حلقي','3-ميثيل بيوتان حلقي'],a:2,e:'حلقة رباعية فيها رابطة ثنائية.'},
+ {y:'--',q:'المركب '+F('CH3CH=CHCH=CH2')+' يُسمى:',o:['1,3-بنتين','1,3-بيوتادايين','1,3-بنتادايين','1,3-بيوتين'],a:2,e:'خمس ذرات ورابطتان ثنائيتان عند 1 و 3.'},
+ {y:'--',q:'الرابطة بين ذرتي الكربون في جزيء الإيثين هي:',o:['2 باي و 1 سيجما','2 سيجما و 1 باي','2 سيجما','1 سيجما و 1 باي'],a:3,e:'الرابطة الثنائية سيجما + باي.'},
+ {y:'2020',q:'الصيغة العامة للإيثاين:',o:['CnH2n','CnH2n+2','CnH2n−2','CnHn−2'],a:2,e:'الإيثاين ألكاين.'},
+ {y:'--',q:'نوع الروابط في <span class="f">C2H2</span>:',o:['ثلاثية وثنائية','أحادية وثلاثية','ثلاثية فقط','أحادية فقط'],a:1,e:'C–H أحادية و C≡C ثلاثية.'},
+ {y:'--',q:'اسم المركب حسب قواعد IUPAC:'+M(drawChain(6,[{p:2,t:'m'}],{p:3,o:3})),o:['5-ميثيل-3-هكساين','2-ميثيل-3-هكسين','2-ميثيل-3-هكساين','2-ميثيل-2-هكساين'],a:2,e:'الرابطة الثلاثية عند 3 من الطرفين، فنعطي الميثيل الرقم الأصغر.'},
+ {y:'--',q:'اسم المركب حسب قواعد نظام IUPAC '+F('CH3CH2C≡CH')+':',o:['1-بروباين','1-بيوتين','2-بيوتاين','1-بيوتاين'],a:3,e:'أربع ذرات ورابطة ثلاثية عند الذرة 1.'},
+ {y:'--',q:'الاسم النظامي للمركب حسب قواعد IUPAC '+F('CH3C≡C–CH(CH3)–CH3')+':',o:['ميثيل بنتاين','2-ميثيل بنتاين','4-ميثيل-2-بنتين','4-ميثيل-2-بنتاين'],a:3,e:'نرقّم من الطرف الأقرب للرابطة الثلاثية.'},
+ {y:'--',q:'عدد روابط سيجما وباي في جزيء غاز الأسيتيلين <span class="f">H–C≡C–H</span>:',o:['1 سيجما و 3 باي','3 سيجما و 2 باي','2 سيجما و 3 باي','1 باي و 4 سيجما'],a:1,e:'رابطتا C–H + سيجما واحدة في الثلاثية = 3 سيجما، و 2 باي.'},
+ {y:'2021',q:'ما اسم المركب التالي؟'+M(SKEL.trans),o:['سيس-2-بيوتان','ترانس-2-بيوتان','سيس-2-بيوتين','ترانس-2-بيوتين'],a:3,e:'المجموعتان في جهتين متقابلتين من الرابطة الثنائية.'},
+ {y:'2025',q:'مركبات عضوية تحوي حلقة بنزين أو أكثر:',o:['مركبات أليفاتية','مركبات أروماتية','متشكلات هندسية','هاليدات الألكيل'],a:1,e:'تعريف المركبات الأروماتية.'},
+ {y:'2023',q:'البنزين يُعتبر من المركبات:',o:['الأليفاتية','الأروماتية','الكربيدات','الكربونات'],a:1,e:'أبسط المركبات الأروماتية.'},
+ {y:'2021',q:'اسم المركب في الشكل:'+M(R6([{p:2,t:'e'}])),o:['بنزين','ميثيل بنزين','إيثيل بنزين','بروبيل بنزين'],a:2,e:'مجموعة إيثيل على حلقة بنزين.'},
+ {y:'2024',q:'اسم المركب حسب قواعد IUPAC:'+M(R6([{p:1,t:'m'},{p:4,t:'m'}],'A')),o:['1,3-ثنائي ميثيل هكسان حلقي','1,4-ثنائي ميثيل هكسان حلقي','1,4-ثنائي ميثيل بنزين','1,2-ثنائي ميثيل بنزين'],a:2,e:'الحلقة بنزين، والمجموعتان متقابلتان.'},
+ {y:'2024',q:'الاسم النظامي للمركب حسب قواعد التسمية IUPAC:'+M(R6([{p:6,t:'m'},{p:2,t:'e'}],'A')),o:['1-إيثيل-3-ميثيل بنزين','2-ميثيل-1-إيثيل بنزين','1-ميثيل-6-إيثيل بنزين','1-إيثيل-5-ميثيل بنزين'],a:0,e:'الموقعان 1 و 3، والإيثيل يأخذ الرقم 1 أبجديًا.'},
+ {y:'2025',q:'الاسم النظامي للمركب حسب قواعد التسمية IUPAC:'+M(R6([{p:1,t:'m'},{p:3,t:'e'},{p:4,t:'m'}],'A')),o:['1-إيثيل-3,6-ثنائي ميثيل بنزين','1,4-ثنائي ميثيل بنزين-6-إيثيل بنزين','2-إيثيل-1,4-ثنائي ميثيل بنزين','2-إيثيل-ثنائي ميثيل بنزين'],a:2,e:'أصغر مجموعة أرقام 1 و 2 و 4.'},
+ {y:'2024',q:'أبسط المركبات الأروماتية:',o:['التولوين','النفثالين','الهكسان الحلقي','البنزين'],a:3,e:'C6H6.'},
+ {y:'2025',q:'أي المركبات التالية أروماتي؟',o:[OPT(cycSub(6)),OPT(drawRing([],'A')),OPT(cycSub(6,[],[[0,1]])),OPT(cycSub(6,[],[[0,1],[3,4]]))],a:1,e:'حلقة البنزين بثلاث روابط ثنائية متبادلة.'},
+ {y:'2022',q:'ما الاسم النظامي للمركب التالي؟'+M(R6([{p:1,t:'m'},{p:3,t:'m'},{p:5,t:'e'}],'A')),o:['5-إيثيل-1,3-ثنائي ميثيل بنزين','1-إيثيل-3,5-ثنائي ميثيل بنزين','1-إيثيل-3,5-ثنائي ميثيل هكسان حلقي','1,3,5-ثلاثي إيثيل بنزين'],a:1,e:'الأرقام 1 و 3 و 5 في الحالتين، فيأخذ الإيثيل الرقم 1 أبجديًا.'},
+ {y:'--',q:'متشكلات تختلف في مكان الروابط وتشترك في الصيغة الجزيئية:',o:['المتشكلات الضوئية','المتشكلات البنائية','المتشكلات الهندسية','المتشكلات الفراغية'],a:1,e:'تعريف المتشكلات البنائية.'},
+ {y:'--',q:'ظاهرة وجود أكثر من صيغة بنائية لنفس الصيغة الجزيئية تُسمى:',o:['التشكل','التآصل','التشابه','النظائر'],a:0,e:'والمركبات تسمى متشكلات.'},
+ {y:'2020',q:'ما المتشكل الكيميائي الصحيح للصيغة الجزيئية <span class="f">C3H6O</span>؟',o:['CH3CH2CH2OH','CH3CH2COOH','CH3CH2CHO','CH3COOCH3'],a:2,e:'CH3CH2CHO فيه 3 كربون و 6 هيدروجين وأكسجين واحد.'},
+ {y:'--',q:'أي التالي يصف بدقة L-ألانين و D-ألانين أحدهما بالنسبة للآخر؟',o:['المتشكلات البنائية','المتشكلات الهندسية','المتشكلات الضوئية','ليست متشكلات'],a:2,e:'صورتا مرآة لا تتطابقان.'},
+ {y:'--',q:'متشكلات سيس وترانس تنتمي للمتشكلات:',o:['الضوئية','الهندسية','الكيرالية','البنائية'],a:1,e:'تنتج حول الرابطة الثنائية.'},
+ {y:'--',q:'ما التشابه بين المتشكلات الضوئية في الرسم التالي؟'+M(SKEL.wxyz),o:['الخواص الفيزيائية','الخواص الكيميائية','الخواص الفيزيائية والكيميائية','الصيغة البنائية'],a:2,e:'لها الخواص نفسها، ما عدا التفاعلات التي تكون فيها الكيرالية مهمة.'},
+ {y:'--',q:'أي التالي ليس من أنواع المتشكلات الفراغية؟',o:['المتشكلات الجزيئية','المتشكلات الفراغية','المتشكلات الضوئية','المتشكلات الهندسية'],a:0,e:'الفراغية نوعان: هندسية وضوئية.'},
+ {y:'--',q:'المتشكلات الناتجة عن اختلاف ترتيب المجموعات واتجاهها حول الرابطة الثنائية:',o:['المتشكلات البنائية','المتشكلات الضوئية','المتشكلات الهندسية','المتشكلات الجزيئية'],a:2,e:'سيس وترانس.'},
+ {y:'--',q:'بحسب قواعد IUPAC، أي المركبات التالية له اسم 1,4-ثنائي ميثيل بنزين؟',o:[OPT(R6([{p:1,t:'m'},{p:4,t:'m'}])),OPT(cycSub(6,[[0,'CH3'],[3,'CH3']])),OPT(R6([{p:1,t:'m'},{p:3,t:'m'}])),OPT(cycSub(6,[[0,'CH3'],[2,'CH3']]))],a:0,e:'حلقة بنزين ومجموعتا ميثيل متقابلتان.'},
+ {y:'--',q:'ما اسم المركب التالي؟'+M(R6([{p:6,t:'e'},{p:2,t:'m'}],'A')),o:['2-ميثيل-1-إيثيل بنزين','1-إيثيل-3-ميثيل بنزين','1-ميثيل-3-إيثيل هكسان حلقي','1-إيثيل-5-ميثيل بنزين'],a:1,e:'الموقعان 1 و 3.'},
+ {y:'2020',q:'اسم المركب في الشكل:'+M(R6([{p:1,t:'m'}],'A')),o:['ميثيل بنزين','هكسان حلقي','إيثيل بنزين','ميثيل هكسان حلقي'],a:0,e:'ويُعرف بالتولوين.'},
+ {y:'--',q:'مادة مسرطنة توجد في سناج المداخن:',o:['التولوين','الفالين','الجلايسين','البنزوبايرين'],a:3,e:'كما ورد في الكتاب.'},
+ {y:'2020',q:'اسم المركب في الشكل:'+M(R6([{p:1,t:'e'}])),o:['إيثيل بنزين','ميثيل بنزين','بروبيل بنزين','إيثيل هكسان حلقي'],a:0,e:'مجموعة إيثيل على حلقة البنزين.'}
+];
+
+/* ---------- views ---------- */
+const app=$('#app');
+function route(){
+  cleanups.forEach(f=>{try{f();}catch(e){}});cleanups=[];
+  const h=location.hash.replace('#','');
+  if(new RegExp('^lesson-[1-'+LESSONS.length+']$').test(h))viewLesson(+h.slice(7));
+  else if(h==='final')viewFinal();
+  else viewHome();
+  fmAll(app);refreshStars();window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',route);
+
+function badgeHTML(){return '<div class="badges">'+BADGES.map(b=>{const on=b[0]==='final'?(S.final!=null&&S.final>=80):S.done[b[0].slice(1)];return `<div class="badge ${on?'on':''}"><i>${b[1]}</i>${b[2]}</div>`;}).join('')+'</div>';}
+function lessonStars(L){let n=L.tasks.filter(t=>S.tasks[t.id]).length;n+=gameStars(S.games[L.game]||0);if((S.quiz[L.n]||0)>=PASS(L.n))n+=3;return n;}
+function lessonMax(L){return L.tasks.length+3+3;}
+
+const CH_NO=4;
+/* ---------- progress report code for the teacher ---------- */
+const RKEY=LS+'-name';
+function repHash(str){let h=7;for(const c of str)h=(h*31+c.codePointAt(0))%1000003;return h;}
+function repCode(name){const total=LESSONS.length;const done=LESSONS.filter(L=>S.done[L.n]).length;const max=LESSONS.reduce((a,L)=>a+lessonMax(L),0)+5;
+  const p={v:1,c:CH_NO,n:name.trim(),d:done,t:total,f:S.final==null?null:S.final,s:totalStars(),m:max,ts:Date.now()};const body=JSON.stringify(p);
+  return 'KIM-'+btoa(unescape(encodeURIComponent(body))).replace(/=+$/,'')+'-'+repHash(body).toString(36);}
+function reportHTML(){let nm='';try{nm=localStorage.getItem(RKEY)||'';}catch(e){}
+  return `<section class="final-band report-band"><div class="rb-in"><div><h3>📤 تقرير التقدم للمعلمة</h3><p>اكتبي اسمك الثلاثي ثم اضغطي «احفظي تقدمي لدى المعلمة»؛ بعدها يُحدَّث تقدمك تلقائيًا كلما أنجزتِ شيئًا جديدًا. ويمكنك أيضًا إنشاء رمز التقدم وإرساله لمعلمتك.</p></div>
+   <div class="rb-row"><input type="text" id="repName" placeholder="اسم الطالبة" value="${nm.replace(/"/g,'&quot;')}" aria-label="اسم الطالبة"><button type="button" class="btn hot" id="repSync">☁️ احفظي تقدمي لدى المعلمة</button><button type="button" class="btn cold" id="repGo">أنشئي الرمز</button></div>
+   <div id="repOut"></div></div></section>`;}
+function bindReport(){const go=$('#repGo');if(!go)return;
+  $('#repSync').addEventListener('click',async()=>{const nm=$('#repName').value.trim(),out=$('#repOut');if(nm.split(/\s+/).length<2){out.innerHTML='<p class="fb bad">اكتبي اسمك الثنائي أو الثلاثي حتى تتعرف عليك المعلمة.</p>';return;}
+    try{localStorage.setItem(RKEY,nm);}catch(e){}out.innerHTML='<p class="fb">جارٍ الحفظ…</p>';
+    try{await syncProgress(true);out.innerHTML=`<p class="fb ok">✓ حُفظ تقدمك لدى المعلمة باسم «${esc(nm)}». سيُحدَّث تلقائيًا عند أي إنجاز جديد.</p>`;}catch(e){out.innerHTML='<p class="fb bad">تعذّر الحفظ الآن. تحققي من الاتصال بالإنترنت، أو أنشئي رمز التقدم وأرسليه لمعلمتك.</p>';}});go.addEventListener('click',()=>{const nm=$('#repName').value.trim();const out=$('#repOut');
+  if(nm.split(/\s+/).length<2){out.innerHTML='<p class="fb bad">اكتبي اسمك الثنائي أو الثلاثي حتى تتعرف عليك المعلمة.</p>';return;}
+  try{localStorage.setItem(RKEY,nm);}catch(e){}const code=repCode(nm);const done=LESSONS.filter(L=>S.done[L.n]).length;
+  out.innerHTML=`<div class="rb-code"><code class="ltr" id="repCode">${code}</code><button type="button" class="btn sm" id="repCopy">📋 انسخي الرمز</button></div><p class="rb-sum">الدروس المنجزة: <b>${done} من ${LESSONS.length}</b> | الاختبار الختامي: <b>${S.final==null?'لم يُنجز':S.final+'%'}</b> | النجوم: <b>${totalStars()}</b></p>`;
+  $('#repCopy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(code);toast('تم نسخ الرمز ✓');}catch(e){const r=document.createRange();r.selectNodeContents($('#repCode'));const sel=getSelection();sel.removeAllRanges();sel.addRange(r);toast('حدّدي الرمز وانسخيه يدويًا');}});});}
+
+
+/* ---------- مزامنة التقدم مع قاعدة البيانات (Cloudflare D1) ---------- */
+let _syncT=null;
+async function syncProgress(manual){let nm='';try{nm=localStorage.getItem(RKEY)||'';}catch(e){}if(!nm)return false;
+  const done=LESSONS.filter(L=>S.done[L.n]).length,max=LESSONS.reduce((a,L)=>a+lessonMax(L),0)+5;
+  try{const r=await fetch('/api/progress',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:nm,chapter:CH_NO,done,total:LESSONS.length,final:S.final==null?null:S.final,stars:totalStars(),max})});
+    if(!r.ok)throw 0;try{localStorage.setItem(RKEY+'-synced','1');}catch(e){}return true;}catch(e){if(manual)throw e;return false;}}
+function autoSync(){let on='';try{on=localStorage.getItem(RKEY+'-synced');}catch(e){}if(!on)return;clearTimeout(_syncT);_syncT=setTimeout(()=>syncProgress(false),3000);}
+
+function viewHome(){
+  const done=Object.keys(S.done).filter(k=>S.done[k]).length;
+  app.innerHTML=`
+  <section class="hero">
+    <div>
+      <p class="kicker">كيمياء 2-2، الفصل الرابع، رحلة تعليمية تفاعلية</p>
+      <h1 style="margin-bottom:6px">مختبر <span class="grad">الهيدروكربونات</span></h1>
+      <div class="teacher"><span class="av">ص</span><div><small>إعداد المعلمة:</small><b>صباح داخل الأحمدي</b></div></div>
+      <p class="idea"><strong>الفكرة العامة:</strong> الهيدروكربونات مركبات عضوية من الكربون والهيدروجين، تختلف أنواعها بنوع الروابط وترتيب الذرات، ولها أسماء منظمة حسب نظام الأيوباك.</p>
+      <p class="lead">خمسة دروس تجرّبين فيها بنفسك: تدوّرين الجزيئات في ثلاثة أبعاد، وتفصلين النفط في برج التقطير، وتبنين الألكانات والألكينات وتسمّينها، وتراقبين أثر الإيثيلين في نضج الموز، وتكتشفين المتشكلات وتسمّين مشتقات البنزين. اجمعي النجوم والشارات، وأنجزي مهام كل درس، وتحدّي نفسك في ألعاب الـ45 ثانية. في نهاية كل درس اختبار قصير، وفي آخر الرحلة اختبار ختامي من أسئلة التحصيلي.</p>
+      <div class="hero-actions">
+        <a class="btn cold" href="#lesson-1">ابدئي الرحلة</a>
+        <a class="btn ghost" href="#final">الاختبار الختامي</a>
+      </div>
+      <p class="progress-line">أنجزتِ ${done} من ${LESSONS.length} دروس</p>
+    </div>
+    <div class="beaker-card">
+      <canvas id="beaker" aria-label="جزيء ثلاثي الأبعاد" style="cursor:grab"></canvas>
+      ${radioChips('hMol',[['methane','ميثان'],['ethane','إيثان'],['ethene','إيثين'],['ethyne','إيثاين'],['benzene','بنزين']])}
+      <div class="beaker-read"><span class="temp-big" id="bTv"></span><span class="phase-tag" id="bPh"></span></div>
+      <p class="hint" id="bHint"></p>
+    </div>
+  </section>
+  <section>
+    <h2 class="sec">مسار الدروس</h2>
+    <p class="sec-sub">من الهيدروكربونات البسيطة إلى الحلقات الأروماتية.</p>
+    <div class="thermo-track"><span class="bulb"></span></div>
+    <div class="lessons">
+      ${LESSONS.map(L=>`<article class="lcard ${S.done[L.n]?'done':''}" style="--c:${L.c}">
+        <span class="node">${S.done[L.n]?'✓':L.n}</span>
+        <div class="lcode">${L.code}</div>
+        <h3>${L.title}</h3>
+        <p>${L.blurb}</p>
+        <div class="lmeta"><span class="st">★ ${lessonStars(L)} / ${lessonMax(L)}</span><a class="btn sm ghost" href="#lesson-${L.n}">ادخلي</a></div>
+      </article>`).join('')}
+    </div>
+  </section>
+  <section style="margin-top:34px">
+    <h2 class="sec">الشارات</h2>
+    <p class="sec-sub">تحصلين على شارة كل درس عند اجتياز اختباره القصير بأربع إجابات صحيحة أو أكثر.</p>
+    ${badgeHTML()}
+  </section>
+  <section class="final-band">
+    <div><h3>الاختبار الختامي: تجميعات التحصيلي</h3><p>${TAH.length} سؤالًا من اختبارات التحصيلي السابقة في الهيدروكربونات ومتشكلاتها والمركبات الأروماتية، منها أسئلة تسمية كثيرة، مع تصحيح فوري وشرح لكل إجابة.${S.final!=null?' أفضل نتيجة لك: '+S.final+'%':''}</p></div>
+    <a class="btn hot" href="#final">ابدئي الاختبار</a>
+  </section>
+  <section class="final-band task-band"><div class="tb-in"><span class="ti">📝</span><div><h3>مهمة أدائية</h3><p>اقرئي المهمة وارفعي إجابتها من خلال النموذج.</p></div></div>${TASK_FORM?`<a class="btn cold" href="${TASK_FORM}" target="_blank" rel="noopener">افتحي المهمة</a>`:`<span class="btn ghost" aria-disabled="true" style="opacity:.6;cursor:default">يُضاف الرابط قريبًا</span>`}</section>
+  ${reportHTML()}`;
+  initBeaker();bindReport();
+}
+
+/* ---------- lesson view ---------- */
+function viewLesson(n){
+  const L=LESSONS[n-1];
+  app.innerHTML=`
+  <div class="crumbs"><a href="#home">→ الصفحة الرئيسة</a></div>
+  <header class="lhead">
+    <div class="lnum">${L.code}</div>
+    <div><h1>${L.title}</h1><div class="en">${L.en}</div>
+      <p class="idea" style="margin:10px 0 0"><strong>الفكرة الرئيسة:</strong> ${L.idea}</p>
+      <div class="vocab">${L.vocab.map(v=>'<span>'+v+'</span>').join('')}</div></div>
+  </header>
+  <div class="lgrid">
+    <aside class="side">
+      <div class="box"><h4>مهام الدرس <span id="tcount" style="color:var(--muted);font-weight:400;font-size:14px"></span></h4>
+        <ul class="tasks">${L.tasks.map(t=>`<li data-task-li="${t.id}" class="${S.tasks[t.id]?'on':''}"><span class="ck">${S.tasks[t.id]?'✓':''}</span><span>${t.t}</span></li>`).join('')}</ul>
+        <div class="tbar"><i id="tbar" data-lesson="${n}"></i></div></div>
+      <div class="box"><nav>${L.groups.map(g=>`<a href="#" data-jump="sim-${g.sim}">${SIMS[g.sim].title}</a>`).join('')}<a href="#" data-jump="game">لعبة 45 ثانية</a><a href="#" data-jump="quiz">الاختبار القصير</a></nav></div>
+    </aside>
+    <div class="main-col">
+      ${L.groups.map((g,i)=>`<section class="panel sim" id="sim-${g.sim}" style="--c:${L.c}">
+        <span class="tag">الجزء ${i+1}: الفكرة ببساطة</span>
+        <div class="lcards">${g.cards.map(k=>L.learn[k]).map(c=>`<div class="lc"><span class="ic">${c.i}</span><h5>${c.t}</h5><p>${c.s}</p>${c.img?`<div class="lc-img">${VIS[c.img].html()}</div>`:''}<div class="ex"><b>مثال:</b> ${c.ex}</div></div>`).join('')}</div>
+        ${(g.maps||[]).map(m=>`<div class="cmap" data-vis="${m}">${VIS[m].html()}</div>`).join('')}
+        <div class="act"><span class="tag act-tag">🔬 نشاط تفاعلي</span>${SIMS[g.sim].html()}</div>${(g.after||[]).map(m=>`<div class="cmap" data-vis="${m}">${VIS[m].html()}</div>`).join('')}</section>`).join('')}
+      <section class="panel game" id="game"><span class="tag" style="color:var(--amber)">تحدّي 45 ثانية</span>${GAMES[L.game].html}</section>
+      <section class="panel" id="quiz"><span class="tag">اختبار الدرس ${L.code}</span><h3>اختبار قصير</h3><p class="desc">${QUIZ[n].length} أسئلة، منها أسئلة تسمية. أجيبي عن ${PASS(n)} منها أو أكثر بشكل صحيح لتحصلي على شارة الدرس و3 نجوم.${S.quiz[n]!=null?' أفضل نتيجة لك: '+S.quiz[n]+' من '+QUIZ[n].length+'.':''}</p><div id="quizBox"></div></section>
+      <div class="row" style="justify-content:space-between">
+        ${n>1?`<a class="btn ghost" href="#lesson-${n-1}">الدرس السابق</a>`:'<span></span>'}
+        ${n<LESSONS.length?`<a class="btn cold" href="#lesson-${n+1}">الدرس التالي</a>`:`<a class="btn hot" href="#final">إلى الاختبار الختامي</a>`}
+      </div>
+    </div>
+  </div>`;
+  $$('[data-jump]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const t=document.getElementById(a.dataset.jump);if(t)t.scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'});}));
+  updateTaskBar();
+  fmAll(app);
+  L.groups.forEach(g=>SIMS[g.sim].init(document.getElementById('sim-'+g.sim)));
+  $$('[data-vis]',app).forEach(el=>{const v=VIS[el.dataset.vis];if(v&&v.init)v.init(el);});
+  bindPrac(app);
+  initGame($('#game'),GAMES[L.game]);
+  quizRunner($('#quizBox'),QUIZ[n],{onDone:(sc)=>{
+    const prev=S.quiz[n]||0;S.quiz[n]=Math.max(prev,sc);
+    if(sc>=PASS(n)&&!S.done[n]){S.done[n]=true;save();refreshStars();const b=BADGES[n-1];toast(b[1]+' حصلتِ على شارة: '+b[2]);}
+    else{save();refreshStars();}
+  }});
+}
+
+/* ---------- practice widgets ---------- */
+function prac(prompt,unit,ans,tol,task,hint){
+  return `<div class="prac" data-ans="${ans}" data-tol="${tol}" data-task="${task||''}" data-hint="${hint||''}">
+    <p class="q">${prompt}</p>
+    <div class="row"><input class="ans" inputmode="decimal" aria-label="إجابتك" placeholder="إجابتك"><span class="unit f">${unit}</span><button type="button" class="btn sm">تحقّقي</button></div>
+    <p class="fb" aria-live="polite"></p></div>`;
+}
+function bindPrac(root){
+  $$('.prac[data-ans]',root).forEach(p=>{
+    const inp=$('input',p),btn=$('button',p),fb=$('.fb',p);
+    if(p.dataset.task&&S.tasks[p.dataset.task])p.classList.add('solved');
+    const check=()=>{const v=parseNum(inp.value),a=+p.dataset.ans,t=+p.dataset.tol;
+      if(isNaN(v)){fb.className='fb bad';fb.textContent='اكتبي رقمًا، مثل 9.6e5 أو 960000.';return;}
+      if(Math.abs(v-a)<=t*Math.abs(a)){fb.className='fb ok';fb.textContent='✓ إجابة صحيحة! الناتج ≈ '+nice(a);p.classList.add('solved');if(p.dataset.task)completeTask(p.dataset.task);}
+      else{fb.className='fb bad';fb.textContent='✗ ليست صحيحة بعد. '+(p.dataset.hint?'تلميح: '+p.dataset.hint:'');}};
+    btn.addEventListener('click',check);inp.addEventListener('keydown',e=>{if(e.key==='Enter')check();});
+  });
+}
+function mcq(root,sel,q,opts,a,onOk){
+  const box=$(sel,root);
+  box.innerHTML=`<p class="q" style="margin:0 0 6px;font-weight:600">${q}</p><div class="opts">${opts.map((o,i)=>`<button type="button" class="opt" data-i="${i}">${o}</button>`).join('')}</div><p class="fb" aria-live="polite"></p>`;
+  $$('.opt',box).forEach(b=>b.addEventListener('click',()=>{const i=+b.dataset.i;$$('.opt',box).forEach(x=>x.classList.remove('ok','bad'));
+    if(i===a){b.classList.add('ok');$('.fb',box).className='fb ok';$('.fb',box).textContent='✓ صحيح!';onOk&&onOk();}
+    else{b.classList.add('bad');$('.fb',box).className='fb bad';$('.fb',box).textContent='✗ حاولي مرة أخرى.';}}));
+}
+
+/* ---------- helpers ---------- */
+const AR=id=>`<defs><marker id="${id}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="cm-ah"/></marker></defs>`;
+function flowMap(title,steps,note){return `<h4>${title}</h4><div class="flowmap">${steps.map((s,i)=>(i?'<span class="farr" aria-hidden="true">←</span>':'')+`<div class="fstep${s.k?' k':''}">${s.t}${s.s?`<small>${s.s}</small>`:''}</div>`).join('')}</div>${note?`<p class="cm-note">${note}</p>`:''}`;}
+function radioChips(id,opts){return `<div class="chips" id="${id}">${opts.map((o,i)=>`<button type="button" class="chip" data-v="${o[0]}" aria-pressed="${i===0}">${o[1]}</button>`).join('')}</div>`;}
+function chipVal(root,id){const b=$(`#${id} .chip[aria-pressed=true]`,root);return b?b.dataset.v:null;}
+function bindChips(root,id,cb){$$(`#${id} .chip`,root).forEach(b=>b.addEventListener('click',()=>{$$(`#${id} .chip`,root).forEach(x=>x.setAttribute('aria-pressed',x===b));cb&&cb(b.dataset.v);}));}
+function tween(ms,f,done){if(reduced){f(1);done&&done();return;}const t0=performance.now();let raf=0;const s=t=>{const k=Math.min(1,(t-t0)/ms);f(1-Math.pow(1-k,3));if(k<1)raf=requestAnimationFrame(s);else done&&done();};raf=requestAnimationFrame(s);onCleanup(()=>cancelAnimationFrame(raf));}
+function addRow(tb,cells){const tr=document.createElement('tr');tr.innerHTML=cells.map(c=>`<td class="n">${c}</td>`).join('');tb.appendChild(tr);}
+function challenge(root,sel,gen,need,task,label){const box=$(sel,root);let streak=0;
+  const next=()=>{const it=gen();const opts=shuffle(it.o.map((t,i)=>({t,i})));box.innerHTML=`<div class="chal"><div class="chal-h"><b>🎯 ${label}</b><span>إجابات صحيحة متتالية: <b class="stk">${streak}</b> / ${need}</span></div><div class="chal-q">${it.p}</div><div class="opts">${opts.map(o=>`<button type="button" class="opt" data-i="${o.i}">${o.t}</button>`).join('')}</div><p class="fb"></p><button type="button" class="btn sm ghost nx">سؤال جديد</button></div>`;fmAll(box);
+    $$('.opt',box).forEach(b=>b.addEventListener('click',()=>{$$('.opt',box).forEach(x=>x.disabled=true);const ok=+b.dataset.i===0;b.classList.add(ok?'ok':'bad');$$('.opt',box).find(x=>+x.dataset.i===0).classList.add('ok');
+      streak=ok?streak+1:0;$('.stk',box).textContent=streak;const f=$('.fb',box);f.className='fb '+(ok?'ok':'bad');f.textContent=ok?'✓ أحسنتِ!':'✗ الإجابة الصحيحة مظللة بالأخضر. '+(it.e||'');if(streak>=need)completeTask(task);}));
+    $('.nx',box).addEventListener('click',next);};next();}
+
+/* ---------- 3D molecule viewer ---------- */
+const GEO=(()=>{const g={};
+  g.methane={name:'الميثان',f:'CH4',atoms:[['C',0,0,0],['H',.63,.63,.63],['H',.63,-.63,-.63],['H',-.63,.63,-.63],['H',-.63,-.63,.63]],bonds:[[0,1,1],[0,2,1],[0,3,1],[0,4,1]]};
+  const eth=[['C',-.77,0,0],['C',.77,0,0]];const eb=[[0,1,1]];[0,120,240].forEach(a=>{const r=a*Math.PI/180;eth.push(['H',-1.13,1.03*Math.cos(r),1.03*Math.sin(r)]);eb.push([0,eth.length-1,1]);});[60,180,300].forEach(a=>{const r=a*Math.PI/180;eth.push(['H',1.13,1.03*Math.cos(r),1.03*Math.sin(r)]);eb.push([1,eth.length-1,1]);});
+  g.ethane={name:'الإيثان',f:'C2H6',atoms:eth,bonds:eb};
+  g.ethene={name:'الإيثين (الإيثيلين)',f:'C2H4',atoms:[['C',-.67,0,0],['C',.67,0,0],['H',-1.24,.93,0],['H',-1.24,-.93,0],['H',1.24,.93,0],['H',1.24,-.93,0]],bonds:[[0,1,2],[0,2,1],[0,3,1],[1,4,1],[1,5,1]]};
+  g.ethyne={name:'الإيثاين (الأسيتيلين)',f:'C2H2',atoms:[['C',-.6,0,0],['C',.6,0,0],['H',-1.66,0,0],['H',1.66,0,0]],bonds:[[0,1,3],[0,2,1],[1,3,1]]};
+  const bz=[],bb=[];for(let k=0;k<6;k++){const a=k*Math.PI/3;bz.push(['C',1.39*Math.cos(a),1.39*Math.sin(a),0]);}for(let k=0;k<6;k++){const a=k*Math.PI/3;bz.push(['H',2.47*Math.cos(a),2.47*Math.sin(a),0]);bb.push([k,(k+1)%6,k%2?1:2]);bb.push([k,k+6,1]);}
+  g.benzene={name:'البنزين',f:'C6H6',atoms:bz,bonds:bb,size:6.4};return g;})();
+function MolViewer(cv,opt={}){const ctx=cv.getContext('2d');let W=0,H=0,a=0.6,b=0.35,mol='methane',mode='ball',drag=false,sx=0,sy=0,raf=0,last=performance.now(),idle=0;
+  const fit=()=>{const r=cv.getBoundingClientRect(),d=window.devicePixelRatio||1;W=r.width;H=r.height;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);};fit();const ro=new ResizeObserver(fit);ro.observe(cv);
+  cv.addEventListener('pointerdown',e=>{drag=true;sx=e.clientX;sy=e.clientY;cv.setPointerCapture(e.pointerId);});
+  cv.addEventListener('pointermove',e=>{if(!drag)return;a+=(e.clientX-sx)*0.01;b+=(e.clientY-sy)*0.01;sx=e.clientX;sy=e.clientY;idle=0;opt.onRotate&&opt.onRotate();});
+  cv.addEventListener('pointerup',()=>drag=false);
+  const draw=()=>{const g=GEO[mol],s=Math.min(W,H)/(g.size||5.2);ctx.clearRect(0,0,W,H);
+    const P=g.atoms.map(([e,x,y,z])=>{const x1=x*Math.cos(a)+z*Math.sin(a),z1=-x*Math.sin(a)+z*Math.cos(a),y1=y*Math.cos(b)-z1*Math.sin(b),z2=y*Math.sin(b)+z1*Math.cos(b);const k=1+z2*0.06;return{e,X:W/2+x1*s*k,Y:H/2-y1*s*k,z:z2,k};});
+    const col=e=>e==='C'?['#4a5263','#20242d']:['#ffffff','#b9c0cc'];
+    if(mode==='ball'){const items=[];g.bonds.forEach(([i,j,o])=>items.push({z:(P[i].z+P[j].z)/2-0.01,f:()=>{const A=P[i],B=P[j],dx=B.X-A.X,dy=B.Y-A.Y,L=Math.hypot(dx,dy)||1,nx=-dy/L,ny=dx/L;for(let q=0;q<o;q++){const off=(q-(o-1)/2)*7;ctx.strokeStyle='#8b93a3';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(A.X+nx*off,A.Y+ny*off);ctx.lineTo(B.X+nx*off,B.Y+ny*off);ctx.stroke();}}}));
+      P.forEach(p=>items.push({z:p.z,f:()=>{const r=(p.e==='C'?0.33:0.22)*s*p.k;const [c1,c2]=col(p.e);const gr=ctx.createRadialGradient(p.X-r/3,p.Y-r/3,r/5,p.X,p.Y,r);gr.addColorStop(0,c1);gr.addColorStop(1,c2);ctx.fillStyle=gr;ctx.beginPath();ctx.arc(p.X,p.Y,r,0,7);ctx.fill();}}));
+      items.sort((x,y)=>x.z-y.z).forEach(it=>it.f());}
+    else{P.slice().sort((x,y)=>x.z-y.z).forEach(p=>{const r=(p.e==='C'?0.85:0.6)*s*p.k;const [c1,c2]=col(p.e);const gr=ctx.createRadialGradient(p.X-r/3,p.Y-r/3,r/5,p.X,p.Y,r);gr.addColorStop(0,c1);gr.addColorStop(1,c2);ctx.fillStyle=gr;ctx.beginPath();ctx.arc(p.X,p.Y,r,0,7);ctx.fill();});}};
+  const loop=t=>{const dt=(t-last)/1000;last=t;idle+=dt;if(!drag&&idle>1.5&&!reduced)a+=dt*0.5;draw();raf=requestAnimationFrame(loop);};raf=requestAnimationFrame(loop);
+  onCleanup(()=>{cancelAnimationFrame(raf);ro.disconnect();});
+  return{set(m){mol=m;},mode(m){mode=m;}};}
+
+/* ---------- hero ---------- */
+function initBeaker(){const cv=$('#beaker');if(!cv)return;const V=MolViewer(cv);
+  const up=m=>{V.set(m);const g=GEO[m];$('#bTv').innerHTML=`<span class="f">${g.f}</span>`;fmAll($('.beaker-card'));
+    $('#bPh').textContent=g.name;$('#bHint').textContent=m==='methane'?'أبسط هيدروكربون: ذرة كربون ترتبط بأربع ذرات هيدروجين. اسحبي لتدويره.':m==='ethane'?'ألكان: روابط أحادية فقط (مشبع).':m==='ethene'?'ألكين: رابطة ثنائية بين ذرتي الكربون، وهو هرمون نضج الفواكه.':m==='ethyne'?'ألكاين: رابطة ثلاثية، ويستعمل في اللحام.':'أروماتي: حلقة من ست ذرات كربون شديدة الثبات.';};
+  bindChips(document,'hMol',up);up('methane');}
+
+/* ---------- concept maps & illustrations ---------- */
+const VIS={
+ carbon4:{html:()=>`<svg viewBox="0 0 200 120" role="img" aria-label="ذرة كربون بأربع روابط"><circle cx="100" cy="60" r="20" fill="#4a5263"/><text x="100" y="66" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">C</text>${[[60,20],[140,20],[60,100],[140,100]].map(([x,y])=>`<line x1="100" y1="60" x2="${x}" y2="${y}" stroke="currentColor" stroke-width="3"/><circle cx="${x}" cy="${y}" r="10" fill="#fff" stroke="#999"/>`).join('')}<circle cx="100" cy="60" r="20" fill="#4a5263"/><text x="100" y="66" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">C</text></svg>`},
+ orgMap:{html:()=>`<h4>🗺️ خريطة مفاهيم: المركبات العضوية والهيدروكربونات</h4><div class="tree"><div class="troot">المركبات العضوية: تحتوي على الكربون</div><div class="troot" style="background:var(--cold)">الهيدروكربونات: كربون وهيدروجين فقط</div>
+  <div class="tkids">${[['⚖️ مشبعة','روابط أحادية فقط','الألكانات CnH2n+2','الألكانات الحلقية'],['🔀 غير مشبعة','رابطة ثنائية: الألكينات','رابطة ثلاثية: الألكاينات','أنشط كيميائيًا'],['💍 أروماتية','تحتوي حلقة بنزين','إلكترونات غير متمركزة','ثابتة جدًا']].map(([h,...l])=>`<div class="tnode"><b>${h}</b>${l.map((x,i)=>`<span class="${i===2?'tk':''}">${x}</span>`).join('')}</div>`).join('')}</div></div>`},
+ refineMap:{html:()=>flowMap('🗺️ خريطة مفاهيم: من النفط الخام إلى الوقود',[{t:'النفط الخام',s:'خليط هيدروكربونات'},{t:'التسخين في الفرن',k:1},{t:'التقطير التجزيئي',s:'يفصل حسب درجة الغليان'},{t:'أجزاء النفط',s:'غاز، بنزين، كيروسين، ديزل…'},{t:'التكسير الحراري',s:'جزيئات كبيرة ← صغيرة',k:1}],'السلاسل القصيرة درجة غليانها منخفضة فتصعد إلى أعلى البرج، والطويلة تتكثف في الأسفل.')},
+ nameMap:{html:()=>flowMap('🗺️ خريطة مفاهيم: خطوات تسمية الألكانات المتفرعة',[{t:'1. حدّدي أطول سلسلة',s:'السلسلة الرئيسة'},{t:'2. رقّمي ذراتها',s:'من الطرف الأقرب للتفرع',k:1},{t:'3. سمّي المجموعات',s:'ميثيل، إيثيل، ومواقعها'},{t:'4. للمتكرر',s:'ثنائي، ثلاثي',k:1},{t:'5. رتّبي أبجديًا',s:'إيثيل قبل ميثيل'},{t:'6. اسم السلسلة الرئيسة',s:'بنتان، هكسان…'}],'مثال: <b>3-إيثيل-2-ميثيل هكسان</b>: سلسلة من 6 ذرات، عليها إيثيل عند الذرة 3 وميثيل عند الذرة 2.')},
+ unsatMap:{html:()=>`<h4>🗺️ خريطة مفاهيم: مقارنة الألكانات والألكينات والألكاينات</h4><div class="ordgrid">${[['ألكان','CnH2n+2','روابط أحادية','المقطع + «ان»','إيثان'],['ألكين','CnH2n','رابطة ثنائية C=C','المقطع + «ين»','إيثين'],['ألكاين','CnH2n−2','رابطة ثلاثية C≡C','المقطع + «اين»','إيثاين']].map(([a,b,c,d,e])=>`<div class="ord"><b>${a}</b><em class="f" style="font-size:20px">${b}</em><span>${c}</span><small>${d}، مثل: ${e}</small></div>`).join('')}</div>`},
+ isoMap:{html:()=>`<h4>🗺️ خريطة مفاهيم: أنواع المتشكلات</h4><div class="tree"><div class="troot">المتشكلات: الصيغة الجزيئية نفسها، وتراكيب مختلفة</div>
+  <div class="tkids">${[['🧩 بنائية','ترتيب مختلف لارتباط الذرات','البيوتان و 2-ميثيل بروبان','خواص فيزيائية مختلفة'],['↔️ فراغية: هندسية','حول الرابطة الثنائية','سيس: الجهة نفسها','ترانس: جهتان متقابلتان'],['🤚 فراغية: ضوئية','ذرة كربون غير متماثلة','صورتا مرآة لا تتطابقان','كاليدين اليمنى واليسرى']].map(([h,...l])=>`<div class="tnode"><b>${h}</b>${l.map((x,i)=>`<span class="${i===2?'tk':''}">${x}</span>`).join('')}</div>`).join('')}</div></div>`},
+ hands:{html:()=>`<h4>🤚 صورة توضيحية: اليدان والمرآة</h4><svg viewBox="0 0 400 170" role="img" aria-label="يد يمنى ويد يسرى صورتا مرآة"><line x1="200" y1="10" x2="200" y2="160" stroke="var(--cold)" stroke-width="3" stroke-dasharray="6 5"/><text x="200" y="168" text-anchor="middle" font-size="12" fill="currentColor">مرآة</text>
+  <text x="110" y="110" text-anchor="middle" font-size="90">✋</text><g transform="translate(290,0) scale(-1,1) translate(-290,0)"><text x="290" y="110" text-anchor="middle" font-size="90">✋</text></g></svg><p class="cm-note">اليد اليسرى صورة مرآة لليمنى، لكنك لا تستطيعين وضع إحداهما فوق الأخرى لتتطابقا تمامًا. وكذلك المتشكلان الضوئيان.</p>`},
+
+ polar:{html:()=>`<h4>🔦 صورة تفاعلية: الدوران الضوئي</h4>
+  <svg viewBox="0 0 640 210" id="plS" role="img" aria-label="ضوء مستقطب يمر في محلول متشكل ضوئي"></svg>
+  ${radioChips('plM',[['w','ماء (ليس متشكلًا ضوئيًا)'],['D','محلول المتشكل D'],['L','محلول المتشكل L']])}
+  <p class="cm-note" id="plT"></p>`,
+  init(root){let raf=0,t=0,cur=0;
+   const draw=()=>{const m=chipVal(root,'plM'),target=m==='D'?40:m==='L'?-40:0;cur+=(target-cur)*0.08;t+=reduced?0:0.08;
+    const wave=(x0,x1,ang,amp)=>{let d='';for(let x=x0;x<=x1;x+=4){const y=Math.sin((x+t*20)/9)*amp;const dx=-y*Math.sin(ang*Math.PI/180),dy=y*Math.cos(ang*Math.PI/180);d+=(x===x0?'M':'L')+(x+dx).toFixed(1)+' '+(105+dy).toFixed(1);}return d;};
+    $('#plS',root).innerHTML=`<circle cx="40" cy="105" r="22" fill="#FFD84D"/><text x="40" y="150" text-anchor="middle" font-size="12" fill="currentColor">مصباح</text>
+     ${[0,45,90,135].map(a=>`<path d="${wave(70,150,a,16)}" fill="none" stroke="#E3B23C" stroke-width="2" opacity=".7"/>`).join('')}
+     <rect x="155" y="55" width="16" height="100" rx="3" fill="var(--chip)" stroke="currentColor"/>${[0,1,2,3,4].map(i=>`<line x1="163" y1="${62+i*20}" x2="163" y2="${74+i*20}" stroke="currentColor" stroke-width="2"/>`).join('')}<text x="163" y="172" text-anchor="middle" font-size="11" fill="currentColor">مرشِّح الاستقطاب</text>
+     <path d="${wave(175,250,0,16)}" fill="none" stroke="#E3B23C" stroke-width="2.5"/>
+     <rect x="255" y="75" width="170" height="60" rx="28" fill="${m==='w'?'rgba(150,200,240,.35)':'rgba(138,79,200,.25)'}" stroke="currentColor" stroke-width="2"/><text x="340" y="110" text-anchor="middle" font-size="13" fill="currentColor" font-weight="700">${m==='w'?'ماء':m==='D'?'متشكل D':'متشكل L'}</text><text x="340" y="160" text-anchor="middle" font-size="11" fill="currentColor">أنبوب العينة</text>
+     <path d="${wave(430,520,cur,16)}" fill="none" stroke="#E3B23C" stroke-width="2.5"/>
+     <circle cx="580" cy="105" r="42" fill="var(--surface)" stroke="currentColor" stroke-width="2"/><line x1="580" y1="63" x2="580" y2="147" stroke="var(--muted)" stroke-dasharray="4 4"/><line x1="${580-40*Math.sin(cur*Math.PI/180)}" y1="${105+40*Math.cos(cur*Math.PI/180)}" x2="${580+40*Math.sin(cur*Math.PI/180)}" y2="${105-40*Math.cos(cur*Math.PI/180)}" stroke="#DE4527" stroke-width="4"/><text x="580" y="170" text-anchor="middle" font-size="11" fill="currentColor">مستوى الاستقطاب</text>`;
+    $('#plT',root).innerHTML=m==='w'?'الماء ليس متشكلًا ضوئيًا، فيخرج الضوء المستقطب في المستوى نفسه دون دوران.':m==='D'?'المتشكل D يدير مستوى الضوء المستقطب إلى <b>اليمين</b> (مع عقارب الساعة عندما تنظرين نحو مصدر الضوء).':'المتشكل L يدير مستوى الضوء المستقطب إلى <b>اليسار</b> (عكس عقارب الساعة). المتشكلان متساويان في مقدار الدوران ومتعاكسان في الاتجاه.';
+    raf=requestAnimationFrame(draw);};
+   bindChips(root,'plM');draw();onCleanup(()=>cancelAnimationFrame(raf));}},
+ bzHistory:{html:()=>`<h4>📜 خط زمني تفاعلي: كيف توصل العلماء إلى صيغة البنزين؟</h4>
+  <div class="tl" id="bhT">${[['1825','فاراداي'],['1860','صيغ مقترحة'],['1865','كيكولي'],['1930','باولينج']].map((x,i)=>`<button type="button" class="tlb" data-i="${i}" aria-pressed="${i===0}"><b class="ltr">${x[0]}</b><span>${x[1]}</span></button>`).join('')}</div>
+  <div class="tlbody" id="bhB"></div>`,
+  init(root){const S=[
+   ['عزل المادة','عزل الفيزيائي البريطاني مايكل فاراداي البنزين من الغازات المنبعثة عند تسخين زيوت الحيتان أو الفحم، وحدّد الكيميائيون صيغته الجزيئية <span class="f">C6H6</span>.','<div class="cmp"><div><span class="f">C6H14</span><small>الهكسان المشبع</small></div><div class="vs">مقابل</div><div><span class="f">C6H6</span><small>البنزين: ثماني ذرات هيدروجين أقل</small></div></div><p class="cm-note">النتيجة: البنزين غير مشبع، فلا بد أن فيه روابط ثنائية أو ثلاثية.</p>'],
+   ['صيغ سلسلية مقترحة','اقترح العلماء صيغًا كثيرة بسلاسل فيها روابط ثنائية، مثل الصيغة الآتية التي صيغتها الجزيئية <span class="f">C6H6</span> أيضًا:','<div class="molbox ltr" style="text-align:center;font-size:18px;padding:14px"><span class="f">CH2=C=CH–CH=C=CH2</span></div><p class="cm-note">❌ المشكلة: مثل هذا المركب شديد التفاعل لكثرة روابطه الثنائية، بينما البنزين غير نشط ولا يتفاعل كالألكينات والألكاينات.</p>'],
+   ['الحلقة السداسية','اقترح الكيميائي الألماني كيكولي حلقة سداسية مسطحة تتبادل فيها الروابط الأحادية والثنائية. وقال إنه رأى في المنام أفعى تعض ذيلها (شعار أوروبوروس)، فخطرت له فكرة الحلقة.',MOL(drawRing([],'A'))+'<p class="cm-note">✔️ فسّرت الحلقة الشكل السداسي، لكنها لم تفسّر ضعف نشاط البنزين: لو كانت فيه روابط ثنائية عادية لتفاعل كالألكينات.</p>'],
+   ['الإلكترونات غير المتمركزة','طبّق لينوس باولينج نظرية المجالات المهجنة على البنزين، فوجد أن أزواج إلكترونات الروابط الثنائية لا تبقى بين ذرتي كربون محددتين، بل تتشارك فيها ذرات الكربون الست.',MOL(drawRing([],'circle'))+'<p class="cm-note">✔️ الإلكترونات المشتركة بين ست نوى يصعب سحبها، فيصبح البنزين ثابتًا كيميائيًا. لذلك نرسم دائرة داخل الحلقة.</p>']];
+   const show=i=>{$$('#bhT .tlb',root).forEach((b,j)=>b.setAttribute('aria-pressed',j===i));const [h,t,x]=S[i];$('#bhB',root).innerHTML=`<b>${h}</b><p style="margin:6px 0">${t}</p>${x}`;fmAll(root);};
+   $$('#bhT .tlb',root).forEach(b=>b.addEventListener('click',()=>show(+b.dataset.i)));show(0);}},
+ deloc:{html:()=>`<h4>☁️ نشاط تفاعلي: ما معنى أن الإلكترونات غير متمركزة؟</h4>
+  ${radioChips('dlM',[['loc','إلكترونات متمركزة (كما تخيّلها كيكولي)'],['deloc','إلكترونات غير متمركزة (الحقيقة)']])}
+  <div class="dlgrid"><svg viewBox="0 0 300 280" id="dlS" role="img" aria-label="حركة إلكترونات حلقة البنزين"></svg><div class="lpinfo" id="dlI"></div></div>
+  <div class="row" style="margin-top:8px"><button type="button" class="btn sm hot" id="dlPull">🧲 حاولي سحب زوج إلكترونات من الحلقة</button></div><p class="fb" id="dlF"></p>`,
+  init(root){let raf=0,t=0,pull=0;const seen=new Set();const cx=150,cy=135,R=82;const P=k=>[cx+R*Math.sin(k*Math.PI/3),cy-R*Math.cos(k*Math.PI/3)];
+   const draw=()=>{const m=chipVal(root,'dlM');t+=reduced?0:0.02;pull=Math.max(0,pull-0.01);let s='';
+    if(m==='deloc'){s+=`<path d="M${cx} ${cy-R*1.05} a${R*1.05} ${R*1.05} 0 1 0 0.01 0 Z M${cx} ${cy-R*0.62} a${R*0.62} ${R*0.62} 0 1 1 -0.01 0 Z" fill="rgba(138,79,200,.22)" fill-rule="evenodd"/>`;}
+    for(let k=0;k<6;k++){const a=P(k),b=P(k+1);s+=`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="currentColor" stroke-width="3"/>`;
+      const mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2,lx=cx+(mx-cx)*1.28,ly=cy+(my-cy)*1.28;s+=`<text x="${lx}" y="${ly+4}" text-anchor="middle" font-size="10.5" fill="currentColor" direction="ltr">${m==='deloc'?'139':(k%2===0?'134':'154')} pm</text>`;
+      if(m==='loc'&&k%2===0){const ia=[cx+(a[0]-cx)*0.8,cy+(a[1]-cy)*0.8],ib=[cx+(b[0]-cx)*0.8,cy+(b[1]-cy)*0.8];s+=`<line x1="${ia[0]}" y1="${ia[1]}" x2="${ib[0]}" y2="${ib[1]}" stroke="currentColor" stroke-width="3"/>`;}}
+    for(let k=0;k<6;k++){const a=P(k);s+=`<circle cx="${a[0]}" cy="${a[1]}" r="11" fill="#4a5263"/><text x="${a[0]}" y="${a[1]+4}" text-anchor="middle" font-size="10" fill="#fff" font-weight="700">C</text>`;}
+    if(m==='loc'){for(let k=0;k<3;k++){const a=P(2*k),b=P(2*k+1);const f=0.5+0.18*Math.sin(t*3+k);const mx=a[0]+(b[0]-a[0])*f,my=a[1]+(b[1]-a[1])*f;const ox=(cx-mx)*0.14,oy=(cy-my)*0.14;const pz=k===0?pull*60:0;
+      [[-4,0],[4,0]].forEach(([dx])=>{s+=`<circle cx="${mx+ox+dx*0.8-pz}" cy="${my+oy-pz*0.4}" r="5" fill="#2763D8" stroke="#fff"/>`;});}}
+    else{for(let k=0;k<6;k++){const ang=t*1.6+k*Math.PI/3,r=R*0.84+Math.sin(t*4+k)*3;s+=`<circle cx="${cx+r*Math.sin(ang)}" cy="${cy-r*Math.cos(ang)}" r="5" fill="#2763D8" stroke="#fff"/>`;}}
+    s+=`<text x="${cx}" y="272" text-anchor="middle" font-size="12" fill="currentColor">${m==='deloc'?'السحابة البنفسجية: الإلكترونات منتشرة فوق الحلقة كلها':'كل زوج محصور بين ذرتي كربون فقط'}</text>`;
+    $('#dlS',root).innerHTML=s;raf=requestAnimationFrame(draw);};
+   const info=()=>{const m=chipVal(root,'dlM');seen.add(m);if(seen.size===2)completeTask('l5-deloc');$('#dlF',root).textContent='';
+    $('#dlI',root).innerHTML=m==='loc'?'<b>لو كانت الإلكترونات متمركزة:</b><br>• كل زوج من إلكترونات الروابط الثنائية يبقى بين ذرتين فقط.<br>• تكون الروابط مختلفة الطول: ثنائية قصيرة (<span class="ltr">134 pm</span>) وأحادية طويلة (<span class="ltr">154 pm</span>).<br>• يسهل سحب الزوج، فيتفاعل الجزيء بسهولة كالألكينات.':'<b>الحقيقة: الإلكترونات غير متمركزة</b><br>• الإلكترونات الستة تتحرك فوق الحلقة كلها ولا تخص رابطة معينة.<br>• الروابط الست متساوية الطول (<span class="ltr">139 pm</span>)، بين الأحادية والثنائية.<br>• الإلكترونات مشتركة بين ست نوى، فيصعب سحبها، لذلك البنزين ثابت.<br><small>تشبيه: كرة يتقاذفها ستة لاعبين في دائرة، لا لاعبان فقط، فيصعب على أحد خطفها.</small>';};
+   bindChips(root,'dlM',info);info();
+   $('#dlPull',root).addEventListener('click',()=>{const m=chipVal(root,'dlM'),f=$('#dlF',root);if(m==='loc'){pull=1;f.className='fb bad';f.textContent='انسحب الزوج بسهولة لأنه يخص ذرتين فقط، وهذا ما يحدث في الألكينات النشطة.';}else{f.className='fb ok';f.textContent='صعب جدًا! الإلكترونات مشتركة بين ست نوى كربون، فهي مثبتة جيدًا، ولذلك البنزين غير نشط كيميائيًا.';}});
+   draw();onCleanup(()=>cancelAnimationFrame(raf));}},
+ aromMap:{html:()=>`<h4>🗺️ خريطة مفاهيم: تركيب البنزين</h4><div class="ordgrid">${[['نموذج كيكولي','روابط أحادية وثنائية متبادلة','تركيبان يتبادلان'],['النموذج الحديث','إلكترونات غير متمركزة','تُرسم دائرة داخل الحلقة'],['النتيجة','ثبات كبير','لا يتفاعل بسهولة كالألكينات']].map(([a,b,c])=>`<div class="ord"><b>${a}</b><span>${b}</span><small>${c}</small></div>`).join('')}</div>`}
+};
+
+/* ---------- SIMS ---------- */
+const SIMS={};
+SIMS.models={title:'نماذج تمثيل الجزيئات',
+html:()=>`<h3>نماذج تمثيل الجزيئات (ثلاثية الأبعاد)</h3><p class="desc">اختاري الجزيء والنموذج، ثم اسحبي لتدوير الجزيء في الفراغ.</p>
+ ${radioChips('mdM',[['methane','الميثان'],['ethane','الإيثان'],['ethene','الإيثين'],['ethyne','الإيثاين']])}
+ <div class="row" style="margin-top:8px">${radioChips('mdV',[['ball','نموذج الكرة والعصا'],['space','النموذج الفراغي']])}</div>
+ <div class="mdgrid"><canvas id="mdC" class="molcv" aria-label="نموذج ثلاثي الأبعاد"></canvas><div class="lpinfo" id="mdI"></div></div>
+ <div id="mdQ" style="margin-top:12px"></div>`,
+init(root){const V=MolViewer($('#mdC',root));const seen=new Set();let sp=false;const B={methane:[1,null],ethane:[2,null],ethene:[2,{p:1,o:2}],ethyne:[2,{p:1,o:3}]};
+  const up=()=>{const m=chipVal(root,'mdM'),v=chipVal(root,'mdV');V.set(m);V.mode(v);seen.add(m);if(v==='space')sp=true;const g=GEO[m],[n,bd]=B[m];
+    $('#mdI',root).innerHTML=`<b>${g.name}</b><br>الصيغة الجزيئية: <span class="f">${g.f}</span><br>الصيغة البنائية:${MOL(drawChain(n,[],bd))}${m==='ethane'||m==='methane'?'مشبع: روابط أحادية فقط':'غير مشبع: '+(m==='ethene'?'رابطة ثنائية':'رابطة ثلاثية')}`;fmAll(root);
+    if(seen.size>=3&&sp)completeTask('l1-models');};
+  bindChips(root,'mdM',up);bindChips(root,'mdV',up);up();
+  mcq(root,'#mdQ','أي الجزيئات الآتية هيدروكربون مشبع؟',['الإيثان C2H6','الإيثين C2H4','الإيثاين C2H2','البنزين C6H6'],0,()=>completeTask('l1-sat'));}};
+
+const FR=[[1,4,'الغازات','أقل من 40 °C','وقود غازي للطهو والتدفئة'],[5,12,'الجازولين','40 – 100 °C','وقود السيارات'],[13,18,'الكيروسين','105 – 275 °C','وقود الطائرات والتدفئة'],[19,22,'زيت الوقود (الديزل)','240 – 300 °C','وقود الشاحنات والسفن'],[23,34,'زيوت التشحيم','أعلى من 300 °C','تشحيم المحركات'],[35,40,'المخلفات (الأسفلت)','نحو 400 °C في أسفل البرج','رصف الطرق']];
+SIMS.distill={title:'برج التقطير التجزيئي',
+html:()=>`<h3>🔬 برج التقطير التجزيئي</h3><p class="desc">اختاري عدد ذرات الكربون في جزيء من النفط الخام، ثم سخّني النفط وراقبي أين يتكثف الجزيء.</p>
+ <div class="lab"><svg viewBox="0 0 360 300" id="dsS" class="labsvg" role="img" aria-label="برج تقطير"></svg>
+ <div class="labside"><label class="ctrl">عدد ذرات الكربون في الجزيء: <b class="ltr" id="dsNv"></b><input type="range" dir="ltr" id="dsN" min="1" max="40" value="8"></label><button type="button" class="btn hot" id="dsGo">🔥 سخّني النفط</button><div class="lpinfo" id="dsI">اختاري الجزيء ثم سخّني.</div></div></div>
+ <table class="ctable" style="margin-top:10px"><tr><th>الجزء</th><th>عدد ذرات الكربون</th><th>مدى الغليان</th><th>الاستعمال</th></tr><tbody id="dsT"></tbody></table><div id="dsQ" style="margin-top:12px"></div>`,
+init(root){const found=new Set();const yT=[40,85,130,175,220,262];
+  const base=(hl,mx,my)=>`<rect x="110" y="20" width="110" height="250" rx="16" fill="var(--surface2)" stroke="currentColor" stroke-width="3"/>${yT.slice(0,5).map((y,i)=>`<line x1="110" y1="${y+22}" x2="220" y2="${y+22}" stroke="currentColor" opacity=".4"/><line x1="220" y1="${y+10}" x2="262" y2="${y+10}" stroke="currentColor" stroke-width="3"/><text x="268" y="${y+14}" font-size="11.5" fill="currentColor" font-weight="${hl===i?700:400}">${FR[i][2]}</text>`).join('')}<text x="268" y="282" font-size="11.5" fill="currentColor" font-weight="${hl===5?700:400}">${FR[5][2]}</text>
+   <rect x="20" y="236" width="70" height="34" rx="6" fill="#DE4527" opacity=".85"/><text x="55" y="258" text-anchor="middle" font-size="12" fill="#fff">الفرن</text><line x1="90" y1="252" x2="110" y2="252" stroke="currentColor" stroke-width="3"/>
+   <text x="165" y="14" text-anchor="middle" font-size="11" fill="currentColor">أبرد ↑</text><text x="165" y="292" text-anchor="middle" font-size="11" fill="currentColor">أسخن ↓</text>${mx!=null?`<circle cx="${mx}" cy="${my}" r="9" fill="#E3B23C" stroke="#8a6a10"/><text x="${mx}" y="${my+4}" text-anchor="middle" font-size="9" font-weight="700" direction="ltr">C${$('#dsN',root).value}</text>`:''}`;
+  const fr=n=>FR.findIndex(f=>n>=f[0]&&n<=f[1]);
+  const lab=()=>{$('#dsNv',root).textContent=$('#dsN',root).value;$('#dsS',root).innerHTML=base(-1,165,252);};
+  $('#dsN',root).addEventListener('input',lab);lab();
+  $('#dsGo',root).addEventListener('click',()=>{const n=+$('#dsN',root).value,i=fr(n),ty=i===5?262:yT[i]+10;$('#dsGo',root).disabled=true;
+    tween(1500,k=>{$('#dsS',root).innerHTML=base(-1,165+(i===5?0:(240-165)*Math.max(0,k-0.75)*4),252+(ty-252)*Math.min(1,k/0.75));},()=>{$('#dsGo',root).disabled=false;$('#dsS',root).innerHTML=base(i,i===5?165:240,ty);
+      const f=FR[i];$('#dsI',root).innerHTML=`<b>${f[2]}</b><br>عدد ذرات الكربون: <span class="ltr">C${f[0]} – C${f[1]}</span><br>مدى الغليان: <span class="ltr">${f[3]}</span><br>الاستعمال: ${f[4]}`;
+      if(!found.has(i)){found.add(i);addRow($('#dsT',root),[f[2],`C${f[0]}–C${f[1]}`,f[3],f[4]]);}if(found.size>=5)completeTask('l1-dist');});});
+  mcq(root,'#dsQ','لماذا تُجرى عملية التكسير الحراري في مصافي النفط؟',['لتحويل الجزيئات الكبيرة قليلة الطلب إلى جزيئات أصغر مثل مكونات البنزين','لفصل النفط حسب درجات الغليان','لزيادة طول السلاسل الكربونية','لإضافة الأكسجين إلى الوقود'],0,()=>completeTask('l1-crack'));}};
+
+const BP=[null,-162,-89,-42,-0.5,36,69,98,126,151,174];
+SIMS.series={title:'السلسلة المتماثلة للألكانات',
+html:()=>`<h3>السلسلة المتماثلة للألكانات</h3><p class="desc">حرّكي المؤشر لإضافة ذرة كربون كل مرة (أي مجموعة <span class="f">CH2</span>)، وراقبي الاسم والصيغة ودرجة الغليان.</p>
+ <label class="ctrl">عدد ذرات الكربون n: <b class="ltr" id="srNv"></b><input type="range" dir="ltr" id="srN" min="1" max="10" value="1"></label>
+ <div class="srbox"><div><div class="srname" id="srName"></div><div id="srF" class="srf"></div><div id="srD"></div></div><svg viewBox="0 0 330 200" id="srG" role="img" aria-label="درجات الغليان"></svg></div>
+ <div id="srQ" style="margin-top:12px"></div>`,
+init(root){const up=()=>{const n=+$('#srN',root).value;$('#srNv',root).textContent=n;$('#srName',root).textContent=NM(n);
+   $('#srF',root).innerHTML=`<span class="f">${molFormula(n)}</span> | الحالة عند 25 °C: <b>${BP[n]<25?'غاز':'سائل'}</b> | درجة الغليان: <b class="ltr">${BP[n]} °C</b>`;
+   $('#srD',root).innerHTML=MOL(drawChain(n,[],null,{dx:n>7?52:66}));fmAll(root);
+   const X=i=>18+(i-1)*31,Y=v=>110-v*0.55;$('#srG',root).innerHTML=`<line x1="10" y1="${Y(0)}" x2="325" y2="${Y(0)}" stroke="currentColor" opacity=".5"/><text x="322" y="${Y(0)-4}" text-anchor="end" font-size="10" fill="currentColor" direction="ltr">0 °C</text>${BP.slice(1).map((v,k)=>{const i=k+1;return `<rect x="${X(i)}" y="${Math.min(Y(v),Y(0))}" width="22" height="${Math.abs(Y(v)-Y(0))}" fill="${i===n?'#DE4527':'#9db4e8'}"/><text x="${X(i)+11}" y="196" text-anchor="middle" font-size="10" fill="currentColor" direction="ltr">C${i}</text>`;}).join('')}<text x="165" y="14" text-anchor="middle" font-size="11" fill="currentColor">درجات غليان الألكانات</text>`;
+   if(n===10)completeTask('l2-series');};
+  $('#srN',root).addEventListener('input',up);up();
+  mcq(root,'#srQ','ما العلاقة بين طول السلسلة الكربونية ودرجة غليان الألكان؟',['كلما زاد عدد ذرات الكربون زادت درجة الغليان','كلما زاد عدد ذرات الكربون قلت درجة الغليان','لا توجد علاقة','الألكانات جميعها غازات'],0,()=>completeTask('l2-trend'));}};
+
+function rawName(n,subs,bond){const parts=['e','m'].map(t=>{const ps=subs.filter(x=>x.t===t).map(x=>x.p).sort((a,b)=>a-b);return ps.length?ps.join(',')+'-'+MULT[ps.length]+SUBN[t]:'';}).filter(Boolean);const par=parentName(n,bond);return parts.length?parts.join('-')+(/^\d/.test(par)?'-':' ')+par:par;}
+function randAlkane(){for(let tries=0;tries<50;tries++){const n=4+Math.floor(Math.random()*4);const k=1+Math.floor(Math.random()*2);const subs=[];for(let i=0;i<k;i++){const t=Math.random()<0.3&&n>=5?'e':'m';const p=t==='e'?3+Math.floor(Math.random()*(n-4)):2+Math.floor(Math.random()*(n-2));if(subs.filter(s=>s.p===p).length<2)subs.push({p,t});}
+  if(subs.length)return{n,subs};}return{n:5,subs:[{p:2,t:'m'}]};}
+function alkaneDistractors(n,subs,ans){const set=new Set([ans]);const rev=subs.map(s=>({p:n+1-s.p,t:s.t}));[rawName(n,rev),rawName(n+1,subs),rawName(n-1>=3?n-1:n+2,subs.map(s=>({p:Math.min(s.p,Math.max(2,n-2)),t:s.t}))),subs.length>1?subs.map(s=>s.p+'-'+SUBN[s.t]).join('-')+' '+parentName(n):NM(n+subs.length)].forEach(x=>{if(set.size<4)set.add(x);});
+  let extra=2;while(set.size<4){set.add(rawName(n,subs.map(s=>({p:s.p+extra%2,t:s.t})))+'');extra++;if(extra>8)set.add(NM(n+extra));}return [...set].slice(1,4);}
+SIMS.nameBuilder={title:'ورشة تسمية الألكانات',
+html:()=>`<h3>ورشة تسمية الألكانات المتفرعة</h3><p class="desc">اختاري طول السلسلة الرئيسة، ثم أضيفي مجموعات الميثيل والإيثيل في المواقع التي تريدينها، وسيظهر الاسم حسب نظام الأيوباك.</p>
+ <div class="lablbl">طول السلسلة الرئيسة</div>${radioChips('nbN',[4,5,6,7,8].map(n=>[n,NM(n)]))}
+ <div class="row" style="margin-top:10px"><label class="ctrl">نوع المجموعة<select id="nbT"><option value="m">ميثيل –CH₃</option><option value="e">إيثيل –C₂H₅</option></select></label><label class="ctrl">على ذرة الكربون رقم<select id="nbP"></select></label><button type="button" class="btn sm cold" id="nbAdd" style="align-self:flex-end">➕ أضيفي</button><button type="button" class="btn sm ghost" id="nbClr" style="align-self:flex-end">↺ مسح</button></div>
+ <p class="fb" id="nbF"></p><div id="nbD" class="nbd"></div><div class="nbname" id="nbName"></div>
+ <div id="nbC" style="margin-top:16px"></div>`,
+init(root){let n=4,subs=[];const built=new Set();
+  const opts=()=>{const t=$('#nbT',root).value,lo=t==='e'?3:2,hi=t==='e'?n-2:n-1;$('#nbP',root).innerHTML=lo>hi?'<option value="">لا يوجد موقع مناسب</option>':Array.from({length:hi-lo+1},(_,i)=>`<option>${lo+i}</option>`).join('');};
+  const up=()=>{$('#nbD',root).innerHTML=MOL(drawChain(n,subs,null,{dx:n>6?60:70}));const nm=NM(n,subs);$('#nbName',root).innerHTML=`الاسم: <b>${nm}</b><br><span class="f">${molFormula(n+subs.reduce((a,s)=>a+(s.t==='e'?2:1),0))}</span>`;fmAll(root);if(subs.length){built.add(nm);if(built.size>=3)completeTask('l2-build');}};
+  bindChips(root,'nbN',v=>{n=+v;subs=[];opts();up();});$('#nbT',root).addEventListener('change',opts);
+  $('#nbAdd',root).addEventListener('click',()=>{const p=+$('#nbP',root).value,t=$('#nbT',root).value,f=$('#nbF',root);if(!p){f.className='fb bad';f.textContent='السلسلة قصيرة جدًا لهذه المجموعة.';return;}
+    if(subs.length>=4){f.className='fb bad';f.textContent='أربع مجموعات تكفي لهذا النشاط.';return;}if(subs.filter(s=>s.p===p).length>=2){f.className='fb bad';f.textContent='ذرة الكربون هذه لا تتسع لأكثر من مجموعتين.';return;}
+    subs.push({p,t});f.className='fb ok';f.textContent=t==='m'&&(p===1||p===n)?'':'أضيفت المجموعة. لاحظي كيف يتغير الترقيم ليعطي أصغر الأرقام.';up();});
+  $('#nbClr',root).addEventListener('click',()=>{subs=[];up();});opts();up();
+  challenge(root,'#nbC',()=>{const {n,subs}=randAlkane();const ans=NM(n,subs);return{p:'ما اسم المركب الآتي؟'+MOL(drawChain(n,subs,null,{dx:n>6?60:70})),o:[ans,...alkaneDistractors(n,subs,ans)],e:'الاسم الصحيح: '+ans};},3,'l2-chal','تحدي التسمية');}};
+
+SIMS.cyclo={title:'الألكانات الحلقية',
+html:()=>`<h3>الألكانات الحلقية</h3><p class="desc">غيّري عدد ذرات الكربون في الحلقة. كل رأس في الشكل يمثل ذرة كربون مرتبطة بذرتي هيدروجين.</p>
+ <label class="ctrl">عدد ذرات الكربون في الحلقة: <b class="ltr" id="cyNv"></b><input type="range" dir="ltr" id="cyN" min="3" max="8" value="6"></label>
+ <div class="srbox"><div id="cyD"></div><div class="lpinfo" id="cyI"></div></div><div id="cyQ" style="margin-top:12px"></div>`,
+init(root){const up=()=>{const n=+$('#cyN',root).value;$('#cyNv',root).textContent=n;$('#cyD',root).innerHTML=MOL(cycloSVG(n));$('#cyI',root).innerHTML=`<b>${STEM[n]}ان حلقي</b><br>الصيغة الجزيئية: <span class="f">C${n}H${2*n}</span><br>الصيغة العامة للألكانات الحلقية: <span class="f">CnH2n</span><br>ذرتا هيدروجين أقل من الألكان المستقيم <span class="f">${molFormula(n)}</span>`;fmAll(root);};
+  $('#cyN',root).addEventListener('input',up);up();
+  mcq(root,'#cyQ','ما اسم الألكان الحلقي الذي صيغته <span class="f">C5H10</span>؟',['بنتان حلقي','بنتان','هكسان حلقي','بنتين'],0,()=>completeTask('l2-cyc'));fmAll(root);}};
+
+SIMS.bondBuilder={title:'ورشة الألكينات والألكاينات',
+html:()=>`<h3>ورشة الألكينات والألكاينات</h3><p class="desc">اختاري طول السلسلة ونوع الرابطة وموقعها، وراقبي الاسم والصيغة. لاحظي أن الرقم يُختار ليكون الأصغر.</p>
+ <div class="lablbl">عدد ذرات الكربون</div>${radioChips('bbN',[2,3,4,5,6].map(n=>[n,String(n)]))}
+ <div class="lablbl" style="margin-top:8px">نوع الرابطة</div>${radioChips('bbO',[['1','أحادية فقط (ألكان)'],['2','ثنائية (ألكين)'],['3','ثلاثية (ألكاين)']])}
+ <div class="lablbl" style="margin-top:8px">موقع الرابطة: بين ذرتي الكربون</div><div class="chips" id="bbP"></div>
+ <div id="bbD" class="nbd"></div><div class="nbname" id="bbName"></div><div id="bbC" style="margin-top:16px"></div>`,
+init(root){let p=1;
+  const up=()=>{const n=+chipVal(root,'bbN'),o=+chipVal(root,'bbO');if(p>n-1)p=1;
+    $('#bbP',root).innerHTML=o===1?'<span class="hint">لا توجد رابطة متعددة.</span>':Array.from({length:n-1},(_,i)=>`<button type="button" class="chip" data-p="${i+1}" aria-pressed="${i+1===p}"><span class="ltr">${i+1} و ${i+2}</span></button>`).join('');
+    $$('#bbP .chip',root).forEach(b=>b.addEventListener('click',()=>{p=+b.dataset.p;up();}));
+    const bond=o===1?null:{p,o};$('#bbD',root).innerHTML=MOL(drawChain(n,[],bond));const nm=NM(n,[],bond);
+    $('#bbName',root).innerHTML=`الاسم: <b>${nm}</b> | الصيغة: <span class="f">${molFormula(n,bond)}</span> | العائلة: <b>${o===1?'ألكان':o===2?'ألكين':'ألكاين'}</b>`;fmAll(root);
+    if(o===2&&n>=3)completeTask('l3-ene');if(o===3&&n>=3)completeTask('l3-yne');};
+  bindChips(root,'bbN',up);bindChips(root,'bbO',up);up();
+  challenge(root,'#bbC',()=>{const n=3+Math.floor(Math.random()*4),o=Math.random()<0.5?2:3,p=1+Math.floor(Math.random()*(n-1));const subs=n>=5&&Math.random()<0.4?[{p:n-1,t:'m'}]:[];const bond={p,o};const ans=NM(n,subs,bond);
+    const alt=new Set([ans]);const rp=n-p;[rawName(n,subs,{p:rp===p?p+1:rp,o}),rawName(n,subs,{p,o:o===2?3:2}),rawName(n,subs,{p:Math.min(n-1,p+1),o})+'',NM(n,subs)].forEach(x=>{if(x!==ans)alt.add(x);});
+    return{p:'ما اسم المركب الآتي؟'+MOL(drawChain(n,subs,bond)),o:[...alt].slice(0,4),e:'نرقّم من الطرف الأقرب للرابطة المتعددة. الاسم: '+ans};},2,'l3-namech','تحدي التسمية');}};
+
+SIMS.ethylene={title:'تجربة الإيثيلين ونضج الفواكه',
+html:()=>`<h3>🍌 صورة تفاعلية: الإيثيلين ونضج الفواكه</h3><p class="desc">موزة خضراء غير ناضجة. جرّبي وضع موزة ناضجة بجانبها (مصدر للإيثيلين)، ووضعهما في كيس مغلق، ثم مرّري الأيام وراقبي النضج.</p>
+ <div class="lab"><svg viewBox="0 0 360 260" id="etS" class="labsvg" role="img" aria-label="موزتان وجزيئات الإيثيلين"></svg>
+ <div class="labside"><label class="switch"><input type="checkbox" id="etR"> إضافة موزة ناضجة (تطلق الإيثيلين)</label><label class="switch"><input type="checkbox" id="etB"> وضعهما داخل كيس ورقي مغلق</label>
+  <label class="ctrl">عدد الأيام: <b class="ltr" id="etDv">0</b><input type="range" dir="ltr" id="etD" min="0" max="8" step="0.5" value="0"></label><div class="lpinfo" id="etI"></div><button type="button" class="btn sm" id="etRec">📋 سجّلي نتيجة هذه الظروف</button></div></div>
+ <table class="ctable" style="margin-top:10px"><tr><th>الظروف</th><th>أيام حتى تنضج الموزة الخضراء</th></tr><tbody id="etT"></tbody></table>
+ <div class="cmap"><h4>🧪 جزيء الإيثيلين (الإيثين)</h4>${MOL(drawChain(2,[],{p:1,o:2}))}<p class="cm-note">ألكين بسيط صيغته <span class="f">C2H4</span>، يعمل هرمونًا نباتيًا. يستعمله التجار لإنضاج الموز والطماطم بعد نقلها خضراء، وتستعمل المخازن مواد تمتصه لإبطاء النضج.</p></div>
+ <div id="etQ" style="margin-top:12px"></div>`,
+init(root){const rec=new Set();let raf=0,mol=[];
+  const rate=()=>{const r=$('#etR',root).checked,b=$('#etB',root).checked;return 0.09+(r?(b?0.22:0.06):(b?0.03:0));};
+  const col=k=>{const g=[107,170,58],y=[242,210,60];if(k<0.75){const t=k/0.75;return `rgb(${g.map((v,i)=>Math.round(v+(y[i]-v)*t)).join(',')})`;}return 'rgb(242,210,60)';};
+  const banana=(x,y,c,spots,s=1)=>`<g transform="translate(${x},${y}) scale(${s})"><path d="M-55 -10 Q0 45 60 -18 Q64 -22 58 -26 Q0 20 -50 -20 Z" fill="${c}" stroke="#6b5a1e" stroke-width="2"/><path d="M58 -26 l8 -6" stroke="#5a4a12" stroke-width="4"/>${spots?[...Array(spots)].map((_,i)=>`<circle cx="${-35+i*12}" cy="${-2+((i*7)%9)-4}" r="2.6" fill="#6b4a12"/>`).join(''):''}</g>`;
+  const draw=()=>{const d=+$('#etD',root).value,R=$('#etR',root).checked,Bg=$('#etB',root).checked;const k=Math.min(1,d*rate());const spots=k>0.85?Math.round((k-0.85)*40):0;
+    const nE=R?(Bg?14:5):(Bg?3:1);
+    let s=`<rect x="0" y="210" width="360" height="50" fill="#d9c7a3"/>`;
+    if(Bg)s+=`<path d="M40 215 L52 60 L308 60 L320 215 Z" fill="rgba(196,160,110,.35)" stroke="#a8875a" stroke-width="3"/><path d="M52 60 L70 48 L290 48 L308 60" fill="none" stroke="#a8875a" stroke-width="3"/>`;
+    s+=banana(120,180,col(k),spots);if(R)s+=banana(240,185,'rgb(240,200,60)',6);
+    s+=`<g id="etMol"></g><text x="120" y="232" text-anchor="middle" font-size="12" fill="#3a2c10">الموزة الخضراء: ${Math.round(k*100)}%</text>${R?'<text x="240" y="232" text-anchor="middle" font-size="12" fill="#3a2c10">موزة ناضجة</text>':''}`;
+    $('#etS',root).innerHTML=s;while(mol.length<nE)mol.push({x:R?240:120,y:170,vx:(Math.random()-.5)*1.2,vy:-0.6-Math.random()*0.6});mol=mol.slice(0,nE);
+    $('#etDv',root).textContent=d;$('#etI',root).innerHTML=`سرعة النضج: <b>${R&&Bg?'سريعة جدًا':R?'أسرع قليلًا':Bg?'أسرع قليلًا':'طبيعية'}</b><br>${k>=0.75?'✓ نضجت الموزة الخضراء':'لم تنضج بعد'}${spots?'، وبدأت تظهر بقع بنية':''}`;};
+  const anim=()=>{const g=$('#etMol',root);if(g){const Bg=$('#etB',root).checked;g.innerHTML=mol.map(m=>{m.x+=m.vx;m.y+=m.vy;if(Bg){if(m.x<60||m.x>300)m.vx*=-1;if(m.y<70||m.y>200)m.vy*=-1;}else if(m.y<-10){m.y=170;m.x=$('#etR',root).checked?240:120;}
+     return `<g transform="translate(${m.x},${m.y})"><circle cx="-4" cy="0" r="4" fill="#3d4452"/><circle cx="4" cy="0" r="4" fill="#3d4452"/>${[[-9,-5],[-9,5],[9,-5],[9,5]].map(([a,b])=>`<circle cx="${a}" cy="${b}" r="2.4" fill="#fff" stroke="#999"/>`).join('')}</g>`;}).join('');}
+    raf=requestAnimationFrame(anim);};
+  ['#etR','#etB','#etD'].forEach(s=>$(s,root).addEventListener('input',draw));
+  $('#etRec',root).addEventListener('click',()=>{const R=$('#etR',root).checked,Bg=$('#etB',root).checked;const key=(R?1:0)+''+(Bg?1:0);if(rec.has(key))return;rec.add(key);
+    addRow($('#etT',root),[(R?'مع موزة ناضجة':'دون موزة ناضجة')+'، '+(Bg?'في كيس مغلق':'في الهواء'),(0.75/rate()).toFixed(1)+' يوم']);
+    if(rec.size>=3&&!$('#etQ .opts',root))mcq(root,'#etQ','لماذا نضجت الموزة الخضراء أسرع ما يمكن داخل الكيس المغلق مع موزة ناضجة؟',['لأن الموزة الناضجة تطلق الإيثيلين، والكيس يحبسه فيرتفع تركيزه حول الموزة الخضراء','لأن الكيس يرفع درجة الحرارة كثيرًا','لأن الكيس يمنع الإيثيلين','لأن الموزة الناضجة تمتص الإيثيلين'],0,()=>completeTask('l3-eth'));});
+  draw();anim();onCleanup(()=>cancelAnimationFrame(raf));}};
+
+SIMS.structIso={title:'متشكلات C5H12',
+html:()=>`<h3>🔍 ابحثي عن متشكلات <span class="f">C5H12</span></h3><p class="desc">اضغطي على كل تركيب لتعرفي: هل هو متشكل جديد للصيغة <span class="f">C5H12</span>، أم المركب نفسه مرسومًا بطريقة أخرى، أم ليس متشكلًا؟ المطلوب إيجاد المتشكلات الثلاثة.</p>
+ <div class="isogrid" id="siG"></div><p class="fb" id="siF"></p><div id="siB"></div><div id="siQ" style="margin-top:12px"></div>`,
+init(root){const C5=[{n:5,s:[],k:'a'},{n:4,s:[{p:2,t:'m'}],k:'b'},{n:4,s:[{p:3,t:'m'}],k:'b',same:1},{n:3,s:[{p:2,t:'m'},{p:2,t:'m'}],k:'c'},{n:5,s:[],b:{p:1,o:2},k:'x',why:'صيغته C5H10 وفيه رابطة ثنائية'},{n:6,s:[],k:'x',why:'صيغته C6H14'}];const found=new Set();
+  $('#siG',root).innerHTML=shuffle(C5.map((c,i)=>i)).map(i=>`<button type="button" class="isocard" data-i="${i}">${drawChain(C5[i].n,C5[i].s,C5[i].b||null,{dx:58})}</button>`).join('');
+  $$('.isocard',root).forEach(b=>b.addEventListener('click',()=>{const c=C5[+b.dataset.i],f=$('#siF',root);
+    if(c.k==='x'){b.classList.add('no');f.className='fb bad';f.textContent='✗ ليس متشكلًا لـ C5H12: '+c.why+'.';return;}
+    const nm=NM(c.n,c.s);if(c.same){b.classList.add('same');f.className='fb bad';f.textContent='⚠️ هذا هو 2-ميثيل بيوتان نفسه، لكنه مرسوم مقلوبًا (رقّميه من الطرف الآخر). ليس متشكلًا جديدًا.';return;}
+    b.classList.add('yes');found.add(c.k);f.className='fb ok';f.textContent=`✓ متشكل: ${nm} (${found.size} من 3)`;
+    if(found.size===3){completeTask('l4-iso');const D=[['بنتان',36],['2-ميثيل بيوتان',28],['2,2-ثنائي ميثيل بروبان',9]];
+      $('#siB',root).innerHTML=`<div class="cmap"><h4>🌡️ درجات غليان المتشكلات الثلاثة</h4><svg viewBox="0 0 360 170" role="img" aria-label="درجات الغليان">${D.map(([n,v],i)=>`<rect x="${40+i*110}" y="${140-v*3}" width="60" height="${v*3}" fill="${['#2763D8','#8A4FC8','#DE4527'][i]}"/><text x="${70+i*110}" y="${132-v*3}" text-anchor="middle" font-size="12" fill="currentColor" direction="ltr">${v} °C</text><text x="${70+i*110}" y="160" text-anchor="middle" font-size="11" fill="currentColor">${n}</text>`).join('')}</svg><p class="cm-note">المتشكلات لها الصيغة نفسها، لكن خواصها الفيزيائية مختلفة.</p></div>`;
+      mcq(root,'#siQ','لاحظي درجات الغليان: كيف يؤثر تفرع السلسلة؟',['كلما زاد التفرع قلت درجة الغليان','كلما زاد التفرع زادت درجة الغليان','التفرع لا يؤثر','المتشكلات لها درجة الغليان نفسها'],0,()=>completeTask('l4-bp'));}}));}};
+
+SIMS.cisTrans={title:'سيس وترانس',
+html:()=>`<h3>↔️ صورة تفاعلية: المتشكلات الهندسية لـ 2-بيوتين</h3><p class="desc">بدّلي بين سيس وترانس، ثم حاولي تدوير الرابطة الثنائية وقارني بالرابطة الأحادية في البيوتان.</p>
+ <div class="row">${radioChips('ctM',[['cis','سيس-2-بيوتين'],['trans','ترانس-2-بيوتين']])}<button type="button" class="btn sm hot" id="ctRot">🔄 حاولي تدوير الرابطة الثنائية</button></div>
+ <div class="ctgrid"><svg viewBox="0 0 300 220" id="ctS" role="img" aria-label="2-بيوتين"></svg><svg viewBox="0 0 300 220" id="ctB" role="img" aria-label="بيوتان يدور حول الرابطة الأحادية"></svg></div>
+ <p class="fb" id="ctF"></p>`,
+init(root){const seen=new Set();let rot=false,ang=0,raf=0;
+  const grp=(x,y,t)=>t==='M'?`<circle cx="${x}" cy="${y}" r="20" fill="#DE4527"/><text x="${x}" y="${y+5}" text-anchor="middle" font-size="12" fill="#fff" font-weight="700" direction="ltr">CH₃</text>`:`<circle cx="${x}" cy="${y}" r="11" fill="#fff" stroke="#999"/><text x="${x}" y="${y+4}" text-anchor="middle" font-size="11" fill="#333">H</text>`;
+  const draw=(shake=0)=>{const m=chipVal(root,'ctM');const L=[110,110],R=[190,110];const ul=m==='cis'?['M','H']:['M','H'],ur=m==='cis'?['M','H']:['H','M'];
+    $('#ctS',root).innerHTML=`<g transform="translate(${shake},0)"><line x1="${L[0]}" y1="${L[1]-5}" x2="${R[0]}" y2="${R[1]-5}" stroke="currentColor" stroke-width="4"/><line x1="${L[0]}" y1="${L[1]+5}" x2="${R[0]}" y2="${R[1]+5}" stroke="currentColor" stroke-width="4"/>
+      <line x1="${L[0]}" y1="${L[1]}" x2="60" y2="50" stroke="currentColor" stroke-width="3"/><line x1="${L[0]}" y1="${L[1]}" x2="60" y2="170" stroke="currentColor" stroke-width="3"/><line x1="${R[0]}" y1="${R[1]}" x2="240" y2="50" stroke="currentColor" stroke-width="3"/><line x1="${R[0]}" y1="${R[1]}" x2="240" y2="170" stroke="currentColor" stroke-width="3"/>
+      <circle cx="${L[0]}" cy="${L[1]}" r="15" fill="#4a5263"/><circle cx="${R[0]}" cy="${R[1]}" r="15" fill="#4a5263"/>${grp(60,50,ul[0])}${grp(60,170,ul[1])}${grp(240,50,ur[0])}${grp(240,170,ur[1])}</g>
+      <text x="150" y="212" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">${m==='cis'?'سيس: مجموعتا CH₃ في الجهة نفسها':'ترانس: مجموعتا CH₃ في جهتين متقابلتين'}</text>`;};
+  const drawB=()=>{const c=Math.cos(ang),y=60*c;$('#ctB',root).innerHTML=`<line x1="110" y1="110" x2="190" y2="110" stroke="currentColor" stroke-width="4"/><line x1="110" y1="110" x2="60" y2="60" stroke="currentColor" stroke-width="3"/><line x1="190" y1="110" x2="240" y2="${110-y}" stroke="currentColor" stroke-width="3"/>
+      <circle cx="110" cy="110" r="15" fill="#4a5263"/><circle cx="190" cy="110" r="15" fill="#4a5263"/>${grp(60,60,'M')}${grp(240,110-y,'M')}<text x="150" y="212" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">البيوتان: رابطة أحادية تدور بحرية</text>`;};
+  const loop=()=>{ang+=reduced?0:0.03;drawB();raf=requestAnimationFrame(loop);};loop();onCleanup(()=>cancelAnimationFrame(raf));
+  bindChips(root,'ctM',v=>{seen.add(v);draw();if(seen.size===2&&rot)completeTask('l4-cis');});seen.add('cis');draw();
+  $('#ctRot',root).addEventListener('click',()=>{rot=true;let t=0;const f=$('#ctF',root);f.className='fb bad';f.textContent='🔒 لا يمكن الدوران حول الرابطة الثنائية! لذلك يبقى سيس سيس وترانس ترانس، ويُعدّان مركبين مختلفين.';
+    const sh=()=>{t++;draw(Math.sin(t*1.3)*6*(1-t/24));if(t<24)requestAnimationFrame(sh);else draw();};sh();if(seen.size===2)completeTask('l4-cis');});}};
+
+const GRP=[['H','#ffffff','#333'],['CH₃','#DE4527','#fff'],['C₂H₅','#E39B12','#fff'],['OH','#2763D8','#fff'],['Cl','#1FAE7A','#fff']];
+SIMS.chiral={title:'ذرة الكربون غير المتماثلة',
+html:()=>`<h3>🤚 ذرة الكربون غير المتماثلة وصورة المرآة</h3><p class="desc">اختاري أربع مجموعات ترتبط بذرة الكربون. إذا كانت المجموعات الأربع مختلفة، تصبح الذرة غير متماثلة، ولا تتطابق صورة الجزيء مع صورته في المرآة.</p>
+ <div class="chslots">${[0,1,2,3].map(i=>`<label class="ctrl">المجموعة ${i+1}<select data-s="${i}">${GRP.map((g,j)=>`<option value="${j}" ${j===[0,1,0,3][i]?'selected':''}>${g[0]}</option>`).join('')}</select></label>`).join('')}</div>
+ <svg viewBox="0 0 420 210" id="chS" role="img" aria-label="الجزيء وصورته في المرآة"></svg>
+ <div class="row"><button type="button" class="btn sm cold" id="chTry">🔁 حاولي مطابقة الصورتين</button></div><p class="fb" id="chF"></p><div id="chQ" style="margin-top:12px"></div>`,
+init(root){let ov=0;const sel=()=>$$('[data-s]',root).map(s=>+s.value);
+  const mol=(cx,g,flip)=>{const P=[[0,-60],[-58,30],[58,30],[0,20]];const w=flip?-1:1;let s='';
+    [[0,'line'],[1,'line'],[2,'wedge'],[3,'dash']].forEach(([i,ty])=>{const [x,y]=P[i];const X=cx+x*w,Y=105+y;if(ty==='wedge')s+=`<polygon points="${cx},${105} ${X-6},${Y} ${X+6},${Y}" fill="currentColor"/>`;else if(ty==='dash')s+=`<line x1="${cx}" y1="105" x2="${X}" y2="${Y+40}" stroke="currentColor" stroke-width="3" stroke-dasharray="4 4"/>`;else s+=`<line x1="${cx}" y1="105" x2="${X}" y2="${Y}" stroke="currentColor" stroke-width="3"/>`;});
+    s+=`<circle cx="${cx}" cy="105" r="16" fill="#4a5263"/><text x="${cx}" y="110" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">C</text>`;
+    g.forEach((gi,i)=>{const [x,y]=P[i];const X=cx+x*w,Y=105+y+(i===3?40:0);const G=GRP[gi];s+=`<circle cx="${X}" cy="${Y}" r="${gi===0?12:18}" fill="${G[1]}" stroke="#999"/><text x="${X}" y="${Y+4}" text-anchor="middle" font-size="11" font-weight="700" fill="${G[2]}" direction="ltr">${G[0]}</text>`;});return s;};
+  const draw=()=>{const g=sel();const chi=new Set(g).size===4;$('#chS',root).innerHTML=`<line x1="210" y1="10" x2="210" y2="200" stroke="var(--cold)" stroke-width="3" stroke-dasharray="6 5"/><text x="210" y="206" text-anchor="middle" font-size="11" fill="currentColor">مرآة</text>${mol(105,g,false)}<g transform="translate(${-ov*210},0)" opacity="${ov?0.75:1}">${mol(315,g,true)}</g>`;
+    const f=$('#chF',root);if(chi){f.className='fb ok';f.textContent='✓ ذرة كربون غير متماثلة: أربع مجموعات مختلفة. للجزيء متشكلان ضوئيان.';completeTask('l4-chi');}else{f.className='fb';f.textContent='في الجزيء مجموعتان متماثلتان على الأقل، فالذرة متماثلة، وصورة المرآة تتطابق مع الأصل بعد تدويرها.';}};
+  $$('[data-s]',root).forEach(s=>s.addEventListener('change',()=>{ov=0;draw();}));
+  $('#chTry',root).addEventListener('click',()=>{tween(1200,k=>{ov=k;draw();},()=>{const chi=new Set(sel()).size===4;const f=$('#chF',root);f.className='fb '+(chi?'bad':'ok');f.textContent=chi?'✗ لم تتطابق المجموعات: المجموعة الأمامية والخلفية في موضعين معكوسين. هذان متشكلان ضوئيان مختلفان.':'✓ بعد التدوير تتطابق الصورتان: الجزيء ليس له متشكلات ضوئية.';
+    if(chi&&!$('#chQ .opts',root))mcq(root,'#chQ','لماذا لا تتطابق صورة الجزيء مع صورته في المرآة؟',['لأن ذرة الكربون ترتبط بأربع مجموعات مختلفة','لأن فيه رابطة ثنائية','لأن الصيغة الجزيئية مختلفة','لأن المرآة تغيّر الذرات'],0,()=>completeTask('l4-mirror'));setTimeout(()=>{ov=0;draw();},1800);});});
+  draw();}};
+
+SIMS.benzene={title:'تركيب البنزين',
+html:()=>`<h3>💍 تركيب البنزين</h3><p class="desc">قارني تركيبي كيكولي بالنموذج الحديث، وشاهدي الجزيء ثلاثي الأبعاد.</p>
+ ${radioChips('bzM',[['A','تركيب كيكولي 1'],['B','تركيب كيكولي 2'],['swap','التبادل بينهما'],['circle','الإلكترونات غير المتمركزة']])}
+ <div class="mdgrid"><div id="bzD"></div><canvas id="bzC" class="molcv" aria-label="جزيء البنزين ثلاثي الأبعاد"></canvas></div><p class="cm-note" id="bzT"></p>`,
+init(root){const seen=new Set();let tm=0;const V=MolViewer($('#bzC',root));V.set('benzene');
+  const T={A:'كيكولي: ثلاث روابط ثنائية تتبادل مع ثلاث أحادية.',B:'التركيب الآخر: الروابط الثنائية في المواقع المقابلة.',swap:'اقترح كيكولي أن الجزيء يتبادل بسرعة بين التركيبين.',circle:'الحقيقة: الروابط الست متساوية في الطول، والإلكترونات غير متمركزة تتوزع على الحلقة كلها، ونرسمها دائرة. وهذا سبب ثبات البنزين.'};
+  const up=v=>{clearInterval(tm);seen.add(v);$('#bzT',root).textContent=T[v];if(v==='swap'){let s='A';$('#bzD',root).innerHTML=MOL(drawRing([],s));tm=setInterval(()=>{s=s==='A'?'B':'A';$('#bzD',root).innerHTML=MOL(drawRing([],s));},700);}else $('#bzD',root).innerHTML=MOL(drawRing([],v));
+    if(seen.has('circle')&&(seen.has('A')||seen.has('B')||seen.has('swap')))completeTask('l5-kek');};
+  bindChips(root,'bzM',up);up('A');onCleanup(()=>clearInterval(tm));}};
+
+SIMS.ringBuilder={title:'تسمية مشتقات البنزين',
+html:()=>`<h3>🏷️ ورشة تسمية مشتقات البنزين</h3><p class="desc">أضيفي مجموعات ميثيل أو إيثيل إلى ذرات الحلقة (الذرات مرقمة من 1 إلى 6 بدءًا من الأعلى)، وسيظهر الاسم بأصغر الأرقام.</p>
+ <div class="row"><label class="ctrl">المجموعة<select id="rbT"><option value="m">ميثيل –CH₃</option><option value="e">إيثيل –C₂H₅</option></select></label><label class="ctrl">على ذرة الحلقة<select id="rbP">${[1,2,3,4,5,6].map(i=>`<option>${i}</option>`).join('')}</select></label><button type="button" class="btn sm cold" id="rbA" style="align-self:flex-end">➕ أضيفي</button><button type="button" class="btn sm ghost" id="rbC" style="align-self:flex-end">↺ مسح</button></div>
+ <p class="fb" id="rbF"></p><div class="srbox"><div id="rbD"></div><div class="nbname" id="rbN"></div></div><div id="rbX" style="margin-top:16px"></div>`,
+init(root){let subs=[];const built=new Set();
+  const up=()=>{$('#rbD',root).innerHTML=MOL(drawRing(subs));const nm=ringName(subs);$('#rbN',root).innerHTML=`الاسم: <b>${nm}</b>`;if(subs.length){built.add(nm);if(built.size>=3)completeTask('l5-ring');}};
+  $('#rbA',root).addEventListener('click',()=>{const p=+$('#rbP',root).value,f=$('#rbF',root);if(subs.some(s=>s.p===p)){f.className='fb bad';f.textContent='هذه الذرة عليها مجموعة بالفعل.';return;}if(subs.length>=3){f.className='fb bad';f.textContent='ثلاث مجموعات تكفي.';return;}subs.push({p,t:$('#rbT',root).value});f.textContent='';up();});
+  $('#rbC',root).addEventListener('click',()=>{subs=[];up();});up();
+  challenge(root,'#rbX',()=>{const t1=Math.random()<0.7?'m':'e',t2=Math.random()<0.7?'m':'e';const d=1+Math.floor(Math.random()*3);const st=1+Math.floor(Math.random()*6);const subs=[{p:st,t:t1},{p:(st+d-1)%6+1,t:t2}];const ans=ringName(subs);
+    const pos=['1,2','1,3','1,4'][d-1];const alt=new Set([ans]);['1,2','1,3','1,4','1,5'].filter(x=>x!==pos).forEach(x=>alt.add(t1===t2?x+'-ثنائي '+SUBN[t1]+' بنزين':x.split(',')[0]+'-'+SUBN[t1>t2?t2:t1]+'-'+x.split(',')[1]+'-'+SUBN[t1>t2?t1:t2]+' بنزين'));
+    return{p:'ما اسم المركب الآتي؟'+MOL(drawRing(subs)),o:[...alt].slice(0,4),e:'نرقّم الحلقة لتأخذ المجموعات أصغر الأرقام. الاسم: '+ans};},2,'l5-ringch','تحدي التسمية');}};
+
+const NAPH=()=>{const R=34,P=(cx,k)=>[cx+R*Math.cos(k*Math.PI/3+Math.PI/6),95+R*Math.sin(k*Math.PI/3+Math.PI/6)];let s='<svg viewBox="0 0 240 190" class="mol" role="img" aria-label="نفثالين">';[90,90+R*Math.sqrt(3)].forEach(cx=>{for(let k=0;k<6;k++){const a=P(cx,k),b=P(cx,k+1);s+=`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="currentColor" stroke-width="2.5"/>`;}s+=`<circle cx="${cx}" cy="95" r="${R*0.58}" fill="none" stroke="currentColor" stroke-width="2.2"/>`;});return s+'</svg>';};
+const AROM=[['البنزين',()=>drawRing([]),1],['ميثيل بنزين',()=>drawRing([{p:1,t:'m'}]),1],['النفثالين',NAPH,1],['الهكسان',()=>drawChain(6,[],null,{dx:52}),0],['هكسان حلقي',()=>cycloSVG(6),0],['الإيثاين',()=>drawChain(2,[],{p:1,o:3}),0],['1,4-ثنائي ميثيل بنزين',()=>drawRing([{p:1,t:'m'},{p:4,t:'m'}]),1],['البروبين',()=>drawChain(3,[],{p:1,o:2}),0]];
+SIMS.aromSort={title:'أروماتي أم أليفاتي؟',
+html:()=>`<h3>🌸 صنّفي المركبات: أروماتي أم أليفاتي؟</h3><p class="desc">تذكّري: الأروماتي يحتوي حلقة بنزين، وأي مركب آخر أليفاتي، حتى لو كان حلقيًا.</p><div class="isogrid" id="asG"></div><p class="fb" id="asF"></p>`,
+init(root){const ok=new Set();$('#asG',root).innerHTML=AROM.map((a,i)=>`<div class="isocard as" data-i="${i}">${a[1]()}<b>${a[0]}</b><div class="row" style="justify-content:center"><button type="button" class="btn sm ghost" data-v="1">أروماتي</button><button type="button" class="btn sm ghost" data-v="0">أليفاتي</button></div></div>`).join('');
+  $$('.as',root).forEach(c=>$$('button',c).forEach(b=>b.addEventListener('click',()=>{const i=+c.dataset.i,f=$('#asF',root);if(+b.dataset.v===AROM[i][2]){c.classList.remove('no');c.classList.add('yes');ok.add(i);f.className='fb ok';f.textContent=`✓ صحيح (${ok.size} من ${AROM.length})`;if(ok.size===AROM.length)completeTask('l5-sort');}
+    else{c.classList.add('no');f.className='fb bad';f.textContent=i===4?'✗ هكسان حلقي حلقي لكنه بلا حلقة بنزين، فهو أليفاتي.':'✗ حاولي مرة أخرى: هل يحتوي حلقة بنزين؟';}})));}};
+
+/* ---------- games ---------- */
+const GAMES={
+ g1:{title:'مشبع أم غير مشبع؟',items:[['C2H6',0],['C2H4',1],['C3H8',0],['C2H2',1],['CH4',0],['C3H6 (بروبين)',1],['C4H10',0],['C6H6',1],['C5H12',0],['C4H8 (بيوتين)',1],['هكسان حلقي C6H12',0],['C3H4',1]],labels:['مشبع','غير مشبع']},
+ g2:{title:'سمّي الألكان',gen:()=>{const n=1+Math.floor(Math.random()*10);if(Math.random()<0.5){const o=shuffle([n,...shuffle([1,2,3,4,5,6,7,8,9,10].filter(x=>x!==n)).slice(0,3)]);return{p:`ما اسم الألكان المستقيم <span class="f">${molFormula(n)}</span>؟`,o:o.map(x=>NM(x)),a:o.indexOf(n)};}
+   const o=shuffle([n,...shuffle([1,2,3,4,5,6,7,8,9,10].filter(x=>x!==n)).slice(0,3)]);return{p:`ما الصيغة الجزيئية لـ ${NM(n)}؟`,o:o.map(x=>`<span class="f">${molFormula(x)}</span>`),a:o.indexOf(n)};}},
+ g3:{title:'ألكان أم ألكين أم ألكاين؟',gen:()=>{const n=2+Math.floor(Math.random()*7),t=Math.floor(Math.random()*3);const h=t===0?2*n+2:t===1?2*n:2*n-2;return{p:`<span class="f">C${n}H${h}</span>`,o:['ألكان','ألكين','ألكاين'],a:t};}},
+ g4:{title:'متشكلان أم لا؟',items:[['البيوتان و 2-ميثيل بروبان',0],['البنتان و 2,2-ثنائي ميثيل بروبان',0],['البيوتان والبيوتين',1],['الهكسان و 3-ميثيل بنتان',0],['سيس-2-بيوتين وترانس-2-بيوتين',0],['الإيثان والإيثين',1],['البنتان والهكسان',1],['1-بيوتين و 2-بيوتين',0],['هكسان حلقي والهكسان',1],['الهكسان و 2,3-ثنائي ميثيل بيوتان',0],['البروبان والبروبين',1],['1-بنتين وبنتان حلقي',0]],labels:['متشكلان','ليسا متشكلين']},
+ g5:{title:'أروماتي أم أليفاتي؟',items:[['البنزين',0],['الهكسان',1],['النفثالين',0],['ميثيل بنزين',0],['هكسان حلقي',1],['الإيثين',1],['إيثيل بنزين',0],['الأسيتيلين',1],['1,2-ثنائي ميثيل بنزين',0],['البيوتان',1],['الأنثراسين (ثلاث حلقات بنزين)',0],['البروباين',1]],labels:['أروماتي','أليفاتي']}
+};
+Object.values(GAMES).forEach(g=>{g.html=`<h3>${g.title}</h3><p class="desc">لديك 45 ثانية. أجيبي عن أكبر عدد من الأسئلة: 5 إجابات صحيحة = نجمة، 10 = نجمتان، 15 = ثلاث نجوم.</p><div class="gbox" aria-live="polite"></div>`;});
+
+function initGame(root,g){
+  const box=$('.gbox',root);const id=Object.keys(GAMES).find(k=>GAMES[k]===g);let timer=null,score=0,left=45,deck=[],busy=false;
+  const starRow=n=>'<div class="stars3">'+[1,2,3].map(i=>`<span class="${i<=n?'':'off'}">★</span>`).join('')+'</div>';
+  const intro=()=>{const b=S.games[id]||0;box.innerHTML=`${starRow(gameStars(b))}<p style="margin:0">أفضل نتيجة: <b>${b}</b></p><button type="button" class="btn hot">ابدئي التحدي</button>`;$('button',box).addEventListener('click',start);};
+  const next=()=>{let it;
+    if(g.gen)it=g.gen();else{if(!deck.length)deck=shuffle(g.items);const x=deck.pop();it={p:x[0],o:g.labels,a:x[1]};}
+    box.innerHTML=`<div class="ghead"><span>النقاط: ${score}</span><span class="timer">⏱ ${left}s</span></div><div class="gprompt">${g.gen?it.p:fm(it.p)}</div><div class="gopts">${it.o.map((o,i)=>`<button type="button" class="opt" data-i="${i}">${o}</button>`).join('')}</div>`;
+    fmAll(box);busy=false;
+    $$('.opt',box).forEach(b=>b.addEventListener('click',()=>{if(busy)return;busy=true;const ok=+b.dataset.i===it.a;
+      if(ok){score++;b.classList.add('ok');box.classList.add('flash-ok');}else{b.classList.add('bad');$$('.opt',box)[it.a].classList.add('ok');box.classList.add('flash-bad');}
+      setTimeout(()=>{box.classList.remove('flash-ok','flash-bad');if(left>0)next();},ok?260:650);}));};
+  const tick=()=>{left--;const t=$('.timer',box);if(t)t.textContent='⏱ '+left+'s';if(left<=0)end();};
+  const start=()=>{score=0;left=45;deck=[];next();clearInterval(timer);timer=setInterval(tick,1000);};
+  const end=()=>{clearInterval(timer);const prev=S.games[id]||0;const before=gameStars(prev);if(score>prev){S.games[id]=score;save();refreshStars();}
+    const st=gameStars(Math.max(prev,score));
+    box.innerHTML=`<div class="gscore">${score}</div><p style="margin:0">إجابة صحيحة في 45 ثانية</p>${starRow(gameStars(score))}<p style="margin:0;color:var(--muted)">أفضل نتيجة: ${Math.max(prev,score)}</p><button type="button" class="btn hot">العبي مرة أخرى</button>`;
+    $('button',box).addEventListener('click',start);if(st>before)toast('★ نجوم جديدة من التحدي!');};
+  onCleanup(()=>clearInterval(timer));intro();
+}
+
+/* ---------- quiz runner ---------- */
+function quizRunner(el,qs,opt){
+  let order,idx,score,wrong;
+  const begin=()=>{order=qs.map(q=>{const p=shuffle(q.o.map((t,i)=>({t,i})));return{...q,opts:p,ans:p.findIndex(x=>x.i===q.a)};});if(opt.shuffle!==false)order=shuffle(order);idx=0;score=0;wrong=[];show();};
+  const show=()=>{const q=order[idx];
+    el.innerHTML=`<div class="qr"><div class="qtop"><span>السؤال ${idx+1} من ${order.length}${q.y?'<span class="yr">'+(q.y==='--'?'تجميعات':'تحصيلي '+q.y)+'</span>':''}</span><span class="qsc">صحيحة: ${score}</span></div>
+     <div class="qbar"><i style="width:${idx/order.length*100}%"></i></div>
+     <div class="qtext">${q.q}</div>
+     <div class="opts">${q.opts.map((o,i)=>`<button type="button" class="opt" data-i="${i}"><span dir="auto">${fmo(o.t)}</span></button>`).join('')}</div>
+     <div class="qx"></div></div>`;
+    fmAll(el);
+    $$('.opt',el).forEach(b=>b.addEventListener('click',()=>{const i=+b.dataset.i;$$('.opt',el).forEach(x=>x.disabled=true);
+      const ok=i===q.ans;if(ok)score++;else wrong.push(q);b.classList.add(ok?'ok':'bad');$$('.opt',el)[q.ans].classList.add('ok');
+      $('.qx',el).innerHTML=`<div class="exp ${ok?'ok':'bad'}"><b>${ok?'✓ إجابة صحيحة.':'✗ الإجابة الصحيحة: '+fmo(q.opts[q.ans].t)}</b> ${q.e||''}</div><div class="qnav"><button type="button" class="btn">${idx<order.length-1?'السؤال التالي':'عرض النتيجة'}</button></div>`;
+      $('.qsc',el).textContent='صحيحة: '+score;
+      $('.qnav button',el).addEventListener('click',()=>{idx++;if(idx<order.length)show();else finish();});
+      $('.qnav button',el).focus();}));};
+  const finish=()=>{const pct=Math.round(score/order.length*100);opt.onDone&&opt.onDone(score,order.length,pct);
+    const msg=pct>=90?'ممتاز! أداء متقن.':pct>=80?'رائع! أنتِ مستعدة.':pct>=60?'جيد، راجعي الأسئلة التي أخطأتِ فيها.':'لا بأس، راجعي الدروس وحاولي مرة أخرى.';
+    el.innerHTML=`<div class="qr result"><div class="gscore">${score} / ${order.length}</div><p style="margin:4px 0;font-weight:600">${pct}%: ${msg}</p>
+     <div class="row" style="justify-content:center;margin-top:10px"><button type="button" class="btn" id="qAgain">أعيدي الاختبار</button>${opt.extra||''}</div>
+     ${wrong.length?'<div class="review"><b>راجعي هذه الأسئلة:</b>'+wrong.map(w=>`<div>${w.q}<br><b>الإجابة:</b> <span dir="auto">${fmo(w.opts[w.ans].t)}</span>. ${w.e||''}</div>`).join('')+'</div>':''}</div>`;
+    fmAll(el);$('#qAgain',el).addEventListener('click',()=>opt.restart?opt.restart():begin());};
+  if(opt.autostart===false)return{begin};begin();return{begin};
+}
+
+/* ---------- final ---------- */
+function viewFinal(){
+  app.innerHTML=`<div class="crumbs"><a href="#home">→ الصفحة الرئيسة</a></div>
+  <header class="lhead"><div class="lnum">C</div><div><h1>الاختبار الختامي</h1><div class="en">تجميعات الاختبار التحصيلي: الهيدروكربونات</div>
+   <p class="idea" style="margin:10px 0 0"><strong>تعليمات:</strong> اختاري نوع الاختبار. بعد كل إجابة يظهر التصحيح مع شرح قصير. احصلي على 80% أو أكثر لتنالي شارة <b>بطلة التحصيلي</b> و5 نجوم.${S.final!=null?' أفضل نتيجة لك: '+S.final+'%.':''}</p></div></header>
+  <section class="panel" style="margin-top:24px" id="finBox"></section>`;
+  const box=$('#finBox');
+  const modes=()=>{box.innerHTML=`<h3>اختاري نوع الاختبار</h3><div class="modes">
+    <button type="button" class="mode" data-m="all"><b>الاختبار الكامل</b><span>جميع الأسئلة (${TAH.length} سؤالًا) بترتيب عشوائي.</span></button>
+    <button type="button" class="mode" data-m="20"><b>اختبار سريع</b><span>20 سؤالًا عشوائيًا من بنك التجميعات.</span></button>
+    <button type="button" class="mode" data-m="recent"><b>أسئلة التسمية</b><span>أسئلة أسماء المركبات وصيغها فقط.</span></button></div>`;
+    $$('.mode',box).forEach(b=>b.addEventListener('click',()=>{const m=b.dataset.m;let qs=TAH;if(m==='20')qs=shuffle(TAH).slice(0,20);if(m==='recent')qs=TAH.filter(q=>q.q.includes('اسم'));
+      quizRunner(box,qs,{restart:modes,extra:'<a class="btn ghost" href="#home">الصفحة الرئيسة</a>',onDone:(sc,tot,pct)=>{const prev=S.final;S.final=Math.max(prev||0,pct);save();refreshStars();if(pct>=80&&!(prev>=80))toast('🏆 حصلتِ على شارة بطلة التحصيلي!');}});}));};
+  modes();
+}
+
+/* ---------- runtime capabilities ---------- */
+const capP={};
+function cap(n){if(!window.claude||typeof window.claude.use!=='function')return Promise.resolve(null);if(!capP[n])capP[n]=window.claude.use(n).catch(()=>null);return capP[n];}
+let viewTok=0;
+function esc(t){return String(t==null?'':t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+/* ---------- chemistry advisor bot ---------- */
+/* تعليمات المساعد محفوظة في الخادم: lib/rules.js */
+const BOT={turns:[],busy:false,ctl:null,sample:null};
+function botFmt(t){let h=esc(t);h=h.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');h=h.replace(/^\s*[-•]\s+/gm,'• ');return h.replace(/\n/g,'<br>');}
+function botAdd(cls,html){const m=document.createElement('div');m.className='msg '+cls;m.innerHTML=html;$('#botMsgs').appendChild(m);$('#botMsgs').scrollTop=1e9;return m;}
+function botSugg(){const n=(location.hash.match(/lesson-(\d)/)||[])[1];const base={1:['ما الفرق بين المشبع وغير المشبع؟','كيف يعمل برج التقطير التجزيئي؟','لماذا يكوّن الكربون ملايين المركبات؟'],2:['كيف أسمّي ألكانًا متفرعًا؟','ما اسم CH₃–CH(CH₃)–CH₂–CH₃؟','لماذا تزداد درجة غليان الألكانات بطول السلسلة؟'],3:['كيف أسمّي الألكينات؟','كيف يسرّع الإيثيلين نضج الفواكه؟','ما الفرق بين الألكين والألكاين؟'],4:['ما الفرق بين المتشكلات البنائية والفراغية؟','اشرحي لي سيس وترانس','ما ذرة الكربون غير المتماثلة؟'],5:['لماذا البنزين ثابت؟','كيف أسمّي مشتقات البنزين؟','ما الفرق بين الأروماتي والأليفاتي؟']}[n]||['ما الهيدروكربونات؟','كيف أسمّي الألكانات؟','ما المتشكلات؟'];
+  $('#botSugg').innerHTML=base.map(q=>`<button type="button">${esc(q)}</button>`).join('');$$('#botSugg button').forEach(b=>b.addEventListener('click',()=>botAsk(b.textContent)));}
+async function botAsk(q){
+  q=(q||'').trim();if(!q||BOT.busy)return;BOT.busy=true;$('#botSend').disabled=true;$('#botIn').value='';
+  botAdd('me',esc(q));BOT.turns.push({role:'user',content:q.slice(0,1500)});
+  const bub=botAdd('bot','<span style="color:var(--muted)">يفكّر المساعد…</span>');
+  const n=(location.hash.match(/lesson-(\d)/)||[])[1];
+  BOT.ctl=new AbortController();const to=setTimeout(()=>BOT.ctl.abort(),45000);
+  try{
+    const r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},signal:BOT.ctl.signal,
+      body:JSON.stringify({ch:CH_NO,lesson:n?LESSONS[n-1].code+' '+LESSONS[n-1].title:'',messages:BOT.turns.slice(-10)})});
+    let data={};try{data=await r.json();}catch(e){}
+    if(!r.ok||!data.text){const err=new Error('x');err.code=data.error||('http_'+r.status);throw err;}
+    bub.innerHTML=botFmt(data.text);BOT.turns.push({role:'assistant',content:data.text});$('#botMsgs').scrollTop=1e9;
+  }catch(e){
+    BOT.turns.pop();bub.remove();
+    const code=e&&e.code;
+    if(code==='rate_limited')botAdd('err','وصلتِ إلى الحد المسموح من الأسئلة الآن. حاولي بعد قليل.');
+    else if(code==='not_configured')botAdd('err','المساعد غير مفعّل بعد. أخبري معلمتك.');
+    else if(e&&e.name==='AbortError')botAdd('err','استغرق الرد وقتًا طويلًا. حاولي مرة أخرى.');
+    else botAdd('err','تعذّر الحصول على إجابة الآن. حاولي مرة أخرى بعد قليل.');
+  }finally{clearTimeout(to);BOT.busy=false;$('#botSend').disabled=false;}
+}
+function initBot(){
+  const fab=$('#botFab'),panel=$('#botPanel');
+  const open=v=>{panel.classList.toggle('open',v);fab.setAttribute('aria-expanded',v);if(v){botSugg();if(!$('#botMsgs').children.length)botAdd('bot','مرحبًا! أنا مساعدك الكيميائي 🧪<br>اسأليني عن أي فكرة في الفصل الرابع: الهيدروكربونات، تسمية الألكانات والألكينات، المتشكلات، أو البنزين.');setTimeout(()=>$('#botIn').focus(),50);}};
+  fab.addEventListener('click',()=>open(!panel.classList.contains('open')));
+  $('#botClose').addEventListener('click',()=>open(false));
+  $('#botForm').addEventListener('submit',e=>{e.preventDefault();botAsk($('#botIn').value);});
+  $('#botIn').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();botAsk($('#botIn').value);}});
+  window.addEventListener('hashchange',()=>{if(panel.classList.contains('open'))botSugg();});
+  fab.style.display='inline-flex';
+}
+
+/* ---------- assignment (المهمة) ---------- */
+const OK_TYPES=/^(image\/(png|jpeg|gif|webp)|application\/pdf|text\/plain|text\/csv|text\/markdown)$/;
+function guessType(f){if(f.type)return f.type;const e=(f.name.split('.').pop()||'').toLowerCase();return {png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',gif:'image/gif',webp:'image/webp',pdf:'application/pdf',txt:'text/plain',csv:'text/csv',md:'text/markdown'}[e]||'';}
+function fsize(b){return b>1048576?(b/1048576).toFixed(1)+' MB':Math.max(1,Math.round(b/1024))+' KB';}
+function fdate(iso){try{return new Date(iso).toLocaleString('ar-SA',{dateStyle:'medium',timeStyle:'short'});}catch(e){return iso;}}
+function fileLink(f){return `<a href="/_blob/${esc(f.id)}" target="_blank" rel="noopener"><bdi>${esc(f.name)}</bdi></a> <span style="color:var(--muted)">(${fsize(f.size||0)})</span>`;}
+
+function viewTask(){
+  app.innerHTML=`<div class="crumbs"><a href="#home">→ الصفحة الرئيسة</a></div>
+  <header class="lhead"><div class="lnum">📎</div><div><h1>مهمة الفصل الأول</h1><div class="en">الطاقة والتغيرات الكيميائية</div>
+   <p class="idea" style="margin:10px 0 0"><strong>طريقة التسليم:</strong> اقرئي المهمة، ثم ارفعي ملف إجابتك (صورة أو PDF) واضغطي «سلّمي المهمة». يمكنك تعديل تسليمك قبل الموعد.</p></div></header>
+  <section class="panel" style="margin-top:24px" id="taskBox"><p class="hint">جارٍ تحميل المهمة…</p></section>`;
+  initTask(++viewTok);
+}
+async function initTask(tok){
+  const box=$('#taskBox');
+  const [db,user]=await Promise.all([cap('db'),cap('user')]);
+  if(tok!==viewTok)return;
+  if(!db){box.innerHTML=`<div class="notice">📎 رفع المهام يعمل عند فتح المنصة من داخل claude.ai بحساب مسجّل الدخول، بعد أن تشاركها المعلمة معك. إن لم يظهر نموذج التسليم، فأرسلي إجابتك لمعلمتك بالطريقة التي تحددها.</div>`;return;}
+  const teacher=user?await user.canEdit():false;
+  const uid=user?await user.id():null;
+  if(tok!==viewTok)return;
+  let A=null,aLoaded=false;
+  let mine=null,mineLoaded=false,draft=null,assets=null,assetsChecked=false;
+  let subs=[],subsLoaded=false,showOld=false;
+  box.innerHTML=`<div id="aBox"><p class="hint">جارٍ تحميل المهمة…</p></div><div id="sBox"></div>`;
+  const slow=setTimeout(()=>{if(!aLoaded)$('#aBox')&&($('#aBox').innerHTML='<div class="notice">تعذّر الوصول إلى المهمة الآن. تحققي من اتصالك ثم افتحي الصفحة لاحقًا.</div>');},10000);
+  onCleanup(()=>clearTimeout(slow));
+  const unA=db.doc('assignment/current').onSnapshot(sn=>{if(!sn.metadata.fromCache){aLoaded=true;clearTimeout(slow);}A=sn.exists?sn.data():null;renderA();if(teacher)renderSubs();else renderMine();},
+    ()=>{clearTimeout(slow);aLoaded=true;$('#aBox').innerHTML='<div class="notice">تعذّر تحميل المهمة.</div>';});
+  onCleanup(unA);
+
+  function renderA(){
+    const el=$('#aBox');if(!el)return;
+    const card=A?`<div class="assign"><h3>${esc(A.title)}</h3><div class="body">${esc(A.details)}</div>${A.due?`<span class="due">📅 آخر موعد للتسليم: ${esc(A.due)}</span>`:''}</div>`:'<div class="notice">لم تُنشر مهمة بعد.</div>';
+    if(!teacher){el.innerHTML=card;return;}
+    el.innerHTML=`${card}<details style="margin-top:14px" ${A?'':'open'}><summary style="cursor:pointer;font-weight:600">✏️ تعديل المهمة أو نشر مهمة جديدة (يظهر لك فقط بصفتك المعلمة)</summary>
+      <label class="fld">عنوان المهمة<input id="aT" value="${esc(A?A.title:'')}"></label>
+      <label class="fld">تفاصيل المهمة<textarea id="aD">${esc(A?A.details:'')}</textarea></label>
+      <label class="fld">آخر موعد للتسليم<input id="aDue" value="${esc(A?A.due:'')}" placeholder="مثال: الخميس 12 جمادى الأولى"></label>
+      <div class="row" style="margin-top:12px"><button type="button" class="btn sm" id="aSave" ${A?'':'disabled'}>حفظ التعديلات</button><button type="button" class="btn sm hot" id="aNew">نشر كمهمة جديدة</button></div>
+      <p class="hint">«نشر كمهمة جديدة» يبدأ تسليمًا جديدًا، فتظهر تسليمات المهمة السابقة في قائمة منفصلة.</p><p class="fb" id="aFb"></p></details>`;
+    const save=async(isNew)=>{const t=$('#aT').value.trim(),d=$('#aD').value.trim(),due=$('#aDue').value.trim();if(!t||!d){$('#aFb').className='fb bad';$('#aFb').textContent='اكتبي العنوان والتفاصيل.';return;}
+      $('#aSave').disabled=$('#aNew').disabled=true;
+      try{await db.doc('assignment/current').set({id:isNew||!A?('a'+Date.now()):A.id,title:t,details:d,due,updatedAt:new Date().toISOString()});toast(isNew?'نُشرت المهمة الجديدة':'حُفظت التعديلات');}
+      catch(e){$('#aFb').className='fb bad';$('#aFb').textContent='تعذّر الحفظ. تأكدي أنك صاحبة المنصة أو محررة فيها.';}
+      finally{if($('#aNew')){$('#aNew').disabled=false;$('#aSave').disabled=!A;}}};
+    $('#aSave').addEventListener('click',()=>save(false));$('#aNew').addEventListener('click',()=>save(true));
+  }
+
+  /* --- student --- */
+  if(!teacher){
+    if(!uid){$('#sBox').innerHTML='<div class="notice" style="margin-top:14px">سجّلي الدخول إلى حسابك لتتمكني من تسليم المهمة.</div>';return;}
+    cap('assets').then(a=>{assets=a;assetsChecked=true;renderMine();});
+    const unM=db.doc('submissions/'+uid).onSnapshot(sn=>{mineLoaded=true;mine=sn.exists?sn.data():null;if(!draft&&mine)draft={name:mine.name||'',note:mine.note||'',files:(mine.files||[]).slice()};renderMine();},()=>{mineLoaded=true;renderMine();});
+    onCleanup(unM);
+  }
+  function renderMine(){
+    const el=$('#sBox');if(!el||teacher||!uid)return;
+    if(!A){el.innerHTML='';return;}
+    if(!mineLoaded){el.innerHTML='<p class="hint" style="margin-top:14px">جارٍ التحقق من تسليمك…</p>';return;}
+    if(!draft)draft={name:'',note:'',files:[]};
+    const done=mine&&mine.aid===A.id;
+    const status=done?`<span class="stat ok">✓ سلّمتِ المهمة في ${esc(fdate(mine.at))}</span>`:`<span class="stat no">لم تُسلّمي بعد</span>`;
+    const fb=done&&(mine.feedback||mine.grade)?`<div class="fb-box"><b>ملاحظات المعلمة:</b> ${esc(mine.feedback||'')}${mine.grade?`<br><b>الدرجة:</b> ${esc(mine.grade)}`:''}</div>`:'';
+    let form='';
+    if(assetsChecked&&!assets){form=`<div class="notice" style="margin-top:12px">لا تملكين صلاحية رفع الملفات في هذه المنصة. اطلبي من معلمتك مشاركة المنصة معك بصلاحية «مساهِمة» (Contributor).</div>`;}
+    else{form=`<label class="fld">اسمك وشعبتك<input id="sName" value="${esc(draft.name)}" placeholder="مثال: نورة محمد، 2/3"></label>
+      <div class="drop" id="sDrop" tabindex="0" role="button">📤 اضغطي لاختيار ملف الإجابة أو اسحبيه إلى هنا<br><small style="color:var(--muted)">صور (JPG أو PNG) أو PDF، حتى 20 MB للملف. ملفات Word احفظيها PDF أولًا.</small><input type="file" id="sFile" multiple accept="image/png,image/jpeg,image/webp,application/pdf,.txt" hidden></div>
+      <div class="flist" id="sList">${draft.files.map((f,i)=>`<div class="fitem"><span>${f.id?fileLink(f):esc(f.name)+' <span style="color:var(--muted)">جارٍ الرفع…</span>'}</span>${f.id?`<button type="button" data-rm="${i}">حذف</button>`:''}</div>`).join('')}</div>
+      <label class="fld">ملاحظة لمعلمتك (اختياري)<textarea id="sNote" style="min-height:70px">${esc(draft.note)}</textarea></label>
+      <div class="row" style="margin-top:12px"><button type="button" class="btn" id="sSend" style="background:var(--green);color:#fff">${done?'تحديث التسليم':'سلّمي المهمة'}</button></div><p class="fb" id="sFb"></p>`;}
+    el.innerHTML=`<div style="margin-top:18px"><h3 style="margin:0 0 8px">تسليمك</h3>${status}${fb}${form}</div>`;
+    if(!assets)return;
+    const fi=$('#sFile'),dr=$('#sDrop');
+    $('#sName').addEventListener('input',e=>draft.name=e.target.value);$('#sNote').addEventListener('input',e=>draft.note=e.target.value);
+    dr.addEventListener('click',()=>fi.click());dr.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();fi.click();}});
+    dr.addEventListener('dragover',e=>{e.preventDefault();dr.classList.add('over');});dr.addEventListener('dragleave',()=>dr.classList.remove('over'));
+    dr.addEventListener('drop',e=>{e.preventDefault();dr.classList.remove('over');addFiles(e.dataTransfer.files);});
+    fi.addEventListener('change',()=>addFiles(fi.files));
+    $$('[data-rm]',el).forEach(b=>b.addEventListener('click',()=>{const f=draft.files[+b.dataset.rm];draft.files.splice(+b.dataset.rm,1);const inSaved=mine&&(mine.files||[]).some(x=>x.id===f.id);if(!inSaved&&f.id)assets.delete(f.id).catch(()=>{});renderMine();}));
+    $('#sSend').addEventListener('click',submit);
+  }
+  async function addFiles(list){
+    const fb=()=>$('#sFb');
+    for(const f of Array.from(list)){
+      const t=guessType(f);
+      if(!OK_TYPES.test(t)){if(fb()){fb().className='fb bad';fb().textContent='الملف «'+f.name+'» بصيغة غير مدعومة. استعملي صورة JPG أو PNG أو ملف PDF.';}continue;}
+      if(f.size>20*1048576){if(fb()){fb().className='fb bad';fb().textContent='الملف «'+f.name+'» أكبر من 20 MB.';}continue;}
+      const item={name:f.name,size:f.size};draft.files.push(item);renderMine();
+      try{const r=await assets.upload(f,{type:t});item.id=r.id;item.size=r.sizeBytes;item.type=r.contentType;}
+      catch(e){draft.files.splice(draft.files.indexOf(item),1);if(fb()){fb().className='fb bad';fb().textContent=e&&e.code==='quota_exceeded'?'امتلأت مساحة التخزين في المنصة. أخبري معلمتك.':'تعذّر رفع «'+f.name+'». جرّبي مرة أخرى أو بصيغة أخرى.';}}
+      renderMine();
+    }
+  }
+  async function submit(){
+    const fb=$('#sFb');
+    if(draft.files.some(f=>!f.id)){fb.className='fb bad';fb.textContent='انتظري حتى يكتمل رفع الملفات.';return;}
+    if(!draft.name.trim()){fb.className='fb bad';fb.textContent='اكتبي اسمك وشعبتك.';return;}
+    if(!draft.files.length){fb.className='fb bad';fb.textContent='ارفعي ملف إجابتك أولًا.';return;}
+    $('#sSend').disabled=true;
+    try{await db.doc('submissions/'+uid).set({aid:A.id,name:draft.name.trim(),note:draft.note.trim(),files:draft.files.map(f=>({id:f.id,name:f.name,size:f.size||0,type:f.type||''})),at:new Date().toISOString()});toast('📎 تم تسليم المهمة بنجاح');}
+    catch(e){fb.className='fb bad';fb.textContent=e&&e.code==='invalid_argument'?'لا تملكين صلاحية التسليم. اطلبي من معلمتك صلاحية «مساهِمة».':'تعذّر التسليم الآن. حاولي مرة أخرى.';if($('#sSend'))$('#sSend').disabled=false;}
+  }
+
+  /* --- teacher --- */
+  if(teacher){
+    const unS=db.collection('submissions').onSnapshot(q=>{subsLoaded=true;subs=q.docs.map(d=>({uid:d.id,...d.data()}));renderSubs();},()=>{subsLoaded=true;renderSubs();});
+    onCleanup(unS);
+  }
+  async function renderSubs(){
+    const el=$('#sBox');if(!el||!teacher)return;
+    if(!subsLoaded){el.innerHTML='<p class="hint" style="margin-top:14px">جارٍ تحميل التسليمات…</p>';return;}
+    const cur=subs.filter(x=>A&&x.aid===A.id).sort((a,b)=>(b.at||'').localeCompare(a.at||''));
+    const old=subs.filter(x=>!A||x.aid!==A.id);
+    let names={};try{if(user)names=await user.profiles(subs.map(x=>x.uid));}catch(e){}
+    if(!$('#sBox'))return;
+    const card=x=>{const p=names[x.uid];const acc=p&&p.name?` <span style="color:var(--muted);font-size:13.5px">(${esc(p.name)})</span>`:'';
+      return `<div class="subcard"><div class="row" style="justify-content:space-between"><b>${esc(x.name||'بدون اسم')}${acc}</b><span class="hint" style="margin:0">${esc(fdate(x.at))}</span></div>
+      ${x.note?`<div style="font-size:15px">📝 ${esc(x.note)}</div>`:''}
+      <div class="flist">${(x.files||[]).map(f=>`<div class="fitem"><span>${fileLink(f)}</span></div>`).join('')}</div>
+      <div class="row"><input class="ans" style="width:110px;text-align:center" data-g="${esc(x.uid)}" value="${esc(x.grade||'')}" placeholder="الدرجة" aria-label="الدرجة"><input class="tinput" style="flex:1;min-width:160px" data-f="${esc(x.uid)}" value="${esc(x.feedback||'')}" placeholder="ملاحظة للطالبة" aria-label="ملاحظة"><button type="button" class="btn sm" data-sv="${esc(x.uid)}">حفظ</button></div></div>`;};
+    el.innerHTML=`<div style="margin-top:20px"><h3 style="margin:0 0 4px">تسليمات الطالبات (${cur.length})</h3><p class="hint" style="margin:0">تظهر هذه القائمة لك فقط. الدرجة والملاحظة تظهران للطالبة في صفحة تسليمها.</p>
+      <div class="subgrid">${cur.length?cur.map(card).join(''):'<div class="notice">لم تصل تسليمات لهذه المهمة بعد.</div>'}</div>
+      ${old.length?`<button type="button" class="btn sm ghost" id="oldT" style="margin-top:14px">${showOld?'إخفاء':'عرض'} تسليمات المهام السابقة (${old.length})</button>${showOld?`<div class="subgrid">${old.map(card).join('')}</div>`:''}`:''}</div>`;
+    const oT=$('#oldT');if(oT)oT.addEventListener('click',()=>{showOld=!showOld;renderSubs();});
+    $$('[data-sv]',el).forEach(b=>b.addEventListener('click',async()=>{const id=b.dataset.sv;b.disabled=true;
+      try{await db.doc('submissions/'+id).update({grade:$(`[data-g="${id}"]`,el).value.trim(),feedback:$(`[data-f="${id}"]`,el).value.trim()});toast('حُفظت الملاحظة');}
+      catch(e){toast('تعذّر الحفظ');}finally{b.disabled=false;}}));
+  }
+}
+
+applyTheme();
+initBot();
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{applyTheme();window.dispatchEvent(new Event('themechange'));});
+route();
+</script>
+</body>
+</html>

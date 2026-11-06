@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>لوحة متابعة المعلمة | كيمياء 2-2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F1EBFC;--grid:rgba(124,77,214,.11);--surface:#fff;--surface2:#F8F5FE;--ink:#1E1636;--muted:#5F5878;--line:#E2D9F3;--mid:#7C4DD6;--cold:#2763D8;--hot:#DE4527;--ok:#12916A;--ok-soft:#E3F6EE;--bad:#C7362A;--chip:#EFE8FC;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#16112A;--grid:rgba(184,140,255,.08);--surface:#211A3A;--surface2:#1B1531;--ink:#EEE9FB;--muted:#B4ABD0;--line:#3A3060;--chip:#2C2350;--ok-soft:#173A30;color-scheme:dark}}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background-color:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:26px 26px;color:var(--ink);font-family:"IBM Plex Sans Arabic",system-ui,"Segoe UI",Tahoma,sans-serif;font-size:16px;line-height:1.7}
+.wrap{max-width:1150px;margin:0 auto;padding:28px 18px 50px}
+h1,h2{font-family:"Noto Kufi Arabic","IBM Plex Sans Arabic",sans-serif;margin:0}
+h1{font-size:clamp(26px,4vw,38px)}h2{font-size:20px;margin-bottom:10px}
+.kicker{color:var(--cold);font-weight:600;margin:0 0 4px}.sub{color:var(--muted);margin:6px 0 18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:20px;margin-bottom:18px;box-shadow:0 6px 24px rgba(80,40,160,.06)}
+.btn{border:0;border-radius:999px;padding:10px 22px;font:inherit;font-weight:600;cursor:pointer;background:var(--chip);color:var(--ink)}
+.btn.pri{background:var(--cold);color:#fff}.btn.hot{background:var(--hot);color:#fff}.btn.ghost{background:transparent;border:1px solid var(--line)}.btn.sm{padding:6px 14px;font-size:14px}
+input[type=password],input[type=text],textarea{font:inherit;color:var(--ink);background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+textarea{width:100%;min-height:110px;direction:ltr;font-size:12px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.notice{background:#E3E8FB;color:#2a3f9e;border-radius:12px;padding:12px 16px;margin-top:14px}
+.notice.bad{background:#FBE5E1;color:#9b2a1f}.notice.ok{background:var(--ok-soft);color:var(--ok)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .notice{background:#232c55;color:#c9d3ff}}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:16px}
+.stat{border:1px solid var(--line);border-radius:16px;padding:14px 16px}.stat b{display:block;font-size:30px;font-family:"Noto Kufi Arabic",sans-serif}.stat span{color:var(--muted);font-size:14px}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:15px}th{color:var(--muted);font-weight:600;text-align:start;padding:10px 8px;border-bottom:1px solid var(--line);white-space:nowrap}td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+td.n{font-variant-numeric:tabular-nums;direction:ltr;text-align:right}
+.chn{font-weight:700;margin-inline-end:6px}
+.cell{font-size:13px;line-height:1.5;white-space:nowrap}.cell .d{color:var(--muted)}.cell.empty{color:var(--muted)}
+.bar{height:7px;border-radius:9px;background:var(--chip);overflow:hidden;width:90px;margin-top:3px}.bar i{display:block;height:100%;background:var(--mid)}
+.tag{display:inline-block;padding:1px 8px;border-radius:999px;font-size:12px;font-weight:700}.tag.g{background:var(--ok-soft);color:var(--ok)}.tag.m{background:#FFF3D6;color:#9a6a00}.tag.r{background:#FBE5E1;color:#9b2a1f}
+.hide{display:none}
+.foot{text-align:center;color:var(--muted);font-size:12.5px;margin-top:24px}
+.del{background:none;border:0;color:var(--bad);cursor:pointer;font-size:16px}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <p class="kicker">للمعلمة</p>
+ <h1>لوحة المتابعة الشاملة</h1>
+ <p class="sub">تعرض نتائج الطالبات في الفصول الستة لمقرر كيمياء 2-2 مجمّعة في جدول واحد، ومصدرها قاعدة البيانات المرتبطة بالمنصات، إضافة إلى رموز التقدم التي ترسلها الطالبات.</p>
+
+ <section class="card" id="gate">
+  <div class="row"><label for="pw">الرمز السري:</label><input type="password" id="pw" inputmode="numeric" autocomplete="off"><button type="button" class="btn pri" id="pwGo">عرض النتائج</button></div>
+  <div class="notice" id="pwMsg">يُرجى إدخال الرمز السري للوحة المتابعة.</div>
+ </section>
+
+ <div id="dash" class="hide">
+  <section class="card">
+   <h2>📥 إضافة رموز الطالبات</h2>
+   <p class="sub" style="margin-top:0">تنشئ الطالبة رمز التقدم من قسم «تقرير التقدم للمعلمة» في الصفحة الرئيسة لكل منصة وترسله لك. الصقي رمزًا واحدًا أو عدة رموز (كل رمز في سطر)، ثم اضغطي «إضافة». يُحتفظ بأحدث رمز لكل طالبة في كل فصل.</p>
+   <textarea id="codes" placeholder="KIM-..."></textarea>
+   <div class="row" style="margin-top:10px"><button type="button" class="btn pri" id="refresh">🔄 تحديث من قاعدة البيانات</button><button type="button" class="btn hot" id="add">➕ إضافة الرموز</button><button type="button" class="btn ghost sm" id="csv">⬇️ تنزيل النتائج (CSV)</button><button type="button" class="btn ghost sm" id="clear">🗑️ مسح كل البيانات</button><button type="button" class="btn ghost sm" id="lock">🔒 قفل اللوحة</button></div>
+   <div id="addMsg"></div><div class="notice" id="srcMsg" style="display:none"></div>
+  </section>
+
+  <section class="card">
+   <div class="stats" id="stats"></div>
+   <h2>📚 ملخص الفصول</h2>
+   <div class="tw"><table id="chT"></table></div>
+  </section>
+
+  <section class="card">
+   <div class="row" style="justify-content:space-between"><h2>👩‍🎓 نتائج الطالبات</h2><input type="text" id="q" placeholder="ابحثي باسم الطالبة"></div>
+   <div class="tw"><table id="stT"></table></div>
+  </section>
+ </div>
+ <p class="foot">إعداد المعلمة: صباح داخل الأحمدي - الثانوية السادسة والثلاثون بالمدينة المنورة</p>
+</div>
+<script>
+const CH=[
+ {n:1,t:'الطاقة والتغيرات الكيميائية',l:4,c:'#2763D8',u:'/ch1/'},
+ {n:2,t:'سرعة التفاعلات الكيميائية',l:3,c:'#12916A',u:'/ch2/'},
+ {n:3,t:'الاتزان الكيميائي',l:3,c:'#DE6B27',u:'/ch3/'},
+ {n:4,t:'الهيدروكربونات',l:5,c:'#4F4BD8',u:'/ch4/'},
+ {n:5,t:'مشتقات المركبات الهيدروكربونية وتفاعلاتها',l:5,c:'#1FA34A',u:'/ch5/'},
+ {n:6,t:'الكيمياء الحيوية',l:4,c:'#8A3FD8',u:'/ch6/'}];
+const PW='123456',KEY='chem22-teacher-dashboard-v1';
+const $=s=>document.querySelector(s);
+let DB={},SRV={},PWV='',ONLINE=false;
+window.__DBG=()=>DB;
+const load=()=>{try{DB=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){DB={};}};
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(DB));}catch(e){}};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function hash(str){let h=7;for(const c of str)h=(h*31+c.codePointAt(0))%1000003;return h;}
+function parse(code){const m=code.trim().match(/^KIM-([A-Za-z0-9+/]+)-([0-9a-z]+)$/);if(!m)return null;try{const body=decodeURIComponent(escape(atob(m[1])));if(hash(body).toString(36)!==m[2])return null;const p=JSON.parse(body);if(!p.n||!(p.c>=1&&p.c<=6))return null;return p;}catch(e){return null;}}
+const keyOf=n=>n.replace(/\s+/g,' ').trim();
+async function fetchServer(pw){try{const r=await fetch('/api/results',{headers:{'x-teacher-password':pw},cache:'no-store'});if(r.status===401)return 'bad';if(!r.ok)return 'off';const d=await r.json();SRV={};(d.rows||[]).forEach(x=>{const k=keyOf(x.name);SRV[k]=SRV[k]||{};SRV[k][x.chapter]={d:x.lessons_done,t:x.lessons_total,f:x.final_score,s:x.stars,m:x.max_stars,ts:Date.parse((x.updated_at||'').replace(' ','T')+'Z')||0,srv:1};});ONLINE=true;return 'ok';}catch(e){return 'off';}}
+function view(){const V=JSON.parse(JSON.stringify(DB));Object.entries(SRV).forEach(([n,chs])=>{V[n]=V[n]||{};Object.entries(chs).forEach(([c,r])=>{if(!V[n][c]||r.ts>=V[n][c].ts)V[n][c]=r;});});return V;}
+function srcNote(){const m=$('#srcMsg');m.style.display='block';if(ONLINE){m.className='notice ok';m.textContent='✓ متصلة بقاعدة البيانات. آخر تحديث: '+new Date().toLocaleTimeString('ar-SA');}else{m.className='notice';m.textContent='تعمل اللوحة دون قاعدة بيانات (افتحيها من موقع المشروع على Cloudflare للاتصال بها). تظهر الرموز الملصقة فقط.';}}
+async function unlock(pw){$('#gate').classList.add('hide');$('#dash').classList.remove('hide');load();PWV=pw;await fetchServer(pw);render();srcNote();}
+$('#pwGo').addEventListener('click',async()=>{const pw=$('#pw').value.trim();const m=$('#pwMsg');m.className='notice';m.textContent='جارٍ التحقق…';const st=await fetchServer(pw);
+  if(st==='ok'||(st==='off'&&pw===PW)){try{sessionStorage.setItem(KEY+'-pw',pw);}catch(e){}unlock(pw);}else{m.className='notice bad';m.textContent='الرمز السري غير صحيح.';}});
+$('#pw').addEventListener('keydown',e=>{if(e.key==='Enter')$('#pwGo').click();});
+$('#lock').addEventListener('click',()=>{sessionStorage.removeItem(KEY+'-pw');SRV={};ONLINE=false;$('#dash').classList.add('hide');$('#gate').classList.remove('hide');$('#pw').value='';const m=$('#pwMsg');m.className='notice';m.textContent='يُرجى إدخال الرمز السري للوحة المتابعة.';});
+try{const p=sessionStorage.getItem(KEY+'-pw');if(p)unlock(p);}catch(e){}
+$('#refresh').addEventListener('click',async()=>{await fetchServer(PWV);render();srcNote();});
+$('#add').addEventListener('click',()=>{const lines=$('#codes').value.split(/[\s\n]+/).filter(Boolean);let ok=0,bad=0,upd=0;
+  lines.forEach(c=>{const p=parse(c);if(!p){bad++;return;}const k=keyOf(p.n);DB[k]=DB[k]||{};const old=DB[k][p.c];if(!old||p.ts>=old.ts){if(old)upd++;DB[k][p.c]={d:p.d,t:p.t,f:p.f,s:p.s,m:p.m,ts:p.ts};}ok++;});
+  save();render();$('#codes').value='';$('#addMsg').innerHTML=`<div class="notice ${bad?'bad':'ok'}">أُضيف ${ok} رمز${upd?` (منها ${upd} تحديث لنتيجة سابقة)`:''}.${bad?` تعذّرت قراءة ${bad} رمز: تأكدي أنه منسوخ كاملًا دون تعديل.`:''}</div>`;});
+$('#clear').addEventListener('click',async()=>{if(confirm('هل تريدين مسح جميع نتائج الطالبات؟ سيُحذف ذلك من قاعدة البيانات أيضًا ولا يمكن التراجع.')){DB={};save();if(ONLINE){try{await fetch('/api/results?all=1',{method:'DELETE',headers:{'x-teacher-password':PWV}});}catch(e){}SRV={};}render();}});
+$('#q').addEventListener('input',render);
+function tag(f){if(f==null)return '<span class="d">—</span>';const c=f>=80?'g':f>=60?'m':'r';return `<span class="tag ${c}">${f}%</span>`;}
+function render(){const DB=view();const names=Object.keys(DB).sort((a,b)=>a.localeCompare(b,'ar'));
+  let lessons=0,finals=[],stars=0,doneFinal=0;names.forEach(n=>Object.values(DB[n]).forEach(r=>{lessons+=r.d;stars+=r.s;if(r.f!=null){finals.push(r.f);doneFinal++;}}));
+  const totalL=CH.reduce((a,c)=>a+c.l,0);
+  $('#stats').innerHTML=[[names.length,'عدد الطالبات'],[names.length?`${lessons}/${names.length*totalL}`:'0/'+totalL,'الدروس المنجزة'],[doneFinal,'الاختبارات الختامية المنجزة'],[finals.length?Math.round(finals.reduce((a,b)=>a+b,0)/finals.length)+'%':'—','متوسط الاختبار الختامي'],[stars+' ⭐','مجموع النجوم المكتسبة']].map(([v,l])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join('');
+  $('#chT').innerHTML=`<thead><tr><th>الفصل</th><th>الطالبات المرسِلات</th><th>متوسط الدروس المنجزة</th><th>متوسط الاختبار الختامي</th><th>متوسط النجوم</th><th></th></tr></thead><tbody>${CH.map(c=>{const rs=names.map(n=>DB[n][c.n]).filter(Boolean);const fs=rs.filter(r=>r.f!=null).map(r=>r.f);
+    const avgD=rs.length?(rs.reduce((a,r)=>a+r.d,0)/rs.length):null;return `<tr><td><span class="chn" style="color:${c.c}">${c.n}</span>${c.t}</td><td class="n">${rs.length}</td><td class="n">${avgD==null?'—':avgD.toFixed(1)+'/'+c.l}</td><td>${fs.length?tag(Math.round(fs.reduce((a,b)=>a+b,0)/fs.length)):'—'}</td><td class="n">${rs.length?(rs.reduce((a,r)=>a+r.s,0)/rs.length).toFixed(1):'—'}</td><td><a class="btn ghost sm" href="${c.u}" target="_blank" rel="noopener">فتح المنصة</a></td></tr>`;}).join('')}</tbody>`;
+  const q=$('#q').value.trim();const shown=names.filter(n=>!q||n.includes(q));
+  $('#stT').innerHTML=`<thead><tr><th>الطالبة</th>${CH.map(c=>`<th><span class="chn" style="color:${c.c}">${c.n}</span>${c.t.split(' ')[0]}${c.t.split(' ').length>1?' …':''}</th>`).join('')}<th>المجموع</th><th></th></tr></thead><tbody>${shown.length?shown.map(n=>{const R=DB[n];let tl=0,ts=0;
+    const cells=CH.map(c=>{const r=R[c.n];if(!r)return '<td class="cell empty">لم يُرسل</td>';tl+=r.d;ts+=r.s;return `<td class="cell"><div>📘 ${r.d}/${r.t} <span class="d">دروس</span></div><div class="bar"><i style="width:${Math.round(r.d/r.t*100)}%"></i></div><div>📝 ${tag(r.f)} · ⭐ ${r.s}</div></td>`;}).join('');
+    return `<tr><td><b>${esc(n)}</b></td>${cells}<td class="cell"><div>📘 ${tl}/${totalL}</div><div>⭐ ${ts}</div></td><td><button class="del" data-n="${esc(n)}" title="حذف الطالبة" aria-label="حذف ${esc(n)}">✕</button></td></tr>`;}).join(''):`<tr><td colspan="${CH.length+3}" style="color:var(--muted);text-align:center;padding:24px">${names.length?'لا توجد نتائج مطابقة للبحث.':'لم تُضف رموز بعد. الصقي رموز الطالبات في الأعلى.'}</td></tr>`}</tbody>`;
+  document.querySelectorAll('.del').forEach(b=>b.addEventListener('click',async()=>{const n=b.dataset.n;if(confirm('حذف نتائج '+n+'؟')){delete DBL()[n];save();if(ONLINE){try{await fetch('/api/results?name='+encodeURIComponent(n),{method:'DELETE',headers:{'x-teacher-password':PWV}});}catch(e){}delete SRV[n];}render();}}));}
+function DBL(){return window.__DBG();}
+$('#csv').addEventListener('click',async()=>{const DB=view();const names=Object.keys(DB).sort((a,b)=>a.localeCompare(b,'ar'));const head=['الطالبة',...CH.flatMap(c=>[`ف${c.n} دروس`,`ف${c.n} الختامي %`,`ف${c.n} نجوم`])];
+  const rows=names.map(n=>[n,...CH.flatMap(c=>{const r=DB[n][c.n];return r?[`${r.d}/${r.t}`,r.f==null?'':r.f,r.s]:['','','']})]);const csv='\ufeff'+[head,...rows].map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  if(!window.claude){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='نتائج-كيمياء-2-2.csv';document.body.appendChild(a);a.click();a.remove();return;}
+  let dl=null;try{dl=await Promise.race([window.claude&&window.claude.use?window.claude.use('downloads'):Promise.resolve(null),new Promise(r=>setTimeout(()=>r(null),3000))]);}catch(e){}
+  if(dl){try{await dl.save({filename:'نتائج-كيمياء-2-2.csv',data:new Blob([csv],{type:'text/csv'})});}catch(e){}}
+  else{try{await navigator.clipboard.writeText(csv);alert('نُسخت النتائج، الصقيها في Excel أو جدول Google.');}catch(e){alert('تعذّر التنزيل في هذا العرض.');}}});
+</script>
+</body>
+</html>

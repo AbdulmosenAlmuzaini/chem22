@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مختبر الكيمياء الحيوية | كيمياء 2-2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Noto+Kufi+Arabic:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F1EBFC; --surface:#FFFFFF; --surface2:#F8F5FE; --ink:#1E1638; --muted:#5E5677; --line:#DCD2F1; --grid:rgba(124,77,214,.11); --head:var(--ink);
+  --cold:#2763D8; --hot:#DE4527; --mid:#8A4FC8; --amber:#D18A0B; --ok:#12916A; --bad:#C7362A; --chip:#ECE4FA; --green:#6D3FC4;
+  --cold-soft:#E3ECFC; --hot-soft:#FCE7E2; --ok-soft:#DFF4EC; --bad-soft:#FBE4E1;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16112A; --surface:#201A3A; --surface2:#271F45; --ink:#EEE9FA; --muted:#B3A9CF; --line:#3A3160; --grid:rgba(184,140,255,.08); --head:var(--ink);
+    --cold:#6E9BFF; --hot:#FF7B5E; --mid:#B88CFF; --amber:#F4BD4C; --ok:#3CC799; --bad:#FF6E61; --chip:#2D2552; --green:#7E55D6;
+    --cold-soft:#1C2C55; --hot-soft:#3A2028; --ok-soft:#143A33; --bad-soft:#3D1F25;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16112A; --surface:#201A3A; --surface2:#271F45; --ink:#EEE9FA; --muted:#B3A9CF; --line:#3A3160; --grid:rgba(184,140,255,.08); --head:var(--ink);
+  --cold:#6E9BFF; --hot:#FF7B5E; --mid:#B88CFF; --amber:#F4BD4C; --ok:#3CC799; --bad:#FF6E61; --chip:#2D2552; --green:#7E55D6;
+  --cold-soft:#1C2C55; --hot-soft:#3A2028; --ok-soft:#143A33; --bad-soft:#3D1F25;
+  color-scheme:dark;
+}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--thermal:linear-gradient(to left,var(--cold),var(--mid) 55%,var(--hot));}
+html{scroll-padding-top:env(safe-area-inset-top,0px);}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background-color:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:26px 26px;color:var(--ink);font-family:"IBM Plex Sans Arabic",system-ui,"Segoe UI",Tahoma,sans-serif;font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased}
+img,svg,canvas{max-width:100%}
+.kufi,h1,h2,h3,.lnum,.lcode,.gscore,.temp-big,.brand,.lcard h3,.final-band h3,.teacher .av{font-family:"Noto Kufi Arabic","IBM Plex Sans Arabic",system-ui,sans-serif}
+.hero h1{font-weight:800;line-height:1.35}
+h1,h2,h3,.lcard h3{color:var(--head)}
+.lhead h1{color:var(--head)}
+.teacher{display:flex;align-items:center;gap:12px;margin:6px 0 20px}
+.teacher .av{flex:0 0 48px;height:48px;border-radius:50%;background:var(--cold);color:#fff;display:grid;place-items:center;font-weight:700;font-size:18px}
+.teacher small{display:block;color:var(--muted);font-size:15px;line-height:1.4}
+.teacher b{display:block;font-size:17px;line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+a{color:var(--cold)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:6px}
+.f{font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;unicode-bidi:isolate;display:inline-block;max-width:100%}
+.tinput{font:inherit;font-size:15px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface2);color:var(--ink)}
+.hcard .f,.target .f,.sum .f,.ctable .f,.ediag .f{white-space:nowrap}
+.f sub,.fx sub{font-size:.68em}
+.ltr{direction:ltr;unicode-bidi:isolate}
+
+/* top bar */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:600}
+.brand-mark{width:34px;height:34px;border-radius:50%;background:var(--thermal);display:grid;place-items:center;color:#fff;font-size:15px}
+.top-tools{display:flex;align-items:center;gap:10px}
+.starpill{display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-weight:600}
+.starpill b{color:var(--amber)}
+.iconbtn{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer;font-size:14px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:10px;padding:11px 20px;font-weight:600;cursor:pointer;background:var(--ink);color:var(--bg);text-decoration:none;transition:transform .12s}
+.btn:active{transform:scale(.97)}
+.btn.cold{background:var(--cold);color:#fff}
+.btn.hot{background:var(--hot);color:#fff}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn.sm{padding:7px 14px;font-size:15px;border-radius:8px}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center;padding:26px 0 40px}
+.kicker{color:var(--muted);font-size:15px;margin:0 0 6px}
+.hero h1{font-size:clamp(2rem,4.6vw,3.25rem);line-height:1.22;margin:0 0 16px;font-weight:700;letter-spacing:-.01em}
+.hero h1 .grad{background:var(--thermal);-webkit-background-clip:text;background-clip:text;color:transparent}
+.idea{background:var(--surface);border-inline-start:5px solid var(--mid);border-radius:4px 12px 12px 4px;padding:12px 16px;margin:0 0 16px}
+.idea strong{color:var(--mid)}
+.hero p.lead{color:var(--muted);margin:0 0 20px;max-width:58ch}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.progress-line{margin-top:18px;color:var(--muted);font-size:15px}
+.credit-card{margin-top:20px;font-size:19px;color:var(--muted);line-height:1.6}
+.credit-card b{color:var(--mid);font-weight:700}
+.task-band{margin-top:-14px}
+.tb-in{display:flex;align-items:center;gap:16px}
+.tb-in .ti{flex:0 0 54px;height:54px;border-radius:14px;background:var(--thermal);display:grid;place-items:center;font-size:27px}
+.task-tile{display:flex;align-items:center;gap:14px;margin-top:18px;background:var(--surface);border:2px solid var(--mid);border-radius:16px;padding:12px 18px 12px 14px;text-decoration:none;color:var(--ink);max-width:440px;transition:transform .15s}
+.task-tile:hover{transform:translateY(-2px)}
+.task-tile .ti{flex:0 0 54px;height:54px;border-radius:14px;background:var(--thermal);display:grid;place-items:center;font-size:27px}
+.task-tile b{display:block;font-size:18px}
+.task-tile small{color:var(--muted);font-size:14px}
+
+.beaker-card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:16px;position:relative}
+.beaker-card canvas{display:block;width:100%;height:330px;touch-action:none;cursor:ew-resize;border-radius:14px;background:var(--surface2)}
+.beaker-read{display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:10px;flex-wrap:wrap}
+.temp-big{font-size:30px;font-weight:700;direction:ltr}
+.phase-tag{padding:3px 12px;border-radius:999px;font-weight:600;font-size:15px;background:var(--chip)}
+.beaker-card input[type=range]{width:100%;margin-top:8px}
+.hint{font-size:14px;color:var(--muted);margin:6px 0 0}
+
+/* path */
+h2.sec{font-size:clamp(1.35rem,2.6vw,1.8rem);margin:8px 0 6px}
+.sec-sub{color:var(--muted);margin:0 0 20px}
+.thermo-track{position:relative;height:14px;border-radius:999px;background:var(--thermal);margin:22px 0 0}
+.thermo-track .bulb{position:absolute;inset-inline-start:-8px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:var(--cold)}
+.lessons{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;margin-top:-7px}
+.lcard{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:0 0 16px 16px;padding:26px 18px 18px;display:flex;flex-direction:column;gap:8px}
+.lcard .node{position:absolute;top:-8px;inset-inline-start:18px;width:30px;height:30px;border-radius:50%;background:var(--surface);border:4px solid var(--c);display:grid;place-items:center;font-size:13px;font-weight:700;color:var(--c)}
+.lcard.done .node{background:var(--c);color:#fff}
+.lcode{font-size:34px;font-weight:700;color:var(--c);line-height:1;direction:ltr;text-align:right}
+.lcard h3{margin:2px 0 0;font-size:19px;line-height:1.4}
+.lcard p{margin:0;color:var(--muted);font-size:15px;line-height:1.6;flex:1}
+.lmeta{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--muted)}
+.lmeta .st{color:var(--amber);font-weight:600}
+
+.badges{display:flex;flex-wrap:wrap;gap:14px;margin:8px 0 0}
+.badge{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px dashed var(--line);border-radius:999px;padding:6px 16px 6px 8px;color:var(--muted);font-size:15px}
+.badge i{font-style:normal;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--chip);filter:grayscale(1);opacity:.6;font-size:18px}
+.badge.on{border-style:solid;color:var(--ink);font-weight:600}
+.badge.on i{filter:none;opacity:1;background:var(--thermal)}
+
+.final-band{margin:36px 0;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;position:relative;overflow:hidden}
+.final-band::before{content:"";position:absolute;inset-block:0;inset-inline-start:0;width:6px;background:var(--thermal)}
+.final-band h3{margin:0 0 4px;font-size:22px}
+.final-band p{margin:0;color:var(--muted)}
+
+footer.foot{border-top:1px solid var(--line);margin-top:40px;padding:22px 0 30px;color:var(--muted);font-size:14px;text-align:center;line-height:1.7}
+footer.foot b{color:var(--ink)}
+
+/* lesson page */
+.crumbs{margin:6px 0 10px}
+.crumbs a{text-decoration:none;font-size:15px}
+.lhead{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:end;padding:10px 0 22px;border-bottom:1px solid var(--line)}
+.lnum{font-size:clamp(4rem,11vw,7.5rem);font-weight:700;line-height:.9;direction:ltr;background:var(--thermal);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lhead h1{margin:0;font-size:clamp(1.7rem,3.6vw,2.4rem);line-height:1.3}
+.lhead .en{color:var(--muted);direction:ltr;text-align:right;font-size:16px}
+.vocab{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
+.vocab span{background:var(--chip);border-radius:6px;padding:2px 10px;font-size:14px}
+
+.lgrid{display:grid;grid-template-columns:300px 1fr;gap:28px;margin-top:24px;align-items:start}
+.side{position:sticky;top:12px;display:flex;flex-direction:column;gap:16px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.box h4{margin:0 0 8px;font-size:16px}
+.tasks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.tasks li{display:flex;gap:10px;align-items:flex-start;font-size:15px;line-height:1.5;color:var(--muted)}
+.tasks li .ck{flex:0 0 22px;height:22px;border-radius:6px;border:2px solid var(--line);display:grid;place-items:center;font-size:13px;margin-top:1px}
+.tasks li.on{color:var(--ink)}
+.tasks li.on .ck{background:var(--ok);border-color:var(--ok);color:#fff}
+.tbar{height:8px;border-radius:99px;background:var(--chip);overflow:hidden;margin-top:12px}
+.tbar i{display:block;height:100%;background:var(--thermal);width:0;transition:width .4s}
+.side nav{display:flex;flex-direction:column;gap:2px}
+.side nav a{text-decoration:none;color:var(--muted);font-size:15px;padding:4px 8px;border-radius:6px}
+.side nav a:hover{background:var(--chip);color:var(--ink)}
+
+.learn ul{margin:0;padding-inline-start:20px}
+.learn li{margin:0 0 8px}
+.main-col{display:flex;flex-direction:column;gap:26px;min-width:0}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;min-width:0}
+.panel.sim{border-top:4px solid var(--c,var(--cold))}
+.panel h3{margin:0 0 4px;font-size:21px;line-height:1.4}
+.panel .tag{display:inline-block;font-size:13px;font-weight:600;color:var(--c,var(--cold));margin-bottom:4px}
+.panel .desc{color:var(--muted);margin:0 0 16px;font-size:15.5px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.ctrl{display:flex;flex-direction:column;gap:4px;font-size:15px;color:var(--muted);flex:1;min-width:180px}
+input[type=range]{accent-color:var(--mid);width:100%}
+input[type=number],input[type=text],input.ans,select{font:inherit;font-size:16px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface2);color:var(--ink);min-width:0}
+input.ans{width:150px;direction:ltr;text-align:center}
+.unit{color:var(--muted);font-size:15px}
+
+.prac{background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:14px}
+.prac p.q{margin:0 0 10px;font-size:16px}
+.prac .fb{margin:8px 0 0;font-size:15px;min-height:1.2em}
+.fb.ok{color:var(--ok)} .fb.bad{color:var(--bad)}
+.prac.solved{border-color:var(--ok);background:var(--ok-soft)}
+
+/* skier */
+.bars{display:grid;gap:8px;margin-top:12px}
+.bar{display:grid;grid-template-columns:120px 1fr 50px;gap:10px;align-items:center;font-size:14.5px}
+.bar .tr{height:16px;background:var(--chip);border-radius:99px;overflow:hidden}
+.bar .tr i{display:block;height:100%;border-radius:99px;transition:width .08s}
+.bar b{direction:ltr;text-align:left;font-weight:600}
+.switch{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-size:15px}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--surface2);border-radius:999px;padding:5px 14px;cursor:pointer;font-size:14.5px}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.thermos{display:grid;grid-template-columns:repeat(auto-fit,minmax(78px,1fr));gap:12px;margin-top:16px;align-items:end}
+.thermo{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:13.5px;text-align:center}
+.thermo .tube{width:22px;height:170px;border-radius:12px;background:var(--chip);position:relative;overflow:hidden;border:2px solid var(--line)}
+.thermo .tube i{position:absolute;bottom:0;inset-inline:0;background:linear-gradient(to top,var(--cold),var(--hot));transition:height .25s}
+.thermo b{direction:ltr;font-size:14px}
+
+/* options quiz */
+.opts{display:grid;gap:8px;margin-top:10px}
+.opt{text-align:start;border:1.5px solid var(--line);background:var(--surface2);border-radius:10px;padding:10px 14px;cursor:pointer;font-size:16px;line-height:1.5}
+.opt:hover:not([disabled]){border-color:var(--mid)}
+.opt.ok{background:var(--ok-soft);border-color:var(--ok)}
+.opt.bad{background:var(--bad-soft);border-color:var(--bad)}
+.opt[disabled]{cursor:default}
+
+/* calorimeter */
+.calo{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+.calo svg{width:100%;height:auto}
+.dtable{width:100%;border-collapse:collapse;font-size:15px}
+.dtable td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.dtable td:last-child{direction:ltr;text-align:left;font-weight:600}
+.ctable{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+.ctable th,.ctable td{padding:5px 8px;border-bottom:1px solid var(--line);text-align:start}
+.ctable td.n{direction:ltr;text-align:left}
+
+/* packs */
+.packs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.ediag{display:grid;grid-template-columns:1fr 150px;gap:16px;align-items:stretch;background:var(--surface2);border-radius:12px;padding:16px}
+.levels{position:relative;min-height:220px;border-inline-start:2px solid var(--muted);padding-inline-start:12px}
+.levels .axis{position:absolute;inset-inline-start:-28px;top:50%;transform:translateY(-50%) rotate(-90deg);font-size:13px;color:var(--muted);white-space:nowrap}
+.lv{position:absolute;inset-inline:12px;border-top:2px dashed var(--muted);font-size:15px;padding-top:2px}
+.lv span{background:var(--chip);padding:1px 8px;border-radius:6px}
+.lv.top{top:20px}.lv.bot{top:170px}
+.arrowv{position:absolute;inset-inline-end:30%;top:30px;height:140px;width:4px;border-radius:4px}
+.arrowv::after{content:"";position:absolute;inset-inline-start:-7px;border:9px solid transparent}
+.arrowv.down{background:var(--hot)} .arrowv.down::after{bottom:-14px;border-top-color:var(--hot)}
+.arrowv.up{background:var(--cold)} .arrowv.up::after{top:-14px;border-bottom-color:var(--cold)}
+.dhlabel{position:absolute;inset-inline-end:calc(30% + 14px);top:84px;font-weight:700;direction:ltr}
+.flow{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;text-align:center;font-size:14.5px;border-radius:10px;padding:10px}
+.flow .big{font-size:30px}
+
+/* heating curve */
+.hc canvas{width:100%;height:300px;display:block;background:var(--surface2);border-radius:12px}
+.seglist{display:grid;gap:6px;margin-top:12px}
+.seg{display:grid;grid-template-columns:24px 1fr auto;gap:10px;align-items:center;padding:6px 10px;border-radius:8px;font-size:14.5px;border:1px solid transparent}
+.seg.on{border-color:var(--mid);background:var(--chip)}
+.seg .dot{width:12px;height:12px;border-radius:50%}
+.seg b{direction:ltr}
+
+/* hess */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tab{border:1.5px solid var(--line);background:var(--surface2);border-radius:8px;padding:6px 14px;cursor:pointer;font-size:15px}
+.tab[aria-selected=true]{background:var(--mid);color:#fff;border-color:var(--mid)}
+.tab.solved::after{content:" ✓"}
+.target{background:var(--surface2);border:1.5px dashed var(--mid);border-radius:12px;padding:12px 14px;margin-bottom:12px;font-size:17px;overflow-x:auto}
+.hcard{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;background:var(--surface)}
+.hcard .eq{font-size:16.5px;overflow-x:auto;padding-bottom:2px}
+.hcard .dh{direction:ltr;font-weight:600;font-size:14.5px;color:var(--muted)}
+.hcard .tools{display:flex;gap:6px;flex-wrap:wrap}
+.sum{border-top:2px solid var(--ink);margin-top:8px;padding-top:10px;font-size:17px;overflow-x:auto}
+.status{margin-top:10px;padding:10px 14px;border-radius:10px;font-weight:600}
+.status.ok{background:var(--ok-soft);color:var(--ok)}
+.status.wait{background:var(--chip);color:var(--muted)}
+
+/* ladder */
+.ladwrap{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.ladder{position:relative;height:440px;background:var(--surface2);border-radius:12px}
+.ladder .ax{position:absolute;top:12px;bottom:12px;inset-inline-start:50%;width:3px;background:var(--thermal);transform:translateX(50%)}
+.lpt{position:absolute;transform:translateY(-50%);display:flex;align-items:center;gap:6px;cursor:pointer;border:0;background:transparent;padding:0;font-size:14px}
+.lpt .ln{width:34px;height:2px;background:var(--muted)}
+.lpt span{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:1px 8px;direction:ltr;white-space:nowrap}
+.lpt.r{inset-inline-start:calc(50% + 2px)}
+.lpt.l{inset-inline-end:calc(50% + 2px);flex-direction:row-reverse}
+.lpt.zero span{background:var(--chip)}
+.lpt:hover span,.lpt.sel span{border-color:var(--mid);box-shadow:0 0 0 2px var(--mid)}
+
+/* games */
+.game .gbox{background:var(--surface2);border-radius:14px;padding:20px;text-align:center;min-height:230px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px}
+.ghead{display:flex;justify-content:space-between;width:100%;font-weight:600;font-size:15px}
+.timer{direction:ltr}
+.gprompt{font-size:20px;font-weight:600;line-height:1.5;max-width:46ch}
+.gopts{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.gopts .opt{min-width:120px;text-align:center}
+.gscore{font-size:42px;font-weight:700;direction:ltr}
+.flash-ok{animation:fo .35s}
+.flash-bad{animation:fb .35s}
+@keyframes fo{50%{background:var(--ok-soft)}}
+@keyframes fb{50%{background:var(--bad-soft)}}
+.stars3{font-size:28px;letter-spacing:4px;color:var(--amber)}
+.stars3 .off{color:var(--line)}
+
+/* quiz runner */
+.qr .qtop{display:flex;justify-content:space-between;font-size:14.5px;color:var(--muted);margin-bottom:6px}
+.qr .qbar{height:6px;border-radius:99px;background:var(--chip);overflow:hidden;margin-bottom:14px}
+.qr .qbar i{display:block;height:100%;background:var(--thermal);transition:width .3s}
+.qr .qtext{font-size:18.5px;font-weight:600;line-height:1.6}
+.qr .exp{margin-top:12px;padding:10px 14px;border-radius:10px;font-size:15.5px}
+.qr .exp.ok{background:var(--ok-soft)} .qr .exp.bad{background:var(--bad-soft)}
+.qr .qnav{display:flex;justify-content:flex-end;margin-top:14px}
+.yr{display:inline-block;font-size:12.5px;font-weight:600;background:var(--chip);border-radius:6px;padding:1px 8px;margin-inline-start:6px;vertical-align:middle;color:var(--muted)}
+.result{text-align:center;padding:10px 0}
+.result .gscore{font-size:52px}
+.review{text-align:start;margin-top:16px;display:grid;gap:10px}
+.review div{background:var(--surface2);border-radius:10px;padding:10px 14px;font-size:15px;border-inline-start:4px solid var(--bad)}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:14px}
+.mode{border:1.5px solid var(--line);border-radius:14px;padding:16px;background:var(--surface2);cursor:pointer;text-align:start}
+.mode:hover{border-color:var(--mid)}
+.mode b{display:block;font-size:18px;margin-bottom:4px}
+.mode span{color:var(--muted);font-size:14.5px}
+
+.act{margin-top:20px;padding-top:18px;border-top:2px dashed var(--line)}
+.act-tag{display:inline-block;background:var(--chip);border-radius:8px;padding:2px 10px;margin-bottom:8px!important}
+.cmap{margin-top:16px;background:var(--surface2);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.cmap h4{margin:0 0 10px;font-size:16.5px}
+.cmap svg{display:block;width:100%;height:auto;max-width:640px;margin:0 auto}
+.cm-box{fill:var(--surface);stroke:var(--mid);stroke-width:2}
+.cm-main{fill:var(--mid)}
+.cm-k{fill:var(--chip);stroke:var(--line);stroke-width:1.5}
+.cm-x{fill:rgba(39,99,216,.14);stroke:var(--cold);stroke-width:1.5}
+.cm-d{fill:rgba(222,69,39,.12);stroke:var(--hot);stroke-width:1.5}
+.cm-t{fill:var(--ink);font-family:inherit;font-size:14px}
+.cm-tw{fill:#fff;font-family:inherit;font-size:14px}
+.cm-ln{stroke:var(--muted);stroke-width:2;fill:none}
+.cm-ah{fill:var(--muted)}
+.cm-note{margin:10px 0 0;font-size:15px;color:var(--muted);line-height:1.8}
+.flowmap{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px}
+.fstep{background:var(--surface);border:2px solid var(--mid);border-radius:12px;padding:8px 14px;text-align:center;font-size:15px;font-weight:600;max-width:200px}
+.fstep.k{border-color:var(--hot);background:var(--hot-soft)}
+.fstep small{display:block;font-weight:400;color:var(--muted);font-size:13px;direction:auto}
+.farr{font-size:22px;color:var(--mid);font-weight:700}
+.lc-img{background:var(--surface);border-radius:10px;padding:6px}
+.lc-img svg{display:block;width:100%;height:auto}
+.lab{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:center;background:var(--surface2);border:1px solid var(--line);border-radius:14px;padding:12px}
+.labsvg{width:100%;height:auto;display:block}
+.labside{display:flex;flex-direction:column;gap:10px}
+.lablbl{font-size:14px;color:var(--muted)}
+.watch{display:flex;align-items:center;gap:10px;background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:6px 14px;width:max-content}
+.watch b{font-size:24px;font-variant-numeric:tabular-nums}
+.ordgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.ord{background:var(--surface);border:2px solid var(--mid);border-radius:14px;padding:10px;text-align:center;display:flex;flex-direction:column;gap:4px}
+.ord em{font-style:normal;font-size:28px;font-weight:700;color:var(--hot)}
+.ord small{color:var(--muted)}
+@media (max-width:700px){.lab{grid-template-columns:1fr}}
+.frac{display:inline-flex;flex-direction:column;text-align:center;vertical-align:middle;margin:0 4px}
+.frac span{padding:0 6px}.frac span:first-child{border-bottom:2px solid currentColor}
+.kwrows{display:grid;gap:8px;margin:10px 0}
+.kwr{display:grid;grid-template-columns:minmax(110px,1fr) 1fr 80px;gap:8px;align-items:center;background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.kwprev{font-size:18px;background:var(--chip);border-radius:10px;padding:10px 14px;overflow-x:auto}
+.bars3{direction:ltr;display:flex;gap:18px;justify-content:center;align-items:flex-end;background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:12px}
+.b3{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:60px;font-size:14px}
+.b3t{position:relative;width:46px;height:170px;background:var(--chip);border-radius:8px;overflow:hidden}
+.b3t i{position:absolute;bottom:0;left:0;right:0;transition:height .1s}
+.b3t i.ghost{background:transparent;border:2px dashed var(--muted);z-index:2}
+.ssbtns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.col-btns{display:flex;flex-direction:column;gap:8px;align-items:stretch}
+.lpinfo{font-size:15px;line-height:1.9;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 12px}
+.tree{display:flex;flex-direction:column;align-items:center;gap:12px}
+.troot{background:var(--mid);color:#fff;font-weight:700;border-radius:14px;padding:10px 18px;text-align:center}
+.tkids{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;width:100%}
+.tnode{background:var(--surface);border:2px solid var(--mid);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:6px;font-size:14.5px;text-align:center}
+.tnode b{font-size:16px}.tnode span{background:var(--surface2);border-radius:8px;padding:4px 6px}.tnode span.tk{background:var(--hot-soft);font-weight:600}
+.steps{margin:10px 0;padding-inline-start:22px;display:grid;gap:8px}.steps li{background:var(--surface2);border-radius:8px;padding:6px 10px}
+.fgstage{min-height:260px;display:flex;align-items:center;justify-content:center;background:var(--surface2);border-radius:14px}.fgstage svg{width:100%;max-width:420px;height:auto}
+.fgpop{animation:pop .4s ease}@keyframes pop{from{transform:scale(.6);opacity:0;transform-origin:320px 130px}to{transform:scale(1);opacity:1}}
+#hFg{justify-content:center;margin-top:8px}
+.fggrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:10px}
+.fgb{border:2px solid var(--line);background:var(--surface);border-radius:12px;padding:8px;cursor:pointer;display:flex;flex-direction:column;gap:4px;align-items:center;font:inherit;color:inherit}.fgb.on{border-color:var(--mid);background:var(--chip)}
+.oxl{display:flex;flex-direction:column;gap:6px;margin:10px 0}.rung{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;align-items:center;border:2px solid var(--line);border-radius:10px;padding:6px 12px;background:var(--surface);opacity:.55}.rung.done{opacity:.85}.rung.on{opacity:1;border-color:var(--hot);background:var(--hot-soft);font-size:17px}
+.machine{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:12px;min-height:80px}.mc{border:2px solid var(--line);border-radius:12px;padding:8px 14px;background:var(--surface);display:flex;flex-direction:column;align-items:center;gap:2px}.mc.out{border-color:var(--ok);background:var(--ok-soft)}.marr{display:flex;flex-direction:column;align-items:center;font-size:13px}.marr b{font-size:26px;color:var(--mid)}
+.machine.run .mc.out{animation:pop .6s ease}
+.recgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}.recb{border:2px solid var(--line);background:var(--surface);border-radius:12px;padding:8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;font:inherit;color:inherit}.recb.on{border-color:var(--mid)}.recb.yes{border-color:var(--ok);background:var(--ok-soft)}
+#elS,#cbS,#hlS,#bhS,#sbS,#pfS,#cpS{width:100%;height:auto}
+#sbS,#pfS,#cpS{background:var(--surface2);border-radius:12px;margin:8px 0}
+#hBio{justify-content:center;margin-top:8px}
+.tblwrap{overflow-x:auto}.ctable.cmp tbody tr{cursor:pointer}.ctable.cmp tbody tr:hover{background:var(--chip)}.ctable.cmp tr.pk{background:var(--chip);outline:2px solid var(--mid)}.ctable.cmp td.diff{background:var(--hot-soft);font-weight:700}
+.cmpdet{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:10px}.cmpcard{background:var(--surface);border:2px solid var(--mid);border-radius:14px;padding:10px}.cmpcard p{margin:6px 0 0;font-size:14px;color:var(--muted)}
+.ppstats{gap:10px;justify-content:center}.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 14px;text-align:center;min-width:110px}.stat b{display:block;font-size:22px;color:var(--mid)}.stat span{font-size:12px;color:var(--muted)}
+#ppS,#ezV,#slS,#mbS{width:100%;height:auto;background:var(--surface2);border-radius:12px;margin:8px 0}#aaS,#faS,#nbV{width:100%;height:auto}
+.strandlbl{text-align:center;font-size:14px;color:var(--muted);margin-top:6px}.strand.rna .bcell{border-color:#B45AA6;border-style:solid}
+.strand{display:flex;gap:6px;justify-content:center;margin:8px 0;direction:ltr;flex-wrap:wrap}.bcell{width:38px;height:38px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;border:2px dashed var(--line)}.bcell.cur{border:3px solid var(--hot)}
+.hxbox svg{width:100%;height:auto}
+.ctable.cmp svg.ocs{width:124px;height:auto;display:block;margin:0 auto}
+.tcgrid{display:grid;grid-template-columns:1fr minmax(0,.9fr) 1fr;gap:12px;align-items:start}
+.tccol{background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:10px;text-align:center}
+.tchead{display:inline-block;background:#8E2F6B;color:#fff;font-weight:700;font-size:18px;border-radius:999px;padding:4px 26px;margin-bottom:6px}
+.tcart{width:100%;max-width:220px;height:auto;display:block;margin:0 auto}
+.tcart .tilt{transition:transform .8s ease;transform-origin:100px 110px}.tcart .tilt.on{transform:rotate(28deg)}
+.tcflow{display:flex;flex-direction:column;align-items:center;gap:2px;margin-top:6px}.tcflow span{font-weight:700;font-size:16px;color:var(--ink)}.tcflow span.k{color:var(--mid)}.tcflow i{font-style:normal;color:#1F8A8A;font-size:20px;font-weight:700}.tcflow small{color:var(--muted);font-size:13px}
+.tcmid{background:var(--surface2);border-radius:14px;padding:12px;font-size:15px;line-height:1.9;text-align:center}
+@media (max-width:700px){.tcgrid{grid-template-columns:1fr}}
+.tl{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:10px;position:relative}
+.tlb{border:2px solid var(--line);background:var(--surface);border-radius:12px;padding:6px 14px;cursor:pointer;display:flex;flex-direction:column;align-items:center;font:inherit;color:inherit;min-width:100px}
+.tlb b{font-size:18px;color:var(--mid)}.tlb[aria-pressed=true]{border-color:var(--mid);background:var(--chip)}
+.tlbody{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.cmp{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;text-align:center}.cmp>div{display:flex;flex-direction:column;font-size:20px}.cmp small{font-size:13px;color:var(--muted)}.cmp .vs{font-size:14px;color:var(--muted)}
+.dlgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:center;margin-top:8px}.dlgrid svg{width:100%;height:auto;background:var(--surface2);border-radius:12px}
+#plS{width:100%;height:auto;background:var(--surface2);border-radius:12px;margin-bottom:8px}
+@media (max-width:700px){.dlgrid{grid-template-columns:1fr}}
+.molbox{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px 10px;margin:8px auto;max-width:520px;overflow-x:auto;font-weight:400}
+.optsvg{display:inline-block;width:150px;max-width:100%;vertical-align:middle}.optsvg svg{width:100%;height:auto;max-height:110px}
+.molbox svg.mol{display:block;width:100%;height:auto;max-height:230px}
+.molcv{width:100%;height:280px;display:block;background:var(--surface2);border-radius:12px;touch-action:none;cursor:grab}
+.mdgrid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:14px;align-items:start;margin-top:10px}
+.srbox{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:center;margin-top:10px}
+.srname{font-size:26px;font-weight:700;color:var(--mid)}.srf{margin:6px 0;font-size:15px}
+.nbd{margin-top:10px}.nbname{font-size:18px;background:var(--chip);border-radius:10px;padding:10px 14px;margin-top:6px}
+.chal{background:var(--surface2);border:2px solid var(--amber);border-radius:14px;padding:14px}
+.chal-h{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.chal-q{font-weight:600}.chal .nx{margin-top:8px}
+.isogrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:10px}
+.isocard{background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:6px;cursor:pointer;color:inherit;display:flex;flex-direction:column;gap:6px;align-items:center;font:inherit}
+.isocard svg{width:100%;height:auto;max-height:150px}
+.isocard.yes{border-color:var(--ok);background:var(--ok-soft)}.isocard.no{border-color:var(--bad);background:var(--bad-soft)}.isocard.same{border-color:var(--amber)}
+.isocard.as{cursor:default}
+.ctgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}.ctgrid svg{background:var(--surface2);border-radius:12px;width:100%;height:auto}
+.chslots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:8px}.chslots select{width:100%;min-width:0}.chslots .ctrl{min-width:0}.ctgrid>*,.mdgrid>*,.srbox>*{min-width:0}
+#chS{width:100%;height:auto;background:var(--surface2);border-radius:12px}
+#hMol{justify-content:center;margin-top:8px}
+@media (max-width:700px){.mdgrid,.srbox,.ctgrid{grid-template-columns:1fr}.chslots{grid-template-columns:1fr 1fr}}
+.lcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:6px}
+.lc{background:var(--surface2);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:6px}
+.lc .ic{font-size:30px;line-height:1}
+.lc h5{margin:2px 0 0;font-size:17.5px}
+.lc p{margin:0;font-size:15.5px;line-height:1.7}
+.lc .ex{margin-top:auto;background:var(--chip);border-radius:10px;padding:8px 12px;font-size:14.5px;line-height:1.6}
+.lc .ex b{color:var(--green)}
+.simple{font-size:18px;background:var(--chip);border-radius:12px;padding:12px 16px;margin:4px 0 14px;line-height:1.8}
+.navlink{text-decoration:none;font-weight:600;font-size:15px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 14px;color:var(--ink)}
+/* bot */
+.bot-fab{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));inset-inline-end:16px;z-index:40;display:none;align-items:center;gap:8px;border:0;border-radius:999px;padding:12px 18px;background:var(--green);color:#fff;font-weight:600;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.22)}
+.bot-fab .em{font-size:20px}
+.bot-panel{position:fixed;bottom:calc(78px + env(safe-area-inset-bottom,0px));inset-inline-end:16px;z-index:41;width:min(400px,calc(100vw - 24px));height:min(580px,calc(100vh - 120px));display:none;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:0 12px 40px rgba(0,0,0,.25);overflow:hidden}
+.bot-panel.open{display:flex}
+.bot-head{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:var(--green);color:#fff}
+.bot-head b{font-size:16px}.bot-head small{display:block;opacity:.9;font-size:12.5px}
+.bot-head button{background:transparent;border:0;color:#fff;font-size:22px;cursor:pointer;line-height:1}
+.bot-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px;background:var(--surface2)}
+.msg{max-width:88%;padding:9px 13px;border-radius:14px;font-size:15.5px;line-height:1.75;white-space:normal;word-wrap:break-word}
+.msg.me{align-self:flex-start;background:var(--green);color:#fff;border-end-start-radius:4px}
+.msg.bot{align-self:flex-end;background:var(--surface);border:1px solid var(--line);border-end-end-radius:4px}
+.msg.err{align-self:center;background:var(--bad-soft);color:var(--bad);font-size:14px}
+.bot-sugg{display:flex;flex-wrap:wrap;gap:6px;padding:8px 12px 0}
+.bot-sugg button{border:1px solid var(--line);background:var(--surface2);border-radius:999px;padding:4px 10px;font-size:13.5px;cursor:pointer}
+.bot-form{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line)}
+.bot-form textarea{flex:1;resize:none;font:inherit;font-size:15.5px;border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--surface2);color:var(--ink);height:44px;max-height:110px}
+.bot-note{font-size:12px;color:var(--muted);text-align:center;padding:0 10px 8px}
+/* task */
+.notice{background:var(--chip);border-radius:12px;padding:14px 16px;line-height:1.8}
+.assign{background:var(--surface2);border:1.5px solid var(--green);border-radius:16px;padding:18px}
+.assign h3{margin:0 0 6px}
+.assign .due{display:inline-block;background:var(--chip);border-radius:8px;padding:2px 10px;font-size:14px;margin-top:6px}
+.assign .body{white-space:pre-wrap;margin:8px 0 0}
+.fld{display:flex;flex-direction:column;gap:4px;margin-top:12px;font-size:15px;color:var(--muted)}
+.fld input,.fld textarea{font:inherit;font-size:16px;padding:9px 11px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface2);color:var(--ink)}
+.fld textarea{min-height:90px;resize:vertical}
+.drop{border:2px dashed var(--line);border-radius:14px;padding:18px;text-align:center;margin-top:12px;cursor:pointer;background:var(--surface2)}
+.drop.over{border-color:var(--green);background:var(--chip)}
+.flist{display:grid;gap:6px;margin-top:10px}
+.fitem{display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:7px 12px;font-size:14.5px}
+.fitem a{word-break:break-all}
+.fitem button{border:0;background:transparent;color:var(--bad);cursor:pointer;font-size:14px}
+.stat{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:3px 12px;font-weight:600;font-size:14.5px}
+.stat.ok{background:var(--ok-soft);color:var(--ok)}.stat.no{background:var(--hot-soft);color:var(--hot)}
+.subcard{border:1px solid var(--line);border-radius:14px;padding:14px;background:var(--surface);display:grid;gap:6px}
+.subgrid{display:grid;gap:12px;margin-top:12px}
+.fb-box{background:var(--ok-soft);border-radius:10px;padding:10px 14px;margin-top:10px}
+.qfig{max-width:330px;margin:10px auto 4px;background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:6px 8px;font-weight:400}
+.qfig svg{display:block;width:100%;height:auto}
+#toast{position:fixed;inset-inline:0;bottom:calc(18px + env(safe-area-inset-bottom,0px));display:flex;justify-content:center;pointer-events:none;z-index:50}
+#toast div{background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:12px;font-weight:600;box-shadow:0 6px 24px rgba(0,0,0,.25);opacity:0;transform:translateY(10px);transition:all .25s;max-width:90vw}
+#toast div.show{opacity:1;transform:none}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .lessons{grid-template-columns:repeat(2,1fr);margin-top:14px}
+  .thermo-track{display:none}
+  .lcard{border-radius:16px}
+  .lgrid{grid-template-columns:1fr}
+  .side{position:static}
+  .side nav{display:none}
+  .calo{grid-template-columns:1fr}
+  .calo svg{max-width:220px;margin:0 auto;display:block}
+  .ladwrap{grid-template-columns:1fr}
+  .final-band{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .lessons{grid-template-columns:1fr}
+  .lhead{grid-template-columns:1fr;gap:4px}
+  .ediag{grid-template-columns:1fr}
+  .bar{grid-template-columns:96px 1fr 44px}
+  .panel{padding:16px}
+  .hcard{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+.report-band .rb-in{display:flex;flex-direction:column;gap:10px;width:100%}.rb-row{display:flex;gap:8px;flex-wrap:wrap}.rb-row input{flex:1;min-width:180px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit}
+.rb-code{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px dashed var(--mid);border-radius:12px;padding:8px 10px}.rb-code code{flex:1;word-break:break-all;font-size:12px;user-select:all}.rb-sum{margin:6px 0 0;font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#home"><span class="brand-mark">🧬</span><span>مختبر الكيمياء الحيوية</span></a>
+    <div class="top-tools">
+      <span class="starpill" title="مجموع النجوم"><b>★</b><span id="starCount">0</span></span>
+      <button class="iconbtn" id="themeBtn" type="button">الوضع الليلي</button>
+    </div>
+  </header>
+  <main id="app"></main>
+  <footer class="foot" style="font-size:12.5px">إعداد المعلمة: صباح داخل الأحمدي - الثانوية السادسة والثلاثون بالمدينة المنورة</footer>
+</div>
+<div id="toast" aria-live="polite"></div>
+<button type="button" class="bot-fab" id="botFab" aria-controls="botPanel" aria-expanded="false"><span class="em">🧪</span>اسألي مساعدك الكيميائي</button>
+<section class="bot-panel" id="botPanel" aria-label="اسألي مساعدك الكيميائي">
+  <div class="bot-head"><div><b>🧪 اسألي مساعدك الكيميائي</b><small>اسأليني عن الكيمياء الحيوية</small></div><button type="button" id="botClose" aria-label="إغلاق">×</button></div>
+  <div class="bot-msgs" id="botMsgs" aria-live="polite"></div>
+  <div class="bot-sugg" id="botSugg"></div>
+  <form class="bot-form" id="botForm"><textarea id="botIn" rows="1" placeholder="اكتبي سؤالك هنا…" aria-label="سؤالك"></textarea><button class="btn sm" type="submit" id="botSend" style="background:var(--green);color:#fff">إرسال</button></form>
+  <div class="bot-note">المساعد يساعدك على الفهم، فتحققي دائمًا من كتابك ومعلمتك.</div>
+</section>
+
+<script>
+"use strict";
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const LS='bio22-sabah-ch6-v1';
+let S={tasks:{},games:{},quiz:{},done:{},final:null,theme:null};
+try{const raw=localStorage.getItem(LS);if(raw)S=Object.assign(S,JSON.parse(raw));}catch(e){}
+function save(){try{localStorage.setItem(LS,JSON.stringify(S));}catch(e){}try{autoSync();}catch(e){}}
+const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let cleanups=[];
+function onCleanup(fn){cleanups.push(fn);}
+
+/* ---------- helpers ---------- */
+function fm(s){return String(s).replace(/([A-Za-z\)])(\d+)/g,'$1<sub>$2</sub>').replace(/\((s|l|g|aq)\)/g,'<sub>($1)</sub>');}
+function fmo(t){return String(t).trim().startsWith('<')?t:fm(t);}
+function fmAll(root){$$('.f',root).forEach(e=>{if(!e.dataset.fm){e.innerHTML=fm(e.textContent);e.dataset.fm='1';e.setAttribute('dir','ltr');}});}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function parseNum(s){
+  s=String(s).trim().replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[٫]/g,'.').replace(/[,،\s]/g,'').replace(/[−–]/g,'-');
+  const m=s.match(/^([+-]?\d*\.?\d+)[×xX\*]10\^?([+-]?\d+)$/);
+  if(m)return parseFloat(m[1])*Math.pow(10,+m[2]);
+  if(s==='')return NaN; const v=Number(s); return isFinite(v)?v:NaN;
+}
+const SUP={'-':'⁻','0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'};
+function nice(x,p=3){
+  if(!isFinite(x))return '—';
+  const a=Math.abs(x);
+  if(a!==0&&(a>=1e5||a<1e-3)){const e=Math.floor(Math.log10(a));const m=x/Math.pow(10,e);return (+m.toFixed(p-1))+' × 10'+String(e).split('').map(c=>SUP[c]).join('');}
+  return String(+x.toPrecision(Math.max(p,String(Math.round(a)).length)));
+}
+function sci(x){const e=Math.floor(Math.log10(Math.abs(x)));return (x/Math.pow(10,e)).toFixed(2)+' × 10'+String(e).split('').map(c=>SUP[c]).join('');}
+function sgn(x){x=Math.round(x*10)/10;return (x>0?'+':'')+x;}
+function cssv(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
+function toast(msg){const t=$('#toast');t.innerHTML='<div>'+msg+'</div>';const d=t.firstChild;requestAnimationFrame(()=>d.classList.add('show'));setTimeout(()=>{d.classList.remove('show');},2600);}
+
+/* ---------- scoring ---------- */
+function gameStars(b){return b>=15?3:b>=10?2:b>=5?1:0;}
+function PASS(k){return Math.ceil(((QUIZ[k]||[]).length||5)*0.8);}
+function totalStars(){let n=Object.keys(S.tasks).length;for(const k in S.games)n+=gameStars(S.games[k]);for(const k in S.quiz)if(S.quiz[k]>=PASS(k))n+=3;if(S.final!=null&&S.final>=80)n+=5;return n;}
+function refreshStars(){$('#starCount').textContent=totalStars();}
+function completeTask(id){
+  if(S.tasks[id])return;S.tasks[id]=true;save();refreshStars();
+  const li=document.querySelector('[data-task-li="'+id+'"]');if(li){li.classList.add('on');li.querySelector('.ck').textContent='✓';}
+  updateTaskBar();toast('★ أحسنتِ! أنجزتِ مهمة جديدة');
+}
+function updateTaskBar(){const b=$('#tbar');if(!b)return;const n=+b.dataset.lesson;const ts=LESSONS[n-1].tasks;const d=ts.filter(t=>S.tasks[t.id]).length;b.style.width=(d/ts.length*100)+'%';const c=$('#tcount');if(c)c.textContent=d+' من '+ts.length;}
+
+/* ---------- theme ---------- */
+function effectiveDark(){return S.theme?S.theme==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;}
+function applyTheme(){if(S.theme)document.documentElement.setAttribute('data-theme',S.theme);else document.documentElement.removeAttribute('data-theme');$('#themeBtn').textContent=effectiveDark()?'الوضع النهاري':'الوضع الليلي';}
+$('#themeBtn').addEventListener('click',()=>{S.theme=effectiveDark()?'light':'dark';save();applyTheme();window.dispatchEvent(new Event('themechange'));});
+
+/* ---------- hydrocarbon engine (names & drawings) ---------- */
+const STEM=['','ميث','إيث','بروب','بيوت','بنت','هكس','هبت','أوكت','نون','ديك'];
+const MULT=['','','ثنائي ','ثلاثي ','رباعي '];
+const SUBN={e:'إيثيل',m:'ميثيل'};
+function parentName(n,bond,cyc){const st=STEM[n];if(cyc)return st+'ان حلقي';if(!bond)return st+'ان';const suf=bond.o===2?'ين':'اين';return (n>=4?bond.p+'-':'')+st+suf;}
+function lexLess(a,b){for(let i=0;i<Math.min(a.length,b.length);i++){if(a[i]!==b[i])return a[i]<b[i];}return false;}
+function chainName(n,subs=[],bond=null){
+  const opt=rev=>{const P=p=>rev?n+1-p:p;const s=subs.map(x=>({p:P(x.p),t:x.t}));const b=bond?{p:rev?n-bond.p:bond.p,o:bond.o}:null;return{s,b};};
+  const A=opt(false),B=opt(true);let pick=A;
+  const key=o=>[o.b?o.b.p:0].concat(o.s.map(x=>x.p).sort((a,b)=>a-b));
+  const kA=key(A),kB=key(B);
+  if(lexLess(kB,kA))pick=B;else if(!lexLess(kA,kB)){const eA=A.s.filter(x=>x.t==='e').map(x=>x.p).sort((a,b)=>a-b),eB=B.s.filter(x=>x.t==='e').map(x=>x.p).sort((a,b)=>a-b);if(lexLess(eB,eA))pick=B;}
+  const parts=['e','m'].map(t=>{const ps=pick.s.filter(x=>x.t===t).map(x=>x.p).sort((a,b)=>a-b);return ps.length?ps.join(',')+'-'+MULT[ps.length]+SUBN[t]:'';}).filter(Boolean);
+  const par=parentName(n,pick.b);return parts.length?parts.join('-')+(/^\d/.test(par)?'-':' ')+par:par;
+}
+function svgLabel(t,x,y,size=15,anchor='middle'){let out='';for(const m of t.matchAll(/([A-Za-z]+)|(\d+)|([^A-Za-z\d]+)/g)){if(m[2])out+=`<tspan font-size="${size*0.68}" dy="4">${m[2]}</tspan><tspan dy="-4"></tspan>`;else out+=(m[1]||m[3]).replace(/&/g,'&amp;');}return `<text x="${x}" y="${y}" text-anchor="${anchor}" font-size="${size}" font-weight="600" fill="currentColor" direction="ltr">${out}</text>`;}
+function hLab(h){return h===0?'C':h===1?'CH':'CH'+h;}
+function drawChain(n,subs=[],bond=null,opt={}){
+  const dx=opt.dx||72,W=Math.max(220,(n-1)*dx+90),x0=45,yM=95;const ord=i=>bond&&bond.p===i?bond.o:1;
+  const cnt=Array(n+1).fill(0);subs.forEach(s=>cnt[s.p]++);
+  let s=`<svg viewBox="0 0 ${W} 190" class="mol" role="img" aria-label="صيغة بنائية">`;
+  for(let i=1;i<n;i++){const xa=x0+(i-1)*dx+22,xb=x0+i*dx-22,o=ord(i);[...Array(o)].forEach((_,k)=>{const off=(k-(o-1)/2)*6;s+=`<line x1="${xa}" y1="${yM-5+off}" x2="${xb}" y2="${yM-5+off}" stroke="currentColor" stroke-width="2"/>`;});}
+  const used={};
+  for(let i=1;i<=n;i++){const nb=(i>1?ord(i-1):0)+(i<n?ord(i):0);const h=4-nb-cnt[i];s+=svgLabel(hLab(h),x0+(i-1)*dx,yM);}
+  subs.forEach(sb=>{const k=used[sb.p]=(used[sb.p]||0)+1;const up=k===1;const x=x0+(sb.p-1)*dx;const y1=up?yM-20:yM+6,y2=up?yM-44:yM+30;
+    s+=`<line x1="${x}" y1="${y1}" x2="${x}" y2="${y2}" stroke="currentColor" stroke-width="2"/>`;
+    if(sb.t==='m')s+=svgLabel('CH3',x,up?y2-6:y2+18);
+    else{s+=svgLabel('CH2',x,up?y2-6:y2+18);const y3=up?y2-22:y2+24,y4=up?y2-42:y2+44;s+=`<line x1="${x}" y1="${y3}" x2="${x}" y2="${y4}" stroke="currentColor" stroke-width="2"/>`+svgLabel('CH3',x,up?y4-6:y4+18);}});
+  let top=70,bot=110;Object.keys(used).forEach(p=>{const list=subs.filter(x=>x.p==+p);list.forEach((x,k)=>{if(k===0)top=Math.min(top,x.t==='e'?-30:28);else bot=Math.max(bot,x.t==='e'?222:152);});});
+  return s.replace('viewBox="0 0 '+W+' 190"',`viewBox="0 ${top} ${W} ${bot-top}"`)+'</svg>';
+}
+function molFormula(n,bond,cyc){const h=cyc?2*n:!bond?2*n+2:bond.o===2?2*n:2*n-2;return `C${n>1?n:''}H${h}`;}
+/* benzene ring */
+function ringName(subs){if(!subs.length)return 'بنزين';if(subs.length===1)return SUBN[subs[0].t]+' بنزين';
+  let best=null;for(let st=0;st<6;st++)for(const dir of[1,-1]){const s=subs.map(x=>({p:((dir*(x.p-st))%6+6)%6+1,t:x.t}));const key=s.map(x=>x.p).sort((a,b)=>a-b);const eK=s.filter(x=>x.t==='e').map(x=>x.p).sort((a,b)=>a-b);
+    if(!best||lexLess(key,best.key)||(!lexLess(best.key,key)&&lexLess(eK,best.eK)))best={s,key,eK};}
+  const parts=['e','m'].map(t=>{const ps=best.s.filter(x=>x.t===t).map(x=>x.p).sort((a,b)=>a-b);return ps.length?ps.join(',')+'-'+MULT[ps.length]+SUBN[t]:'';}).filter(Boolean);return parts.join('-')+' بنزين';}
+function drawRing(subs=[],mode='circle',sz=1){const cx=120,cy=110,R=48;const P=k=>[cx+R*Math.sin(k*Math.PI/3),cy-R*Math.cos(k*Math.PI/3)];
+  let s=`<svg viewBox="0 0 240 220" class="mol" role="img" aria-label="حلقة بنزين">`;
+  for(let k=0;k<6;k++){const a=P(k),b=P(k+1);s+=`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="currentColor" stroke-width="2.5"/>`;
+    if(mode!=='circle'&&((k%2===0)===(mode==='A'))){const ia=[cx+(a[0]-cx)*0.78,cy+(a[1]-cy)*0.78],ib=[cx+(b[0]-cx)*0.78,cy+(b[1]-cy)*0.78];s+=`<line x1="${ia[0]}" y1="${ia[1]}" x2="${ib[0]}" y2="${ib[1]}" stroke="currentColor" stroke-width="2.5"/>`;}}
+  if(mode==='circle')s+=`<circle cx="${cx}" cy="${cy}" r="${R*0.6}" fill="none" stroke="currentColor" stroke-width="2.5"/>`;
+  subs.forEach(x=>{const k=x.p-1,a=P(k),o=[cx+(a[0]-cx)*1.45,cy+(a[1]-cy)*1.45];s+=`<line x1="${a[0]}" y1="${a[1]}" x2="${cx+(a[0]-cx)*1.25}" y2="${cy+(a[1]-cy)*1.25}" stroke="currentColor" stroke-width="2"/>`+svgLabel(x.t==='m'?'CH3':'C2H5',o[0],o[1]+5,14);});
+  return s+'</svg>';}
+const MOL=(svg)=>`<div class="molbox">${svg}</div>`;
+/* cyclic structures with substituents */
+function cycSub(n,subs=[],dbls=[],opt={}){const cx=110,cy=100,R=n===3?48:n===4?44:48,off=n===4?-135:-90;const V=[...Array(n)].map((_,k)=>{const a=(off+k*360/n)*Math.PI/180;return[cx+R*Math.cos(a),cy+R*Math.sin(a)];});
+  let s=`<svg viewBox="0 0 220 200" class="mol" role="img" aria-label="مركب حلقي"><polygon points="${V.map(v=>v.join(',')).join(' ')}" fill="none" stroke="currentColor" stroke-width="2.5"/>`;
+  dbls.forEach(([i,j])=>{const a=V[i],b=V[j],ia=[cx+(a[0]-cx)*0.8,cy+(a[1]-cy)*0.8],ib=[cx+(b[0]-cx)*0.8,cy+(b[1]-cy)*0.8];s+=`<line x1="${ia[0]}" y1="${ia[1]}" x2="${ib[0]}" y2="${ib[1]}" stroke="currentColor" stroke-width="2.5"/>`;});
+  if(opt.circle)s+=`<circle cx="${cx}" cy="${cy}" r="${R*0.58}" fill="none" stroke="currentColor" stroke-width="2.3"/>`;
+  subs.forEach(([k,l])=>{const a=V[k],e=[cx+(a[0]-cx)*1.3,cy+(a[1]-cy)*1.3],o=[cx+(a[0]-cx)*1.62,cy+(a[1]-cy)*1.62];s+=`<line x1="${a[0]}" y1="${a[1]}" x2="${e[0]}" y2="${e[1]}" stroke="currentColor" stroke-width="2"/>`+svgLabel(l,o[0],o[1]+5,13);});
+  return s+'</svg>';}
+const OPT=svg=>`<span class="optsvg">${svg}</span>`;
+
+/* ---------- data ---------- */
+const TASK_FORM='https://forms.gle/Tnztn468TGjGRnXS9';
+const F=s=>`<span class="f">${s}</span>`;
+const LESSONS=[
+{n:1,code:'6-1',title:'البروتينات',en:'Proteins',c:'var(--cold)',
+ idea:'تؤدي البروتينات وظائف أساسية تشمل تنظيم التفاعلات الكيميائية الحيوية، والدعم البنائي، ونقل المواد، وتقلصات العضلات.',
+ blurb:'الأحماض الأمينية، الرابطة الببتيدية، تركيب البروتين ووظائفه، والإنزيمات.',
+ vocab:['البروتينات','الأحماض الأمينية','الرابطة الببتيدية','الببتيد','تغير الخواص الطبيعية','الإنزيم','المادة الخاضعة لفعل الإنزيم','الموقع النشط'],
+ learn:[
+  {i:'🧬',t:'البروتينات',s:'بوليمرات عضوية تتكون من أحماض أمينية مرتبطة معًا بترتيب معين، ويجب أن تُطوى في شكل ثلاثي الأبعاد محدد حتى تعمل.',ex:'شعر الإبل وعضلاته وجذور النباتات وأوراقها تتكون من بروتينات.'},
+  {i:'🔤',t:'الأحماض الأمينية',s:'جزيئات عضوية فيها ذرة كربون مركزية ترتبط بأربع مجموعات: مجموعة الأمين <span class="f">–NH2</span>، ومجموعة الكربوكسيل <span class="f">–COOH</span>، وذرة هيدروجين، وسلسلة جانبية متغيرة R.',ex:'الجلايسين أبسطها، وسلسلته الجانبية ذرة هيدروجين.'},
+  {i:'🔗',t:'الرابطة الببتيدية',s:'رابطة أميد تتكون بين مجموعة الكربوكسيل في حمض أميني ومجموعة الأمين في حمض أميني آخر، بتفاعل تكثف يخرج فيه جزيء ماء.',ex:'سلسلة الأحماض الأمينية تسمى ببتيدًا، والطويلة عديد الببتيد.'},
+  {i:'🔥',t:'تغير الخواص الطبيعية',s:'تفقد البروتينات شكلها الثلاثي الأبعاد عند تغيير الحرارة أو الحموضة، فتفقد وظيفتها.',ex:'بياض البيض يتغير عند طهيه ولا يعود سائلًا.'},
+  {i:'⚙️',t:'الإنزيمات',s:'بروتينات تسرّع التفاعلات الكيميائية الحيوية. ترتبط المادة الخاضعة لفعل الإنزيم بجزء منه يسمى الموقع النشط.',ex:'الببسين إنزيم في المعدة يسرّع هضم البروتينات.'},
+  {i:'📦',t:'وظائف أخرى للبروتينات',s:'النقل مثل الهيموجلوبين الذي ينقل الأكسجين، والدعم البنائي مثل الكولاجين والكيراتين، والإشارات الخلوية مثل الهرمونات كالأنسولين.',ex:'الأنسولين هرمون بروتيني صغير تنتجه خلايا البنكرياس.'}],
+ tasks:[{id:'l1-aa',t:'تعرّفي على أجزاء الحمض الأميني'},{id:'l1-pep',t:'كوّني بروتينًا من 50 حمضًا أمينيًا'},{id:'l1-enz',t:'شغّلي الإنزيم ثم سخّنيه وفسّري ما حدث'},{id:'l1-fun',t:'استكشفي الوظائف الأربع للبروتينات'}],
+ groups:[{sim:'aaBuilder',cards:[0,1]},{sim:'peptideLab',cards:[2,3],maps:['protMap']},{sim:'enzymeSim',cards:[4]},{sim:'protTable',cards:[5]}],game:'g1'},
+{n:2,code:'6-2',title:'الكربوهيدرات',en:'Carbohydrates',c:'var(--mid)',
+ idea:'تزود الكربوهيدرات المخلوقات الحية بالطاقة والمواد البنائية.',
+ blurb:'السكريات الأحادية والثنائية وعديدة التسكر، وتراكيبها ووظائفها.',
+ vocab:['الكربوهيدرات','السكريات الأحادية','السكريات الثنائية','السكريات عديدة التسكر'],
+ learn:[
+  {i:'🍞',t:'الكربوهيدرات',s:'مركبات عضوية تحتوي عدة مجموعات هيدروكسيل <span class="f">–OH</span> ومجموعة كربونيل <span class="f">C=O</span>، وصيغتها العامة <span class="f">Cn(H2O)n</span>. وظيفتها الرئيسة أنها مصدر للطاقة المختزنة.',ex:'الحليب والفواكه والخبز والبطاطس أغذية غنية بالكربوهيدرات.'},
+  {i:'🍬',t:'السكريات الأحادية',s:'أبسط الكربوهيدرات، فيها غالبًا خمس أو ست ذرات كربون. تذوب في الماء لكثرة مجموعاتها القطبية، وتوجد بشكل السلسلة المفتوح والشكل الحلقي.',ex:'الجلوكوز والجالاكتوز (ألدهيدات)، والفركتوز (كيتون).'},
+  {i:'🍭',t:'السكريات الثنائية',s:'تتكون من اتحاد سكرين أحاديين بتفاعل تكثف يخرج فيه جزيء ماء.',ex:'السكروز (سكر المائدة) = جلوكوز + فركتوز، واللاكتوز (سكر الحليب) = جلوكوز + جالاكتوز.'},
+  {i:'🌾',t:'السكريات عديدة التسكر',s:'بوليمرات تتكون من ارتباط وحدات كثيرة من السكريات الأحادية، غالبًا الجلوكوز.',ex:'النشا مخزن الطاقة في النبات، والجلايكوجين في الكبد والعضلات، والسليلوز يبني جدار الخلية النباتية ولا يهضمه الإنسان.'}],
+ tasks:[{id:'l2-tab',t:'قارني أنواع السكريات في الجدول التفاعلي'},{id:'l2-bond',t:'كوّني السكريات الثنائية الثلاثة'},{id:'l2-poly',t:'قارني تراكيب النشا والجلايكوجين والسليلوز'}],
+ groups:[{sim:'sugarTable',cards:[0,1],maps:['carbMap6']},{sim:'sugarLab',cards:[2]},{sim:'polySugar',cards:[3]}],game:'g2'},
+{n:3,code:'6-3',title:'الليبيدات',en:'Lipids',c:'#B45AA6',
+ idea:'تكوّن الليبيدات الأغشية الخلوية، وتختزن الطاقة، وتنظم العمليات الخلوية.',
+ blurb:'الأحماض الدهنية، الجليسريدات الثلاثية والتصبن، الليبيدات الفوسفورية، الشموع، والستيرويدات.',
+ vocab:['الليبيدات','الأحماض الدهنية','الجليسريدات الثلاثية','التصبن','الليبيدات الفوسفورية','الشموع','الستيرويدات'],
+ learn:[
+  {i:'🧈',t:'الليبيدات',s:'جزيئات حيوية كبيرة غير قطبية لا تذوب في الماء. تختزن الطاقة وتكوّن معظم تركيب الأغشية الخلوية، وهي ليست بوليمرات.',ex:'الشمع والدهن الذي يقطر من اللحم المشوي وفيتامين (د) كلها ليبيدات.'},
+  {i:'〰️',t:'الأحماض الدهنية',s:'أحماض كربوكسيلية ذات سلاسل طويلة <span class="f">CH3(CH2)nCOOH</span>، فيها غالبًا 12 إلى 24 ذرة كربون. المشبعة بلا روابط ثنائية، وغير المشبعة فيها رابطة ثنائية أو أكثر.',ex:'حمض الأولييك غير مشبع، وحمض الستيريك مشبع، ولكل منهما 18 ذرة كربون.'},
+  {i:'🔱',t:'الجليسريدات الثلاثية',s:'ثلاثة أحماض دهنية مرتبطة بجليسرول بروابط إستر. الدهون الصلبة غنية بالأحماض المشبعة، والزيوت السائلة بغير المشبعة.',ex:'تخزن الحيوانات الطاقة في صورة دهون.'},
+  {i:'🧼',t:'التصبن',s:'تميؤ الجليسريد الثلاثي بمحلول قاعدة قوية، فتتكون أملاح الكربوكسيلات (الصابون) والجليسرول.',ex:'أملاح الصوديوم مع الأحماض الدهنية تكوّن الصابون.'},
+  {i:'🫧',t:'الليبيدات الفوسفورية',s:'جليسريدات ثلاثية استُبدل فيها أحد الأحماض الدهنية بمجموعة فوسفات قطبية، فيصبح للجزيء رأس قطبي وذيلان غير قطبيين. تكوّن طبقتي الغشاء الخلوي.',ex:'الغشاء الخلوي طبقتان من الليبيدات الفوسفورية.'},
+  {i:'🕯️',t:'الشموع والستيرويدات',s:'الشموع تتكون من حمض دهني مرتبط بكحول ذي سلسلة طويلة. والستيرويدات ليبيدات تحتوي أربع حلقات ملتحمة.',ex:'الكولسترول ستيرويد يعمل مكونًا بنائيًا مهمًا للأغشية الخلوية، ومنها هرمونات وفيتامين (د)، وسم العلجوم البحري العملاق.'}],
+ tasks:[{id:'l3-tab',t:'قارني أنواع الليبيدات الأربعة في الجدول التفاعلي'},{id:'l3-fa',t:'قارني الأحماض الدهنية المشبعة وغير المشبعة وهدرجيها'},{id:'l3-soap',t:'حضّري الصابون في المختبر الافتراضي'}],
+ groups:[{sim:'lipidTable',cards:[0,4,5],maps:['lipidMap']},{sim:'fattyAcid',cards:[1,2],maps:['triCompare']},{sim:'soapLab',cards:[3]}],game:'g3'},
+{n:4,code:'6-4',title:'الأحماض النووية',en:'Nucleic Acids',c:'var(--hot)',
+ idea:'تخزن الأحماض النووية المعلومات الوراثية وتنقلها.',
+ blurb:'النيوكليوتيدات، تركيب DNA ولولبه المزدوج، أزواج القواعد، و RNA.',
+ vocab:['الحمض النووي','النيوكليوتيد'],
+ learn:[
+  {i:'🧬',t:'الحمض النووي',s:'بوليمر حيوي يحتوي على النيتروجين، يخزن المعلومات الوراثية وينقلها. أخذ اسمه من النواة التي يوجد فيها.',ex:'فحص DNA يُستعمل في الطب والعلم الجنائي والأنساب والتعرف على ضحايا الكوارث.'},
+  {i:'🧩',t:'النيوكليوتيد',s:'وحدة البناء الأساسية للحمض النووي، ولها ثلاثة أجزاء: مجموعة فوسفات، وسكر خماسي (بنتوز)، وقاعدة نيتروجينية.',ex:'يرتبط سكر نيوكليوتيد بفوسفات النيوكليوتيد التالي فتتكون سلسلة.'},
+  {i:'🌀',t:'DNA: اللولب المزدوج',s:'سلسلتان طويلتان من النيوكليوتيدات ملتفتان حلزونيًا. العمود الفقري سكر ديوكسي رايبوز وفوسفات، والقواعد في الداخل: الأدينين A، والثايمين T، والسايتوسين C، والجوانين G.',ex:'يشبه السلم الملتوي أو السحاب المنزلق.'},
+  {i:'🤝',t:'أزواج القواعد',s:'ترتبط القواعد بروابط هيدروجينية: الجوانين دائمًا مع السايتوسين G-C، والأدينين دائمًا مع الثايمين A-T.',ex:'كمية الأدينين تساوي كمية الثايمين، وكمية الجوانين تساوي كمية السايتوسين.'},
+  {i:'📜',t:'RNA',s:'شريط واحد من النيوكليوتيدات، سكره رايبوز، ويحل فيه اليوراسيل U محل الثايمين. ينقل المعلومات الوراثية من DNA لصنع البروتينات.',ex:'في RNA يرتبط الأدينين مع اليوراسيل A-U.'}],
+ tasks:[{id:'l4-nuc',t:'ابني نيوكليوتيدًا لكل من DNA و RNA'},{id:'l4-dna',t:'أكملي شريط DNA المقابل'},{id:'l4-rna',t:'انسخي شريط RNA'},{id:'l4-tab',t:'قارني DNA و RNA في الجدول التفاعلي'}],
+ groups:[{sim:'nucBuilder',cards:[0,1],after:['helix']},{sim:'dnaPair',cards:[2,3]},{sim:'dnaRnaTable',cards:[4],maps:['nucMap']}],game:'g4'}
+];
+const BADGES=[['l1','🧬','خبيرة البروتينات'],['l2','🍬','سيدة السكريات'],['l3','🧈','عالمة الليبيدات'],['l4','🌀','حارسة الشفرة'],['final','🏆','بطلة التحصيلي']];
+const QUIZ={
+1:[
+ {q:'الوحدات البنائية للبروتينات:',o:['الأحماض الأمينية','السكريات الأحادية','الأحماض الدهنية','النيوكليوتيدات'],a:0,e:'البروتينات بوليمرات من أحماض أمينية.'},
+ {q:'المجموعتان الوظيفيتان في الحمض الأميني:',o:['الأمين والكربوكسيل','الهيدروكسيل والكربونيل','الأمين والهيدروكسيل','الكربونيل والكربوكسيل'],a:0,e:'إضافة إلى ذرة H والسلسلة الجانبية R.'},
+ {q:'تتكون الرابطة الببتيدية بتفاعل:',o:['تكثف','إضافة','حذف','أكسدة'],a:0,e:'يخرج جزيء ماء.'},
+ {q:'عدد جزيئات الماء الناتجة عند تكوين ببتيد من 5 أحماض أمينية:',o:['4','5','6','10'],a:0,e:'كل رابطة ببتيدية يخرج معها جزيء ماء، والروابط = 5 − 1.'},
+ {q:'الموقع الذي ترتبط به المادة الخاضعة لفعل الإنزيم:',o:['الموقع النشط','الرابطة الببتيدية','السلسلة الجانبية','النيوكليوتيد'],a:0,e:'تعريف الموقع النشط.'},
+ {q:'الهيموجلوبين بروتين وظيفته:',o:['النقل','الدعم البنائي','الإشارات الخلوية','تسريع التفاعلات'],a:0,e:'ينقل الأكسجين في الدم.'},
+ {q:'يُعد الكولاجين بروتينًا:',o:['بنائيًا','ناقلًا','هرمونيًا','إنزيميًا'],a:0,e:'جزء من الجلد والأوتار والأربطة.'},
+ {q:'عند تسخين الإنزيم إلى درجة حرارة عالية:',o:['يتغير شكله ويفقد وظيفته','تزداد سرعته دون حد','لا يتأثر','يتحول إلى كربوهيدرات'],a:0,e:'تغير الخواص الطبيعية.'}],
+2:[
+ {q:'الصيغة العامة للكربوهيدرات:',o:['Cn(H2O)n','CnH2n+2','CH3(CH2)nCOOH','CnH2n'],a:0,e:'تبدو كأنها هيدرات للكربون.'},
+ {q:'أي مما يأتي سكر أحادي؟',o:['الفركتوز','السكروز','النشا','اللاكتوز'],a:0,e:'الجلوكوز والفركتوز والجالاكتوز سكريات أحادية.'},
+ {q:'السكروز يتكون من اتحاد:',o:['جلوكوز وفركتوز','جلوكوز وجالاكتوز','جلوكوز وجلوكوز','فركتوز وجالاكتوز'],a:0,e:'سكر المائدة.'},
+ {q:'اللاكتوز (سكر الحليب) يتكون من:',o:['جلوكوز وجالاكتوز','جلوكوز وفركتوز','جلوكوز وجلوكوز','نشا وسليلوز'],a:0,e:'سكر ثنائي.'},
+ {q:'تفاعل اتحاد سكرين أحاديين وخروج الماء:',o:['تكثف','تصبن','هدرجة','حذف'],a:0,e:'يتكون سكر ثنائي.'},
+ {q:'مخزن الطاقة في الكبد والعضلات:',o:['الجلايكوجين','النشا','السليلوز','السكروز'],a:0,e:'عديد تسكر حيواني.'},
+ {q:'السكر عديد التسكر الذي لا يستطيع الإنسان هضمه:',o:['السليلوز','النشا','الجلايكوجين','المالتوز'],a:0,e:'يبني جدار الخلية النباتية.'},
+ {q:'المجموعة الوظيفية المميزة في الفركتوز:',o:['كربونيل كيتون','كربونيل ألدهيد','كربوكسيل','أمين'],a:0,e:'الفركتوز كيتون، والجلوكوز ألدهيد.'}],
+3:[
+ {q:'الليبيدات لا تذوب في الماء لأنها:',o:['غير قطبية','قطبية جدًا','أيونية','بوليمرات'],a:0,e:'الشبيه يذيب الشبيه.'},
+ {q:'الحمض الدهني غير المشبع يحتوي على:',o:['رابطة ثنائية أو أكثر بين ذرات الكربون','روابط أحادية فقط','مجموعة أمين','حلقات متعددة'],a:0,e:'مثل حمض الأولييك.'},
+ {q:'يتكون الجليسريد الثلاثي من:',o:['جليسرول وثلاثة أحماض دهنية','ثلاث وحدات جلوكوز','جليسرول ومجموعة فوسفات فقط','أربع حلقات ملتحمة'],a:0,e:'روابط إستر.'},
+ {q:'نواتج تصبن الجليسريد الثلاثي بهيدروكسيد الصوديوم:',o:['صابون وجليسرول','جلوكوز وماء','أحماض أمينية','كولسترول'],a:0,e:'أملاح الكربوكسيلات هي الصابون.'},
+ {q:'الليبيدات التي تكوّن طبقتي الغشاء الخلوي:',o:['الليبيدات الفوسفورية','الشموع','الستيرويدات','الجليسريدات الثلاثية'],a:0,e:'رأس قطبي وذيلان غير قطبيين.'},
+ {q:'ليبيدات تحتوي تراكيبها أربع حلقات ملتحمة:',o:['الستيرويدات','الشموع','الأحماض الدهنية','الليبيدات الفوسفورية'],a:0,e:'مثل الكولسترول.'},
+ {q:'تتكون الشموع من:',o:['حمض دهني وكحول ذي سلسلة طويلة','جليسرول وفوسفات','أحماض أمينية','سكريات'],a:0,e:'تعريف الشموع.'},
+ {q:'هدرجة حمض الأولييك تحوّله إلى حمض:',o:['مشبع','غير مشبع أكثر','أميني','نووي'],a:0,e:'تُضاف ذرات الهيدروجين إلى الرابطة الثنائية.'}],
+4:[
+ {q:'وظيفة الأحماض النووية:',o:['تخزين المعلومات الوراثية ونقلها','تخزين الطاقة','الدعم البنائي','تسريع التفاعلات'],a:0,e:'الفكرة الرئيسة للدرس.'},
+ {q:'أجزاء النيوكليوتيد:',o:['فوسفات وسكر خماسي وقاعدة نيتروجينية','جليسرول وثلاثة أحماض دهنية','أمين وكربوكسيل و R','جلوكوز وفركتوز'],a:0,e:'وحدة بناء الحمض النووي.'},
+ {q:'يرتبط الأدينين في DNA دائمًا مع:',o:['الثايمين','الجوانين','السايتوسين','اليوراسيل'],a:0,e:'A-T.'},
+ {q:'يرتبط الجوانين دائمًا مع:',o:['السايتوسين','الأدينين','الثايمين','اليوراسيل'],a:0,e:'G-C.'},
+ {q:'القاعدة التي يستبدلها RNA باليوراسيل:',o:['الثايمين','الأدينين','الجوانين','السايتوسين'],a:0,e:'U بدل T.'},
+ {q:'السكر في DNA:',o:['ديوكسي رايبوز','رايبوز','جلوكوز','فركتوز'],a:0,e:'سكر خماسي منقوص الأكسجين.'},
+ {q:'الشريط المقابل للتسلسل <span class="f ltr">A-T-G-C</span> في DNA:',o:['T-A-C-G','A-T-G-C','U-A-C-G','G-C-A-T'],a:0,e:'A مع T و G مع C.'},
+ {q:'ترتبط القواعد النيتروجينية على الشريطين بروابط:',o:['هيدروجينية','أيونية','ببتيدية','فلزية'],a:0,e:'تتقارب أزواج القواعد فتتكون بينها روابط هيدروجينية.'}]
+};
+
+function steroidSVG(){const hex=(cx,cy,r)=>[...Array(6)].map((_,k)=>{const a=(30+k*60)*Math.PI/180;return [cx+r*Math.cos(a),cy+r*Math.sin(a)];});const R=28,h=R*Math.sqrt(3)/2;
+  const A=hex(50,110,R),B=hex(50+2*h,110,R),C=hex(50+3*h,110-1.5*R,R);const pent=[...Array(5)].map((_,k)=>{const a=(-18+k*72)*Math.PI/180+Math.PI;return [50+4.9*h+24*Math.cos(a+Math.PI),110-1.9*R+24*Math.sin(a+Math.PI)];});
+  const poly=p=>`<polygon points="${p.map(q=>q.map(v=>v.toFixed(1)).join(',')).join(' ')}" fill="none" stroke="currentColor" stroke-width="2.5"/>`;
+  return `<svg viewBox="0 0 260 170" class="mol" role="img" aria-label="أربع حلقات ملتحمة">${poly(A)}${poly(B)}${poly(C)}<polygon points="${[C[0],C[5]].map(q=>q.join(',')).join(' ')} ${(C[5][0]+30).toFixed(1)},${(C[5][1]-8).toFixed(1)} ${(C[0][0]+38).toFixed(1)},${(C[0][1]+14).toFixed(1)} ${(C[0][0]+20).toFixed(1)},${(C[0][1]+30).toFixed(1)}" fill="none" stroke="currentColor" stroke-width="2.5"/></svg>`;}
+function helixSVG(t=0,w=300,h=200,pairs){const P=pairs||['A','T','G','C','C','G','T','A','G','C','A','T'];const col={A:'#DE4527',T:'#E3B23C',G:'#1FAE7A',C:'#2763D8',U:'#B45AA6'};const comp={A:'T',T:'A',G:'C',C:'G'};let s=`<svg viewBox="0 0 ${w} ${h}" class="mol" role="img" aria-label="لولب DNA المزدوج">`;const n=P.length,dx=(w-40)/(n-1);
+  const y1=x=>h/2+(h*0.35)*Math.sin(x/38+t),y2=x=>h/2-(h*0.35)*Math.sin(x/38+t);
+  P.forEach((b,i)=>{const x=20+i*dx,a=y1(x),c=y2(x),m=(a+c)/2;s+=`<line x1="${x}" y1="${a}" x2="${x}" y2="${m}" stroke="${col[b]}" stroke-width="5"/><line x1="${x}" y1="${m}" x2="${x}" y2="${c}" stroke="${col[comp[b]]}" stroke-width="5"/>`;});
+  let d1='',d2='';for(let x=20;x<=w-20;x+=4){d1+=(x===20?'M':'L')+x+' '+y1(x).toFixed(1);d2+=(x===20?'M':'L')+x+' '+y2(x).toFixed(1);}
+  return s+`<path d="${d1}" fill="none" stroke="#3B7BFF" stroke-width="6" stroke-linecap="round"/><path d="${d2}" fill="none" stroke="#1d4fb8" stroke-width="6" stroke-linecap="round"/></svg>`;}
+const T=(y,q,o,a,e)=>({y,q,o,a,e:e||''});
+const TAH=[
+T('2023','تفاعل تكوين البروتينات هو:',['تكثف','استبدال','اختزال','أكسدة'],0,'تتكون الرابطة الببتيدية مع خروج جزيء ماء.'),
+T('2023','يُعتبر الهيموجلوبين بروتين:',['نقل','دعم بنائي','اتصال','تسريع التفاعل'],0,'ينقل الأكسجين في الدم.'),
+T('2024','نوع الرابطة بين الأحماض الأمينية عندما ترتبط معًا:',['فلزية','إيثرية','ببتيدية','أيونية'],2,'الرابطة الببتيدية.'),
+T('2025','ما البوليمرات الحيوية التي تتكون من أحماض أمينية ترتبط بروابط ببتيدية؟',['الجليسريدات','البروتينات','الأحماض النووية','الستيرويدات'],1,'تعريف البروتينات.'),
+T('2021','موقع ارتباط المادة المتفاعلة مع الإنزيم يُسمى:',['طاقة التنشيط','المحفز','الموقع النشط','النيوكليوتيد'],2,'الموقع النشط.'),
+T('2021','تتكون من اتحاد مجموعة كربوكسيل من حمض أميني مع مجموعة أمين من حمض آخر:',['الرابطة الببتيدية','الرابطة التساهمية','الرابطة الإيثرية','الرابطة الهيدروجينية'],0,'رابطة أميد بين حمضين أمينيين.'),
+T('2024','ما وحدات البناء الأساسية للبروتين؟',['الأحماض الكربوكسيلية','الأميدات','الأمينات','الأحماض الأمينية'],3,'البروتين بوليمر من أحماض أمينية.'),
+T('2024','تتكون الوحدات البنائية البروتينية التي نشأت منها أجسام المخلوقات الحية من:',['سكريات أحادية','أحماض دهنية','أحماض أمينية','مواد غازية'],2,'الأحماض الأمينية.'),
+T('2024','الحمض الأميني يحوي مجموعتين وظيفيتين هما:',['أمين وكربونيل','أمين وكربوكسيل','كربونيل وكربوكسيل','أمين وهيدروكسيل'],1,'–NH2 و –COOH.'),
+T('2024','يُتوقع أن تتكون الإنزيمات من:',['أحماض نووية','أحماض أمينية','أحماض دهنية','جليسرين'],1,'الإنزيمات بروتينات.'),
+T('2023','جزيء الأنسولين هرمون:',['دهني','بروتيني','سكري','جنسي'],1,'هرمون بروتيني تنتجه خلايا البنكرياس.'),
+T('2023','محفز حيوي يزيد من سرعة التفاعل الكيميائي:',['الهرمون','الإنزيم','البروتين','الكولسترول'],1,'الإنزيمات محفزات حيوية.'),
+T('2023','تتكون الرابطة الببتيدية بتفاعل:',['إضافة','استبدال','تكثف','إحلال'],2,'ملاحظة الملف: إذا لم يوجد خيار «تكثف» فالإجابة «استبدال».'),
+T('2024','أي الجزيئات يوجد بكثرة في اللحوم؟',['أحماض دهنية','أحماض أمينية','جليسرول','جلوكاجون'],1,'اللحوم غنية بالبروتينات.'),
+T('2024','أي الخيارات التالية يعد وصفًا صحيحًا لوظيفة الأحماض الأمينية (البروتينات)؟',['تخزين الطاقة – توفير دعم تركيبي','تخزين الطاقة – تشكل حواجز','نقل المواد – زيادة سرعة التفاعل – تكوين الهرمونات','تخزين المعلومات الوراثية ونقلها'],2,'وظائف البروتينات.'),
+T('2025','عندما يصل طول السلسلة إلى 50 حمضًا أمينيًا فأكثر فإنه يُسمى:',['ببتيد','عديد الببتيد','بروتين','دهون'],2,'السلاسل الطويلة جدًا بروتينات.'),
+T('2025','أي المواد التالية لا تحوي حمضًا دهنيًا؟',['الشمع','الزيوت','الدهون','الهيموجلوبين'],3,'الهيموجلوبين بروتين.'),
+T('2021','ما الناتج الثانوي عندما يتحد حمض أميني مع حمض أميني آخر؟',['H2O','CH3','CO2','CO'],0,'تفاعل تكثف.'),
+T('2023','أي الكربوهيدرات التالية يُصنف عديد التسكر؟',['السكروز','السليلوز','الفركتوز','اللاكتوز'],1,'السليلوز بوليمر من الجلوكوز.'),
+T('2024','من السكريات الأحادية:',['الجلوكوز','السكروز','اللاكتوز','السليلوز'],0,'سكر بسيط.'),
+T('2024','من السكريات الثنائية:',['السكروز','السليلوز','النشا','الفركتوز'],0,'جلوكوز + فركتوز.'),
+T('2021','أي التالي يُعد من الكربوهيدرات ثنائية التسكر؟',['النشا','السليلوز','السكروز','الفركتوز'],2,'سكر المائدة.'),
+T('2021','عند اتحاد الجلوكوز مع الفركتوز تحصل على:',['المالتوز','السكروز','النشا','الجلايكوجين'],1,'السكروز.'),
+T('2023','من أمثلة السكريات عديدة التسكر:',['النشا والسليلوز','النشا والجالاكتوز','النشا والسكروز','النشا والجلوكوز'],0,'كلاهما بوليمر.'),
+T('2024','النشا من السكريات:',['الأحادية','العديدة','عبارة عن بروتين','الثنائية'],1,'بوليمر من الجلوكوز.'),
+T('2025','الروابط في الكربوهيدرات:',['تساهمية','أيونية','تشتت','هيدروجينية'],0,'روابط بين ذرات C و H و O.'),
+T('2025','عند اتحاد سكر أحادي مع سكر أحادي آخر ينتج سكر ثنائي ويُطلق الماء، ماذا يُسمى هذا التفاعل؟',['تكوين','تفكك','تكثف','دهون'],2,'تفاعل تكثف.'),
+T('2023','ارتباط جزيئات جلوكوز عديدة يشكّل:',['السكروز','المالتوز','النشا','الفركتوز'],2,'عديد تسكر.'),
+T('2023','يُصنف السكروز بأنه:',['سكر أحادي','سكر ثنائي','عديد التسكر','غير عضوي'],1,'من وحدتين.'),
+T('2024','يُنتج السكروز عن:',['جلوكوز + فركتوز','سليلوز + نشا','نشا + فركتوز','سليلوز + جلوكوز'],0,'سكر ثنائي.'),
+T('2024','أي التالي يُستخدم مع محلول قاعدة قوية في عملية إنتاج الصابون (التصبن)؟',['الستيرويد','الليبيد','الجليسريد الثلاثي','البروتين'],2,'التصبن.'),
+T('2024','تفاعل الجليسريد الثلاثي مع محلول قاعدة قوية لتكوين أملاح الكربوكسيلات والجليسرول:',['التكثف','التصبن','أكسدة الجليسريد الثلاثي','الحذف'],1,'تعريف التصبن.'),
+T('مبكر 25','تُعد الشموع من:',['الإسترات','الليبيدات','البوليمرات','الألدهيدات'],1,'من أنواع الليبيدات.'),
+T('2024','في تفاعل التصبن يحدث تميؤ لـ:',['الجليسريد الثلاثي','البروتين','الأحماض الدهنية','الستيرويد'],0,'تتكسر روابط الإستر.'),
+T('2024','المركب الآتي يُعد من الدهون: '+F('CH3CH2CH2CH2CH2COOH'),['المشبعة','غير المشبعة','المفسفرة','عديدة التشبع'],0,'كل الروابط بين ذرات الكربون أحادية.'),
+T('2023','الأحماض الدهنية غير المشبعة تحوي روابط ...... أو أكثر بين ذرات الكربون:',['أحادية','ثنائية','ثلاثية','رباعية'],1,'رابطة ثنائية أو أكثر.'),
+T('2024','أي القواعد النيتروجينية التالية يتم استبدالها باليوراسيل في RNA؟',['الأدنين','الثايمين','الجوانين','السايتوسين'],1,'U بدل T.'),
+T('2024','أي الخيارات الآتية يعتبر صحيحًا لارتباط القواعد النيتروجينية مع بعضها؟',['C-G , A-T','T-G , A-C','C-T , A-G','C-U , A-G'],0,'G مع C و A مع T.'),
+T('2024','وظيفة الأحماض النووية:',['تخزين المعلومات الوراثية ونقلها','تخزين الطاقة','تنظيم عملية الإخراج','المحافظة على حرارة الجسم'],0,'الفكرة الرئيسة.'),
+T('مبكر 25','المبلمر الحيوي الذي يحتوي على النيتروجين، ويقوم بتخزين المعلومات الوراثية ونقلها هو الحمض:',['الكربوكسيلي','الأميني','الدهني','النووي'],3,'تعريف الحمض النووي.'),
+T('2023','الشكل يمثل تركيب:'+MOL(helixSVG(0.6,300,170)),['DNA','RNA','ليبيدات','أحماض أمينية'],0,'سلسلتان ملتفتان حلزونيًا (لولب مزدوج).'),
+T('--','بروتين بنائي يُعد جزءًا من الجلد والأوتار والأربطة:',['الأنسولين','الكولاجين','الكيراتين','الهيموجلوبين'],1,'بروتين بنائي.'),
+T('--','أي مما يأتي ليس بروتينًا؟',['الأنسولين','هرمون النمو','جليسرول','الببسين'],2,'الجليسرول كحول.'),
+T('--','عنصر النيتروجين يوجد في:',['البروتينات','الكربوهيدرات','الدهون','السكريات'],0,'في مجموعة الأمين.'),
+T('--','هرمون بروتيني صغير تنتجه بعض خلايا البنكرياس:',['الكولاجين','الأنسولين','الهيموجلوبين','الكيراتين'],1,'الأنسولين.'),
+T('--','عند إجرائك التحليل الكيميائي للإنزيمات ستجد أنها مكونة من وحدات تسمى:',['الجليسرين','أحماض دهنية','أحماض نووية','أحماض أمينية'],3,'الإنزيمات بروتينات.'),
+T('2020','السليلوز مبلمر ضخم يتكون من جزيئات صغيرة (مونومرات) هي:',['الجالاكتوز','الفركتوز','الجلوكوز','السكروز'],2,'وحدات جلوكوز.'),
+T('--','ينتج عن التفاعل التالي: ...... ← جزيء فركتوز + جزيء جلوكوز',['سكروز','لاكتوز','سليلوز','مالتوز'],0,'تميؤ السكروز.'),
+T('--','أي الآتي صلب ويرتبط برابطة إيثرية؟',['جالاكتوز','فركتوز','جلوكوز','سكروز'],3,'وحدتا السكروز ترتبطان بذرة أكسجين (رابطة إيثرية).'),
+T('2020','المجموعة الوظيفية المميزة في سكر الفركتوز:',['الكربونيل','الإستر','الهيدروكسيل','الكربوكسيل'],0,'الفركتوز كيتون.'),
+T('--','ما المركب المسؤول عن تخزين الطاقة في الكبد؟',['النشا','السليلوز','اللاكتوز','الجلايكوجين'],3,'عديد تسكر حيواني.'),
+T('2020','الصيغة العامة للكربوهيدرات:',['(CHO)n','(CHO2)n','(CH2O)n','(C2HO)n'],2,'Cn(H2O)n.'),
+T('--','مركبات عضوية تُعد مصدرًا للطاقة المختزنة في الجسم:',['الهيدروكربونات','الهرمونات','الإنزيمات','الكربوهيدرات'],3,'الوظيفة الرئيسة للكربوهيدرات.'),
+T('--','أي السكريات التالية يوجد في نبات الجرجير ويصعب هضمه؟',['الجلوكوز','السكروز','الجلايكوجين','السليلوز'],3,'الإنسان لا يهضم السليلوز.'),
+T('--','الفركتوز من السكريات:',['الرباعية','الثلاثية','الثنائية','الأحادية'],3,'سكر بسيط.'),
+T('--','المجموعة الوظيفية المميزة في سكر الفركتوز:',['كربونيل ألدهيد','كربونيل كيتون','هيدروكسيد كحول','كربوكسيل أميد'],1,'الكربونيل في وسط السلسلة.'),
+T('--','الاسم العلمي لسكر الحليب:',['السكروز','الجلوكوز','اللاكتوز','الجالاكتوز'],2,'جلوكوز + جالاكتوز.'),
+T('--','الصيغة '+F('CH3(CH2)xCOO(CH2)yCH3')+' توجد في تركيب:',['الستيرويدات','الشموع','الجليسريدات الثلاثية','الليبيدات الفوسفورية'],1,'حمض دهني مرتبط بكحول طويل السلسلة.'),
+T('--','ليبيدات تتكون من اتحاد حمض دهني مع كحول ذي سلسلة طويلة:',['البروتينات','الجليسريدات','الشموع','الستيرويدات'],2,'تعريف الشموع.'),
+T('-','ليبيدات تحوي تراكيبها حلقات متعددة:',['الببتيدات','البروتينات','الأحماض الدهنية','الستيرويدات'],3,'أربع حلقات ملتحمة.'),
+T('--','المركب '+F('CH3(CH2)8COOH')+' يُعد من الدهون:',['المشبعة','غير المشبعة','المفسفرة','عديدة التشبع'],0,'لا توجد روابط ثنائية.'),
+T('--','أملاح الصوديوم مع الأحماض الدهنية يكوّنان:',['الليبيدات','الصابون','الستيرويدات','الجليسريدات'],1,'ناتج التصبن.'),
+T('--','جليسريدات ثلاثية استُبدل فيها أحد الأحماض الدهنية بمجموعة فوسفات قطبية:',['الإسترات','الستيرويدات','البروتينات','الليبيدات الفوسفورية'],3,'تعريف الليبيدات الفوسفورية.'),
+T('--','تكوّن معظم تركيب الأغشية الخلوية:',['الليبيدات','البروتينات','الأحماض النووية','السكريات الأحادية'],0,'الليبيدات الفوسفورية.'),
+T('--','الكولسترول من أمثلة:',['الدهون المفسفرة','الدهون غير المشبعة','الستيرويدات','الأحماض الأمينية'],2,'ستيرويد.'),
+T('--','الشكل الآتي يوجد في تركيب:'+MOL(steroidSVG()),['الستيرويدات','الشموع','الجليسريدات الثلاثية','الليبيدات الفوسفورية'],0,'أربع حلقات ملتحمة.'),
+T('--','الدهون تحتوي على:',['جليسرول','أملاح','أحماض أمينية','بروتينات'],0,'الجليسريد الثلاثي = جليسرول + 3 أحماض دهنية.'),
+T('--','ستيرويد يعمل مكونًا بنائيًا مهمًا للأغشية الخلوية:',['الجلايكوجين','الكولسترول','النشا','الكيراتين'],1,'الكولسترول.'),
+T('--','الوحدة البنائية الأساسية في الأحماض النووية:',['الفوسفور','النيوكليوتيدات','القواعد النيتروجينية','سكر الرايبوز'],1,'النيوكليوتيد.')
+];
+
+/* ---------- views ---------- */
+const app=$('#app');
+function route(){
+  cleanups.forEach(f=>{try{f();}catch(e){}});cleanups=[];
+  const h=location.hash.replace('#','');
+  if(new RegExp('^lesson-[1-'+LESSONS.length+']$').test(h))viewLesson(+h.slice(7));
+  else if(h==='final')viewFinal();
+  else viewHome();
+  fmAll(app);refreshStars();window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',route);
+
+function badgeHTML(){return '<div class="badges">'+BADGES.map(b=>{const on=b[0]==='final'?(S.final!=null&&S.final>=80):S.done[b[0].slice(1)];return `<div class="badge ${on?'on':''}"><i>${b[1]}</i>${b[2]}</div>`;}).join('')+'</div>';}
+function lessonStars(L){let n=L.tasks.filter(t=>S.tasks[t.id]).length;n+=gameStars(S.games[L.game]||0);if((S.quiz[L.n]||0)>=PASS(L.n))n+=3;return n;}
+function lessonMax(L){return L.tasks.length+3+3;}
+
+const CH_NO=6;
+/* ---------- progress report code for the teacher ---------- */
+const RKEY=LS+'-name';
+function repHash(str){let h=7;for(const c of str)h=(h*31+c.codePointAt(0))%1000003;return h;}
+function repCode(name){const total=LESSONS.length;const done=LESSONS.filter(L=>S.done[L.n]).length;const max=LESSONS.reduce((a,L)=>a+lessonMax(L),0)+5;
+  const p={v:1,c:CH_NO,n:name.trim(),d:done,t:total,f:S.final==null?null:S.final,s:totalStars(),m:max,ts:Date.now()};const body=JSON.stringify(p);
+  return 'KIM-'+btoa(unescape(encodeURIComponent(body))).replace(/=+$/,'')+'-'+repHash(body).toString(36);}
+function reportHTML(){let nm='';try{nm=localStorage.getItem(RKEY)||'';}catch(e){}
+  return `<section class="final-band report-band"><div class="rb-in"><div><h3>📤 تقرير التقدم للمعلمة</h3><p>اكتبي اسمك الثلاثي ثم اضغطي «احفظي تقدمي لدى المعلمة»؛ بعدها يُحدَّث تقدمك تلقائيًا كلما أنجزتِ شيئًا جديدًا. ويمكنك أيضًا إنشاء رمز التقدم وإرساله لمعلمتك.</p></div>
+   <div class="rb-row"><input type="text" id="repName" placeholder="اسم الطالبة" value="${nm.replace(/"/g,'&quot;')}" aria-label="اسم الطالبة"><button type="button" class="btn hot" id="repSync">☁️ احفظي تقدمي لدى المعلمة</button><button type="button" class="btn cold" id="repGo">أنشئي الرمز</button></div>
+   <div id="repOut"></div></div></section>`;}
+function bindReport(){const go=$('#repGo');if(!go)return;
+  $('#repSync').addEventListener('click',async()=>{const nm=$('#repName').value.trim(),out=$('#repOut');if(nm.split(/\s+/).length<2){out.innerHTML='<p class="fb bad">اكتبي اسمك الثنائي أو الثلاثي حتى تتعرف عليك المعلمة.</p>';return;}
+    try{localStorage.setItem(RKEY,nm);}catch(e){}out.innerHTML='<p class="fb">جارٍ الحفظ…</p>';
+    try{await syncProgress(true);out.innerHTML=`<p class="fb ok">✓ حُفظ تقدمك لدى المعلمة باسم «${esc(nm)}». سيُحدَّث تلقائيًا عند أي إنجاز جديد.</p>`;}catch(e){out.innerHTML='<p class="fb bad">تعذّر الحفظ الآن. تحققي من الاتصال بالإنترنت، أو أنشئي رمز التقدم وأرسليه لمعلمتك.</p>';}});go.addEventListener('click',()=>{const nm=$('#repName').value.trim();const out=$('#repOut');
+  if(nm.split(/\s+/).length<2){out.innerHTML='<p class="fb bad">اكتبي اسمك الثنائي أو الثلاثي حتى تتعرف عليك المعلمة.</p>';return;}
+  try{localStorage.setItem(RKEY,nm);}catch(e){}const code=repCode(nm);const done=LESSONS.filter(L=>S.done[L.n]).length;
+  out.innerHTML=`<div class="rb-code"><code class="ltr" id="repCode">${code}</code><button type="button" class="btn sm" id="repCopy">📋 انسخي الرمز</button></div><p class="rb-sum">الدروس المنجزة: <b>${done} من ${LESSONS.length}</b> | الاختبار الختامي: <b>${S.final==null?'لم يُنجز':S.final+'%'}</b> | النجوم: <b>${totalStars()}</b></p>`;
+  $('#repCopy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(code);toast('تم نسخ الرمز ✓');}catch(e){const r=document.createRange();r.selectNodeContents($('#repCode'));const sel=getSelection();sel.removeAllRanges();sel.addRange(r);toast('حدّدي الرمز وانسخيه يدويًا');}});});}
+
+
+/* ---------- مزامنة التقدم مع قاعدة البيانات (Cloudflare D1) ---------- */
+let _syncT=null;
+async function syncProgress(manual){let nm='';try{nm=localStorage.getItem(RKEY)||'';}catch(e){}if(!nm)return false;
+  const done=LESSONS.filter(L=>S.done[L.n]).length,max=LESSONS.reduce((a,L)=>a+lessonMax(L),0)+5;
+  try{const r=await fetch('/api/progress',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:nm,chapter:CH_NO,done,total:LESSONS.length,final:S.final==null?null:S.final,stars:totalStars(),max})});
+    if(!r.ok)throw 0;try{localStorage.setItem(RKEY+'-synced','1');}catch(e){}return true;}catch(e){if(manual)throw e;return false;}}
+function autoSync(){let on='';try{on=localStorage.getItem(RKEY+'-synced');}catch(e){}if(!on)return;clearTimeout(_syncT);_syncT=setTimeout(()=>syncProgress(false),3000);}
+
+function viewHome(){
+  const done=Object.keys(S.done).filter(k=>S.done[k]).length;
+  app.innerHTML=`
+  <section class="hero">
+    <div>
+      <p class="kicker">كيمياء 2-2، الفصل السادس، رحلة تعليمية تفاعلية</p>
+      <h1 style="margin-bottom:6px">مختبر <span class="grad">الكيمياء الحيوية</span></h1>
+      <div class="teacher"><span class="av">ص</span><div><small>إعداد المعلمة:</small><b>صباح داخل الأحمدي</b></div></div>
+      <p class="idea"><strong>الفكرة العامة:</strong> تتكون المخلوقات الحية من جزيئات حيوية كبيرة هي البروتينات والكربوهيدرات والليبيدات والأحماض النووية، ولكل منها تركيب يناسب وظيفته.</p>
+      <p class="lead">أربعة دروس تجرّبين فيها بنفسك: تبنين الببتيدات وتشغّلين الإنزيم، وتقارنين السكريات والليبيدات والأحماض النووية في جداول تفاعلية مصورة، وتكوّنين السكريات الثنائية، وتحضّرين الصابون في المختبر الافتراضي، وتكملين شريط DNA وتنسخين RNA. اجمعي النجوم والشارات، وأنجزي مهام كل درس، وتحدّي نفسك في ألعاب الـ45 ثانية. في نهاية كل درس اختبار قصير، وفي آخر الرحلة اختبار ختامي من أسئلة التحصيلي.</p>
+      <div class="hero-actions">
+        <a class="btn cold" href="#lesson-1">ابدئي الرحلة</a>
+        <a class="btn ghost" href="#final">الاختبار الختامي</a>
+      </div>
+      <p class="progress-line">أنجزتِ ${done} من ${LESSONS.length} دروس</p>
+    </div>
+    <div class="beaker-card">
+      <div id="beaker" class="fgstage" aria-live="polite"></div>
+      ${radioChips('hBio',[['p','🧬 بروتين'],['c','🍬 كربوهيدرات'],['l','🧈 ليبيد'],['n','🌀 حمض نووي']])}
+      <div class="beaker-read"><span class="temp-big" id="bTv"></span><span class="phase-tag" id="bPh"></span></div>
+      <p class="hint" id="bHint"></p>
+    </div>
+  </section>
+  <section>
+    <h2 class="sec">مسار الدروس</h2>
+    <p class="sec-sub">الجزيئات الحيوية الأربع الكبرى في المخلوقات الحية.</p>
+    <div class="thermo-track"><span class="bulb"></span></div>
+    <div class="lessons">
+      ${LESSONS.map(L=>`<article class="lcard ${S.done[L.n]?'done':''}" style="--c:${L.c}">
+        <span class="node">${S.done[L.n]?'✓':L.n}</span>
+        <div class="lcode">${L.code}</div>
+        <h3>${L.title}</h3>
+        <p>${L.blurb}</p>
+        <div class="lmeta"><span class="st">★ ${lessonStars(L)} / ${lessonMax(L)}</span><a class="btn sm ghost" href="#lesson-${L.n}">ادخلي</a></div>
+      </article>`).join('')}
+    </div>
+  </section>
+  <section style="margin-top:34px">
+    <h2 class="sec">الشارات</h2>
+    <p class="sec-sub">تحصلين على شارة كل درس عند اجتياز اختباره القصير بأربع إجابات صحيحة أو أكثر.</p>
+    ${badgeHTML()}
+  </section>
+  <section class="final-band">
+    <div><h3>الاختبار الختامي: تجميعات التحصيلي</h3><p>${TAH.length} سؤالًا من اختبارات التحصيلي السابقة في الكيمياء الحيوية: البروتينات والكربوهيدرات والليبيدات والأحماض النووية، مع تصحيح فوري وشرح لكل إجابة.${S.final!=null?' أفضل نتيجة لك: '+S.final+'%':''}</p></div>
+    <a class="btn hot" href="#final">ابدئي الاختبار</a>
+  </section>
+  <section class="final-band task-band"><div class="tb-in"><span class="ti">📝</span><div><h3>مهمة أدائية</h3><p>اقرئي المهمة وارفعي إجابتها من خلال النموذج.</p></div></div>${TASK_FORM?`<a class="btn cold" href="${TASK_FORM}" target="_blank" rel="noopener">افتحي المهمة</a>`:`<span class="btn ghost" aria-disabled="true" style="opacity:.6;cursor:default">يُضاف الرابط قريبًا</span>`}</section>
+  ${reportHTML()}`;
+  initBeaker();bindReport();
+}
+
+/* ---------- lesson view ---------- */
+function viewLesson(n){
+  const L=LESSONS[n-1];
+  app.innerHTML=`
+  <div class="crumbs"><a href="#home">→ الصفحة الرئيسة</a></div>
+  <header class="lhead">
+    <div class="lnum">${L.code}</div>
+    <div><h1>${L.title}</h1><div class="en">${L.en}</div>
+      <p class="idea" style="margin:10px 0 0"><strong>الفكرة الرئيسة:</strong> ${L.idea}</p>
+      <div class="vocab">${L.vocab.map(v=>'<span>'+v+'</span>').join('')}</div></div>
+  </header>
+  <div class="lgrid">
+    <aside class="side">
+      <div class="box"><h4>مهام الدرس <span id="tcount" style="color:var(--muted);font-weight:400;font-size:14px"></span></h4>
+        <ul class="tasks">${L.tasks.map(t=>`<li data-task-li="${t.id}" class="${S.tasks[t.id]?'on':''}"><span class="ck">${S.tasks[t.id]?'✓':''}</span><span>${t.t}</span></li>`).join('')}</ul>
+        <div class="tbar"><i id="tbar" data-lesson="${n}"></i></div></div>
+      <div class="box"><nav>${L.groups.map(g=>`<a href="#" data-jump="sim-${g.sim}">${SIMS[g.sim].title}</a>`).join('')}<a href="#" data-jump="game">لعبة 45 ثانية</a><a href="#" data-jump="quiz">الاختبار القصير</a></nav></div>
+    </aside>
+    <div class="main-col">
+      ${L.groups.map((g,i)=>`<section class="panel sim" id="sim-${g.sim}" style="--c:${L.c}">
+        <span class="tag">الجزء ${i+1}: الفكرة ببساطة</span>
+        <div class="lcards">${g.cards.map(k=>L.learn[k]).map(c=>`<div class="lc"><span class="ic">${c.i}</span><h5>${c.t}</h5><p>${c.s}</p>${c.img?`<div class="lc-img">${VIS[c.img].html()}</div>`:''}<div class="ex"><b>مثال:</b> ${c.ex}</div></div>`).join('')}</div>
+        ${(g.maps||[]).map(m=>`<div class="cmap" data-vis="${m}">${VIS[m].html()}</div>`).join('')}
+        <div class="act"><span class="tag act-tag">🔬 نشاط تفاعلي</span>${SIMS[g.sim].html()}</div>${(g.after||[]).map(m=>`<div class="cmap" data-vis="${m}">${VIS[m].html()}</div>`).join('')}</section>`).join('')}
+      <section class="panel game" id="game"><span class="tag" style="color:var(--amber)">تحدّي 45 ثانية</span>${GAMES[L.game].html}</section>
+      <section class="panel" id="quiz"><span class="tag">اختبار الدرس ${L.code}</span><h3>اختبار قصير</h3><p class="desc">${QUIZ[n].length} أسئلة، منها أسئلة تسمية. أجيبي عن ${PASS(n)} منها أو أكثر بشكل صحيح لتحصلي على شارة الدرس و3 نجوم.${S.quiz[n]!=null?' أفضل نتيجة لك: '+S.quiz[n]+' من '+QUIZ[n].length+'.':''}</p><div id="quizBox"></div></section>
+      <div class="row" style="justify-content:space-between">
+        ${n>1?`<a class="btn ghost" href="#lesson-${n-1}">الدرس السابق</a>`:'<span></span>'}
+        ${n<LESSONS.length?`<a class="btn cold" href="#lesson-${n+1}">الدرس التالي</a>`:`<a class="btn hot" href="#final">إلى الاختبار الختامي</a>`}
+      </div>
+    </div>
+  </div>`;
+  $$('[data-jump]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const t=document.getElementById(a.dataset.jump);if(t)t.scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'});}));
+  updateTaskBar();
+  fmAll(app);
+  L.groups.forEach(g=>SIMS[g.sim].init(document.getElementById('sim-'+g.sim)));
+  $$('[data-vis]',app).forEach(el=>{const v=VIS[el.dataset.vis];if(v&&v.init)v.init(el);});
+  bindPrac(app);
+  initGame($('#game'),GAMES[L.game]);
+  quizRunner($('#quizBox'),QUIZ[n],{onDone:(sc)=>{
+    const prev=S.quiz[n]||0;S.quiz[n]=Math.max(prev,sc);
+    if(sc>=PASS(n)&&!S.done[n]){S.done[n]=true;save();refreshStars();const b=BADGES[n-1];toast(b[1]+' حصلتِ على شارة: '+b[2]);}
+    else{save();refreshStars();}
+  }});
+}
+
+/* ---------- practice widgets ---------- */
+function prac(prompt,unit,ans,tol,task,hint){
+  return `<div class="prac" data-ans="${ans}" data-tol="${tol}" data-task="${task||''}" data-hint="${hint||''}">
+    <p class="q">${prompt}</p>
+    <div class="row"><input class="ans" inputmode="decimal" aria-label="إجابتك" placeholder="إجابتك"><span class="unit f">${unit}</span><button type="button" class="btn sm">تحقّقي</button></div>
+    <p class="fb" aria-live="polite"></p></div>`;
+}
+function bindPrac(root){
+  $$('.prac[data-ans]',root).forEach(p=>{
+    const inp=$('input',p),btn=$('button',p),fb=$('.fb',p);
+    if(p.dataset.task&&S.tasks[p.dataset.task])p.classList.add('solved');
+    const check=()=>{const v=parseNum(inp.value),a=+p.dataset.ans,t=+p.dataset.tol;
+      if(isNaN(v)){fb.className='fb bad';fb.textContent='اكتبي رقمًا، مثل 9.6e5 أو 960000.';return;}
+      if(Math.abs(v-a)<=t*Math.abs(a)){fb.className='fb ok';fb.textContent='✓ إجابة صحيحة! الناتج ≈ '+nice(a);p.classList.add('solved');if(p.dataset.task)completeTask(p.dataset.task);}
+      else{fb.className='fb bad';fb.textContent='✗ ليست صحيحة بعد. '+(p.dataset.hint?'تلميح: '+p.dataset.hint:'');}};
+    btn.addEventListener('click',check);inp.addEventListener('keydown',e=>{if(e.key==='Enter')check();});
+  });
+}
+function mcq(root,sel,q,opts,a,onOk){
+  const box=$(sel,root);
+  box.innerHTML=`<p class="q" style="margin:0 0 6px;font-weight:600">${q}</p><div class="opts">${opts.map((o,i)=>`<button type="button" class="opt" data-i="${i}">${o}</button>`).join('')}</div><p class="fb" aria-live="polite"></p>`;
+  $$('.opt',box).forEach(b=>b.addEventListener('click',()=>{const i=+b.dataset.i;$$('.opt',box).forEach(x=>x.classList.remove('ok','bad'));
+    if(i===a){b.classList.add('ok');$('.fb',box).className='fb ok';$('.fb',box).textContent='✓ صحيح!';onOk&&onOk();}
+    else{b.classList.add('bad');$('.fb',box).className='fb bad';$('.fb',box).textContent='✗ حاولي مرة أخرى.';}}));
+}
+
+/* ---------- helpers ---------- */
+function flowMap(title,steps,note){return `<h4>${title}</h4><div class="flowmap">${steps.map((s,i)=>(i?'<span class="farr" aria-hidden="true">←</span>':'')+`<div class="fstep${s.k?' k':''}">${s.t}${s.s?`<small>${s.s}</small>`:''}</div>`).join('')}</div>${note?`<p class="cm-note">${note}</p>`:''}`;}
+function radioChips(id,opts){return `<div class="chips" id="${id}">${opts.map((o,i)=>`<button type="button" class="chip" data-v="${o[0]}" aria-pressed="${i===0}">${o[1]}</button>`).join('')}</div>`;}
+function chipVal(root,id){const b=$(`#${id} .chip[aria-pressed=true]`,root);return b?b.dataset.v:null;}
+function bindChips(root,id,cb){$$(`#${id} .chip`,root).forEach(b=>b.addEventListener('click',()=>{$$(`#${id} .chip`,root).forEach(x=>x.setAttribute('aria-pressed',x===b));cb&&cb(b.dataset.v);}));}
+function tween(ms,f,done){if(reduced){f(1);done&&done();return;}const t0=performance.now();let raf=0;const s=t=>{const k=Math.min(1,(t-t0)/ms);f(1-Math.pow(1-k,3));if(k<1)raf=requestAnimationFrame(s);else done&&done();};raf=requestAnimationFrame(s);onCleanup(()=>cancelAnimationFrame(raf));}
+const tree=(title,root,kids)=>`<h4>${title}</h4><div class="tree"><div class="troot">${root}</div><div class="tkids">${kids.map(([h,...l])=>`<div class="tnode"><b>${h}</b>${l.map((x,i)=>`<span class="${i===l.length-1?'tk':''}">${x}</span>`).join('')}</div>`).join('')}</div></div>`;
+
+/* ---------- illustrations ---------- */
+const SC={glc:'#3B7BFF',fru:'#E39B12',gal:'#1FAE7A'};
+function ring6(x,y,c,l,r=22){const p=[...Array(6)].map((_,k)=>{const a=(30+k*60)*Math.PI/180;return (x+r*Math.cos(a)).toFixed(1)+','+(y+r*Math.sin(a)).toFixed(1);}).join(' ');return `<polygon points="${p}" fill="${c}" fill-opacity=".25" stroke="${c}" stroke-width="2.5"/><text x="${x}" y="${y+4}" text-anchor="middle" font-size="10" font-weight="700" fill="currentColor">${l||''}</text>`;}
+function ring5(x,y,c,l,r=21){const p=[...Array(5)].map((_,k)=>{const a=(-90+k*72)*Math.PI/180;return (x+r*Math.cos(a)).toFixed(1)+','+(y+r*Math.sin(a)).toFixed(1);}).join(' ');return `<polygon points="${p}" fill="${c}" fill-opacity=".25" stroke="${c}" stroke-width="2.5"/><text x="${x}" y="${y+4}" text-anchor="middle" font-size="10" font-weight="700" fill="currentColor">${l||''}</text>`;}
+const unitArt=(u,x,y)=>u==='fru'?ring5(x,y,SC.fru,'فركتوز'):ring6(x,y,SC[u],u==='glc'?'جلوكوز':'جالاكتوز');
+function sugarArt(k){const W=(w,h,b)=>`<svg viewBox="0 0 ${w} ${h}" class="mol" role="img">${b}</svg>`;
+  const link=(x1,x2,y)=>`<line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" stroke="currentColor" stroke-width="2"/><circle cx="${(x1+x2)/2}" cy="${y}" r="5" fill="#DE4527"/>`;
+  if(['glc','fru','gal'].includes(k))return W(120,80,unitArt(k,60,40));
+  const di={suc:['glc','fru'],lac:['glc','gal'],mal:['glc','glc']}[k];if(di)return W(200,80,unitArt(di[0],55,40)+link(78,122,40)+unitArt(di[1],145,40));
+  if(k==='starch'){let s='';for(let i=0;i<6;i++){const x=30+i*48,y=60+18*Math.sin(i*1.1);s+=ring6(x,y,SC.glc,'',16);if(i)s+=`<line x1="${x-32}" y1="${60+18*Math.sin((i-1)*1.1)}" x2="${x-16}" y2="${y}" stroke="currentColor" stroke-width="2"/>`;}return W(320,120,s+'<text x="160" y="112" text-anchor="middle" font-size="11" fill="currentColor">سلسلة ملتفة قليلة التفرع</text>');}
+  if(k==='glyc'){let s='';const pts=[[40,60],[80,60],[120,60],[160,60],[200,60],[120,25],[160,95],[200,95],[240,60],[80,25]];pts.forEach(([x,y])=>s+=ring6(x,y,SC.glc,'',13));[[0,1],[1,2],[2,3],[3,4],[2,5],[3,6],[6,7],[4,8],[1,9]].forEach(([a,b])=>s+=`<line x1="${pts[a][0]}" y1="${pts[a][1]}" x2="${pts[b][0]}" y2="${pts[b][1]}" stroke="currentColor" stroke-width="1.5" opacity=".6"/>`);return W(280,120,s+'<text x="140" y="116" text-anchor="middle" font-size="11" fill="currentColor">كثير التفرع</text>');}
+  if(k==='cell'){let s='';for(let r=0;r<3;r++)for(let i=0;i<6;i++){const x=30+i*44,y=25+r*34;s+=ring6(x,y,SC.glc,'',13);if(i)s+=`<line x1="${x-31}" y1="${y}" x2="${x-13}" y2="${y}" stroke="currentColor" stroke-width="2"/>`;if(r)s+=`<line x1="${x}" y1="${y-21}" x2="${x}" y2="${y-13}" stroke="#E39B12" stroke-dasharray="3 3"/>`;}return W(290,120,s+'<text x="145" y="118" text-anchor="middle" font-size="11" fill="currentColor">سلاسل مستقيمة متوازية ترتبط بروابط هيدروجينية</text>');}
+  return '';}
+function zig(x,y,n,dx=14,dy=8,kink=-1,col='#E39B12'){let d=`M${x} ${y}`,cx=x,cy=y,ang=0;for(let i=0;i<n;i++){cx+=dx;cy=y+(i%2?0:dy);if(kink===i){y+=18;cy+=18;}d+=` L${cx} ${cy}`;}return `<path d="${d}" fill="none" stroke="${col}" stroke-width="3" stroke-linecap="round"/>`;}
+function lipidArt(k){const W=b=>`<svg viewBox="0 0 260 130" class="mol" role="img">${b}</svg>`;
+  if(k==='tri')return W(`<rect x="20" y="15" width="34" height="100" rx="8" fill="#3B7BFF" fill-opacity=".25" stroke="#3B7BFF"/><text x="37" y="70" text-anchor="middle" font-size="10" font-weight="700" fill="currentColor" transform="rotate(-90 37 70)">جليسرول</text>${[30,65,100].map((y,i)=>`<circle cx="62" cy="${y}" r="5" fill="#DE4527"/>`+zig(68,y-4,12,15,8,i===1?5:-1)).join('')}<text x="160" y="126" text-anchor="middle" font-size="10" fill="currentColor">3 أحماض دهنية (روابط إستر)</text>`);
+  if(k==='phos')return W(`<circle cx="60" cy="35" r="22" fill="#2763D8"/><text x="60" y="39" text-anchor="middle" font-size="10" fill="#fff" font-weight="700">فوسفات</text>${zig(48,58,5,0.1,0,-1,'#E39B12').replace(/M[^"]*/,'M50 57 L45 70 L55 82 L45 94 L55 106 L45 118')}${zig(70,58,5,0.1,0,-1).replace(/M[^"]*/,'M70 57 L75 70 L65 82 L75 94 L65 106 L75 118')}<text x="245" y="40" font-size="11" fill="currentColor">رأس قطبي يحب الماء</text><text x="245" y="95" font-size="11" fill="currentColor">ذيلان غير قطبيين</text>`);
+  if(k==='wax')return W(zig(15,60,8,14,8)+`<circle cx="134" cy="60" r="7" fill="#DE4527"/><text x="134" y="47" text-anchor="middle" font-size="10" fill="currentColor">إستر</text>`+zig(142,60,7,15,8,-1,'#8A4FC8')+`<text x="70" y="100" text-anchor="middle" font-size="10" fill="currentColor">حمض دهني</text><text x="195" y="100" text-anchor="middle" font-size="10" fill="currentColor">كحول طويل السلسلة</text>`);
+  if(k==='ster')return steroidSVG();
+  if(k==='fa')return W(`<text x="20" y="64" font-size="12" fill="currentColor" font-weight="700">HOOC</text>`+zig(58,58,12,15,8));
+  return '';}
+function chainBeads(n,folded,t=0){let s='';const col=['#DE4527','#3B7BFF','#1FAE7A','#E39B12','#8A4FC8','#E05A9A'];for(let i=0;i<n;i++){const a=i*0.55+t;const x=folded?130+(60+i*1.4)*Math.cos(a)*0.6:20+i*14,y=folded?80+(40+i)*Math.sin(a)*0.55:80+8*Math.sin(i*0.9+t);s+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="7" fill="${col[i%6]}"/>`;}return s;}
+
+/* ---------- hero ---------- */
+function initBeaker(){const box=$('#beaker');if(!box)return;let raf=0,t=0;
+  const INFO={p:['بروتين','سلسلة أحماض أمينية مطوية في شكل ثلاثي الأبعاد','C, H, O, N'],c:['كربوهيدرات','وحدات سكر مرتبطة: مصدر الطاقة','C, H, O'],l:['ليبيد','جليسرول وأحماض دهنية غير قطبية','C, H, O'],n:['حمض نووي','لولب مزدوج يخزن المعلومات الوراثية','C, H, O, N, P']};
+  const draw=()=>{const m=chipVal(document,'hBio');t+=reduced?0:0.02;let b='';
+    if(m==='p')b=`<svg viewBox="0 0 260 170">${chainBeads(26,true,t)}</svg>`;else if(m==='c')b=sugarArt('starch');else if(m==='l')b=lipidArt('tri');else b=helixSVG(t*2,300,170);
+    box.innerHTML=b;raf=requestAnimationFrame(draw);};
+  const info=()=>{const i=INFO[chipVal(document,'hBio')];$('#bTv').textContent=i[0];$('#bPh').textContent=i[2];$('#bHint').textContent=i[1];};
+  bindChips(document,'hBio',info);info();draw();onCleanup(()=>cancelAnimationFrame(raf));}
+
+/* ---------- interactive comparison table ---------- */
+function cmpTable(root,sel,{cols,rows,filters,task,need,artCol}){const box=$(sel,root);const seen=new Set();let picked=[];let filt='all';
+  box.innerHTML=`${filters?`<div class="chips ctf">${[['all','الكل'],...filters].map((f,i)=>`<button type="button" class="chip" data-f="${f[0]}" aria-pressed="${i===0}">${f[1]}</button>`).join('')}</div>`:''}
+   <p class="cm-note" style="margin:6px 0">اضغطي على أي صف لتري صورته وتفاصيله، واختاري صفين للمقارنة بينهما (تظهر الاختلافات مظللة).</p>
+   <div class="tblwrap"><table class="ctable cmp"><thead><tr><th></th>${cols.map(c=>`<th>${c}</th>`).join('')}</tr></thead><tbody>${rows.map((r,i)=>`<tr data-i="${i}" data-c="${r.cat||''}" tabindex="0"><td><input type="checkbox" aria-label="اختيار للمقارنة"></td>${r.cells.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div><div class="cmpdet"></div>`;
+  const det=$('.cmpdet',box);
+  const render=()=>{$$('tbody tr',box).forEach(tr=>{const i=+tr.dataset.i;tr.classList.toggle('pk',picked.includes(i));$('input',tr).checked=picked.includes(i);tr.style.display=(filt==='all'||tr.dataset.c===filt)?'':'none';$$('td',tr).forEach((td,j)=>td.classList.remove('diff'));});
+    if(picked.length===2){const [a,b]=picked;rows[a].cells.forEach((c,j)=>{if(c!==rows[b].cells[j]){[a,b].forEach(k=>$$(`tbody tr[data-i="${k}"] td`,box)[j+1].classList.add('diff'));}});}
+    det.innerHTML=picked.map(i=>`<div class="cmpcard"><b>${rows[i].cells[0]}</b>${rows[i].art?`<div class="molbox">${rows[i].art()}</div>`:''}${rows[i].note?`<p>${rows[i].note}</p>`:''}</div>`).join('')||'<p class="cm-note">لم تختاري صفًا بعد.</p>';fmAll(box);};
+  $$('tbody tr',box).forEach(tr=>{const go=()=>{const i=+tr.dataset.i;seen.add(i);if(picked.includes(i))picked=picked.filter(x=>x!==i);else{picked.push(i);if(picked.length>2)picked.shift();}render();if(seen.size>=need)completeTask(task);};tr.addEventListener('click',go);tr.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}});});
+  $$('.ctf .chip',box).forEach(b=>b.addEventListener('click',()=>{filt=b.dataset.f;$$('.ctf .chip',box).forEach(x=>x.setAttribute('aria-pressed',x===b));render();}));render();}
+
+/* ---------- concept maps ---------- */
+const VIS={
+ protMap:{html:()=>tree('🗺️ خريطة مفاهيم: من الحمض الأميني إلى البروتين','أحماض أمينية ← روابط ببتيدية (تكثف) ← ببتيد ← عديد الببتيد ← بروتين مطوي',[['⚙️ تسريع التفاعلات','تقوم بها الإنزيمات','الموقع النشط','مثال: الببسين'],['🚚 نقل','ينقل المواد','الهيموجلوبين ينقل O₂','مثال: الهيموجلوبين'],['🧱 دعم بنائي','الجلد والأوتار والشعر','الكولاجين والكيراتين','مثال: الكولاجين'],['📡 الإشارات الخلوية','هرمونات','تنظيم عمليات الجسم','مثال: الأنسولين']])},
+ carbMap6:{html:()=>tree('🗺️ خريطة مفاهيم: أنواع الكربوهيدرات','الكربوهيدرات Cn(H2O)n: هيدروكسيل + كربونيل',[['🍬 أحادية','وحدة واحدة، 5 أو 6 ذرات كربون','جلوكوز، فركتوز، جالاكتوز','تذوب في الماء'],['🍭 ثنائية','وحدتان (تكثف + H₂O)','سكروز، لاكتوز، مالتوز','سكر المائدة والحليب'],['🌾 عديدة التسكر','مئات أو آلاف الوحدات','نشا، جلايكوجين، سليلوز','تخزين وبناء']])},
+ triCompare:{html:()=>`<h4>🧈 صورة تفاعلية: مقارنة الجليسريدات الثلاثية الصلبة والسائلة</h4>
+  <div class="tcgrid">
+   <div class="tccol" data-c="s"><div class="tchead">صلبة</div><svg viewBox="0 0 200 120" class="tcart" role="img" aria-label="قالب زبدة صلب في طبق"><g class="tilt"><ellipse cx="100" cy="95" rx="85" ry="18" fill="#fff" stroke="#bbb" stroke-width="2"/><polygon points="55,85 130,62 160,72 85,96" fill="#F7D667" stroke="#c9a52b"/><polygon points="55,85 85,96 85,80 55,70" fill="#EEC64A" stroke="#c9a52b"/><polygon points="55,70 130,48 160,58 85,80" fill="#FBE38C" stroke="#c9a52b"/><polygon points="85,80 160,58 160,72 85,96" fill="#F2CF57" stroke="#c9a52b"/></g></svg>
+    <div class="tcflow"><span>دهون</span><i>↓</i><span>مصدرها حيواني غالبًا</span><i>↓</i><span class="k">أحماض دهنية مشبعة</span><i>↓</i><small>روابط أحادية فقط، فالسلاسل مستقيمة ومتراصة</small></div></div>
+   <div class="tcmid"><p>معظم الجليسريدات الثلاثية النباتية سائلة لأنها تحتوي على أحماض دهنية غير مشبعة، بينما تحتوي الدهون الحيوانية على كمية أكبر من الأحماض الدهنية المشبعة، لذا تكون عادة صلبة في درجة حرارة الغرفة.</p><button type="button" class="btn sm hot" id="tcGo">↪️ أميلي الوعاءين</button><p class="fb" id="tcF"></p></div>
+   <div class="tccol" data-c="l"><div class="tchead">سائلة</div><svg viewBox="0 0 200 120" class="tcart" role="img" aria-label="زجاجة زيت"><g class="tilt"><rect x="80" y="8" width="40" height="16" rx="4" fill="#999"/><path d="M84 24 L84 40 Q60 50 60 70 L60 108 Q60 114 66 114 L134 114 Q140 114 140 108 L140 70 Q140 50 116 40 L116 24 Z" fill="rgba(255,255,255,.5)" stroke="#888" stroke-width="2"/><path id="tcOil" d="M62 64 Q100 58 138 64 L138 108 Q138 112 134 112 L66 112 Q62 112 62 108 Z" fill="#D8B43A" opacity=".9"/></g><g id="tcDrops"></g></svg>
+    <div class="tcflow"><span>زيوت</span><i>↓</i><span>مصدرها نباتي غالبًا</span><i>↓</i><span class="k">أحماض دهنية غير مشبعة</span><i>↓</i><small>رابطة ثنائية تسبب انحناء السلاسل فلا تتراص</small></div></div>
+  </div>`,
+  init(root){let on=false;$('#tcGo',root).addEventListener('click',()=>{on=!on;$$('.tcart .tilt',root).forEach(g=>g.classList.toggle('on',on));const d=$('#tcDrops',root),f=$('#tcF',root);
+   if(on){d.innerHTML=[0,1,2].map(i=>`<circle cx="${150+i*8}" cy="${100+i*6}" r="4" fill="#D8B43A"><animate attributeName="cy" from="95" to="118" dur="0.9s" begin="${i*0.25}s" repeatCount="indefinite"/></circle>`).join('');f.className='fb ok';f.textContent='قالب الدهن الصلب لم يتحرك، أما الزيت السائل فانسكب. السبب نوع الأحماض الدهنية فيهما.';$('#tcGo',root).textContent='↩️ أعيدي الوعاءين';}
+   else{d.innerHTML='';f.textContent='';$('#tcGo',root).textContent='↪️ أميلي الوعاءين';}});}},
+ lipidMap:{html:()=>tree('🗺️ خريطة مفاهيم: أنواع الليبيدات','الليبيدات: غير قطبية، لا تذوب في الماء، ليست بوليمرات',[['🔱 الجليسريدات الثلاثية','جليسرول + 3 أحماض دهنية','دهون صلبة وزيوت سائلة','تخزين الطاقة'],['🫧 الليبيدات الفوسفورية','فوسفات بدل حمض دهني','رأس قطبي وذيلان','الأغشية الخلوية'],['🕯️ الشموع','حمض دهني + كحول طويل','طبقات واقية','الحماية من الماء'],['💍 الستيرويدات','أربع حلقات ملتحمة','الكولسترول وفيتامين (د)','هرمونات وبناء الأغشية']])},
+ nucMap:{html:()=>flowMap('🗺️ خريطة مفاهيم: تركيب الحمض النووي',[{t:'فوسفات'},{t:'+ سكر خماسي',s:'رايبوز أو ديوكسي رايبوز',k:1},{t:'+ قاعدة نيتروجينية',s:'A, T, C, G, U',k:1},{t:'= نيوكليوتيد'},{t:'سلسلة نيوكليوتيدات',s:'DNA أو RNA'}],'العمود الفقري للسلسلة سكر وفوسفات متعاقبان، والقواعد تبرز منه كدرجات السلم.')},
+ helix:{html:()=>`<h4>🌀 صورة تفاعلية: اللولب المزدوج لـ DNA</h4><div id="hxS" class="hxbox"></div><div class="row" style="justify-content:center"><button type="button" class="btn sm" id="hxP">⏸ إيقاف الدوران</button></div><p class="cm-note">العمودان الأزرقان: سكر ديوكسي رايبوز وفوسفات. الدرجات الملونة: أزواج القواعد <span style="color:#DE4527">A</span>–<span style="color:#b38600">T</span> و <span style="color:#1FAE7A">G</span>–<span style="color:#2763D8">C</span> المرتبطة بروابط هيدروجينية.</p>`,
+  init(root){let t=0,raf=0,run=!reduced;const draw=()=>{if(run)t+=0.02;$('#hxS',root).innerHTML=helixSVG(t,520,200);raf=requestAnimationFrame(draw);};$('#hxP',root).addEventListener('click',()=>{run=!run;$('#hxP',root).textContent=run?'⏸ إيقاف الدوران':'▶ تشغيل الدوران';});draw();onCleanup(()=>cancelAnimationFrame(raf));}}
+};
+
+/* ---------- SIMS ---------- */
+const SIMS={};
+const AA=[['gly','جلايسين','H'],['ala','ألانين','CH3'],['ser','سيرين','CH2OH'],['cys','سستايين','CH2SH'],['val','فالين','CH(CH3)2']];
+SIMS.aaBuilder={title:'تركيب الحمض الأميني',
+html:()=>`<h3>تركيب الحمض الأميني</h3><p class="desc">اختاري حمضًا أمينيًا، ثم اضغطي على أسماء الأجزاء الأربعة لتظليلها على الصورة.</p>
+ ${radioChips('aaR',AA.map(a=>[a[0],a[1]]))}<div class="srbox"><svg viewBox="0 0 320 220" id="aaS" role="img" aria-label="التركيب العام للحمض الأميني"></svg><div><div class="col-btns" id="aaP">${[['n','مجموعة الأمين –NH₂'],['c','مجموعة الكربوكسيل –COOH'],['h','ذرة الهيدروجين'],['r','السلسلة الجانبية R']].map(p=>`<button type="button" class="btn sm ghost" data-p="${p[0]}">${p[1]}</button>`).join('')}</div><p class="fb" id="aaF"></p></div></div>`,
+init(root){let hl='';const seen=new Set();
+  const draw=()=>{const a=AA.find(x=>x[0]===chipVal(root,'aaR'));const box=(k,x,y,w,txt)=>`<rect x="${x}" y="${y}" width="${w}" height="34" rx="10" fill="${hl===k?'var(--hot-soft)':'var(--surface)'}" stroke="${hl===k?'var(--hot)':'var(--line)'}" stroke-width="${hl===k?3:1.5}"/>${svgLabel(txt,x+w/2,y+23,16)}`;
+    $('#aaS',root).innerHTML=`<line x1="160" y1="110" x2="95" y2="110" stroke="currentColor" stroke-width="3"/><line x1="160" y1="110" x2="225" y2="110" stroke="currentColor" stroke-width="3"/><line x1="160" y1="110" x2="160" y2="60" stroke="currentColor" stroke-width="3"/><line x1="160" y1="110" x2="160" y2="160" stroke="currentColor" stroke-width="3"/>
+     <circle cx="160" cy="110" r="18" fill="#4a5263"/><text x="160" y="116" text-anchor="middle" fill="#fff" font-weight="700">C</text>${box('n',20,93,70,'H2N')}${box('c',228,93,80,'COOH')}${box('h',138,160,44,'H')}${box('r',110,22,100,a[2])}<text x="160" y="214" text-anchor="middle" font-size="12" fill="currentColor">${a[1]}</text>`;};
+  bindChips(root,'aaR',draw);
+  $$('#aaP [data-p]',root).forEach(b=>b.addEventListener('click',()=>{hl=b.dataset.p;seen.add(hl);draw();const f=$('#aaF',root);f.className='fb ok';f.textContent={n:'مجموعة الأمين قاعدية، وتشارك في الرابطة الببتيدية.',c:'مجموعة الكربوكسيل حمضية، وتشارك في الرابطة الببتيدية.',h:'ذرة هيدروجين ترتبط بالكربون المركزي.',r:'السلسلة الجانبية تختلف من حمض أميني إلى آخر، وتحدد خواصه.'}[hl];if(seen.size===4)completeTask('l1-aa');}));draw();}};
+
+SIMS.peptideLab={title:'مختبر الرابطة الببتيدية',
+html:()=>`<h3>🔗 مختبر بناء الببتيد</h3><p class="desc">أضيفي أحماضًا أمينية إلى السلسلة. مع كل رابطة ببتيدية جديدة يخرج جزيء ماء (تفاعل تكثف).</p>
+ <div class="row"><button type="button" class="btn sm cold" id="ppA">➕ أضيفي حمضًا أمينيًا</button><button type="button" class="btn sm" id="ppB">➕➕ أضيفي 10</button><button type="button" class="btn sm hot" id="ppF">🌀 اطوي السلسلة</button><button type="button" class="btn sm ghost" id="ppR">↺ من جديد</button></div>
+ <svg viewBox="0 0 640 170" id="ppS" role="img" aria-label="سلسلة أحماض أمينية"></svg>
+ <div class="row ppstats"><div class="stat"><b id="ppN">1</b><span>أحماض أمينية</span></div><div class="stat"><b id="ppK">0</b><span>روابط ببتيدية</span></div><div class="stat"><b id="ppW">0</b><span>جزيئات ماء خرجت</span></div><div class="stat"><b id="ppT">حمض أميني</b><span>الاسم</span></div></div>`,
+init(root){let n=1,fold=false,raf=0,t=0,water=[];
+  const name=()=>n===1?'حمض أميني':n===2?'ثنائي الببتيد':n<=10?'ببتيد':n<50?'عديد الببتيد':'بروتين';
+  const draw=()=>{t+=0.03;let s='';const col=['#DE4527','#3B7BFF','#1FAE7A','#E39B12','#8A4FC8'];const show=Math.min(n,60);
+    for(let i=0;i<show;i++){let x,y;if(fold){const a=i*0.5+t*0.2;x=320+(25+i*1.5)*Math.cos(a);y=85+(20+i*0.7)*Math.sin(a);}else{x=20+i*(show>40?10:show>20?20:40);y=85+(show>20?6:0)*Math.sin(i);}if(!fold&&i&&show<=20)s+=`<line x1="${x-40+9}" y1="85" x2="${x-9}" y2="85" stroke="#8A4FC8" stroke-width="3"/>`;s+=`<circle cx="${x}" cy="${y}" r="${show>40?5:9}" fill="${col[i%5]}"/>`;}
+    water=water.filter(w=>(w.y-=1.2)>-10);water.forEach(w=>s+=`<g transform="translate(${w.x},${w.y})"><circle r="6" fill="#DE4527"/><circle cx="-7" cy="5" r="3.5" fill="#fff" stroke="#999"/><circle cx="7" cy="5" r="3.5" fill="#fff" stroke="#999"/></g>`);
+    $('#ppS',root).innerHTML=s;raf=requestAnimationFrame(draw);};
+  const stats=()=>{$('#ppN',root).textContent=n;$('#ppK',root).textContent=n-1;$('#ppW',root).textContent=n-1;$('#ppT',root).textContent=name();if(n>=50)completeTask('l1-pep');};
+  const add=k=>{for(let i=0;i<k;i++){n++;if(water.length<8)water.push({x:Math.min(600,20+(n-1)*(n>20?20:40)-20),y:70});}fold=false;stats();};
+  $('#ppA',root).addEventListener('click',()=>add(1));$('#ppB',root).addEventListener('click',()=>add(10));$('#ppF',root).addEventListener('click',()=>{fold=!fold;});$('#ppR',root).addEventListener('click',()=>{n=1;fold=false;stats();});
+  stats();draw();onCleanup(()=>cancelAnimationFrame(raf));}};
+
+SIMS.enzymeSim={title:'الإنزيم والموقع النشط',
+html:()=>`<h3>⚙️ الإنزيم والموقع النشط</h3><p class="desc">اختاري مادة، وأطلقيها نحو الإنزيم. المادة التي يناسب شكلها الموقع النشط فقط تتفاعل. جرّبي رفع درجة الحرارة أيضًا.</p>
+ ${radioChips('ezS',[['ok','المادة الخاضعة لفعل الإنزيم (الشكل المناسب)'],['no','مادة أخرى (شكل غير مناسب)']])}
+ <label class="ctrl">درجة الحرارة: <b class="ltr" id="ezTv"></b><input type="range" dir="ltr" id="ezT" min="20" max="80" step="5" value="37"></label>
+ <svg viewBox="0 0 560 200" id="ezV" role="img" aria-label="إنزيم ومادة"></svg><div class="row"><button type="button" class="btn hot" id="ezGo">▶ أطلقي المادة</button></div><p class="fb" id="ezF"></p>`,
+init(root){const seen=new Set();
+  const draw=(k,res)=>{const T=+$('#ezT',root).value,den=T>=60;const s=chipVal(root,'ezS');const x=60+k*230;
+    const site=den?'M330 70 Q345 95 330 130':'M330 75 L355 75 L355 125 L330 125';
+    let sub=s==='ok'?`<path d="M${x} 80 L${x+28} 80 L${x+28} 120 L${x} 120 Z" fill="#1FAE7A"/>`:`<circle cx="${x+14}" cy="100" r="22" fill="#E39B12"/>`;
+    if(res==='split')sub=`<path d="M300 40 L328 40 L328 60 L300 60 Z" fill="#1FAE7A"/><path d="M300 140 L328 140 L328 160 L300 160 Z" fill="#1FAE7A"/>`;
+    $('#ezV',root).innerHTML=`<path d="M330 30 L470 30 Q520 100 470 170 L330 170 L330 125 ${den?'Q345 95 330 75':'L355 125 L355 75 L330 75'} Z" fill="${den?'#c9a3d9':'#8A4FC8'}" opacity=".85"/><text x="430" y="105" text-anchor="middle" fill="#fff" font-weight="700">الإنزيم</text><text x="345" y="190" text-anchor="middle" font-size="11" fill="currentColor">الموقع النشط</text>${sub}`;
+    $('#ezTv',root).textContent=T+' °C';};
+  draw(0);$('#ezT',root).addEventListener('input',()=>draw(0));bindChips(root,'ezS',()=>draw(0));
+  $('#ezGo',root).addEventListener('click',()=>{const T=+$('#ezT',root).value,den=T>=60,s=chipVal(root,'ezS');const fits=s==='ok'&&!den;const F=$('#ezF',root);
+    tween(1200,k=>draw(fits?k:Math.min(k,0.8)),()=>{if(fits){draw(1,'split');F.className='fb ok';F.textContent='✓ ارتبطت المادة بالموقع النشط وتفككت إلى نواتج، ثم يتحرر الإنزيم ليعمل من جديد.';seen.add('ok');}
+      else if(den){F.className='fb bad';F.textContent='🔥 في درجة الحرارة العالية تغيّر شكل الإنزيم (تغير الخواص الطبيعية)، فلم يعد الموقع النشط يناسب المادة.';seen.add('den');}
+      else{F.className='fb bad';F.textContent='✗ شكل هذه المادة لا يناسب الموقع النشط، فلا يحفز الإنزيم تفاعلها.';}
+      if(seen.size===2)completeTask('l1-enz');});});}};
+
+SIMS.protTable={title:'جدول وظائف البروتينات',
+html:()=>`<h3>📊 جدول تفاعلي: وظائف البروتينات</h3><div id="ptT"></div>`,
+init(root){cmpTable(root,'#ptT',{cols:['البروتين','الوظيفة','مكانه أو عمله','الفئة'],filters:[['e','تسريع التفاعلات'],['t','نقل'],['s','دعم بنائي'],['h','الإشارات الخلوية']],task:'l1-fun',need:4,
+  rows:[{cat:'e',cells:['الببسين (إنزيم)','تسريع تفاعل هضم البروتينات','المعدة','تسريع التفاعلات'],art:()=>`<svg viewBox="0 0 120 80"><path d="M30 10 L100 10 Q115 40 100 70 L30 70 L30 50 L45 50 L45 30 L30 30Z" fill="#8A4FC8"/></svg>`,note:'الإنزيمات تسرّع التفاعلات الحيوية.'},
+   
+   {cat:'t',cells:['الهيموجلوبين','نقل الأكسجين','الدم','نقل'],art:()=>`<svg viewBox="0 0 120 80"><circle cx="60" cy="40" r="30" fill="#DE4527"/><circle cx="60" cy="40" r="12" fill="#a01c10"/></svg>`,note:'بروتين نقل في خلايا الدم الحمراء.'},
+   {cat:'s',cells:['الكولاجين','دعم الجلد والأوتار والأربطة','الجلد والأوتار','دعم بنائي'],note:'بروتين بنائي.'},
+   {cat:'s',cells:['الكيراتين','تكوين الشعر والأظافر','الشعر والأظافر','دعم بنائي'],note:'شعر الإبل يتكون من بروتينات بنائية.'},
+   {cat:'h',cells:['الأنسولين','تنظيم سكر الدم','تفرزه خلايا البنكرياس','الإشارات الخلوية'],note:'هرمون بروتيني صغير.'},
+   {cat:'h',cells:['هرمون النمو','تنظيم النمو','الغدة النخامية','الإشارات الخلوية'],note:'من الهرمونات البروتينية.'}]});}};
+
+const OC={glc:[['','H',''],['','C','=O'],['H','C','OH'],['HO','C','H'],['H','C','OH'],['H','C','OH'],['H','C','OH'],['','H','']],
+ gal:[['','H',''],['','C','=O'],['H','C','OH'],['HO','C','H'],['HO','C','H'],['H','C','OH'],['H','C','OH'],['','H','']],
+ fru:[['','H',''],['H','C','OH'],['','C','=O'],['HO','C','H'],['H','C','OH'],['H','C','OH'],['H','C','OH'],['','H','']]};
+const OCHL={glc:[1],gal:[1,4],fru:[2]};
+function openChain(k,small){const R=OC[k],dy=24,x=70,y0=16;let s=`<svg viewBox="0 0 140 ${y0+dy*7+14}" class="mol oc${small?' ocs':''}" role="img" aria-label="الصيغة البنائية بشكل السلسلة المفتوح" direction="ltr">`;
+  R.forEach((r,i)=>{const y=y0+i*dy;if(OCHL[k].includes(i))s+=`<rect x="${x-46}" y="${y-13}" width="92" height="22" rx="6" fill="rgba(222,69,39,.14)" stroke="#DE4527" stroke-width="1.2"/>`;
+    if(i<R.length-1)s+=`<line x1="${x}" y1="${y+5}" x2="${x}" y2="${y+dy-12}" stroke="currentColor" stroke-width="1.6"/>`;
+    if(r[0])s+=`<line x1="${x-24}" y1="${y-4}" x2="${x-7}" y2="${y-4}" stroke="currentColor" stroke-width="1.6"/><text x="${x-27}" y="${y+1}" text-anchor="end" font-size="13" fill="currentColor" direction="ltr">${r[0]}</text>`;
+    s+=`<text x="${x}" y="${y+1}" text-anchor="middle" font-size="13" font-weight="600" fill="currentColor" direction="ltr">${r[1]}</text>`;
+    if(r[2]==='=O')s+=`<line x1="${x+7}" y1="${y-7}" x2="${x+22}" y2="${y-7}" stroke="currentColor" stroke-width="1.6"/><line x1="${x+7}" y1="${y-2}" x2="${x+22}" y2="${y-2}" stroke="currentColor" stroke-width="1.6"/><text x="${x+25}" y="${y+1}" text-anchor="start" font-size="13" fill="currentColor" direction="ltr">O</text>`;
+    else if(r[2])s+=`<line x1="${x+7}" y1="${y-4}" x2="${x+24}" y2="${y-4}" stroke="currentColor" stroke-width="1.6"/><text x="${x+27}" y="${y+1}" text-anchor="start" font-size="13" fill="currentColor" direction="ltr">${r[2]}</text>`;});
+  return s+'</svg>';}
+const HW={glc:{C1:['H','OH'],C2:['H','OH'],C3:['OH','H'],C4:['H','OH'],C5:['CH2OH','']},gal:{C1:['H','OH'],C2:['H','OH'],C3:['OH','H'],C4:['OH','H'],C5:['CH2OH','']},fru:{C2:['CH2OH','OH'],C3:['OH','H'],C4:['H','OH'],C5:['H','CH2OH']}};
+function haworth(k,x,y,o={}){const pyr=k!=='fru';const P=pyr?{C5:[-28,-22],O:[22,-22],C1:[46,0],C2:[22,22],C3:[-28,22],C4:[-52,0]}:{O:[0,-26],C2:[-38,-6],C3:[-22,22],C4:[22,22],C5:[38,-6]};
+  const order=pyr?['C5','O','C1','C2','C3','C4']:['O','C5','C4','C3','C2'];let s=`<g transform="translate(${x},${y})">`;
+  order.forEach((a,i)=>{const b=order[(i+1)%order.length];const front=(pyr&&a==='C2'&&b==='C3')||(!pyr&&a==='C4'&&b==='C3');s+=`<line x1="${P[a][0]}" y1="${P[a][1]}" x2="${P[b][0]}" y2="${P[b][1]}" stroke="currentColor" stroke-width="${front?5:2}" stroke-linecap="round"/>`;});
+  s+=`<circle cx="${P.O[0]}" cy="${P.O[1]}" r="8" fill="var(--surface)"/><text x="${P.O[0]}" y="${P.O[1]+4}" text-anchor="middle" font-size="12" fill="currentColor">O</text>`;
+  Object.entries(HW[k]).forEach(([c,[up,dn]])=>{const [px,py]=P[c];[[up,-1],[dn,1]].forEach(([lab,d])=>{const key=c+(d<0?'u':'d');if(!lab||(o.hide&&o.hide===key))return;const len=c==='C5'&&lab==='CH2OH'||c==='C2'&&!pyr&&lab==='CH2OH'?20:18;const ey=py+d*len;
+    s+=`<line x1="${px}" y1="${py}" x2="${px}" y2="${ey}" stroke="currentColor" stroke-width="1.6"/>`;const hl=o.hl===key;
+    s+=(hl?`<rect x="${px-15}" y="${ey+(d<0?-17:2)}" width="30" height="16" rx="4" fill="#F7E08A"/>`:'')+svgLabel(lab,px,ey+(d<0?-4:14),11);});});
+  return s+'</g>';}
+function sugarForms(k){return `<svg viewBox="0 0 330 210" class="mol" role="img" aria-label="الشكل الحلقي وشكل السلسلة المفتوح">${openChain(k).replace(/^<svg[^>]*>/,'<g transform="translate(200,0)">').replace('</svg>','</g>')}<text x="168" y="100" font-size="20" text-anchor="middle" fill="currentColor">⇌</text>${haworth(k,90,95)}<text x="90" y="200" text-anchor="middle" font-size="11" fill="currentColor">الشكل الحلقي</text><text x="270" y="206" text-anchor="middle" font-size="11" fill="currentColor">شكل السلسلة المفتوح</text></svg>`;}
+
+function fischer(k){const C=k==='fru'?[['CH2OH'],['C=O','co'],['HO','H'],['H','OH'],['H','OH'],['CH2OH']]:[['CHO','co'],['H','OH'],['HO','H'],k==='gal'?['HO','H','hl']:['H','OH'],['H','OH'],['CH2OH']];
+  const x=110,y0=22,dy=28;let s=`<svg viewBox="0 0 230 200" class="mol" role="img" aria-label="الصيغة البنائية ذات السلسلة المفتوحة" direction="ltr">`;
+  s+=`<line x1="${x}" y1="${y0+8}" x2="${x}" y2="${y0+dy*5-8}" stroke="currentColor" stroke-width="2"/>`;
+  C.forEach((c,i)=>{const y=y0+i*dy;if(c.length===1||c[1]==='co'){const lab=c[0];const hot=c[1]==='co';s+=`<rect x="${x-30}" y="${y-12}" width="60" height="22" rx="6" fill="${hot?'rgba(222,69,39,.15)':'var(--surface)'}" stroke="${hot?'#DE4527':'none'}"/>`+svgLabel(lab,x,y+5,13);}
+    else{const hl=c[2]==='hl';s+=`<line x1="${x-40}" y1="${y}" x2="${x+40}" y2="${y}" stroke="currentColor" stroke-width="2"/><circle cx="${x}" cy="${y}" r="9" fill="${hl?'#DE4527':'#4a5263'}"/><text x="${x}" y="${y+4}" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">C</text>`+(hl?`<rect x="${x-74}" y="${y-12}" width="34" height="22" rx="6" fill="rgba(222,69,39,.15)" stroke="#DE4527"/>`:'')+svgLabel(c[0],x-56,y+5,13)+svgLabel(c[1],x+58,y+5,13);}
+    s+=`<text x="${x+100}" y="${y+4}" font-size="9" fill="currentColor" opacity=".6">${i+1}</text>`;});
+  const lbl=k==='glc'?'ألدهيد: الكربونيل على الذرة 1':k==='gal'?'ألدهيد: اتجاه OH على الذرة 4 معكوس':'كيتون: الكربونيل على الذرة 2';
+  return s+`<text x="115" y="196" text-anchor="middle" font-size="10.5" fill="#DE4527" font-weight="700">${lbl}</text></svg>`;}
+const SUG=[{cat:'m',k:'glc',art:'f',cells:['الجلوكوز','سكر العنب (سكر الدم)','أحادي',openChain('glc',true),'الصيغة المرجعية للمقارنة','الفواكه والدم','مصدر الطاقة الرئيس للخلايا'],note:'سداسي الكربون، ومجموعة الكربونيل (ألدهيد) على الذرة 1.'},
+ {cat:'m',k:'fru',art:'f',cells:['الفركتوز','سكر الفاكهة','أحادي',openChain('fru',true),'متشكل بنائي للجلوكوز: الكربونيل على الذرة 2 (كيتون بدل ألدهيد)','الفواكه والعسل','مصدر طاقة'],note:'له الصيغة الجزيئية نفسها للجلوكوز، لكن ترتيب الذرات مختلف، فهو متشكل بنائي. وهو أحلى السكريات.'},
+ {cat:'m',k:'gal',art:'f',cells:['الجالاكتوز','','أحادي',openChain('gal',true),'متشكل فراغي للجلوكوز: يختلف فقط في اتجاه OH على ذرة الكربون 4','جزء من سكر الحليب','مصدر طاقة'],note:'الذرات مرتبطة بالترتيب نفسه كما في الجلوكوز، لكن مجموعة OH على الذرة 4 في الاتجاه الآخر، فهو متشكل فراغي.'},
+ {cat:'d',k:'suc',cells:['السكروز','سكر المائدة (سكر القصب)','ثنائي','جلوكوز + فركتوز','—','القصب والشمندر','مصدر طاقة'],note:'يُعد من أهم السكريات في الصناعة.'},
+ {cat:'d',k:'lac',cells:['اللاكتوز','سكر الحليب','ثنائي','جلوكوز + جالاكتوز','—','الحليب','مصدر طاقة'],note:'يتكون من وحدة جلوكوز ووحدة جالاكتوز.'},
+ {cat:'d',k:'mal',cells:['المالتوز','سكر الشعير','ثنائي','جلوكوز + جلوكوز','—','الحبوب المنبتة','مصدر طاقة'],note:'يتكون من وحدتي جلوكوز.'},
+ {cat:'p',k:'starch',cells:['النشا','—','عديد التسكر','وحدات جلوكوز كثيرة','—','البطاطس والحبوب (النبات)','تخزين الطاقة في النبات'],note:'يهضمه الإنسان.'},
+ {cat:'p',k:'glyc',cells:['الجلايكوجين','النشا الحيواني','عديد التسكر','وحدات جلوكوز كثيرة','—','الكبد والعضلات (الحيوان)','تخزين الطاقة في الحيوان'],note:'كثير التفرع.'},
+ {cat:'p',k:'cell',cells:['السليلوز','الألياف','عديد التسكر','وحدات جلوكوز كثيرة','—','جدار الخلية النباتية','دعم بنائي'],note:'لا يهضمه الإنسان، مثل الموجود في الجرجير.'}];
+SIMS.sugarTable={title:'جدول مقارنة السكريات',
+html:()=>`<h3>📊 جدول تفاعلي: مقارنة أنواع السكريات</h3><p class="cm-note" style="margin-top:0">💡 اختاري الجلوكوز مع الفركتوز، ثم الجلوكوز مع الجالاكتوز، وقارني صيغهما البنائية ذات السلسلة المفتوحة لتعرفي نوع المتشكل. الجزء المختلف مظلل بالأحمر.</p><div id="sgT"></div>`,
+init(root){cmpTable(root,'#sgT',{cols:['السكر','الاسم الشائع','النوع','الصيغة البنائية أو الوحدات','نوع المتشكل (مقارنة بالجلوكوز)','المصدر','الوظيفة'],filters:[['m','أحادية'],['d','ثنائية'],['p','عديدة التسكر']],task:'l2-tab',need:5,rows:SUG.map(s=>({...s,art:()=>s.art==='f'?sugarForms(s.k):sugarArt(s.k)}))});}};
+
+SIMS.sugarLab={title:'مختبر السكريات الثنائية',
+html:()=>`<h3>🔬 مختبر: تكوين السكريات الثنائية وتفكيكها</h3><p class="desc">اختاري السكر الثاني، ثم اربطيه بالجلوكوز بتفاعل تكثف. لاحظي مجموعتي OH المظللتين بالأصفر: منهما يتكون جزيء الماء، وتتكون بين الحلقتين رابطة جديدة.</p>
+ <div class="row"><div><div class="lablbl">السكر الأول</div>${radioChips('slA',[['glc','جلوكوز']])}</div><div><div class="lablbl">السكر الثاني</div>${radioChips('slB',[['fru','فركتوز'],['gal','جالاكتوز'],['glc','جلوكوز']])}</div></div>
+ <svg viewBox="0 0 600 220" id="slS" role="img" aria-label="تكوين سكر ثنائي"></svg><div class="row"><button type="button" class="btn hot" id="slGo">🔗 اربطيهما (تكثف)</button><button type="button" class="btn cold" id="slHy">💧 فكّكي (إضافة ماء)</button></div><p class="fb" id="slF"></p>`,
+init(root){const made=new Set();let joined=false;
+  const key2=b=>b==='fru'?'C2d':(b==='gal'?'C4u':'C4d');
+  const draw=(k,done)=>{const b=chipVal(root,'slB');const y=100,x1=120+70*k,x2=480-70*k;const K2=key2(b);
+    let s=haworth('glc',x1,y,{hl:done?null:'C1d',hide:done?'C1d':null})+haworth(b,x2,y,{hl:done?null:K2,hide:done?K2:null});
+    const nm={glc:'جلوكوز',fru:'فركتوز',gal:'جالاكتوز'};s+=`<text x="${x1}" y="${y+78}" text-anchor="middle" font-size="12" fill="currentColor">جلوكوز</text><text x="${x2}" y="${y+78}" text-anchor="middle" font-size="12" fill="currentColor">${nm[b]}</text>`;
+    if(!done)s+=`<text x="${(x1+x2)/2}" y="${y+6}" text-anchor="middle" font-size="24" fill="currentColor">+</text>`;
+    else{const ax=x1+46,ay=y+22;const bx=x2+(b==='fru'?-38:-52),byv=y+(b==='fru'?-6:0),by=byv+(b==='gal'?-20:20);const mx=(ax+bx)/2,my=b==='gal'?y:y+30;
+      s+=`<polyline points="${ax},${y} ${ax},${ay} ${mx},${my} ${bx},${by} ${bx},${byv}" fill="none" stroke="#DE4527" stroke-width="3"/><circle cx="${mx}" cy="${my}" r="10" fill="var(--surface)" stroke="#DE4527" stroke-width="2"/><text x="${mx}" y="${my+4}" text-anchor="middle" font-size="12" font-weight="700" fill="#DE4527">O</text><text x="${mx}" y="${my+36}" text-anchor="middle" font-size="12.5" font-weight="700" fill="#DE4527">الرابطة الإيثرية C–O–C</text>`;}
+    if(k>0.15){const wy=y-10-k*70;s+=`<g transform="translate(${(x1+x2)/2},${wy})" opacity="${Math.min(1,k*1.5)}"><rect x="-26" y="-14" width="52" height="24" rx="8" fill="#F7E08A"/>${svgLabel('H2O',0,4,14)}</g>`;}
+    $('#slS',root).innerHTML=s;};
+  draw(0,false);bindChips(root,'slB',()=>{joined=false;draw(0,false);$('#slF',root).textContent='';});
+  const NM={fru:['السكروز','سكر المائدة'],gal:['اللاكتوز','سكر الحليب'],glc:['المالتوز','سكر الشعير']};
+  $('#slGo',root).addEventListener('click',()=>{if(joined)return;const b=chipVal(root,'slB');tween(1400,k=>draw(k,false),()=>{joined=true;draw(1,true);made.add(b);const f=$('#slF',root);f.className='fb ok';
+    f.innerHTML=`✓ جلوكوز + ${b==='fru'?'فركتوز':b==='gal'?'جالاكتوز':'جلوكوز'} ← <b>${NM[b][0]}</b> (${NM[b][1]}) + جزيء ماء<br>خرجت مجموعة OH من سكر وذرة H من الآخر فتكوّن الماء، وارتبطت الحلقتان عن طريق ذرة أكسجين بـ<b>الرابطة الإيثرية C–O–C</b>.`;if(made.size===3)completeTask('l2-bond');});});
+  $('#slHy',root).addEventListener('click',()=>{if(!joined){$('#slF',root).className='fb bad';$('#slF',root).textContent='اربطي السكرين أولًا.';return;}joined=false;tween(1200,k=>draw(1-k,false),()=>{$('#slF',root).className='fb ok';$('#slF',root).textContent='💧 أُضيف جزيء ماء فانكسرت الرابطة الإيثرية وتفكك السكر الثنائي إلى سكرين أحاديين (تميؤ)، كما يحدث في الهضم.';});});}};
+
+SIMS.polySugar={title:'تراكيب السكريات عديدة التسكر',
+html:()=>`<h3>🌾 صورة تفاعلية: النشا والجلايكوجين والسليلوز</h3><p class="desc">الثلاثة مكونة من وحدات الجلوكوز، لكن طريقة ارتباطها مختلفة.</p>${radioChips('psM',[['starch','النشا'],['glyc','الجلايكوجين'],['cell','السليلوز']])}<div class="srbox"><div id="psD" class="molbox"></div><div class="lpinfo" id="psI"></div></div>`,
+init(root){const seen=new Set();const I={starch:['النشا','تخزين الطاقة في النبات','البطاطس والقمح والأرز','يهضمه الإنسان'],glyc:['الجلايكوجين','تخزين الطاقة في الحيوان','الكبد والعضلات','كثير التفرع، فيتحرر منه الجلوكوز بسرعة'],cell:['السليلوز','بناء جدار الخلية النباتية','الخشب والقطن والخضراوات','لا يهضمه الإنسان، ويعطي الألياف']};
+  const up=v=>{seen.add(v);$('#psD',root).innerHTML=sugarArt(v);const i=I[v];$('#psI',root).innerHTML=`<b>${i[0]}</b><br>الوظيفة: ${i[1]}<br>أين يوجد؟ ${i[2]}<br>${i[3]}`;if(seen.size===3)completeTask('l2-poly');};
+  bindChips(root,'psM',up);up('starch');}};
+
+const LIP=[{cat:'t',k:'tri',cells:['الجليسريدات الثلاثية','جليسرول + 3 أحماض دهنية','غير قطبية','تخزين الطاقة','الزبدة وزيت الزيتون'],note:'الدهون الصلبة غنية بالأحماض المشبعة، والزيوت بغير المشبعة. وتتفكك بالتصبن.'},{cat:'p',k:'phos',cells:['الليبيدات الفوسفورية','جليسرول + حمضان دهنيان + فوسفات','رأس قطبي وذيلان غير قطبيين','بناء الأغشية الخلوية','الغشاء الخلوي'],note:'تترتب في طبقتين: الرؤوس نحو الماء والذيول إلى الداخل.'},{cat:'w',k:'wax',cells:['الشموع','حمض دهني + كحول طويل السلسلة','غير قطبية','الحماية ومنع فقد الماء','شمع النحل وطبقة أوراق النبات'],note:'تستعمل في تلميع السيارات.'},{cat:'s',k:'ster',cells:['الستيرويدات','أربع حلقات ملتحمة','غير قطبية','بناء الأغشية، وهرمونات، وفيتامين (د)','الكولسترول'],note:'من أمثلتها سم العلجوم البحري العملاق الذي يدافع به عن نفسه.'}];
+SIMS.lipidTable={title:'جدول مقارنة الليبيدات',
+html:()=>`<h3>📊 جدول تفاعلي: مقارنة أنواع الليبيدات</h3><div id="lpT"></div><div class="cmap"><h4>🫧 صورة توضيحية: الغشاء الخلوي من الليبيدات الفوسفورية</h4><svg viewBox="0 0 520 170" id="mbS" role="img" aria-label="طبقتان من الليبيدات الفوسفورية"></svg><p class="cm-note">الرؤوس القطبية (الزرقاء) تتجه نحو الماء داخل الخلية وخارجها، والذيول غير القطبية تتجه إلى الداخل بعيدًا عن الماء.</p></div>`,
+init(root){cmpTable(root,'#lpT',{cols:['النوع','التركيب','القطبية','الوظيفة','مثال'],task:'l3-tab',need:4,rows:LIP.map(l=>({...l,art:()=>lipidArt(l.k)}))});
+  let s='<rect x="0" y="0" width="520" height="30" fill="rgba(63,169,221,.2)"/><rect x="0" y="140" width="520" height="30" fill="rgba(63,169,221,.2)"/><text x="10" y="20" font-size="11" fill="currentColor">ماء (خارج الخلية)</text><text x="10" y="162" font-size="11" fill="currentColor">ماء (داخل الخلية)</text>';
+  for(let i=0;i<20;i++){const x=20+i*25;s+=`<circle cx="${x}" cy="40" r="9" fill="#2763D8"/><path d="M${x-3} 49 L${x-5} 62 L${x-2} 74 M${x+3} 49 L${x+5} 62 L${x+2} 74" stroke="#E39B12" stroke-width="2" fill="none"/><circle cx="${x}" cy="130" r="9" fill="#2763D8"/><path d="M${x-3} 121 L${x-5} 108 L${x-2} 96 M${x+3} 121 L${x+5} 108 L${x+2} 96" stroke="#E39B12" stroke-width="2" fill="none"/>`;}
+  $('#mbS',root).innerHTML=s;}};
+
+SIMS.fattyAcid={title:'الأحماض الدهنية المشبعة وغير المشبعة',
+html:()=>`<h3>〰️ صورة تفاعلية: المشبعة وغير المشبعة والهدرجة</h3><p class="desc">قارني شكل الحمض الدهني المشبع بغير المشبع، وراقبي كيف يؤثر ذلك في تراص الجزيئات. ثم هدرجي الحمض غير المشبع.</p>
+ ${radioChips('faM',[['s','حمض الستيريك (مشبع)'],['u','حمض الأولييك (غير مشبع)']])}
+ <div class="srbox"><svg viewBox="0 0 300 200" id="faS" role="img" aria-label="جزيئات أحماض دهنية متراصة"></svg><div class="lpinfo" id="faI"></div></div>
+ <div class="row"><button type="button" class="btn sm hot" id="faH">➕ H₂ هدرجي (تفاعل إضافة)</button></div><p class="fb" id="faF"></p>`,
+init(root){let hyd=false;const seen=new Set();
+  const draw=()=>{const m=chipVal(root,'faM');const kink=m==='u'&&!hyd;let s='';
+    for(let r=0;r<5;r++){const y=25+r*35,xo=kink?(r%2)*30:0;s+=`<circle cx="${18+xo}" cy="${y+4}" r="7" fill="#DE4527"/>`;let d=`M${25+xo} ${y}`;let cy=y;for(let i=0;i<14;i++){const x=25+xo+(i+1)*16;cy=y+(i%2?0:7)+(kink&&i>=7?(i-6)*4:0);d+=` L${x} ${cy}`;}s+=`<path d="${d}" fill="none" stroke="${kink?'#E39B12':'#8A4FC8'}" stroke-width="3" stroke-linecap="round"/>`;}
+    $('#faS',root).innerHTML=s;
+    $('#faI',root).innerHTML=kink?'<b>حمض الأولييك (غير مشبع)</b><br>فيه رابطة ثنائية تسبب انحناء السلسلة، فلا تتراص الجزيئات جيدًا.<br>لذلك الزيوت الغنية به سائلة.':`<b>${m==='u'?'بعد الهدرجة: أصبح مشبعًا':'حمض الستيريك (مشبع)'}</b><br>روابط أحادية فقط، فالسلسلة مستقيمة والجزيئات متراصة.<br>لذلك الدهون الغنية به صلبة مثل الزبدة.`;seen.add(kink?'u':'s');};
+  bindChips(root,'faM',()=>{hyd=false;$('#faF',root).textContent='';draw();});draw();
+  $('#faH',root).addEventListener('click',()=>{const f=$('#faF',root);if(chipVal(root,'faM')!=='u'||hyd){f.className='fb bad';f.textContent='الحمض المشبع لا يحتوي روابط ثنائية، فلا يتفاعل مع الهيدروجين.';return;}hyd=true;draw();f.className='fb ok';f.textContent='✓ أُضيف الهيدروجين إلى الرابطة الثنائية فأصبح الحمض مشبعًا ومستقيمًا (تُصنع بهذه الطريقة بعض الدهون الصلبة من الزيوت).';seen.add('h');if(seen.size>=3)completeTask('l3-fa');});}};
+
+SIMS.soapLab={title:'مختبر التصبن',
+html:()=>`<h3>🔬 مختبر: تحضير الصابون (التصبن)</h3><p class="desc">سخّني جليسريدًا ثلاثيًا (زيت) مع محلول هيدروكسيد الصوديوم، ثم اختبري قدرة الصابون على إزالة الزيت.</p>
+ <div class="lab"><svg viewBox="0 0 360 260" id="spS" class="labsvg" role="img" aria-label="تفاعل التصبن"></svg><div class="labside"><button type="button" class="btn hot" id="spGo">🔥 سخّني الزيت مع NaOH</button><button type="button" class="btn cold" id="spW">🧽 جرّبي الصابون على بقعة زيت</button><div class="lpinfo" id="spI">جليسريد ثلاثي + 3NaOH ← 3 صابون (أملاح الكربوكسيلات) + جليسرول</div></div></div><p class="fb" id="spF"></p>`,
+init(root){let made=false,washed=false;
+  const scene=(k,mode)=>{let s=`<path d="M100 60 L100 222 Q100 236 114 236 L246 236 Q260 236 260 222 L260 60" fill="none" stroke="currentColor" stroke-width="3"/>`;
+    if(mode==='wash'){s+=`<path d="M102 120 L258 120 L258 222 Q258 234 246 234 L114 234 Q102 234 102 222 Z" fill="rgba(190,225,245,.5)"/><circle cx="180" cy="175" r="${30-12*k}" fill="#F2C53D" opacity=".85"/>`;for(let i=0;i<12;i++){const a=i*Math.PI/6,r=46-12*k;const x=180+r*Math.cos(a),y=175+r*Math.sin(a);s+=`<line x1="${x}" y1="${y}" x2="${180+(r-16)*Math.cos(a)}" y2="${175+(r-16)*Math.sin(a)}" stroke="#E39B12" stroke-width="3"/><circle cx="${x}" cy="${y}" r="5" fill="#2763D8"/>`;}s+=`<text x="180" y="250" text-anchor="middle" font-size="11" fill="currentColor">الذيول تحيط بالزيت والرؤوس نحو الماء</text>`;}
+    else{s+=`<path d="M102 ${150-30*k} L258 ${150-30*k} L258 222 Q258 234 246 234 L114 234 Q102 234 102 222 Z" fill="rgba(${242-40*k},${197+20*k},${61+150*k},.6)"/><rect x="80" y="240" width="200" height="12" rx="4" fill="${k>0?'#DE4527':'#999'}"/>`;if(k>0.6)for(let i=0;i<6;i++)s+=`<rect x="${120+i*20}" y="${100-30*k}" width="14" height="10" rx="3" fill="#fff" stroke="#ccc"/>`;}
+    $('#spS',root).innerHTML=s;};
+  scene(0);
+  $('#spGo',root).addEventListener('click',()=>{tween(1800,k=>scene(k),()=>{made=true;$('#spF',root).className='fb ok';$('#spF',root).textContent='✓ تكوّن الصابون (قطع بيضاء تطفو) والجليسرول. هذا تفاعل التصبن: تميؤ الجليسريد الثلاثي بقاعدة قوية.';});});
+  $('#spW',root).addEventListener('click',()=>{if(!made){$('#spF',root).className='fb bad';$('#spF',root).textContent='حضّري الصابون أولًا.';return;}tween(1800,k=>scene(k,'wash'),()=>{$('#spF',root).className='fb ok';$('#spF',root).textContent='✓ لجزيء الصابون رأس قطبي يحب الماء وذيل غير قطبي يحب الزيت، فيحيط بقطرة الزيت ويحملها في الماء.';completeTask('l3-soap');});});}};
+
+const BASE={A:['الأدينين','#DE4527'],T:['الثايمين','#E3B23C'],G:['الجوانين','#1FAE7A'],C:['السايتوسين','#2763D8'],U:['اليوراسيل','#B45AA6']};
+SIMS.nucBuilder={title:'بناء النيوكليوتيد',
+html:()=>`<h3>🧩 ابني نيوكليوتيدًا</h3><p class="desc">اختاري السكر الخماسي والقاعدة النيتروجينية. ستعرفين هل ينتمي النيوكليوتيد إلى DNA أم RNA.</p>
+ <div class="lablbl">السكر الخماسي</div>${radioChips('nbS',[['d','ديوكسي رايبوز'],['r','رايبوز']])}<div class="lablbl" style="margin-top:6px">القاعدة النيتروجينية</div>${radioChips('nbB',Object.entries(BASE).map(([k,v])=>[k,v[0]+' '+k]))}
+ <div class="srbox"><svg viewBox="0 0 320 180" id="nbV" role="img" aria-label="نيوكليوتيد"></svg><div class="lpinfo" id="nbI"></div></div>`,
+init(root){const got=new Set();
+  const up=()=>{const s=chipVal(root,'nbS'),b=chipVal(root,'nbB');const bad=(s==='d'&&b==='U')||(s==='r'&&b==='T');
+    $('#nbV',root).innerHTML=`<circle cx="60" cy="90" r="30" fill="#E39B12"/><text x="60" y="95" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">فوسفات</text><line x1="90" y1="90" x2="125" y2="90" stroke="currentColor" stroke-width="3"/><polygon points="160,55 195,80 182,122 138,122 125,80" fill="${s==='d'?'#3B7BFF':'#8A4FC8'}"/><text x="160" y="98" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">${s==='d'?'ديوكسي رايبوز':'رايبوز'}</text><line x1="195" y1="80" x2="230" y2="60" stroke="currentColor" stroke-width="3"/><rect x="228" y="30" width="80" height="50" rx="12" fill="${BASE[b][1]}"/><text x="268" y="61" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">${b}</text>`;
+    const I=$('#nbI',root);if(bad){I.innerHTML=`⚠️ هذا التركيب غير موجود: ${s==='d'?'اليوراسيل يوجد في RNA فقط، والسكر ديوكسي رايبوز خاص بـ DNA.':'الثايمين يوجد في DNA فقط، والرايبوز خاص بـ RNA.'}`;return;}
+    const kind=s==='d'?'DNA':'RNA';got.add(kind);I.innerHTML=`✓ نيوكليوتيد في <b class="ltr">${kind}</b><br>فوسفات + ${s==='d'?'ديوكسي رايبوز':'رايبوز'} + ${BASE[b][0]} (${b})`;if(got.size===2)completeTask('l4-nuc');};
+  bindChips(root,'nbS',up);bindChips(root,'nbB',up);up();}};
+
+SIMS.dnaPair={title:'أكملي الشريط المقابل',
+html:()=>`<h3>🌀 أكملي الشريط المقابل، ثم انسخي RNA</h3><p class="desc">لكل قاعدة في الشريط العلوي اختاري القاعدة المقابلة لها. تذكري: A–T و G–C. وعند نسخ RNA يبقى الشريط العلوي هو DNA القالب (فيه T)، أما شريط RNA المنسوخ فيحل فيه U محل T.</p>
+ ${radioChips('dpM',[['dna','شريط DNA المقابل'],['rna','نسخ شريط RNA']])}<div class="strandlbl" id="dpTL"></div><div class="strand" id="dpT"></div><div class="strandlbl" id="dpBL"></div><div class="strand" id="dpB"></div><div class="row" style="justify-content:center">${['A','T','G','C','U'].map(b=>`<button type="button" class="btn sm basebtn" data-b="${b}" style="background:${BASE[b][1]};color:#fff">${b}</button>`).join('')}<button type="button" class="btn sm ghost" id="dpN">↺ تسلسل جديد</button></div><p class="fb" id="dpF"></p>`,
+init(root){let seq=[],ans=[],i=0;
+  const comp=(b,m)=>m==='rna'?{A:'U',T:'A',G:'C',C:'G'}[b]:{A:'T',T:'A',G:'C',C:'G'}[b];
+  const cell=(b,on)=>`<span class="bcell${on?' cur':''}" style="${b?`background:${BASE[b][1]};color:#fff`:''}">${b||'؟'}</span>`;
+  const draw=()=>{const m=chipVal(root,'dpM');$('#dpT',root).innerHTML=seq.map(b=>cell(b)).join('');$('#dpB',root).innerHTML=seq.map((_,k)=>cell(ans[k],k===i)).join('');$('#dpB',root).classList.toggle('rna',m==='rna');
+    $('#dpTL',root).innerHTML=m==='rna'?'🧬 شريط <b class="ltr">DNA</b> القالب (يحتوي الثايمين T)':'🧬 شريط <b class="ltr">DNA</b> الأول';
+    $('#dpBL',root).innerHTML=m==='rna'?'📜 شريط <b class="ltr">RNA</b> المنسوخ (يحل اليوراسيل U محل الثايمين T، ولا يوجد فيه T)':'🧬 شريط <b class="ltr">DNA</b> المقابل (لا يوجد فيه U)';
+    $$('.basebtn',root).forEach(x=>{x.style.display=(m==='rna'&&x.dataset.b==='T')||(m==='dna'&&x.dataset.b==='U')?'none':'';});};
+  const fresh=()=>{seq=[...Array(8)].map(()=>'ATGC'[Math.floor(Math.random()*4)]);ans=[];i=0;draw();$('#dpF',root).textContent='';};
+  bindChips(root,'dpM',fresh);fresh();$('#dpN',root).addEventListener('click',fresh);
+  $$('.basebtn',root).forEach(b=>b.addEventListener('click',()=>{if(i>=seq.length)return;const m=chipVal(root,'dpM'),want=comp(seq[i],m),f=$('#dpF',root);
+    if(b.dataset.b===want){ans[i]=want;i++;f.className='fb ok';f.textContent=i>=seq.length?(m==='rna'?'✓ نُسخ شريط RNA كاملًا: لاحظي U مكان T.':'✓ اكتمل الشريط المقابل! هكذا يرتبط الشريطان بروابط هيدروجينية.'):'✓';if(i>=seq.length)completeTask(m==='rna'?'l4-rna':'l4-dna');}
+    else{f.className='fb bad';f.textContent=b.dataset.b==='T'&&m==='rna'?'في RNA لا يوجد ثايمين، استعملي اليوراسيل U.':b.dataset.b==='U'&&m==='dna'?'اليوراسيل لا يوجد في DNA.':'✗ تذكّري: '+seq[i]+' يرتبط مع '+want+'.';}draw();}));}};
+
+SIMS.dnaRnaTable={title:'جدول مقارنة DNA و RNA',
+html:()=>`<h3>📊 جدول تفاعلي: المقارنة بين DNA و RNA</h3><div id="drT"></div>`,
+init(root){cmpTable(root,'#drT',{cols:['الحمض النووي','السكر الخماسي','القواعد النيتروجينية','عدد الأشرطة','الوظيفة'],task:'l4-tab',need:2,
+  rows:[{cells:['DNA','ديوكسي رايبوز','A, T, C, G','شريطان (لولب مزدوج)','يخزن الخطط الرئيسة لبناء البروتينات'],art:()=>helixSVG(0.5,300,150),note:'العمود الفقري سكر وفوسفات، وأزواج القواعد A-T و G-C.'},
+   {cells:['RNA','رايبوز','A, U, C, G','شريط واحد','ينقل المعلومات الوراثية لصنع البروتينات'],art:()=>{let s='<svg viewBox="0 0 300 120" class="mol">';let d='';for(let x=20;x<=280;x+=4)d+=(x===20?'M':'L')+x+' '+(60+20*Math.sin(x/30)).toFixed(1);const b='AUGCCGUAGCAU';for(let i=0;i<12;i++){const x=20+i*23,y=60+20*Math.sin(x/30);s+=`<line x1="${x}" y1="${y}" x2="${x}" y2="${y+28}" stroke="${BASE[b[i]][1]}" stroke-width="5"/>`;}return s+`<path d="${d}" fill="none" stroke="#8A4FC8" stroke-width="6"/></svg>`;},note:'اليوراسيل U يحل محل الثايمين T.'}]});}};
+
+/* ---------- games ---------- */
+const GAMES={
+ g1:{title:'ما وظيفة هذا البروتين؟',items:[['الببسين',0],['الهيموجلوبين',1],['الكولاجين',2],['الأنسولين',3],['الكيراتين',2],['هرمون النمو',3],['بروتين يسرّع تفاعلًا حيويًا',0],['بروتين ينقل الأكسجين',1],['بروتين يبني الأوتار',2],['هرمون يضبط سكر الدم',3],['شعر الإبل',2]],labels:['تسريع التفاعلات','نقل','دعم بنائي','الإشارات الخلوية']},
+ g2:{title:'أحادي أم ثنائي أم عديد؟',items:[['الجلوكوز',0],['الفركتوز',0],['الجالاكتوز',0],['السكروز',1],['اللاكتوز',1],['المالتوز',1],['النشا',2],['الجلايكوجين',2],['السليلوز',2],['سكر المائدة',1],['سكر الحليب',1],['مخزن الطاقة في الكبد',2]],labels:['أحادي','ثنائي','عديد التسكر']},
+ g3:{title:'ما نوع هذا الليبيد؟',items:[['جليسرول + 3 أحماض دهنية',0],['الزبدة وزيت الزيتون',0],['رأس فوسفات قطبي وذيلان',1],['يكوّن طبقتي الغشاء الخلوي',1],['حمض دهني + كحول طويل السلسلة',2],['شمع النحل',2],['أربع حلقات ملتحمة',3],['الكولسترول',3],['فيتامين (د)',3],['ينتج الصابون عند تصبنه',0],['طبقة واقية على أوراق النبات',2],['سم العلجوم البحري',3]],labels:['جليسريد ثلاثي','ليبيد فوسفوري','شمع','ستيرويد']},
+ g4:{title:'القاعدة المقابلة',gen:()=>{const rna=Math.random()<0.35;const b='ATGC'[Math.floor(Math.random()*4)];const ans=rna?{A:'U',T:'A',G:'C',C:'G'}[b]:{A:'T',T:'A',G:'C',C:'G'}[b];const o=rna?['A','U','G','C']:['A','T','G','C'];return{p:`${rna?'في RNA (نسخ من DNA)':'في DNA'}: ما القاعدة المقابلة لـ <b class="ltr">${b}</b>؟`,o,a:o.indexOf(ans)};}}
+};
+Object.values(GAMES).forEach(g=>{g.html=`<h3>${g.title}</h3><p class="desc">لديك 45 ثانية. أجيبي عن أكبر عدد من الأسئلة: 5 إجابات صحيحة = نجمة، 10 = نجمتان، 15 = ثلاث نجوم.</p><div class="gbox" aria-live="polite"></div>`;});
+
+function initGame(root,g){
+  const box=$('.gbox',root);const id=Object.keys(GAMES).find(k=>GAMES[k]===g);let timer=null,score=0,left=45,deck=[],busy=false;
+  const starRow=n=>'<div class="stars3">'+[1,2,3].map(i=>`<span class="${i<=n?'':'off'}">★</span>`).join('')+'</div>';
+  const intro=()=>{const b=S.games[id]||0;box.innerHTML=`${starRow(gameStars(b))}<p style="margin:0">أفضل نتيجة: <b>${b}</b></p><button type="button" class="btn hot">ابدئي التحدي</button>`;$('button',box).addEventListener('click',start);};
+  const next=()=>{let it;
+    if(g.gen)it=g.gen();else{if(!deck.length)deck=shuffle(g.items);const x=deck.pop();it={p:x[0],o:g.labels,a:x[1]};}
+    box.innerHTML=`<div class="ghead"><span>النقاط: ${score}</span><span class="timer">⏱ ${left}s</span></div><div class="gprompt">${g.gen?it.p:fm(it.p)}</div><div class="gopts">${it.o.map((o,i)=>`<button type="button" class="opt" data-i="${i}">${o}</button>`).join('')}</div>`;
+    fmAll(box);busy=false;
+    $$('.opt',box).forEach(b=>b.addEventListener('click',()=>{if(busy)return;busy=true;const ok=+b.dataset.i===it.a;
+      if(ok){score++;b.classList.add('ok');box.classList.add('flash-ok');}else{b.classList.add('bad');$$('.opt',box)[it.a].classList.add('ok');box.classList.add('flash-bad');}
+      setTimeout(()=>{box.classList.remove('flash-ok','flash-bad');if(left>0)next();},ok?260:650);}));};
+  const tick=()=>{left--;const t=$('.timer',box);if(t)t.textContent='⏱ '+left+'s';if(left<=0)end();};
+  const start=()=>{score=0;left=45;deck=[];next();clearInterval(timer);timer=setInterval(tick,1000);};
+  const end=()=>{clearInterval(timer);const prev=S.games[id]||0;const before=gameStars(prev);if(score>prev){S.games[id]=score;save();refreshStars();}
+    const st=gameStars(Math.max(prev,score));
+    box.innerHTML=`<div class="gscore">${score}</div><p style="margin:0">إجابة صحيحة في 45 ثانية</p>${starRow(gameStars(score))}<p style="margin:0;color:var(--muted)">أفضل نتيجة: ${Math.max(prev,score)}</p><button type="button" class="btn hot">العبي مرة أخرى</button>`;
+    $('button',box).addEventListener('click',start);if(st>before)toast('★ نجوم جديدة من التحدي!');};
+  onCleanup(()=>clearInterval(timer));intro();
+}
+
+/* ---------- quiz runner ---------- */
+function quizRunner(el,qs,opt){
+  let order,idx,score,wrong;
+  const begin=()=>{order=qs.map(q=>{const p=shuffle(q.o.map((t,i)=>({t,i})));return{...q,opts:p,ans:p.findIndex(x=>x.i===q.a)};});if(opt.shuffle!==false)order=shuffle(order);idx=0;score=0;wrong=[];show();};
+  const show=()=>{const q=order[idx];
+    el.innerHTML=`<div class="qr"><div class="qtop"><span>السؤال ${idx+1} من ${order.length}${q.y?'<span class="yr">'+(q.y==='--'?'تجميعات':'تحصيلي '+q.y)+'</span>':''}</span><span class="qsc">صحيحة: ${score}</span></div>
+     <div class="qbar"><i style="width:${idx/order.length*100}%"></i></div>
+     <div class="qtext">${q.q}</div>
+     <div class="opts">${q.opts.map((o,i)=>`<button type="button" class="opt" data-i="${i}"><span dir="auto">${fmo(o.t)}</span></button>`).join('')}</div>
+     <div class="qx"></div></div>`;
+    fmAll(el);
+    $$('.opt',el).forEach(b=>b.addEventListener('click',()=>{const i=+b.dataset.i;$$('.opt',el).forEach(x=>x.disabled=true);
+      const ok=i===q.ans;if(ok)score++;else wrong.push(q);b.classList.add(ok?'ok':'bad');$$('.opt',el)[q.ans].classList.add('ok');
+      $('.qx',el).innerHTML=`<div class="exp ${ok?'ok':'bad'}"><b>${ok?'✓ إجابة صحيحة.':'✗ الإجابة الصحيحة: '+fmo(q.opts[q.ans].t)}</b> ${q.e||''}</div><div class="qnav"><button type="button" class="btn">${idx<order.length-1?'السؤال التالي':'عرض النتيجة'}</button></div>`;
+      $('.qsc',el).textContent='صحيحة: '+score;
+      $('.qnav button',el).addEventListener('click',()=>{idx++;if(idx<order.length)show();else finish();});
+      $('.qnav button',el).focus();}));};
+  const finish=()=>{const pct=Math.round(score/order.length*100);opt.onDone&&opt.onDone(score,order.length,pct);
+    const msg=pct>=90?'ممتاز! أداء متقن.':pct>=80?'رائع! أنتِ مستعدة.':pct>=60?'جيد، راجعي الأسئلة التي أخطأتِ فيها.':'لا بأس، راجعي الدروس وحاولي مرة أخرى.';
+    el.innerHTML=`<div class="qr result"><div class="gscore">${score} / ${order.length}</div><p style="margin:4px 0;font-weight:600">${pct}%: ${msg}</p>
+     <div class="row" style="justify-content:center;margin-top:10px"><button type="button" class="btn" id="qAgain">أعيدي الاختبار</button>${opt.extra||''}</div>
+     ${wrong.length?'<div class="review"><b>راجعي هذه الأسئلة:</b>'+wrong.map(w=>`<div>${w.q}<br><b>الإجابة:</b> <span dir="auto">${fmo(w.opts[w.ans].t)}</span>. ${w.e||''}</div>`).join('')+'</div>':''}</div>`;
+    fmAll(el);$('#qAgain',el).addEventListener('click',()=>opt.restart?opt.restart():begin());};
+  if(opt.autostart===false)return{begin};begin();return{begin};
+}
+
+/* ---------- final ---------- */
+function viewFinal(){
+  app.innerHTML=`<div class="crumbs"><a href="#home">→ الصفحة الرئيسة</a></div>
+  <header class="lhead"><div class="lnum">🧬</div><div><h1>الاختبار الختامي</h1><div class="en">تجميعات الاختبار التحصيلي: الكيمياء الحيوية</div>
+   <p class="idea" style="margin:10px 0 0"><strong>تعليمات:</strong> اختاري نوع الاختبار. بعد كل إجابة يظهر التصحيح مع شرح قصير. احصلي على 80% أو أكثر لتنالي شارة <b>بطلة التحصيلي</b> و5 نجوم.${S.final!=null?' أفضل نتيجة لك: '+S.final+'%.':''}</p></div></header>
+  <section class="panel" style="margin-top:24px" id="finBox"></section>`;
+  const box=$('#finBox');
+  const modes=()=>{box.innerHTML=`<h3>اختاري نوع الاختبار</h3><div class="modes">
+    <button type="button" class="mode" data-m="all"><b>الاختبار الكامل</b><span>جميع الأسئلة (${TAH.length} سؤالًا) بترتيب عشوائي.</span></button>
+    <button type="button" class="mode" data-m="20"><b>اختبار سريع</b><span>20 سؤالًا عشوائيًا من بنك التجميعات.</span></button>
+    <button type="button" class="mode" data-m="recent"><b>أسئلة الكربوهيدرات والليبيدات</b><span>أسئلة السكريات والدهون فقط.</span></button></div>`;
+    $$('.mode',box).forEach(b=>b.addEventListener('click',()=>{const m=b.dataset.m;let qs=TAH;if(m==='20')qs=shuffle(TAH).slice(0,20);if(m==='recent')qs=TAH.slice(18,36).concat(TAH.slice(46,58)).concat(TAH.slice(58,68));
+      quizRunner(box,qs,{restart:modes,extra:'<a class="btn ghost" href="#home">الصفحة الرئيسة</a>',onDone:(sc,tot,pct)=>{const prev=S.final;S.final=Math.max(prev||0,pct);save();refreshStars();if(pct>=80&&!(prev>=80))toast('🏆 حصلتِ على شارة بطلة التحصيلي!');}});}));};
+  modes();
+}
+
+/* ---------- runtime capabilities ---------- */
+const capP={};
+function cap(n){if(!window.claude||typeof window.claude.use!=='function')return Promise.resolve(null);if(!capP[n])capP[n]=window.claude.use(n).catch(()=>null);return capP[n];}
+let viewTok=0;
+function esc(t){return String(t==null?'':t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+/* ---------- chemistry advisor bot ---------- */
+/* تعليمات المساعد محفوظة في الخادم: lib/rules.js */
+const BOT={turns:[],busy:false,ctl:null,sample:null};
+function botFmt(t){let h=esc(t);h=h.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');h=h.replace(/^\s*[-•]\s+/gm,'• ');return h.replace(/\n/g,'<br>');}
+function botAdd(cls,html){const m=document.createElement('div');m.className='msg '+cls;m.innerHTML=html;$('#botMsgs').appendChild(m);$('#botMsgs').scrollTop=1e9;return m;}
+function botSugg(){const n=(location.hash.match(/lesson-(\d)/)||[])[1];const base={1:['ما الرابطة الببتيدية؟','كيف يعمل الإنزيم؟','ما وظائف البروتينات؟'],2:['ما الفرق بين السكريات الأحادية والثنائية؟','لماذا لا نهضم السليلوز؟','مم يتكون السكروز؟'],3:['ما الفرق بين الدهون المشبعة وغير المشبعة؟','ما تفاعل التصبن؟','كيف تكوّن الليبيدات الفوسفورية الغشاء الخلوي؟'],4:['مم يتكون النيوكليوتيد؟','ما الفرق بين DNA و RNA؟','لماذا يرتبط A مع T و G مع C؟']}[n]||['ما الجزيئات الحيوية الأربع؟','ما الفرق بين البروتين والكربوهيدرات؟','ما وظيفة الأحماض النووية؟'];
+  $('#botSugg').innerHTML=base.map(q=>`<button type="button">${esc(q)}</button>`).join('');$$('#botSugg button').forEach(b=>b.addEventListener('click',()=>botAsk(b.textContent)));}
+async function botAsk(q){
+  q=(q||'').trim();if(!q||BOT.busy)return;BOT.busy=true;$('#botSend').disabled=true;$('#botIn').value='';
+  botAdd('me',esc(q));BOT.turns.push({role:'user',content:q.slice(0,1500)});
+  const bub=botAdd('bot','<span style="color:var(--muted)">يفكّر المساعد…</span>');
+  const n=(location.hash.match(/lesson-(\d)/)||[])[1];
+  BOT.ctl=new AbortController();const to=setTimeout(()=>BOT.ctl.abort(),45000);
+  try{
+    const r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},signal:BOT.ctl.signal,
+      body:JSON.stringify({ch:CH_NO,lesson:n?LESSONS[n-1].code+' '+LESSONS[n-1].title:'',messages:BOT.turns.slice(-10)})});
+    let data={};try{data=await r.json();}catch(e){}
+    if(!r.ok||!data.text){const err=new Error('x');err.code=data.error||('http_'+r.status);throw err;}
+    bub.innerHTML=botFmt(data.text);BOT.turns.push({role:'assistant',content:data.text});$('#botMsgs').scrollTop=1e9;
+  }catch(e){
+    BOT.turns.pop();bub.remove();
+    const code=e&&e.code;
+    if(code==='rate_limited')botAdd('err','وصلتِ إلى الحد المسموح من الأسئلة الآن. حاولي بعد قليل.');
+    else if(code==='not_configured')botAdd('err','المساعد غير مفعّل بعد. أخبري معلمتك.');
+    else if(e&&e.name==='AbortError')botAdd('err','استغرق الرد وقتًا طويلًا. حاولي مرة أخرى.');
+    else botAdd('err','تعذّر الحصول على إجابة الآن. حاولي مرة أخرى بعد قليل.');
+  }finally{clearTimeout(to);BOT.busy=false;$('#botSend').disabled=false;}
+}
+function initBot(){
+  const fab=$('#botFab'),panel=$('#botPanel');
+  const open=v=>{panel.classList.toggle('open',v);fab.setAttribute('aria-expanded',v);if(v){botSugg();if(!$('#botMsgs').children.length)botAdd('bot','مرحبًا! أنا مساعدك الكيميائي 🧪<br>اسأليني عن أي فكرة في الفصل السادس: البروتينات، الكربوهيدرات، الليبيدات، أو الأحماض النووية.');setTimeout(()=>$('#botIn').focus(),50);}};
+  fab.addEventListener('click',()=>open(!panel.classList.contains('open')));
+  $('#botClose').addEventListener('click',()=>open(false));
+  $('#botForm').addEventListener('submit',e=>{e.preventDefault();botAsk($('#botIn').value);});
+  $('#botIn').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();botAsk($('#botIn').value);}});
+  window.addEventListener('hashchange',()=>{if(panel.classList.contains('open'))botSugg();});
+  fab.style.display='inline-flex';
+}
+
+/* ---------- assignment (المهمة) ---------- */
+const OK_TYPES=/^(image\/(png|jpeg|gif|webp)|application\/pdf|text\/plain|text\/csv|text\/markdown)$/;
+function guessType(f){if(f.type)return f.type;const e=(f.name.split('.').pop()||'').toLowerCase();return {png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',gif:'image/gif',webp:'image/webp',pdf:'application/pdf',txt:'text/plain',csv:'text/csv',md:'text/markdown'}[e]||'';}
+function fsize(b){return b>1048576?(b/1048576).toFixed(1)+' MB':Math.max(1,Math.round(b/1024))+' KB';}
+function fdate(iso){try{return new Date(iso).toLocaleString('ar-SA',{dateStyle:'medium',timeStyle:'short'});}catch(e){return iso;}}
+function fileLink(f){return `<a href="/_blob/${esc(f.id)}" target="_blank" rel="noopener"><bdi>${esc(f.name)}</bdi></a> <span style="color:var(--muted)">(${fsize(f.size||0)})</span>`;}
+
+function viewTask(){
+  app.innerHTML=`<div class="crumbs"><a href="#home">→ الصفحة الرئيسة</a></div>
+  <header class="lhead"><div class="lnum">📎</div><div><h1>مهمة الفصل الأول</h1><div class="en">الطاقة والتغيرات الكيميائية</div>
+   <p class="idea" style="margin:10px 0 0"><strong>طريقة التسليم:</strong> اقرئي المهمة، ثم ارفعي ملف إجابتك (صورة أو PDF) واضغطي «سلّمي المهمة». يمكنك تعديل تسليمك قبل الموعد.</p></div></header>
+  <section class="panel" style="margin-top:24px" id="taskBox"><p class="hint">جارٍ تحميل المهمة…</p></section>`;
+  initTask(++viewTok);
+}
+async function initTask(tok){
+  const box=$('#taskBox');
+  const [db,user]=await Promise.all([cap('db'),cap('user')]);
+  if(tok!==viewTok)return;
+  if(!db){box.innerHTML=`<div class="notice">📎 رفع المهام يعمل عند فتح المنصة من داخل claude.ai بحساب مسجّل الدخول، بعد أن تشاركها المعلمة معك. إن لم يظهر نموذج التسليم، فأرسلي إجابتك لمعلمتك بالطريقة التي تحددها.</div>`;return;}
+  const teacher=user?await user.canEdit():false;
+  const uid=user?await user.id():null;
+  if(tok!==viewTok)return;
+  let A=null,aLoaded=false;
+  let mine=null,mineLoaded=false,draft=null,assets=null,assetsChecked=false;
+  let subs=[],subsLoaded=false,showOld=false;
+  box.innerHTML=`<div id="aBox"><p class="hint">جارٍ تحميل المهمة…</p></div><div id="sBox"></div>`;
+  const slow=setTimeout(()=>{if(!aLoaded)$('#aBox')&&($('#aBox').innerHTML='<div class="notice">تعذّر الوصول إلى المهمة الآن. تحققي من اتصالك ثم افتحي الصفحة لاحقًا.</div>');},10000);
+  onCleanup(()=>clearTimeout(slow));
+  const unA=db.doc('assignment/current').onSnapshot(sn=>{if(!sn.metadata.fromCache){aLoaded=true;clearTimeout(slow);}A=sn.exists?sn.data():null;renderA();if(teacher)renderSubs();else renderMine();},
+    ()=>{clearTimeout(slow);aLoaded=true;$('#aBox').innerHTML='<div class="notice">تعذّر تحميل المهمة.</div>';});
+  onCleanup(unA);
+
+  function renderA(){
+    const el=$('#aBox');if(!el)return;
+    const card=A?`<div class="assign"><h3>${esc(A.title)}</h3><div class="body">${esc(A.details)}</div>${A.due?`<span class="due">📅 آخر موعد للتسليم: ${esc(A.due)}</span>`:''}</div>`:'<div class="notice">لم تُنشر مهمة بعد.</div>';
+    if(!teacher){el.innerHTML=card;return;}
+    el.innerHTML=`${card}<details style="margin-top:14px" ${A?'':'open'}><summary style="cursor:pointer;font-weight:600">✏️ تعديل المهمة أو نشر مهمة جديدة (يظهر لك فقط بصفتك المعلمة)</summary>
+      <label class="fld">عنوان المهمة<input id="aT" value="${esc(A?A.title:'')}"></label>
+      <label class="fld">تفاصيل المهمة<textarea id="aD">${esc(A?A.details:'')}</textarea></label>
+      <label class="fld">آخر موعد للتسليم<input id="aDue" value="${esc(A?A.due:'')}" placeholder="مثال: الخميس 12 جمادى الأولى"></label>
+      <div class="row" style="margin-top:12px"><button type="button" class="btn sm" id="aSave" ${A?'':'disabled'}>حفظ التعديلات</button><button type="button" class="btn sm hot" id="aNew">نشر كمهمة جديدة</button></div>
+      <p class="hint">«نشر كمهمة جديدة» يبدأ تسليمًا جديدًا، فتظهر تسليمات المهمة السابقة في قائمة منفصلة.</p><p class="fb" id="aFb"></p></details>`;
+    const save=async(isNew)=>{const t=$('#aT').value.trim(),d=$('#aD').value.trim(),due=$('#aDue').value.trim();if(!t||!d){$('#aFb').className='fb bad';$('#aFb').textContent='اكتبي العنوان والتفاصيل.';return;}
+      $('#aSave').disabled=$('#aNew').disabled=true;
+      try{await db.doc('assignment/current').set({id:isNew||!A?('a'+Date.now()):A.id,title:t,details:d,due,updatedAt:new Date().toISOString()});toast(isNew?'نُشرت المهمة الجديدة':'حُفظت التعديلات');}
+      catch(e){$('#aFb').className='fb bad';$('#aFb').textContent='تعذّر الحفظ. تأكدي أنك صاحبة المنصة أو محررة فيها.';}
+      finally{if($('#aNew')){$('#aNew').disabled=false;$('#aSave').disabled=!A;}}};
+    $('#aSave').addEventListener('click',()=>save(false));$('#aNew').addEventListener('click',()=>save(true));
+  }
+
+  /* --- student --- */
+  if(!teacher){
+    if(!uid){$('#sBox').innerHTML='<div class="notice" style="margin-top:14px">سجّلي الدخول إلى حسابك لتتمكني من تسليم المهمة.</div>';return;}
+    cap('assets').then(a=>{assets=a;assetsChecked=true;renderMine();});
+    const unM=db.doc('submissions/'+uid).onSnapshot(sn=>{mineLoaded=true;mine=sn.exists?sn.data():null;if(!draft&&mine)draft={name:mine.name||'',note:mine.note||'',files:(mine.files||[]).slice()};renderMine();},()=>{mineLoaded=true;renderMine();});
+    onCleanup(unM);
+  }
+  function renderMine(){
+    const el=$('#sBox');if(!el||teacher||!uid)return;
+    if(!A){el.innerHTML='';return;}
+    if(!mineLoaded){el.innerHTML='<p class="hint" style="margin-top:14px">جارٍ التحقق من تسليمك…</p>';return;}
+    if(!draft)draft={name:'',note:'',files:[]};
+    const done=mine&&mine.aid===A.id;
+    const status=done?`<span class="stat ok">✓ سلّمتِ المهمة في ${esc(fdate(mine.at))}</span>`:`<span class="stat no">لم تُسلّمي بعد</span>`;
+    const fb=done&&(mine.feedback||mine.grade)?`<div class="fb-box"><b>ملاحظات المعلمة:</b> ${esc(mine.feedback||'')}${mine.grade?`<br><b>الدرجة:</b> ${esc(mine.grade)}`:''}</div>`:'';
+    let form='';
+    if(assetsChecked&&!assets){form=`<div class="notice" style="margin-top:12px">لا تملكين صلاحية رفع الملفات في هذه المنصة. اطلبي من معلمتك مشاركة المنصة معك بصلاحية «مساهِمة» (Contributor).</div>`;}
+    else{form=`<label class="fld">اسمك وشعبتك<input id="sName" value="${esc(draft.name)}" placeholder="مثال: نورة محمد، 2/3"></label>
+      <div class="drop" id="sDrop" tabindex="0" role="button">📤 اضغطي لاختيار ملف الإجابة أو اسحبيه إلى هنا<br><small style="color:var(--muted)">صور (JPG أو PNG) أو PDF، حتى 20 MB للملف. ملفات Word احفظيها PDF أولًا.</small><input type="file" id="sFile" multiple accept="image/png,image/jpeg,image/webp,application/pdf,.txt" hidden></div>
+      <div class="flist" id="sList">${draft.files.map((f,i)=>`<div class="fitem"><span>${f.id?fileLink(f):esc(f.name)+' <span style="color:var(--muted)">جارٍ الرفع…</span>'}</span>${f.id?`<button type="button" data-rm="${i}">حذف</button>`:''}</div>`).join('')}</div>
+      <label class="fld">ملاحظة لمعلمتك (اختياري)<textarea id="sNote" style="min-height:70px">${esc(draft.note)}</textarea></label>
+      <div class="row" style="margin-top:12px"><button type="button" class="btn" id="sSend" style="background:var(--green);color:#fff">${done?'تحديث التسليم':'سلّمي المهمة'}</button></div><p class="fb" id="sFb"></p>`;}
+    el.innerHTML=`<div style="margin-top:18px"><h3 style="margin:0 0 8px">تسليمك</h3>${status}${fb}${form}</div>`;
+    if(!assets)return;
+    const fi=$('#sFile'),dr=$('#sDrop');
+    $('#sName').addEventListener('input',e=>draft.name=e.target.value);$('#sNote').addEventListener('input',e=>draft.note=e.target.value);
+    dr.addEventListener('click',()=>fi.click());dr.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();fi.click();}});
+    dr.addEventListener('dragover',e=>{e.preventDefault();dr.classList.add('over');});dr.addEventListener('dragleave',()=>dr.classList.remove('over'));
+    dr.addEventListener('drop',e=>{e.preventDefault();dr.classList.remove('over');addFiles(e.dataTransfer.files);});
+    fi.addEventListener('change',()=>addFiles(fi.files));
+    $$('[data-rm]',el).forEach(b=>b.addEventListener('click',()=>{const f=draft.files[+b.dataset.rm];draft.files.splice(+b.dataset.rm,1);const inSaved=mine&&(mine.files||[]).some(x=>x.id===f.id);if(!inSaved&&f.id)assets.delete(f.id).catch(()=>{});renderMine();}));
+    $('#sSend').addEventListener('click',submit);
+  }
+  async function addFiles(list){
+    const fb=()=>$('#sFb');
+    for(const f of Array.from(list)){
+      const t=guessType(f);
+      if(!OK_TYPES.test(t)){if(fb()){fb().className='fb bad';fb().textContent='الملف «'+f.name+'» بصيغة غير مدعومة. استعملي صورة JPG أو PNG أو ملف PDF.';}continue;}
+      if(f.size>20*1048576){if(fb()){fb().className='fb bad';fb().textContent='الملف «'+f.name+'» أكبر من 20 MB.';}continue;}
+      const item={name:f.name,size:f.size};draft.files.push(item);renderMine();
+      try{const r=await assets.upload(f,{type:t});item.id=r.id;item.size=r.sizeBytes;item.type=r.contentType;}
+      catch(e){draft.files.splice(draft.files.indexOf(item),1);if(fb()){fb().className='fb bad';fb().textContent=e&&e.code==='quota_exceeded'?'امتلأت مساحة التخزين في المنصة. أخبري معلمتك.':'تعذّر رفع «'+f.name+'». جرّبي مرة أخرى أو بصيغة أخرى.';}}
+      renderMine();
+    }
+  }
+  async function submit(){
+    const fb=$('#sFb');
+    if(draft.files.some(f=>!f.id)){fb.className='fb bad';fb.textContent='انتظري حتى يكتمل رفع الملفات.';return;}
+    if(!draft.name.trim()){fb.className='fb bad';fb.textContent='اكتبي اسمك وشعبتك.';return;}
+    if(!draft.files.length){fb.className='fb bad';fb.textContent='ارفعي ملف إجابتك أولًا.';return;}
+    $('#sSend').disabled=true;
+    try{await db.doc('submissions/'+uid).set({aid:A.id,name:draft.name.trim(),note:draft.note.trim(),files:draft.files.map(f=>({id:f.id,name:f.name,size:f.size||0,type:f.type||''})),at:new Date().toISOString()});toast('📎 تم تسليم المهمة بنجاح');}
+    catch(e){fb.className='fb bad';fb.textContent=e&&e.code==='invalid_argument'?'لا تملكين صلاحية التسليم. اطلبي من معلمتك صلاحية «مساهِمة».':'تعذّر التسليم الآن. حاولي مرة أخرى.';if($('#sSend'))$('#sSend').disabled=false;}
+  }
+
+  /* --- teacher --- */
+  if(teacher){
+    const unS=db.collection('submissions').onSnapshot(q=>{subsLoaded=true;subs=q.docs.map(d=>({uid:d.id,...d.data()}));renderSubs();},()=>{subsLoaded=true;renderSubs();});
+    onCleanup(unS);
+  }
+  async function renderSubs(){
+    const el=$('#sBox');if(!el||!teacher)return;
+    if(!subsLoaded){el.innerHTML='<p class="hint" style="margin-top:14px">جارٍ تحميل التسليمات…</p>';return;}
+    const cur=subs.filter(x=>A&&x.aid===A.id).sort((a,b)=>(b.at||'').localeCompare(a.at||''));
+    const old=subs.filter(x=>!A||x.aid!==A.id);
+    let names={};try{if(user)names=await user.profiles(subs.map(x=>x.uid));}catch(e){}
+    if(!$('#sBox'))return;
+    const card=x=>{const p=names[x.uid];const acc=p&&p.name?` <span style="color:var(--muted);font-size:13.5px">(${esc(p.name)})</span>`:'';
+      return `<div class="subcard"><div class="row" style="justify-content:space-between"><b>${esc(x.name||'بدون اسم')}${acc}</b><span class="hint" style="margin:0">${esc(fdate(x.at))}</span></div>
+      ${x.note?`<div style="font-size:15px">📝 ${esc(x.note)}</div>`:''}
+      <div class="flist">${(x.files||[]).map(f=>`<div class="fitem"><span>${fileLink(f)}</span></div>`).join('')}</div>
+      <div class="row"><input class="ans" style="width:110px;text-align:center" data-g="${esc(x.uid)}" value="${esc(x.grade||'')}" placeholder="الدرجة" aria-label="الدرجة"><input class="tinput" style="flex:1;min-width:160px" data-f="${esc(x.uid)}" value="${esc(x.feedback||'')}" placeholder="ملاحظة للطالبة" aria-label="ملاحظة"><button type="button" class="btn sm" data-sv="${esc(x.uid)}">حفظ</button></div></div>`;};
+    el.innerHTML=`<div style="margin-top:20px"><h3 style="margin:0 0 4px">تسليمات الطالبات (${cur.length})</h3><p class="hint" style="margin:0">تظهر هذه القائمة لك فقط. الدرجة والملاحظة تظهران للطالبة في صفحة تسليمها.</p>
+      <div class="subgrid">${cur.length?cur.map(card).join(''):'<div class="notice">لم تصل تسليمات لهذه المهمة بعد.</div>'}</div>
+      ${old.length?`<button type="button" class="btn sm ghost" id="oldT" style="margin-top:14px">${showOld?'إخفاء':'عرض'} تسليمات المهام السابقة (${old.length})</button>${showOld?`<div class="subgrid">${old.map(card).join('')}</div>`:''}`:''}</div>`;
+    const oT=$('#oldT');if(oT)oT.addEventListener('click',()=>{showOld=!showOld;renderSubs();});
+    $$('[data-sv]',el).forEach(b=>b.addEventListener('click',async()=>{const id=b.dataset.sv;b.disabled=true;
+      try{await db.doc('submissions/'+id).update({grade:$(`[data-g="${id}"]`,el).value.trim(),feedback:$(`[data-f="${id}"]`,el).value.trim()});toast('حُفظت الملاحظة');}
+      catch(e){toast('تعذّر الحفظ');}finally{b.disabled=false;}}));
+  }
+}
+
+applyTheme();
+initBot();
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{applyTheme();window.dispatchEvent(new Event('themechange'));});
+route();
+</script>
+</body>
+</html>

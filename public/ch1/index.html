@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مختبر الطاقة والتغيرات الكيميائية | كيمياء 2-2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Noto+Kufi+Arabic:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F1EBFC; --surface:#FFFFFF; --surface2:#F8F5FE; --ink:#1E1638; --muted:#5E5677; --line:#DCD2F1; --grid:rgba(124,77,214,.11); --head:var(--ink);
+  --cold:#2763D8; --hot:#DE4527; --mid:#8A4FC8; --amber:#D18A0B; --ok:#12916A; --bad:#C7362A; --chip:#ECE4FA; --green:#6D3FC4;
+  --cold-soft:#E3ECFC; --hot-soft:#FCE7E2; --ok-soft:#DFF4EC; --bad-soft:#FBE4E1;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16112A; --surface:#201A3A; --surface2:#271F45; --ink:#EEE9FA; --muted:#B3A9CF; --line:#3A3160; --grid:rgba(184,140,255,.08); --head:var(--ink);
+    --cold:#6E9BFF; --hot:#FF7B5E; --mid:#B88CFF; --amber:#F4BD4C; --ok:#3CC799; --bad:#FF6E61; --chip:#2D2552; --green:#7E55D6;
+    --cold-soft:#1C2C55; --hot-soft:#3A2028; --ok-soft:#143A33; --bad-soft:#3D1F25;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16112A; --surface:#201A3A; --surface2:#271F45; --ink:#EEE9FA; --muted:#B3A9CF; --line:#3A3160; --grid:rgba(184,140,255,.08); --head:var(--ink);
+  --cold:#6E9BFF; --hot:#FF7B5E; --mid:#B88CFF; --amber:#F4BD4C; --ok:#3CC799; --bad:#FF6E61; --chip:#2D2552; --green:#7E55D6;
+  --cold-soft:#1C2C55; --hot-soft:#3A2028; --ok-soft:#143A33; --bad-soft:#3D1F25;
+  color-scheme:dark;
+}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--thermal:linear-gradient(to left,var(--cold),var(--mid) 55%,var(--hot));}
+html{scroll-padding-top:env(safe-area-inset-top,0px);}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background-color:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:26px 26px;color:var(--ink);font-family:"IBM Plex Sans Arabic",system-ui,"Segoe UI",Tahoma,sans-serif;font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased}
+img,svg,canvas{max-width:100%}
+.kufi,h1,h2,h3,.lnum,.lcode,.gscore,.temp-big,.brand,.lcard h3,.final-band h3,.teacher .av{font-family:"Noto Kufi Arabic","IBM Plex Sans Arabic",system-ui,sans-serif}
+.hero h1{font-weight:800;line-height:1.35}
+h1,h2,h3,.lcard h3{color:var(--head)}
+.lhead h1{color:var(--head)}
+.teacher{display:flex;align-items:center;gap:12px;margin:6px 0 20px}
+.teacher .av{flex:0 0 48px;height:48px;border-radius:50%;background:var(--cold);color:#fff;display:grid;place-items:center;font-weight:700;font-size:18px}
+.teacher small{display:block;color:var(--muted);font-size:15px;line-height:1.4}
+.teacher b{display:block;font-size:17px;line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+a{color:var(--cold)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:6px}
+.f{font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;unicode-bidi:isolate;display:inline-block;max-width:100%}
+.tinput{font:inherit;font-size:15px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface2);color:var(--ink)}
+.hcard .f,.target .f,.sum .f,.ctable .f,.ediag .f{white-space:nowrap}
+.f sub,.fx sub{font-size:.68em}
+.ltr{direction:ltr;unicode-bidi:isolate}
+
+/* top bar */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:600}
+.brand-mark{width:34px;height:34px;border-radius:50%;background:var(--thermal);display:grid;place-items:center;color:#fff;font-size:15px}
+.top-tools{display:flex;align-items:center;gap:10px}
+.starpill{display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-weight:600}
+.starpill b{color:var(--amber)}
+.iconbtn{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer;font-size:14px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:10px;padding:11px 20px;font-weight:600;cursor:pointer;background:var(--ink);color:var(--bg);text-decoration:none;transition:transform .12s}
+.btn:active{transform:scale(.97)}
+.btn.cold{background:var(--cold);color:#fff}
+.btn.hot{background:var(--hot);color:#fff}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn.sm{padding:7px 14px;font-size:15px;border-radius:8px}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center;padding:26px 0 40px}
+.kicker{color:var(--muted);font-size:15px;margin:0 0 6px}
+.hero h1{font-size:clamp(2rem,4.6vw,3.25rem);line-height:1.22;margin:0 0 16px;font-weight:700;letter-spacing:-.01em}
+.hero h1 .grad{background:var(--thermal);-webkit-background-clip:text;background-clip:text;color:transparent}
+.idea{background:var(--surface);border-inline-start:5px solid var(--mid);border-radius:4px 12px 12px 4px;padding:12px 16px;margin:0 0 16px}
+.idea strong{color:var(--mid)}
+.hero p.lead{color:var(--muted);margin:0 0 20px;max-width:58ch}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.progress-line{margin-top:18px;color:var(--muted);font-size:15px}
+.credit-card{margin-top:20px;font-size:19px;color:var(--muted);line-height:1.6}
+.credit-card b{color:var(--mid);font-weight:700}
+.task-band{margin-top:-14px}
+.tb-in{display:flex;align-items:center;gap:16px}
+.tb-in .ti{flex:0 0 54px;height:54px;border-radius:14px;background:var(--thermal);display:grid;place-items:center;font-size:27px}
+.task-tile{display:flex;align-items:center;gap:14px;margin-top:18px;background:var(--surface);border:2px solid var(--mid);border-radius:16px;padding:12px 18px 12px 14px;text-decoration:none;color:var(--ink);max-width:440px;transition:transform .15s}
+.task-tile:hover{transform:translateY(-2px)}
+.task-tile .ti{flex:0 0 54px;height:54px;border-radius:14px;background:var(--thermal);display:grid;place-items:center;font-size:27px}
+.task-tile b{display:block;font-size:18px}
+.task-tile small{color:var(--muted);font-size:14px}
+
+.beaker-card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:16px;position:relative}
+.beaker-card canvas{display:block;width:100%;height:330px;touch-action:none;cursor:ew-resize;border-radius:14px;background:var(--surface2)}
+.beaker-read{display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:10px;flex-wrap:wrap}
+.temp-big{font-size:30px;font-weight:700;direction:ltr}
+.phase-tag{padding:3px 12px;border-radius:999px;font-weight:600;font-size:15px;background:var(--chip)}
+.beaker-card input[type=range]{width:100%;margin-top:8px}
+.hint{font-size:14px;color:var(--muted);margin:6px 0 0}
+
+/* path */
+h2.sec{font-size:clamp(1.35rem,2.6vw,1.8rem);margin:8px 0 6px}
+.sec-sub{color:var(--muted);margin:0 0 20px}
+.thermo-track{position:relative;height:14px;border-radius:999px;background:var(--thermal);margin:22px 0 0}
+.thermo-track .bulb{position:absolute;inset-inline-start:-8px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:var(--cold)}
+.lessons{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:-7px}
+.lcard{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:0 0 16px 16px;padding:26px 18px 18px;display:flex;flex-direction:column;gap:8px}
+.lcard .node{position:absolute;top:-8px;inset-inline-start:18px;width:30px;height:30px;border-radius:50%;background:var(--surface);border:4px solid var(--c);display:grid;place-items:center;font-size:13px;font-weight:700;color:var(--c)}
+.lcard.done .node{background:var(--c);color:#fff}
+.lcode{font-size:34px;font-weight:700;color:var(--c);line-height:1;direction:ltr;text-align:right}
+.lcard h3{margin:2px 0 0;font-size:19px;line-height:1.4}
+.lcard p{margin:0;color:var(--muted);font-size:15px;line-height:1.6;flex:1}
+.lmeta{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--muted)}
+.lmeta .st{color:var(--amber);font-weight:600}
+
+.badges{display:flex;flex-wrap:wrap;gap:14px;margin:8px 0 0}
+.badge{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px dashed var(--line);border-radius:999px;padding:6px 16px 6px 8px;color:var(--muted);font-size:15px}
+.badge i{font-style:normal;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--chip);filter:grayscale(1);opacity:.6;font-size:18px}
+.badge.on{border-style:solid;color:var(--ink);font-weight:600}
+.badge.on i{filter:none;opacity:1;background:var(--thermal)}
+
+.final-band{margin:36px 0;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;position:relative;overflow:hidden}
+.final-band::before{content:"";position:absolute;inset-block:0;inset-inline-start:0;width:6px;background:var(--thermal)}
+.final-band h3{margin:0 0 4px;font-size:22px}
+.final-band p{margin:0;color:var(--muted)}
+
+footer.foot{border-top:1px solid var(--line);margin-top:40px;padding:22px 0 30px;color:var(--muted);font-size:14px;text-align:center;line-height:1.7}
+footer.foot b{color:var(--ink)}
+
+/* lesson page */
+.crumbs{margin:6px 0 10px}
+.crumbs a{text-decoration:none;font-size:15px}
+.lhead{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:end;padding:10px 0 22px;border-bottom:1px solid var(--line)}
+.lnum{font-size:clamp(4rem,11vw,7.5rem);font-weight:700;line-height:.9;direction:ltr;background:var(--thermal);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lhead h1{margin:0;font-size:clamp(1.7rem,3.6vw,2.4rem);line-height:1.3}
+.lhead .en{color:var(--muted);direction:ltr;text-align:right;font-size:16px}
+.vocab{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
+.vocab span{background:var(--chip);border-radius:6px;padding:2px 10px;font-size:14px}
+
+.lgrid{display:grid;grid-template-columns:300px 1fr;gap:28px;margin-top:24px;align-items:start}
+.side{position:sticky;top:12px;display:flex;flex-direction:column;gap:16px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.box h4{margin:0 0 8px;font-size:16px}
+.tasks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.tasks li{display:flex;gap:10px;align-items:flex-start;font-size:15px;line-height:1.5;color:var(--muted)}
+.tasks li .ck{flex:0 0 22px;height:22px;border-radius:6px;border:2px solid var(--line);display:grid;place-items:center;font-size:13px;margin-top:1px}
+.tasks li.on{color:var(--ink)}
+.tasks li.on .ck{background:var(--ok);border-color:var(--ok);color:#fff}
+.tbar{height:8px;border-radius:99px;background:var(--chip);overflow:hidden;margin-top:12px}
+.tbar i{display:block;height:100%;background:var(--thermal);width:0;transition:width .4s}
+.side nav{display:flex;flex-direction:column;gap:2px}
+.side nav a{text-decoration:none;color:var(--muted);font-size:15px;padding:4px 8px;border-radius:6px}
+.side nav a:hover{background:var(--chip);color:var(--ink)}
+
+.learn ul{margin:0;padding-inline-start:20px}
+.learn li{margin:0 0 8px}
+.main-col{display:flex;flex-direction:column;gap:26px;min-width:0}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;min-width:0}
+.panel.sim{border-top:4px solid var(--c,var(--cold))}
+.panel h3{margin:0 0 4px;font-size:21px;line-height:1.4}
+.panel .tag{display:inline-block;font-size:13px;font-weight:600;color:var(--c,var(--cold));margin-bottom:4px}
+.panel .desc{color:var(--muted);margin:0 0 16px;font-size:15.5px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.ctrl{display:flex;flex-direction:column;gap:4px;font-size:15px;color:var(--muted);flex:1;min-width:180px}
+input[type=range]{accent-color:var(--mid);width:100%}
+input[type=number],input[type=text],input.ans,select{font:inherit;font-size:16px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface2);color:var(--ink);min-width:0}
+input.ans{width:150px;direction:ltr;text-align:center}
+.unit{color:var(--muted);font-size:15px}
+
+.prac{background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:14px}
+.prac p.q{margin:0 0 10px;font-size:16px}
+.prac .fb{margin:8px 0 0;font-size:15px;min-height:1.2em}
+.fb.ok{color:var(--ok)} .fb.bad{color:var(--bad)}
+.prac.solved{border-color:var(--ok);background:var(--ok-soft)}
+
+/* skier */
+.bars{display:grid;gap:8px;margin-top:12px}
+.bar{display:grid;grid-template-columns:120px 1fr 50px;gap:10px;align-items:center;font-size:14.5px}
+.bar .tr{height:16px;background:var(--chip);border-radius:99px;overflow:hidden}
+.bar .tr i{display:block;height:100%;border-radius:99px;transition:width .08s}
+.bar b{direction:ltr;text-align:left;font-weight:600}
+.switch{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-size:15px}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--surface2);border-radius:999px;padding:5px 14px;cursor:pointer;font-size:14.5px}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.thermos{display:grid;grid-template-columns:repeat(auto-fit,minmax(78px,1fr));gap:12px;margin-top:16px;align-items:end}
+.thermo{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:13.5px;text-align:center}
+.thermo .tube{width:22px;height:170px;border-radius:12px;background:var(--chip);position:relative;overflow:hidden;border:2px solid var(--line)}
+.thermo .tube i{position:absolute;bottom:0;inset-inline:0;background:linear-gradient(to top,var(--cold),var(--hot));transition:height .25s}
+.thermo b{direction:ltr;font-size:14px}
+
+/* options quiz */
+.opts{display:grid;gap:8px;margin-top:10px}
+.opt{text-align:start;border:1.5px solid var(--line);background:var(--surface2);border-radius:10px;padding:10px 14px;cursor:pointer;font-size:16px;line-height:1.5}
+.opt:hover:not([disabled]){border-color:var(--mid)}
+.opt.ok{background:var(--ok-soft);border-color:var(--ok)}
+.opt.bad{background:var(--bad-soft);border-color:var(--bad)}
+.opt[disabled]{cursor:default}
+
+/* calorimeter */
+.calo{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+.calo svg{width:100%;height:auto}
+.dtable{width:100%;border-collapse:collapse;font-size:15px}
+.dtable td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.dtable td:last-child{direction:ltr;text-align:left;font-weight:600}
+.ctable{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+.ctable th,.ctable td{padding:5px 8px;border-bottom:1px solid var(--line);text-align:start}
+.ctable td.n{direction:ltr;text-align:left}
+
+/* packs */
+.packs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.ediag{display:grid;grid-template-columns:1fr 150px;gap:16px;align-items:stretch;background:var(--surface2);border-radius:12px;padding:16px}
+.levels{position:relative;min-height:220px;border-inline-start:2px solid var(--muted);padding-inline-start:12px}
+.levels .axis{position:absolute;inset-inline-start:-28px;top:50%;transform:translateY(-50%) rotate(-90deg);font-size:13px;color:var(--muted);white-space:nowrap}
+.lv{position:absolute;inset-inline:12px;border-top:2px dashed var(--muted);font-size:15px;padding-top:2px}
+.lv span{background:var(--chip);padding:1px 8px;border-radius:6px}
+.lv.top{top:20px}.lv.bot{top:170px}
+.arrowv{position:absolute;inset-inline-end:30%;top:30px;height:140px;width:4px;border-radius:4px}
+.arrowv::after{content:"";position:absolute;inset-inline-start:-7px;border:9px solid transparent}
+.arrowv.down{background:var(--hot)} .arrowv.down::after{bottom:-14px;border-top-color:var(--hot)}
+.arrowv.up{background:var(--cold)} .arrowv.up::after{top:-14px;border-bottom-color:var(--cold)}
+.dhlabel{position:absolute;inset-inline-end:calc(30% + 14px);top:84px;font-weight:700;direction:ltr}
+.flow{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;text-align:center;font-size:14.5px;border-radius:10px;padding:10px}
+.flow .big{font-size:30px}
+
+/* heating curve */
+.hc canvas{width:100%;height:300px;display:block;background:var(--surface2);border-radius:12px}
+.seglist{display:grid;gap:6px;margin-top:12px}
+.seg{display:grid;grid-template-columns:24px 1fr auto;gap:10px;align-items:center;padding:6px 10px;border-radius:8px;font-size:14.5px;border:1px solid transparent}
+.seg.on{border-color:var(--mid);background:var(--chip)}
+.seg .dot{width:12px;height:12px;border-radius:50%}
+.seg b{direction:ltr}
+
+/* hess */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tab{border:1.5px solid var(--line);background:var(--surface2);border-radius:8px;padding:6px 14px;cursor:pointer;font-size:15px}
+.tab[aria-selected=true]{background:var(--mid);color:#fff;border-color:var(--mid)}
+.tab.solved::after{content:" ✓"}
+.target{background:var(--surface2);border:1.5px dashed var(--mid);border-radius:12px;padding:12px 14px;margin-bottom:12px;font-size:17px;overflow-x:auto}
+.hcard{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;background:var(--surface)}
+.hcard .eq{font-size:16.5px;overflow-x:auto;padding-bottom:2px}
+.hcard .dh{direction:ltr;font-weight:600;font-size:14.5px;color:var(--muted)}
+.hcard .tools{display:flex;gap:6px;flex-wrap:wrap}
+.sum{border-top:2px solid var(--ink);margin-top:8px;padding-top:10px;font-size:17px;overflow-x:auto}
+.status{margin-top:10px;padding:10px 14px;border-radius:10px;font-weight:600}
+.status.ok{background:var(--ok-soft);color:var(--ok)}
+.status.wait{background:var(--chip);color:var(--muted)}
+
+/* ladder */
+.ladwrap{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.ladder{position:relative;height:440px;background:var(--surface2);border-radius:12px}
+.ladder .ax{position:absolute;top:12px;bottom:12px;inset-inline-start:50%;width:3px;background:var(--thermal);transform:translateX(50%)}
+.lpt{position:absolute;transform:translateY(-50%);display:flex;align-items:center;gap:6px;cursor:pointer;border:0;background:transparent;padding:0;font-size:14px}
+.lpt .ln{width:34px;height:2px;background:var(--muted)}
+.lpt span{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:1px 8px;direction:ltr;white-space:nowrap}
+.lpt.r{inset-inline-start:calc(50% + 2px)}
+.lpt.l{inset-inline-end:calc(50% + 2px);flex-direction:row-reverse}
+.lpt.zero span{background:var(--chip)}
+.lpt:hover span,.lpt.sel span{border-color:var(--mid);box-shadow:0 0 0 2px var(--mid)}
+
+/* games */
+.game .gbox{background:var(--surface2);border-radius:14px;padding:20px;text-align:center;min-height:230px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px}
+.ghead{display:flex;justify-content:space-between;width:100%;font-weight:600;font-size:15px}
+.timer{direction:ltr}
+.gprompt{font-size:20px;font-weight:600;line-height:1.5;max-width:46ch}
+.gopts{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.gopts .opt{min-width:120px;text-align:center}
+.gscore{font-size:42px;font-weight:700;direction:ltr}
+.flash-ok{animation:fo .35s}
+.flash-bad{animation:fb .35s}
+@keyframes fo{50%{background:var(--ok-soft)}}
+@keyframes fb{50%{background:var(--bad-soft)}}
+.stars3{font-size:28px;letter-spacing:4px;color:var(--amber)}
+.stars3 .off{color:var(--line)}
+
+/* quiz runner */
+.qr .qtop{display:flex;justify-content:space-between;font-size:14.5px;color:var(--muted);margin-bottom:6px}
+.qr .qbar{height:6px;border-radius:99px;background:var(--chip);overflow:hidden;margin-bottom:14px}
+.qr .qbar i{display:block;height:100%;background:var(--thermal);transition:width .3s}
+.qr .qtext{font-size:18.5px;font-weight:600;line-height:1.6}
+.qr .exp{margin-top:12px;padding:10px 14px;border-radius:10px;font-size:15.5px}
+.qr .exp.ok{background:var(--ok-soft)} .qr .exp.bad{background:var(--bad-soft)}
+.qr .qnav{display:flex;justify-content:flex-end;margin-top:14px}
+.yr{display:inline-block;font-size:12.5px;font-weight:600;background:var(--chip);border-radius:6px;padding:1px 8px;margin-inline-start:6px;vertical-align:middle;color:var(--muted)}
+.result{text-align:center;padding:10px 0}
+.result .gscore{font-size:52px}
+.review{text-align:start;margin-top:16px;display:grid;gap:10px}
+.review div{background:var(--surface2);border-radius:10px;padding:10px 14px;font-size:15px;border-inline-start:4px solid var(--bad)}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:14px}
+.mode{border:1.5px solid var(--line);border-radius:14px;padding:16px;background:var(--surface2);cursor:pointer;text-align:start}
+.mode:hover{border-color:var(--mid)}
+.mode b{display:block;font-size:18px;margin-bottom:4px}
+.mode span{color:var(--muted);font-size:14.5px}
+
+.act{margin-top:20px;padding-top:18px;border-top:2px dashed var(--line)}
+.act-tag{display:inline-block;background:var(--chip);border-radius:8px;padding:2px 10px;margin-bottom:8px!important}
+.cmap{margin-top:16px;background:var(--surface2);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.cmap h4{margin:0 0 10px;font-size:16.5px}
+.cmap svg{display:block;width:100%;height:auto;max-width:640px;margin:0 auto}
+.cm-box{fill:var(--surface);stroke:var(--mid);stroke-width:2}
+.cm-main{fill:var(--mid)}
+.cm-k{fill:var(--chip);stroke:var(--line);stroke-width:1.5}
+.cm-x{fill:rgba(39,99,216,.14);stroke:var(--cold);stroke-width:1.5}
+.cm-d{fill:rgba(222,69,39,.12);stroke:var(--hot);stroke-width:1.5}
+.cm-t{fill:var(--ink);font-family:inherit;font-size:14px}
+.cm-tw{fill:#fff;font-family:inherit;font-size:14px}
+.cm-ln{stroke:var(--muted);stroke-width:2;fill:none}
+.cm-ah{fill:var(--muted)}
+.cm-note{margin:10px 0 0;font-size:15px;color:var(--muted);line-height:1.8}
+.flowmap{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px}
+.fstep{background:var(--surface);border:2px solid var(--mid);border-radius:12px;padding:8px 14px;text-align:center;font-size:15px;font-weight:600;max-width:200px}
+.fstep.k{border-color:var(--hot);background:var(--hot-soft)}
+.fstep small{display:block;font-weight:400;color:var(--muted);font-size:13px;direction:auto}
+.farr{font-size:22px;color:var(--mid);font-weight:700}
+.lc-img{background:var(--surface);border-radius:10px;padding:6px}
+.lc-img svg{display:block;width:100%;height:auto}
+.lcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:6px}
+.lc{background:var(--surface2);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:6px}
+.lc .ic{font-size:30px;line-height:1}
+.lc h5{margin:2px 0 0;font-size:17.5px}
+.lc p{margin:0;font-size:15.5px;line-height:1.7}
+.lc .ex{margin-top:auto;background:var(--chip);border-radius:10px;padding:8px 12px;font-size:14.5px;line-height:1.6}
+.lc .ex b{color:var(--green)}
+.simple{font-size:18px;background:var(--chip);border-radius:12px;padding:12px 16px;margin:4px 0 14px;line-height:1.8}
+.navlink{text-decoration:none;font-weight:600;font-size:15px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 14px;color:var(--ink)}
+/* bot */
+.bot-fab{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));inset-inline-end:16px;z-index:40;display:none;align-items:center;gap:8px;border:0;border-radius:999px;padding:12px 18px;background:var(--green);color:#fff;font-weight:600;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.22)}
+.bot-fab .em{font-size:20px}
+.bot-panel{position:fixed;bottom:calc(78px + env(safe-area-inset-bottom,0px));inset-inline-end:16px;z-index:41;width:min(400px,calc(100vw - 24px));height:min(580px,calc(100vh - 120px));display:none;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:0 12px 40px rgba(0,0,0,.25);overflow:hidden}
+.bot-panel.open{display:flex}
+.bot-head{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:var(--green);color:#fff}
+.bot-head b{font-size:16px}.bot-head small{display:block;opacity:.9;font-size:12.5px}
+.bot-head button{background:transparent;border:0;color:#fff;font-size:22px;cursor:pointer;line-height:1}
+.bot-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px;background:var(--surface2)}
+.msg{max-width:88%;padding:9px 13px;border-radius:14px;font-size:15.5px;line-height:1.75;white-space:normal;word-wrap:break-word}
+.msg.me{align-self:flex-start;background:var(--green);color:#fff;border-end-start-radius:4px}
+.msg.bot{align-self:flex-end;background:var(--surface);border:1px solid var(--line);border-end-end-radius:4px}
+.msg.err{align-self:center;background:var(--bad-soft);color:var(--bad);font-size:14px}
+.bot-sugg{display:flex;flex-wrap:wrap;gap:6px;padding:8px 12px 0}
+.bot-sugg button{border:1px solid var(--line);background:var(--surface2);border-radius:999px;padding:4px 10px;font-size:13.5px;cursor:pointer}
+.bot-form{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line)}
+.bot-form textarea{flex:1;resize:none;font:inherit;font-size:15.5px;border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--surface2);color:var(--ink);height:44px;max-height:110px}
+.bot-note{font-size:12px;color:var(--muted);text-align:center;padding:0 10px 8px}
+/* task */
+.notice{background:var(--chip);border-radius:12px;padding:14px 16px;line-height:1.8}
+.assign{background:var(--surface2);border:1.5px solid var(--green);border-radius:16px;padding:18px}
+.assign h3{margin:0 0 6px}
+.assign .due{display:inline-block;background:var(--chip);border-radius:8px;padding:2px 10px;font-size:14px;margin-top:6px}
+.assign .body{white-space:pre-wrap;margin:8px 0 0}
+.fld{display:flex;flex-direction:column;gap:4px;margin-top:12px;font-size:15px;color:var(--muted)}
+.fld input,.fld textarea{font:inherit;font-size:16px;padding:9px 11px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface2);color:var(--ink)}
+.fld textarea{min-height:90px;resize:vertical}
+.drop{border:2px dashed var(--line);border-radius:14px;padding:18px;text-align:center;margin-top:12px;cursor:pointer;background:var(--surface2)}
+.drop.over{border-color:var(--green);background:var(--chip)}
+.flist{display:grid;gap:6px;margin-top:10px}
+.fitem{display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:7px 12px;font-size:14.5px}
+.fitem a{word-break:break-all}
+.fitem button{border:0;background:transparent;color:var(--bad);cursor:pointer;font-size:14px}
+.stat{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:3px 12px;font-weight:600;font-size:14.5px}
+.stat.ok{background:var(--ok-soft);color:var(--ok)}.stat.no{background:var(--hot-soft);color:var(--hot)}
+.subcard{border:1px solid var(--line);border-radius:14px;padding:14px;background:var(--surface);display:grid;gap:6px}
+.subgrid{display:grid;gap:12px;margin-top:12px}
+.fb-box{background:var(--ok-soft);border-radius:10px;padding:10px 14px;margin-top:10px}
+#toast{position:fixed;inset-inline:0;bottom:calc(18px + env(safe-area-inset-bottom,0px));display:flex;justify-content:center;pointer-events:none;z-index:50}
+#toast div{background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:12px;font-weight:600;box-shadow:0 6px 24px rgba(0,0,0,.25);opacity:0;transform:translateY(10px);transition:all .25s;max-width:90vw}
+#toast div.show{opacity:1;transform:none}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .lessons{grid-template-columns:repeat(2,1fr);margin-top:14px}
+  .thermo-track{display:none}
+  .lcard{border-radius:16px}
+  .lgrid{grid-template-columns:1fr}
+  .side{position:static}
+  .side nav{display:none}
+  .calo{grid-template-columns:1fr}
+  .calo svg{max-width:220px;margin:0 auto;display:block}
+  .ladwrap{grid-template-columns:1fr}
+  .final-band{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .lessons{grid-template-columns:1fr}
+  .lhead{grid-template-columns:1fr;gap:4px}
+  .ediag{grid-template-columns:1fr}
+  .bar{grid-template-columns:96px 1fr 44px}
+  .panel{padding:16px}
+  .hcard{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+.report-band .rb-in{display:flex;flex-direction:column;gap:10px;width:100%}.rb-row{display:flex;gap:8px;flex-wrap:wrap}.rb-row input{flex:1;min-width:180px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit}
+.rb-code{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px dashed var(--mid);border-radius:12px;padding:8px 10px}.rb-code code{flex:1;word-break:break-all;font-size:12px;user-select:all}.rb-sum{margin:6px 0 0;font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#home"><span class="brand-mark">ΔH</span><span>مختبر الطاقة</span></a>
+    <div class="top-tools">
+      <span class="starpill" title="مجموع النجوم"><b>★</b><span id="starCount">0</span></span>
+      <button class="iconbtn" id="themeBtn" type="button">الوضع الليلي</button>
+    </div>
+  </header>
+  <main id="app"></main>
+  <footer class="foot" style="font-size:12.5px">إعداد المعلمة: صباح داخل الأحمدي - الثانوية السادسة والثلاثون بالمدينة المنورة</footer>
+</div>
+<div id="toast" aria-live="polite"></div>
+<button type="button" class="bot-fab" id="botFab" aria-controls="botPanel" aria-expanded="false"><span class="em">🧪</span>اسألي مساعدك الكيميائي</button>
+<section class="bot-panel" id="botPanel" aria-label="اسألي مساعدك الكيميائي">
+  <div class="bot-head"><div><b>🧪 اسألي مساعدك الكيميائي</b><small>اسأليني عن الطاقة والتغيرات الكيميائية</small></div><button type="button" id="botClose" aria-label="إغلاق">×</button></div>
+  <div class="bot-msgs" id="botMsgs" aria-live="polite"></div>
+  <div class="bot-sugg" id="botSugg"></div>
+  <form class="bot-form" id="botForm"><textarea id="botIn" rows="1" placeholder="اكتبي سؤالك هنا…" aria-label="سؤالك"></textarea><button class="btn sm" type="submit" id="botSend" style="background:var(--green);color:#fff">إرسال</button></form>
+  <div class="bot-note">المساعد يساعدك على الفهم، فتحققي دائمًا من كتابك ومعلمتك.</div>
+</section>
+
+<script>
+"use strict";
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const LS='thermo22-sabah-v1';
+let S={tasks:{},games:{},quiz:{},done:{},final:null,theme:null};
+try{const raw=localStorage.getItem(LS);if(raw)S=Object.assign(S,JSON.parse(raw));}catch(e){}
+function save(){try{localStorage.setItem(LS,JSON.stringify(S));}catch(e){}try{autoSync();}catch(e){}}
+const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let cleanups=[];
+function onCleanup(fn){cleanups.push(fn);}
+
+/* ---------- helpers ---------- */
+function fm(s){return String(s).replace(/([A-Za-z\)])(\d+)/g,'$1<sub>$2</sub>').replace(/\((s|l|g|aq)\)/g,'<sub>($1)</sub>');}
+function fmAll(root){$$('.f',root).forEach(e=>{if(!e.dataset.fm){e.innerHTML=fm(e.textContent);e.dataset.fm='1';e.setAttribute('dir','ltr');}});}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function parseNum(s){
+  s=String(s).trim().replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[٫]/g,'.').replace(/[,،\s]/g,'').replace(/[−–]/g,'-');
+  const m=s.match(/^([+-]?\d*\.?\d+)[×xX\*]10\^?([+-]?\d+)$/);
+  if(m)return parseFloat(m[1])*Math.pow(10,+m[2]);
+  if(s==='')return NaN; const v=Number(s); return isFinite(v)?v:NaN;
+}
+const SUP={'-':'⁻','0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'};
+function nice(x,p=3){
+  if(!isFinite(x))return '—';
+  const a=Math.abs(x);
+  if(a!==0&&(a>=1e5||a<1e-3)){const e=Math.floor(Math.log10(a));const m=x/Math.pow(10,e);return (+m.toFixed(p-1))+' × 10'+String(e).split('').map(c=>SUP[c]).join('');}
+  return String(+x.toPrecision(Math.max(p,String(Math.round(a)).length)));
+}
+function sgn(x){x=Math.round(x*10)/10;return (x>0?'+':'')+x;}
+function cssv(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
+function toast(msg){const t=$('#toast');t.innerHTML='<div>'+msg+'</div>';const d=t.firstChild;requestAnimationFrame(()=>d.classList.add('show'));setTimeout(()=>{d.classList.remove('show');},2600);}
+
+/* ---------- scoring ---------- */
+function gameStars(b){return b>=15?3:b>=10?2:b>=5?1:0;}
+function totalStars(){let n=Object.keys(S.tasks).length;for(const k in S.games)n+=gameStars(S.games[k]);for(const k in S.quiz)if(S.quiz[k]>=4)n+=3;if(S.final!=null&&S.final>=80)n+=5;return n;}
+function refreshStars(){$('#starCount').textContent=totalStars();}
+function completeTask(id){
+  if(S.tasks[id])return;S.tasks[id]=true;save();refreshStars();
+  const li=document.querySelector('[data-task-li="'+id+'"]');if(li){li.classList.add('on');li.querySelector('.ck').textContent='✓';}
+  updateTaskBar();toast('★ أحسنتِ! أنجزتِ مهمة جديدة');
+}
+function updateTaskBar(){const b=$('#tbar');if(!b)return;const n=+b.dataset.lesson;const ts=LESSONS[n-1].tasks;const d=ts.filter(t=>S.tasks[t.id]).length;b.style.width=(d/ts.length*100)+'%';const c=$('#tcount');if(c)c.textContent=d+' من '+ts.length;}
+
+/* ---------- theme ---------- */
+function effectiveDark(){return S.theme?S.theme==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;}
+function applyTheme(){if(S.theme)document.documentElement.setAttribute('data-theme',S.theme);else document.documentElement.removeAttribute('data-theme');$('#themeBtn').textContent=effectiveDark()?'الوضع النهاري':'الوضع الليلي';}
+$('#themeBtn').addEventListener('click',()=>{S.theme=effectiveDark()?'light':'dark';save();applyTheme();window.dispatchEvent(new Event('themechange'));});
+
+/* ---------- data ---------- */
+const CSPEC=[['الماء',4.184],['الإيثانول',2.44],['الألومنيوم',0.897],['الأسمنت',0.84],['الحديد',0.449],['الفضة',0.235],['الذهب',0.129],['الرصاص',0.128]];
+const FUELS=[['الجلوكوز','C6H12O6(s)',180.18,-2808],['السكروز','C12H22O11(s)',342.30,-5644],['الأوكتان','C8H18(l)',114.23,-5471],['البروبان','C3H8(g)',44.10,-2219],['الميثان','CH4(g)',16.04,-891]];
+const PHASE=[['الماء','H2O',40.7,6.01],['الإيثانول','C2H5OH',38.6,4.94],['الميثانول','CH3OH',35.2,3.22],['حمض الإيثانويك','CH3COOH',23.4,11.7],['الأمونيا','NH3',23.3,5.66]];
+
+const LESSONS=[
+{n:1,code:'1-1',title:'الطاقة',en:'Energy',c:'var(--cold)',
+ idea:'قد يتغير شكل الطاقة، وقد تنتقل، ولكنها تبقى محفوظة دائمًا.',
+ blurb:'تحولات الطاقة، قانون حفظ الطاقة، وحدات الطاقة، والحرارة النوعية.',
+ vocab:['الطاقة','قانون حفظ الطاقة','طاقة الوضع الكيميائية','الحرارة','السُّعر','الجول','الحرارة النوعية'],
+ learn:[
+  {i:'⚡',t:'ما الطاقة؟',s:'هي قدرة الشيء على أن يبذل شغلًا أو يُنتج حرارة.',ex:'جسمك يأخذ طاقته من الطعام ليتحرك ويفكّر.'},
+  {i:'🎢',t:'وضع أم حركة؟',s:'طاقة الوضع مخزّنة بسبب المكان أو التركيب، والطاقة الحركية تظهر عندما يتحرك الشيء.',ex:'المتزلج في أعلى المسار مليء بطاقة الوضع، وعندما ينزل تتحول إلى حركة.'},
+  {i:'🔄',t:'الطاقة لا تضيع',img:'bank',s:'تتحول الطاقة من شكل إلى آخر، لكنها لا تُستحدث ولا تفنى. هذا قانون حفظ الطاقة.',ex:'مثل نقل المال بين حسابين في البنك: يتغير كل حساب، والمجموع ثابت.'},
+  {i:'🔥',t:'طاقة داخل الروابط',img:'flame',s:'الطاقة المخزنة في روابط المادة اسمها طاقة الوضع الكيميائية، وتخرج حرارةً عند التفاعل.',ex:'غاز البروبان في الموقد يحرّر طاقة روابطه حرارةً للطبخ.'},
+  {i:'🧮',t:'وحدات الطاقة',s:'<span class="f">1 cal = 4.184 J</span> والسُّعر الغذائي <span class="f">1 Cal = 1000 cal</span>.',ex:'ملعقة زبدة فيها نحو <span class="f">100 Cal</span>، أي <span class="f">100000 cal</span>.'},
+  {i:'🌡️',t:'الحرارة النوعية',s:'كمية الحرارة التي يحتاجها <span class="f">1 g</span> من المادة لترتفع درجة واحدة. كلما صغرت سخنت المادة أسرع: <span class="f">q = c × m × ΔT</span>',ex:'رصيف الأسمنت يسخن في الصيف أسرع من ماء المسبح.'}],
+ tasks:[{id:'l1-skier',t:'أوصلي المتزلج إلى خط النهاية وراقبي مجموع الطاقة'},{id:'l1-friction',t:'شغّلي الاحتكاك وأعيدي التجربة حتى النهاية'},{id:'l1-conv1',t:'حوّلي طاقة وجبة الإفطار من Cal إلى J'},{id:'l1-conv2',t:'حوّلي حرارة التفاعل من kJ إلى Cal'},{id:'l1-race',t:'استنتجي أي المواد ترتفع حرارتها أكثر'},{id:'l1-q',t:'احسبي حرارة تسخين قطعة الألومنيوم'}],
+ groups:[{sim:'skier',cards:[0,1,2],maps:['energyMap']},{sim:'convert',cards:[3,4],maps:['unitsMap']},{sim:'race',cards:[5],maps:['beach','qMap']}],game:'g1'},
+{n:2,code:'1-2',title:'الحرارة',en:'Heat',c:'var(--mid)',
+ idea:'التغيّر في المحتوى الحراري للتفاعل يساوي المحتوى الحراري للنواتج مطروحًا منه المحتوى الحراري للمتفاعلات.',
+ blurb:'المسعر، النظام والمحيط، والمحتوى الحراري في التفاعلات الطاردة والماصة.',
+ vocab:['المسعر','الكيمياء الحرارية','النظام','المحيط','الكون','المحتوى الحراري','حرارة التفاعل'],
+ learn:[
+  {i:'🥤',t:'المسعر',s:'وعاء معزول حراريًا نقيس به الحرارة التي يكسبها الماء أو يفقدها.',ex:'كأس البوليسترين يحفظ الحرارة داخله مثل كوب القهوة الحافظ.'},
+  {i:'⚖️',t:'ما يفقده الساخن يكسبه البارد',s:'عند وضع فلز ساخن في ماء بارد: الحرارة التي يفقدها الفلز = الحرارة التي يكسبها الماء.',ex:'لذلك نحسب q للماء أولًا، ثم نعرف الحرارة النوعية للفلز.'},
+  {i:'🌍',t:'النظام والمحيط',s:'النظام هو ما ندرسه، والمحيط كل ما حوله، والاثنان معًا هما الكون.',ex:'في الكمادة: الكمادة هي النظام، ويدك جزء من المحيط.'},
+  {i:'📦',t:'المحتوى الحراري',s:'لا نستطيع قياس H نفسه، لكن نقيس التغيّر فيه: <span class="f">ΔH = Hproducts − Hreactants</span>',ex:'إذا كانت النواتج أقل طاقة من المتفاعلات تكون ΔH سالبة.'},
+  {i:'🔴',t:'طارد للحرارة',s:'يُخرج حرارة إلى المحيط، فتكون ΔH سالبة.',ex:'الكمادة الساخنة: <span class="f">ΔH = −1625 kJ</span>'},
+  {i:'🔵',t:'ماص للحرارة',s:'يسحب حرارة من المحيط، فتكون ΔH موجبة.',ex:'الكمادة الباردة: <span class="f">ΔH = +27 kJ</span>'}],
+ tasks:[{id:'l2-run',t:'أجري تجربة المسعر وسجّلي درجة الحرارة النهائية'},{id:'l2-c',t:'احسبي الحرارة النوعية للفلز المجهول'},{id:'l2-id',t:'تعرّفي الفلز المجهول من الجدول'},{id:'l2-packs',t:'استكشفي الكمادة الساخنة والكمادة الباردة'},{id:'l2-prac',t:'حلّي مسألة الحرارة النوعية للفلز'}],
+ groups:[{sim:'calo',cards:[0,1]},{sim:'packs',cards:[2,3,4,5],maps:['systemMap']}],game:'g2'},
+{n:3,code:'1-3',title:'المعادلات الكيميائية الحرارية',en:'Thermochemical Equations',c:'#B45AA6',
+ idea:'تعبّر المعادلات الكيميائية الحرارية عن مقدار الحرارة المنطلقة أو الممتصة في التفاعلات الكيميائية.',
+ blurb:'حرارة الاحتراق، حرارة التبخر والانصهار المولارية، ومنحنى تسخين الماء.',
+ vocab:['المعادلة الكيميائية الحرارية','حرارة الاحتراق','حرارة التبخر المولارية','حرارة الانصهار المولارية'],
+ learn:[
+  {i:'📝',t:'المعادلة الحرارية',s:'معادلة موزونة نكتب فيها حالة كل مادة وقيمة ΔH.',ex:'<span class="f">CH4(g) + 2O2(g) → CO2(g) + 2H2O(l)</span> و <span class="f">ΔH = −891 kJ</span>'},
+  {i:'🔥',t:'حرارة الاحتراق',s:'الحرارة الناتجة عن حرق <span class="f">1 mol</span> من المادة حرقًا كاملًا.',ex:'حرق <span class="f">1 mol</span> من الجلوكوز يعطي <span class="f">2808 kJ</span>، وهي الطاقة نفسها التي تأخذها خلاياك منه.'},
+  {i:'💨',t:'التبخر والانصهار',s:'تحتاج المادة حرارة لتنصهر (ΔHfus) ولتتبخر (ΔHvap)، فكلاهما ماص للحرارة.',ex:'ترتعشين بعد الاستحمام لأن الماء يأخذ حرارة جلدك ليتبخر.'},
+  {i:'↩️',t:'العكس بالإشارة',s:'التكثف عكس التبخر، والتجمد عكس الانصهار: القيمة نفسها بإشارة معاكسة.',ex:'<span class="f">ΔHvap = +40.7 kJ/mol</span> للماء، إذن <span class="f">ΔHcond = −40.7 kJ/mol</span>'},
+  {i:'🧮',t:'كيف أحسب؟',s:'حوّلي الكتلة إلى مولات، ثم اضربي في ΔH لكل مول.',ex:'<span class="f">54.0 g</span> من الجلوكوز = <span class="f">0.300 mol</span>، و <span class="f">0.300 × 2808 = 842 kJ</span>'}],
+ tasks:[{id:'l3-melt',t:'أوصلي الماء إلى مرحلة الانصهار على المنحنى'},{id:'l3-steam',t:'سخّني العينة حتى تصبح بخارًا'},{id:'l3-max',t:'حدّدي المنطقة التي تحتاج أكبر كمية حرارة'},{id:'l3-glu',t:'احسبي حرارة احتراق 54.0 g من الجلوكوز'},{id:'l3-fus',t:'احسبي حرارة صهر الميثانول'}],
+ groups:[{sim:'comb',cards:[0,1,4],maps:['qnMap']},{sim:'curve',cards:[2,3],maps:['phaseMap']}],game:'g3'},
+{n:4,code:'1-4',title:'حساب التغير في المحتوى الحراري',en:'Calculating Enthalpy Change',c:'var(--hot)',
+ idea:'يمكن حساب التغير في المحتوى الحراري للتفاعلات الكيميائية باستعمال قانون هس.',
+ blurb:'قانون هس للجمع الحراري، وحرارة التكوين القياسية ومعادلة التجميع.',
+ vocab:['قانون هس','حرارة التكوين القياسية'],
+ learn:[
+  {i:'🧩',t:'قانون هس',s:'حرارة التفاعل لا تهتم بالطريق، بل بالبداية والنهاية فقط.',ex:'مثل صعود جبل: فرق الارتفاع واحد سواء صعدتِ بالدرج أو بالمصعد.'},
+  {i:'↔️',t:'قاعدتان ذهبيتان',s:'إذا عكستِ المعادلة غيّري إشارة ΔH، وإذا ضربتِها في عدد اضربي ΔH في العدد نفسه.',ex:'<span class="f">ΔH = −297 kJ</span>، فإذا ضربتِ المعادلة في 2 تصبح <span class="f">ΔH = −594 kJ</span>'},
+  {i:'🏗️',t:'حرارة التكوين القياسية',s:'حرارة تكوين <span class="f">1 mol</span> من مركب من عناصره في الظروف القياسية (<span class="f">25°C</span> و <span class="f">1 atm</span>).',ex:'ثالث أكسيد الكبريت: <span class="f">ΔH°f = −396 kJ/mol</span>'},
+  {i:'0️⃣',t:'العناصر = صفر',s:'العناصر في حالاتها القياسية حرارة تكوينها صفر، وهي نقطة البداية مثل 0°C.',ex:'<span class="f">O2(g)</span> و <span class="f">N2(g)</span> و <span class="f">Fe(s)</span>: كلها صفر.'},
+  {i:'➖',t:'معادلة التجميع',s:'<span class="f">ΔH°rxn = ΣΔH°f(products) − ΣΔH°f(reactants)</span>',ex:'احتراق الميثان: <span class="f">(−966) − (−75) = −891 kJ</span>'}],
+ tasks:[{id:'l4-h1',t:'ركّبي معادلة تكوين ثالث أكسيد الكبريت بقانون هس'},{id:'l4-h2',t:'أوجدي ΔH لتحلّل فوق أكسيد الهيدروجين'},{id:'l4-h3',t:'تحدّي: تفاعل NO مع ذرة الأكسجين'},{id:'l4-hf',t:'احسبي ΔH لاحتراق الميثان من حرارة التكوين'},{id:'l4-vap',t:'استخرجي حرارة تبخر الماء من سلّم التكوين'}],
+ groups:[{sim:'hess',cards:[0,1],maps:['hessMap']},{sim:'ladder',cards:[2,3]},{sim:'hf',cards:[4],maps:['sumMap']}],game:'g4'}
+];
+const BADGES=[['l1','⚡','حارسة الطاقة'],['l2','🧪','خبيرة المسعر'],['l3','🔥','صانعة المعادلات'],['l4','🧩','مهندسة هس'],['final','🏆','بطلة التحصيلي']];
+
+/* ---------- quizzes ---------- */
+const QUIZ={
+1:[
+ {q:'تُعرَّف الطاقة بأنها:',o:['القدرة على بذل شغل أو إنتاج حرارة','مقياس لمتوسط الطاقة الحركية للجسيمات','الطاقة المخزنة في الروابط فقط','كمية الحرارة اللازمة لرفع 1 g درجة واحدة'],a:0,e:'هذا هو تعريف الطاقة، أما الخيار الثاني فتعريف درجة الحرارة.'},
+ {q:'السُّعر الواحد <span class="f">1 cal</span> يساوي:',o:['4.184 J','0.2390 J','1000 J','4184 J'],a:0,e:'1 cal = 4.184 J، و 1 J = 0.2390 cal.'},
+ {q:'الحرارة النوعية للماء 4.184 وللأسمنت 0.84 J/g·°C. إذا امتصت كتلتان متساويتان منهما الطاقة نفسها:',o:['ترتفع حرارة الأسمنت نحو 5 مرات أكثر من الماء','ترتفع حرارة الماء أكثر','ترتفع حرارتهما بالمقدار نفسه','لا تتغير حرارة الأسمنت'],a:0,e:'كلما قلّت الحرارة النوعية زاد ارتفاع درجة الحرارة للطاقة نفسها، و 4.184 ÷ 0.84 ≈ 5.'},
+ {q:'كمية الحرارة الممتصة عند تسخين 50.0 g من الألومنيوم من 25°C إلى 95.0°C (c = 0.897 J/g·°C):',o:['3140 J','1121 J','4260 J','44.9 J'],a:0,e:'q = 0.897 × 50.0 × 70.0 = 3139.5 J ≈ 3140 J.'},
+ {q:'وُضعت كتل متساوية من الألومنيوم والذهب والحديد والفضة تحت الشمس المدة نفسها. أيها تصبح الأعلى حرارة؟',o:['الذهب','الألومنيوم','الحديد','الفضة'],a:0,e:'الذهب أقلها حرارة نوعية (0.129) فترتفع حرارته أكثر.'}],
+2:[
+ {q:'المسعر جهاز:',o:['معزول حراريًا لقياس الحرارة الممتصة أو المنطلقة','لقياس الضغط الجوي','لقياس كتلة المواد','لتسريع التفاعلات'],a:0,e:'يُعزل المسعر حتى لا تُفقد الحرارة إلى المحيط.'},
+ {q:'في الديناميكا الحرارية، الكون يساوي:',o:['النظام + المحيط','النظام − المحيط','المحيط فقط','المواد المتفاعلة + النواتج'],a:0,e:'الكون = النظام + المحيط.'},
+ {q:'إشارة <span class="f">ΔHrxn</span> للتفاعل الطارد للحرارة:',o:['سالبة','موجبة','صفر','تتغير حسب الكتلة'],a:0,e:'المواد الناتجة محتواها الحراري أقل من المتفاعلة، فيكون الفرق سالبًا.'},
+ {q:'في الكمادة الباردة تنتقل الحرارة:',o:['من المحيط (الجلد) إلى النظام','من النظام إلى المحيط','لا تنتقل حرارة','من النواتج إلى المتفاعلات'],a:0,e:'ذوبان نترات الأمونيوم ماص للحرارة فيمتص الحرارة من الجلد.'},
+ {q:'تمتص قطعة فلز كتلتها 4.68 g مقدار 256 J فترتفع حرارتها 182°C. الحرارة النوعية للفلز:',o:['0.301 J/g·°C','0.129 J/g·°C','3.33 J/g·°C','0.897 J/g·°C'],a:0,e:'c = 256 ÷ (4.68 × 182) = 0.301، وهو الإسترانشيوم.'}],
+3:[
+ {q:'تتضمن المعادلة الكيميائية الحرارية:',o:['الحالات الفيزيائية للمواد وقيمة ΔH','الصيغ فقط دون حالات','سرعة التفاعل','درجة الحرارة النهائية فقط'],a:0,e:'تكتب موزونة مع الحالات الفيزيائية والتغير في المحتوى الحراري.'},
+ {q:'إذا كانت حرارة التبخر المولارية للأمونيا 23.3 kJ/mol فإن حرارة التكثف المولارية لها:',o:['−23.3 kJ/mol','+23.3 kJ/mol','−5.66 kJ/mol','صفر'],a:0,e:'ΔHcond = −ΔHvap.'},
+ {q:'أي العمليات الآتية ماصة للحرارة؟',o:['C2H5OH(l) → C2H5OH(g)','Br2(l) → Br2(s)','C5H12(g) + 8O2(g) → 5CO2(g) + 6H2O(l)','H2O(g) → H2O(l)'],a:0,e:'التبخر يحتاج حرارة، أما التجمد والاحتراق والتكثف فطاردة.'},
+ {q:'كمية الحرارة المنطلقة عند احتراق 206 g من الهيدروجين (ΔHcomb = −286 kJ/mol):',o:['2.92 × 10⁴ kJ','5.89 × 10⁴ kJ','1.39 × 10³ kJ','286 kJ'],a:0,e:'n = 206 ÷ 2.016 = 102 mol، و q = 102 × 286 ≈ 2.92 × 10⁴ kJ.'},
+ {q:'الحرارة المنطلقة عند تجمد 0.25 mol من الماء (ΔHfus = 6.01 kJ/mol):',o:['1.50 kJ','6.01 kJ','24.0 kJ','10.2 kJ'],a:0,e:'q = 0.25 × 6.01 = 1.50 kJ، وتكون منطلقة لأن ΔHsolid = −6.01.'}],
+4:[
+ {q:'ينص قانون هس على أن حرارة التفاعل:',o:['تتوقف على المواد المتفاعلة والناتجة لا على المسار','تتوقف على عدد خطوات التفاعل','تساوي دائمًا صفرًا','تتوقف على سرعة التفاعل'],a:0,e:'حرارة التفاعل خاصية تعتمد على الحالة الابتدائية والنهائية فقط.'},
+ {q:'حرارة التكوين القياسية للأكسجين <span class="f">O2(g)</span> تساوي:',o:['0.0 kJ/mol','−286 kJ/mol','+33.2 kJ/mol','−396 kJ/mol'],a:0,e:'العناصر في حالاتها القياسية حرارة تكوينها صفر.'},
+ {q:'عند عكس معادلة كيميائية حرارية:',o:['تتغير إشارة ΔH وتبقى القيمة نفسها','تتضاعف قيمة ΔH','تصبح ΔH صفرًا','لا يتغير شيء'],a:0,e:'العملية العكسية لها القيمة نفسها بإشارة معاكسة.'},
+ {q:'معادلة التجميع لحساب <span class="f">ΔH°rxn</span>:',o:['ΣΔH°f(النواتج) − ΣΔH°f(المتفاعلات)','ΣΔH°f(المتفاعلات) − ΣΔH°f(النواتج)','ΣΔH°f(النواتج) + ΣΔH°f(المتفاعلات)','ΔH°f(النواتج) × ΔH°f(المتفاعلات)'],a:0,e:'النواتج ناقص المتفاعلات مع الضرب في المعاملات.'},
+ {q:'إذا كانت ΔH°f للماء السائل −285.8 وللماء الغازي −241.8 kJ/mol، فإن حرارة تبخر الماء:',o:['+44.0 kJ/mol','−44.0 kJ/mol','−527.6 kJ/mol','+527.6 kJ/mol'],a:0,e:'H2O(l) → H2O(g): ΔH = −241.8 − (−285.8) = +44.0 kJ.'}]
+};
+
+/* ---------- Tahsili bank ---------- */
+const TAH=[
+ {y:'2025',q:'طاقة مخزنة في المادة نتيجة تركيبها:',o:['الطاقة النووية','الطاقة الحرارية','الطاقة الحركية','طاقة الوضع الكيميائية'],a:3,e:'طاقة الوضع الكيميائية تعتمد على نوع الذرات وعدد الروابط وترتيبها.'},
+ {y:'2025',q:'تكون الطاقة محفوظة في جميع الحالات الآتية ما عدا:',o:['قانون حفظ الطاقة','قانون حفظ الكتلة','الحرارة النوعية للمادة','طاقة الوضع الكيميائية'],a:1,e:'قانون حفظ الكتلة يتحدث عن الكتلة لا عن الطاقة.'},
+ {y:'2024',q:'صعوبة التعرّق في الجو الرطب بسبب:',o:['قوة التلاصق في جزيئات الهواء أكبر','قوة التلاصق في جزيئات الماء أكبر','معدل تبخر الماء يزداد','معدل تبخر الماء يقل'],a:3,e:'الهواء الرطب مشبع ببخار الماء فيقل التبخر من الجلد.'},
+ {y:'2025',q:'غاز البيوتان يُستخدم للطبخ، فعند حرقه ما نوع التحوّل؟',o:['طاقة حركية إلى حرارية','طاقة وضع كيميائية إلى حرارية','طاقة حركية إلى كيميائية','طاقة حرارية إلى كيميائية'],a:1,e:'تتحرر طاقة الوضع المخزنة في روابط الوقود على شكل حرارة.'},
+ {y:'2021',q:'الحرارة تنتقل من الجسم:',o:['الأسخن إلى الأبرد','الأبرد إلى الأسخن','الكبير إلى الصغير','الصغير إلى الكبير'],a:0,e:'الحرارة طاقة تنتقل من الجسم الساخن إلى الجسم الأبرد.'},
+ {y:'2025',q:'<span class="f">20 Cal</span> كم تعادل بوحدة <span class="f">cal</span>؟',o:['4.8','20000','2000','0.20'],a:1,e:'1 Cal = 1000 cal، إذن 20 × 1000 = 20000 cal.'},
+ {y:'2025',q:'كمية الحرارة اللازمة لرفع درجة حرارة 1 g من مادة ما درجة سيليزية واحدة:',o:['الحرارة النوعية','السُّعر','السعة الحرارية','الحرارة الكامنة'],a:0,e:'هذا تعريف الحرارة النوعية لأي مادة.'},
+ {y:'2025',q:'جهاز معزول حراريًا يستخدم لقياس كمية الحرارة الممتصة أو المنطلقة أثناء العمليات الكيميائية أو الفيزيائية:',o:['السُّعر','الجول','السُّعر الغذائي','المسعر'],a:3,e:'المسعر هو الجهاز، أما السُّعر والجول فوحدات.'},
+ {y:'2025',q:'إذا علمت أن الحرارة النوعية للماء <span class="f">4 J/kg·K</span> وللحديد <span class="f">0.4 J/kg·K</span>، أي العبارات صحيحة؟',o:['تسخين الماء أسرع بـ10 مرات من الحديد','الماء أكبر بـ4 مرات','تسخين الحديد أسرع بـ10 مرات من الماء','الماء والحديد متساويان'],a:2,e:'حرارة الحديد النوعية عُشر حرارة الماء، فيحتاج عُشر الطاقة لرفع درجته.'},
+ {y:'2025',q:'كمية الطاقة اللازمة لرفع 1 kg من الرصاص درجة واحدة علمًا أن حرارته النوعية <span class="f">0.128 J/g·°C</span>:',o:['0.128 جول','128 جول','1280 جول','12.8 جول'],a:1,e:'q = 1000 g × 0.128 × 1 = 128 J.'},
+ {y:'2025',q:'في المعادلة: <span class="f">2H2(g) + O2(g) → 2H2O(l)  ΔH = −83.6 kJ</span>، إذا احترق 1 mol من الهيدروجين فكم يبلغ التغير في المحتوى الحراري؟',o:['−41.8 kJ','−83.6 kJ','−125 kJ','−167.2 kJ'],a:0,e:'المعادلة لـ 2 mol، إذن لـ 1 mol: −83.6 ÷ 2 = −41.8 kJ.'},
+ {y:'2022',q:'كم تبلغ الحرارة الناتجة عن احتراق 6 g من الكربون؟ <span class="f">2C + O2 → 2CO + 52 Kcal</span> علمًا أن C = 12',o:['2 Kcal','0.5 Kcal','6 Kcal','13 Kcal'],a:3,e:'6 g = 0.5 mol، و 2 mol تعطي 52، إذن 0.5 mol تعطي 13 Kcal.'},
+ {y:'2021',q:'إذا علمت أن حرارة التبخر المولارية 40.7 kJ فإن حرارة التكثف المولارية:',o:['+20.35 kJ','−20.35 kJ','−40.7 kJ','+40.7 kJ'],a:2,e:'ΔHcond = −ΔHvap.'},
+ {y:'2023',q:'ما العملية التي تمثل حالة منتجة للحرارة؟',o:['انصهار الثلج','ذوبان الملح في الماء','الاحتراق','تبخر الماء'],a:2,e:'الاحتراق تفاعل طارد للحرارة دائمًا.'},
+ {y:'2023',q:'في التفاعل البطيء جدًا الذي يستحيل فيه قياس <span class="f">ΔH</span> يُستعمل:',o:['قانون هس','قانون بويل','القانون العام للغازات','قانون شارل'],a:0,e:'مثل تحول الألماس إلى جرافيت، نحسب ΔH بقانون هس.'},
+ {y:'2021',q:'«تتوقف حرارة التفاعل على المواد المتفاعلة والمواد الناتجة منه، وليس الخطوات أو المسار الذي يتم فيه التفاعل» يمثل هذا النص:',o:['القانون العام للغازات','قانون الغاز المثالي','قانون هس','قانون سرعة التفاعل'],a:2,e:'هذا نص قانون هس للجمع الحراري.'},
+ {y:'2024',q:'إذا كان <span class="f">CO + O2 → CO2  ΔH = −394</span> فما قيمة ΔH للتفاعل <span class="f">CO2 → CO + O2</span>؟',o:['+188','−188','+394','−394'],a:2,e:'عند عكس المعادلة تتغير الإشارة فقط.'},
+ {y:'2024',q:'حرارة التفاعل تعتمد فقط على طبيعة المواد المتفاعلة والمواد الناتجة ولا تتأثر بالطريق الذي يسلكه التفاعل:',o:['قانون هنري','قانون بويل','قانون جراهام','قانون هس'],a:3,e:'قانون هس.'},
+ {y:'2021',q:'حرارة تكوين 1 mol من مادة من عناصرها الأولية في الظروف القياسية:',o:['حرارة المتفاعلات','الحرارة النوعية','حرارة التكوين القياسية','حرارة التبخر المولارية'],a:2,e:'تعريف حرارة التكوين القياسية ΔH°f.'},
+ {y:'2021',q:'التغير في المحتوى الحراري الذي يرافق تكوين مول واحد من المركب في الظروف القياسية من عناصره في حالاتها القياسية:',o:['حرارة الاحتراق','قانون هس','حرارة الانصهار المولارية','حرارة التكوين القياسية'],a:3,e:'حرارة التكوين القياسية.'},
+ {y:'2025',q:'نوع التغير الآتي: <span class="f">H2O(g) → H2O(l)</span>',o:['طارد','ماص','احتراق','تبخر'],a:0,e:'هذا تكثف، والتكثف طارد للحرارة.'},
+ {y:'2025',q:'أي المواد الآتية حرارة تكوينها القياسية تساوي <span class="f">−21 kJ/mol</span>؟',o:['N2','H2S','O2','H2O'],a:1,e:'من الجدول 1-5: H2S = −21، والعناصر صفر، والماء −286.'},
+ {y:'--',q:'تسمى الطاقة المختزنة في الروابط الكيميائية:',o:['الطاقة النووية','طاقة الوضع الميكانيكية','الطاقة الحرارية','طاقة الوضع الكيميائية'],a:3,e:'طاقة الوضع الكيميائية.'},
+ {y:'--',q:'تقاس الطاقة الحرارية وفق النظام الدولي للوحدات بـ:',o:['الجول','السُّعر','السُّعر الغذائي','السيليزية'],a:0,e:'وحدة الطاقة في النظام الدولي هي الجول J.'},
+ {y:'2020',q:'كمية الحرارة اللازمة لرفع درجة حرارة 1 g من الماء النقي درجة سيليزية واحدة:',o:['السُّعر','الجول','الحرارة القياسية','حرارة التكوين'],a:0,e:'هذا تعريف السُّعر cal.'},
+ {y:'--',q:'وحدة الحرارة النوعية هي:',o:['J / g·°C','J·°C / g','°C / g','J / g'],a:0,e:'جول لكل جرام لكل درجة سيليزية.'},
+ {y:'--',q:'المحتوى الحراري للكمادة الباردة يساوي:',o:['−27 kJ','+27 kJ','−54 kJ','صفر'],a:1,e:'ذوبان NH4NO3 ماص للحرارة: ΔH = +27 kJ.'},
+ {y:'--',q:'كم تبلغ الحرارة الناتجة عن احتراق 12 g من الكربون في المعادلة <span class="f">2C + O2 → 2CO + 52 Kcal</span> علمًا أن C = 12؟',o:['2 Kcal','6 Kcal','13 Kcal','26 Kcal'],a:3,e:'12 g = 1 mol، و 2 mol تعطي 52، إذن 1 mol تعطي 26 Kcal.'},
+ {y:'2020',q:'أي الآتي يناسب التفاعل الذي يحدث في الكمادة الباردة؟',o:['ΔHrxn = −600 kJ','ΔHrxn = −65 kJ','ΔHrxn = 0 kJ','ΔHrxn = +65 kJ'],a:3,e:'الكمادة الباردة ماصة للحرارة، فإشارة ΔH موجبة.'},
+ {y:'2020',q:'سبب استخدام نترات الأمونيوم في عمل الكمادة الباردة:',o:['عازلة للحرارة','لأنها ماصة للحرارة','طاردة للحرارة','لا تتفاعل مع حرارة الجسم'],a:1,e:'ذوبانها يمتص الحرارة من المحيط.'},
+ {y:'--',q:'إشارة التغير في المحتوى الحراري للكمادة الساخنة، أي القيم الآتية تناسبها؟',o:['+27','+13.5','0','−27'],a:3,e:'الكمادة الساخنة طاردة للحرارة فإشارة ΔH سالبة.'},
+ {y:'2020',q:'ما الحرارة المنطلقة عند تكثف 2.3 mol من غاز الأمونيا إلى سائل عند درجة غليانه؟ علمًا أن <span class="f">ΔHcond = −24 kJ</span>',o:['−102 kJ','−55.2 kJ','−43.5 kJ','−10.12 kJ'],a:1,e:'q = 2.3 × (−24) = −55.2 kJ.'},
+ {y:'--',q:'أي العمليات الآتية طاردة للحرارة؟',o:['H2O(l) → H2O(g)','CH3OH(l) → CH3OH(g)','Ca(s) → Ca(l)','H2O(l) → H2O(s)'],a:3,e:'التجمد طارد، أما التبخر والانصهار فماصان.'},
+ {y:'--',q:'ما نوع العملية <span class="f">H2O(l) → H2O(g)</span>؟',o:['ماصة للحرارة','طاردة للحرارة','تجمد','تكثف'],a:0,e:'التبخر يحتاج حرارة.'},
+ {y:'2020',q:'إذا كان التغير في المحتوى الحراري −2270 kJ فإن نوع التفاعل:',o:['تبخر','تفكك','احتراق','انصهار'],a:2,e:'قيمة سالبة كبيرة تناسب الاحتراق (مثل البروبان −2219).'},
+ {y:'--',q:'ما نوع التغير <span class="f">H2O(l) → H2O(s)</span>؟',o:['تجمد','ماص للحرارة','تكثف','تبخر'],a:0,e:'تحول السائل إلى صلب تجمد، وهو طارد.'},
+ {y:'--',q:'المحتوى الحراري الناتج عن حرق 1 mol من المادة احتراقًا كاملًا:',o:['حرارة الاحتراق','حرارة الانصهار المولارية','حرارة التبخر المولارية','حرارة التكثف المولارية'],a:0,e:'تعريف حرارة الاحتراق ΔHcomb.'},
+ {y:'--',q:'حرارة التبخر المولارية تكفي لتبخير ...... من سائل:',o:['4.3 mol','3 mol','2.5 mol','1 mol'],a:3,e:'المولارية تعني لكل 1 mol.'},
+ {y:'2020',q:'حرارة التكوين للعنصر في حالته القياسية تساوي:',o:['0 kJ/mol','1 kJ/mol','2 kJ/mol','3 kJ/mol'],a:0,e:'العناصر في حالاتها القياسية حرارة تكوينها صفر.'},
+ {y:'--',q:'احسبي <span class="f">ΔH°rxn</span> للتفاعل <span class="f">2H2(g) + S2(s) → 2H2S(g)</span> علمًا أن <span class="f">ΔH°f(H2S) = −21 kJ</span>',o:['10.5 kJ','−21 kJ','−42 kJ','84 kJ'],a:2,e:'2 × (−21) − 0 = −42 kJ.'}
+];
+
+/* ---------- views ---------- */
+const app=$('#app');
+function route(){
+  cleanups.forEach(f=>{try{f();}catch(e){}});cleanups=[];
+  const h=location.hash.replace('#','');
+  if(/^lesson-[1-4]$/.test(h))viewLesson(+h.slice(7));
+  else if(h==='final')viewFinal();
+  else viewHome();
+  fmAll(app);refreshStars();window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',route);
+
+function badgeHTML(){return '<div class="badges">'+BADGES.map(b=>{const on=b[0]==='final'?(S.final!=null&&S.final>=80):S.done[b[0].slice(1)];return `<div class="badge ${on?'on':''}"><i>${b[1]}</i>${b[2]}</div>`;}).join('')+'</div>';}
+function lessonStars(L){let n=L.tasks.filter(t=>S.tasks[t.id]).length;n+=gameStars(S.games[L.game]||0);if((S.quiz[L.n]||0)>=4)n+=3;return n;}
+function lessonMax(L){return L.tasks.length+3+3;}
+
+const CH_NO=1;
+/* ---------- progress report code for the teacher ---------- */
+const RKEY=LS+'-name';
+function repHash(str){let h=7;for(const c of str)h=(h*31+c.codePointAt(0))%1000003;return h;}
+function repCode(name){const total=LESSONS.length;const done=LESSONS.filter(L=>S.done[L.n]).length;const max=LESSONS.reduce((a,L)=>a+lessonMax(L),0)+5;
+  const p={v:1,c:CH_NO,n:name.trim(),d:done,t:total,f:S.final==null?null:S.final,s:totalStars(),m:max,ts:Date.now()};const body=JSON.stringify(p);
+  return 'KIM-'+btoa(unescape(encodeURIComponent(body))).replace(/=+$/,'')+'-'+repHash(body).toString(36);}
+function reportHTML(){let nm='';try{nm=localStorage.getItem(RKEY)||'';}catch(e){}
+  return `<section class="final-band report-band"><div class="rb-in"><div><h3>📤 تقرير التقدم للمعلمة</h3><p>اكتبي اسمك الثلاثي ثم اضغطي «احفظي تقدمي لدى المعلمة»؛ بعدها يُحدَّث تقدمك تلقائيًا كلما أنجزتِ شيئًا جديدًا. ويمكنك أيضًا إنشاء رمز التقدم وإرساله لمعلمتك.</p></div>
+   <div class="rb-row"><input type="text" id="repName" placeholder="اسم الطالبة" value="${nm.replace(/"/g,'&quot;')}" aria-label="اسم الطالبة"><button type="button" class="btn hot" id="repSync">☁️ احفظي تقدمي لدى المعلمة</button><button type="button" class="btn cold" id="repGo">أنشئي الرمز</button></div>
+   <div id="repOut"></div></div></section>`;}
+function bindReport(){const go=$('#repGo');if(!go)return;
+  $('#repSync').addEventListener('click',async()=>{const nm=$('#repName').value.trim(),out=$('#repOut');if(nm.split(/\s+/).length<2){out.innerHTML='<p class="fb bad">اكتبي اسمك الثنائي أو الثلاثي حتى تتعرف عليك المعلمة.</p>';return;}
+    try{localStorage.setItem(RKEY,nm);}catch(e){}out.innerHTML='<p class="fb">جارٍ الحفظ…</p>';
+    try{await syncProgress(true);out.innerHTML=`<p class="fb ok">✓ حُفظ تقدمك لدى المعلمة باسم «${esc(nm)}». سيُحدَّث تلقائيًا عند أي إنجاز جديد.</p>`;}catch(e){out.innerHTML='<p class="fb bad">تعذّر الحفظ الآن. تحققي من الاتصال بالإنترنت، أو أنشئي رمز التقدم وأرسليه لمعلمتك.</p>';}});go.addEventListener('click',()=>{const nm=$('#repName').value.trim();const out=$('#repOut');
+  if(nm.split(/\s+/).length<2){out.innerHTML='<p class="fb bad">اكتبي اسمك الثنائي أو الثلاثي حتى تتعرف عليك المعلمة.</p>';return;}
+  try{localStorage.setItem(RKEY,nm);}catch(e){}const code=repCode(nm);const done=LESSONS.filter(L=>S.done[L.n]).length;
+  out.innerHTML=`<div class="rb-code"><code class="ltr" id="repCode">${code}</code><button type="button" class="btn sm" id="repCopy">📋 انسخي الرمز</button></div><p class="rb-sum">الدروس المنجزة: <b>${done} من ${LESSONS.length}</b> | الاختبار الختامي: <b>${S.final==null?'لم يُنجز':S.final+'%'}</b> | النجوم: <b>${totalStars()}</b></p>`;
+  $('#repCopy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(code);toast('تم نسخ الرمز ✓');}catch(e){const r=document.createRange();r.selectNodeContents($('#repCode'));const sel=getSelection();sel.removeAllRanges();sel.addRange(r);toast('حدّدي الرمز وانسخيه يدويًا');}});});}
+
+
+/* ---------- مزامنة التقدم مع قاعدة البيانات (Cloudflare D1) ---------- */
+let _syncT=null;
+async function syncProgress(manual){let nm='';try{nm=localStorage.getItem(RKEY)||'';}catch(e){}if(!nm)return false;
+  const done=LESSONS.filter(L=>S.done[L.n]).length,max=LESSONS.reduce((a,L)=>a+lessonMax(L),0)+5;
+  try{const r=await fetch('/api/progress',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:nm,chapter:CH_NO,done,total:LESSONS.length,final:S.final==null?null:S.final,stars:totalStars(),max})});
+    if(!r.ok)throw 0;try{localStorage.setItem(RKEY+'-synced','1');}catch(e){}return true;}catch(e){if(manual)throw e;return false;}}
+function autoSync(){let on='';try{on=localStorage.getItem(RKEY+'-synced');}catch(e){}if(!on)return;clearTimeout(_syncT);_syncT=setTimeout(()=>syncProgress(false),3000);}
+
+function viewHome(){
+  const done=Object.keys(S.done).filter(k=>S.done[k]).length;
+  app.innerHTML=`
+  <section class="hero">
+    <div>
+      <p class="kicker">كيمياء 2-2، الفصل الأول، رحلة تعليمية تفاعلية</p>
+      <h1 style="margin-bottom:6px">مختبر <span class="grad">الطاقة والتغيرات الكيميائية</span></h1>
+      <div class="teacher"><span class="av">ص</span><div><small>إعداد المعلمة:</small><b>صباح داخل الأحمدي</b></div></div>
+      <p class="idea"><strong>الفكرة العامة:</strong> كل تفاعل كيميائي وكل تغير في الحالة الفيزيائية يرافقه امتصاص للحرارة أو إطلاق لها، ويمكن قياس هذه الحرارة وحسابها.</p>
+      <p class="lead">أربعة دروس تجرّبين فيها بنفسك: تزلجين لتري حفظ الطاقة، وتسقطين فلزًا ساخنًا في المسعر، وترسمين منحنى تسخين الماء، وتركّبين معادلات قانون هس كالأحجية. اجمعي النجوم والشارات، وأنجزي مهام كل درس، وتحدّي نفسك في ألعاب الـ45 ثانية. في نهاية كل درس اختبار قصير، وفي آخر الرحلة اختبار ختامي من أسئلة التحصيلي.</p>
+      <div class="hero-actions">
+        <a class="btn cold" href="#lesson-1">ابدئي الرحلة</a>
+        <a class="btn ghost" href="#final">الاختبار الختامي</a>
+      </div>
+      <p class="progress-line">أنجزتِ ${done} من 4 دروس</p>
+    </div>
+    <div class="beaker-card">
+      <canvas id="beaker" aria-label="محاكاة جزيئات الماء عند درجات حرارة مختلفة"></canvas>
+      <input type="range" id="bT" min="-20" max="120" value="25" step="1" aria-label="درجة الحرارة">
+      <div class="beaker-read"><span class="temp-big" id="bTv">25 °C</span><span class="phase-tag" id="bPh">ماء سائل</span></div>
+      <p class="hint" id="bHint">اسحبي على الكأس أو المؤشر لتسخين الماء، وراقبي كيف تزداد حركة الجزيئات.</p>
+    </div>
+  </section>
+  <section>
+    <h2 class="sec">مسار الدروس</h2>
+    <p class="sec-sub">من البارد إلى الساخن: كل درس يرفع حرارة رحلتك درجة.</p>
+    <div class="thermo-track"><span class="bulb"></span></div>
+    <div class="lessons">
+      ${LESSONS.map(L=>`<article class="lcard ${S.done[L.n]?'done':''}" style="--c:${L.c}">
+        <span class="node">${S.done[L.n]?'✓':L.n}</span>
+        <div class="lcode">${L.code}</div>
+        <h3>${L.title}</h3>
+        <p>${L.blurb}</p>
+        <div class="lmeta"><span class="st">★ ${lessonStars(L)} / ${lessonMax(L)}</span><a class="btn sm ghost" href="#lesson-${L.n}">ادخلي</a></div>
+      </article>`).join('')}
+    </div>
+  </section>
+  <section style="margin-top:34px">
+    <h2 class="sec">الشارات</h2>
+    <p class="sec-sub">تحصلين على شارة كل درس عند اجتياز اختباره القصير بأربع إجابات صحيحة أو أكثر.</p>
+    ${badgeHTML()}
+  </section>
+  <section class="final-band">
+    <div><h3>الاختبار الختامي: تجميعات التحصيلي</h3><p>${TAH.length} سؤالًا من اختبارات التحصيلي السابقة في الطاقة والكيمياء الحرارية، مع تصحيح فوري وشرح لكل إجابة.${S.final!=null?' أفضل نتيجة لك: '+S.final+'%':''}</p></div>
+    <a class="btn hot" href="#final">ابدئي الاختبار</a>
+  </section>
+  <section class="final-band task-band"><div class="tb-in"><span class="ti">📝</span><div><h3>مهمة أدائية</h3><p>اقرئي المهمة وارفعي إجابتها من خلال النموذج.</p></div></div><a class="btn cold" href="https://forms.gle/pGzTh1iikkg7PaVRA" target="_blank" rel="noopener">افتحي المهمة</a></section>
+  ${reportHTML()}`;
+  initBeaker();bindReport();
+}
+
+/* ---------- hero beaker ---------- */
+function initBeaker(){
+  const cv=$('#beaker'),rng=$('#bT');if(!cv)return;
+  const ctx=cv.getContext('2d');let W=0,H=0,T=25,raf=0;
+  const N=48,P=[];
+  for(let i=0;i<N;i++){const col=i%8,row=Math.floor(i/8);P.push({u:Math.random(),v:0.4+Math.random()*0.6,vu:(Math.random()-.5),vv:(Math.random()-.5),lu:0.1+col*0.114,lv:0.42+row*0.105});}
+  function fit(){const r=cv.getBoundingClientRect();const d=window.devicePixelRatio||1;W=r.width;H=r.height;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);}
+  fit();const ro=new ResizeObserver(fit);ro.observe(cv);
+  function lerpC(t){const a=[59,123,255],b=[255,90,60];return 'rgb('+a.map((x,i)=>Math.round(x+(b[i]-x)*t)).join(',')+')';}
+  function setT(v){T=Math.max(-20,Math.min(120,Math.round(v)));rng.value=T;$('#bTv').textContent=T+' °C';
+    const ph=T<=0?'جليد (صلب)':T<100?'ماء سائل':'بخار ماء (غاز)';$('#bPh').textContent=ph;
+    $('#bHint').textContent=T<=0?'الجزيئات تهتز في أماكنها داخل الشبكة البلورية.':T<100?'كلما ارتفعت درجة الحرارة زاد متوسط الطاقة الحركية للجزيئات.':'الجزيئات انفصلت وتتحرك بسرعة كبيرة في كل الحيز.';}
+  rng.addEventListener('input',()=>setT(+rng.value));
+  let drag=false,sx=0,sT=0;
+  cv.addEventListener('pointerdown',e=>{drag=true;sx=e.clientX;sT=T;cv.setPointerCapture(e.pointerId);});
+  cv.addEventListener('pointermove',e=>{if(!drag)return;setT(sT+(e.clientX-sx)*0.5);});
+  cv.addEventListener('pointerup',()=>drag=false);
+  function step(){
+    const bx=W*0.24,bw=W*0.52,by=H*0.1,bh=H*0.66;
+    ctx.clearRect(0,0,W,H);
+    const ink=cssv('--muted')||'#888';
+    // flame
+    const heat=(T+20)/140;const fx=W/2,fy=H*0.93;
+    for(let k=0;k<3;k++){ctx.beginPath();const fh=10+heat*46*(1-k*0.25)+(reduced?0:Math.random()*4);const fw=8+heat*14-k*3;
+      ctx.moveTo(fx-fw,fy);ctx.quadraticCurveTo(fx-fw,fy-fh*0.5,fx,fy-fh);ctx.quadraticCurveTo(fx+fw,fy-fh*0.5,fx+fw,fy);ctx.closePath();
+      ctx.fillStyle=k===0?'rgba(255,120,40,.55)':k===1?'rgba(255,190,60,.7)':'rgba(120,170,255,.8)';ctx.fill();}
+    ctx.fillStyle=ink;ctx.fillRect(W*0.3,H*0.8,W*0.4,4);
+    // beaker
+    ctx.strokeStyle=ink;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(bx,by);ctx.lineTo(bx,by+bh);ctx.lineTo(bx+bw,by+bh);ctx.lineTo(bx+bw,by);ctx.stroke();
+    for(let i=1;i<=4;i++){ctx.beginPath();ctx.moveTo(bx+bw-14,by+bh*i/5);ctx.lineTo(bx+bw,by+bh*i/5);ctx.lineWidth=1.5;ctx.stroke();}
+    const phase=T<=0?0:T<100?1:2;
+    if(phase===1){ctx.fillStyle='rgba(80,140,255,.10)';ctx.fillRect(bx+2,by+bh*0.36,bw-4,bh*0.64-2);}
+    if(phase===0){ctx.fillStyle='rgba(150,200,255,.14)';ctx.fillRect(bx+2,by+bh*0.36,bw-4,bh*0.64-2);}
+    const col=lerpC((T+20)/140);const sp=reduced?0.3:1;
+    P.forEach(p=>{
+      if(phase===0){const a=0.004+0.008*(T+20)/20;p.u+=(p.lu-p.u)*0.15;p.v+=(p.lv-p.v)*0.15;p.du=(Math.random()-.5)*a*sp;p.dv=(Math.random()-.5)*a*sp;}
+      else{const s=(phase===1?0.0025+0.006*T/100:0.012+0.006*(T-100)/20)*sp;const vmin=phase===1?0.38:0.03;
+        p.vu+=(Math.random()-.5)*0.6;p.vv+=(Math.random()-.5)*0.6;const m=Math.hypot(p.vu,p.vv)||1;p.vu/=m;p.vv/=m;
+        p.u+=p.vu*s;p.v+=p.vv*s;if(p.u<0.04){p.u=0.04;p.vu*=-1;}if(p.u>0.96){p.u=0.96;p.vu*=-1;}if(p.v<vmin){p.v=vmin;p.vv=Math.abs(p.vv);}if(p.v>0.96){p.v=0.96;p.vv*=-1;}p.du=0;p.dv=0;}
+      const x=bx+(p.u+(p.du||0))*bw,y=by+(p.v+(p.dv||0))*bh;
+      ctx.beginPath();ctx.arc(x,y,6,0,Math.PI*2);ctx.fillStyle=col;ctx.fill();
+      ctx.beginPath();ctx.arc(x-4,y-4,3,0,Math.PI*2);ctx.arc(x+4,y-4,3,0,Math.PI*2);ctx.fillStyle='rgba(255,255,255,.85)';ctx.fill();
+    });
+    raf=requestAnimationFrame(step);
+  }
+  setT(25);step();
+  onCleanup(()=>{cancelAnimationFrame(raf);ro.disconnect();});
+}
+
+/* ---------- lesson view ---------- */
+function viewLesson(n){
+  const L=LESSONS[n-1];
+  app.innerHTML=`
+  <div class="crumbs"><a href="#home">→ الصفحة الرئيسة</a></div>
+  <header class="lhead">
+    <div class="lnum">${L.code}</div>
+    <div><h1>${L.title}</h1><div class="en">${L.en}</div>
+      <p class="idea" style="margin:10px 0 0"><strong>الفكرة الرئيسة:</strong> ${L.idea}</p>
+      <div class="vocab">${L.vocab.map(v=>'<span>'+v+'</span>').join('')}</div></div>
+  </header>
+  <div class="lgrid">
+    <aside class="side">
+      <div class="box"><h4>مهام الدرس <span id="tcount" style="color:var(--muted);font-weight:400;font-size:14px"></span></h4>
+        <ul class="tasks">${L.tasks.map(t=>`<li data-task-li="${t.id}" class="${S.tasks[t.id]?'on':''}"><span class="ck">${S.tasks[t.id]?'✓':''}</span><span>${t.t}</span></li>`).join('')}</ul>
+        <div class="tbar"><i id="tbar" data-lesson="${n}"></i></div></div>
+      <div class="box"><nav>${L.groups.map(g=>`<a href="#" data-jump="sim-${g.sim}">${SIMS[g.sim].title}</a>`).join('')}<a href="#" data-jump="game">لعبة 45 ثانية</a><a href="#" data-jump="quiz">الاختبار القصير</a></nav></div>
+    </aside>
+    <div class="main-col">
+      ${L.groups.map((g,i)=>`<section class="panel sim" id="sim-${g.sim}" style="--c:${L.c}">
+        <span class="tag">الجزء ${i+1}: الفكرة ببساطة</span>
+        <div class="lcards">${g.cards.map(k=>L.learn[k]).map(c=>`<div class="lc"><span class="ic">${c.i}</span><h5>${c.t}</h5><p>${c.s}</p>${c.img?`<div class="lc-img">${VIS[c.img].html()}</div>`:''}<div class="ex"><b>مثال:</b> ${c.ex}</div></div>`).join('')}</div>
+        ${(g.maps||[]).map(m=>`<div class="cmap" data-vis="${m}">${VIS[m].html()}</div>`).join('')}
+        <div class="act"><span class="tag act-tag">🔬 نشاط تفاعلي</span>${SIMS[g.sim].html()}</div></section>`).join('')}
+      <section class="panel game" id="game"><span class="tag" style="color:var(--amber)">تحدّي 45 ثانية</span>${GAMES[L.game].html}</section>
+      <section class="panel" id="quiz"><span class="tag">اختبار الدرس ${L.code}</span><h3>اختبار قصير</h3><p class="desc">خمسة أسئلة. أجيبي عن أربعة منها أو أكثر بشكل صحيح لتحصلي على شارة الدرس و3 نجوم.${S.quiz[n]!=null?' أفضل نتيجة لك: '+S.quiz[n]+' من 5.':''}</p><div id="quizBox"></div></section>
+      <div class="row" style="justify-content:space-between">
+        ${n>1?`<a class="btn ghost" href="#lesson-${n-1}">الدرس السابق</a>`:'<span></span>'}
+        ${n<4?`<a class="btn cold" href="#lesson-${n+1}">الدرس التالي</a>`:`<a class="btn hot" href="#final">إلى الاختبار الختامي</a>`}
+      </div>
+    </div>
+  </div>`;
+  $$('[data-jump]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const t=document.getElementById(a.dataset.jump);if(t)t.scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'});}));
+  updateTaskBar();
+  fmAll(app);
+  L.groups.forEach(g=>SIMS[g.sim].init(document.getElementById('sim-'+g.sim)));
+  $$('[data-vis]',app).forEach(el=>{const v=VIS[el.dataset.vis];if(v&&v.init)v.init(el);});
+  bindPrac(app);
+  initGame($('#game'),GAMES[L.game]);
+  quizRunner($('#quizBox'),QUIZ[n],{onDone:(sc)=>{
+    const prev=S.quiz[n]||0;S.quiz[n]=Math.max(prev,sc);
+    if(sc>=4&&!S.done[n]){S.done[n]=true;save();refreshStars();const b=BADGES[n-1];toast(b[1]+' حصلتِ على شارة: '+b[2]);}
+    else{save();refreshStars();}
+  }});
+}
+
+/* ---------- practice widgets ---------- */
+function prac(prompt,unit,ans,tol,task,hint){
+  return `<div class="prac" data-ans="${ans}" data-tol="${tol}" data-task="${task||''}" data-hint="${hint||''}">
+    <p class="q">${prompt}</p>
+    <div class="row"><input class="ans" inputmode="decimal" aria-label="إجابتك" placeholder="إجابتك"><span class="unit f">${unit}</span><button type="button" class="btn sm">تحقّقي</button></div>
+    <p class="fb" aria-live="polite"></p></div>`;
+}
+function bindPrac(root){
+  $$('.prac[data-ans]',root).forEach(p=>{
+    const inp=$('input',p),btn=$('button',p),fb=$('.fb',p);
+    if(p.dataset.task&&S.tasks[p.dataset.task])p.classList.add('solved');
+    const check=()=>{const v=parseNum(inp.value),a=+p.dataset.ans,t=+p.dataset.tol;
+      if(isNaN(v)){fb.className='fb bad';fb.textContent='اكتبي رقمًا، مثل 9.6e5 أو 960000.';return;}
+      if(Math.abs(v-a)<=t*Math.abs(a)){fb.className='fb ok';fb.textContent='✓ إجابة صحيحة! الناتج ≈ '+nice(a);p.classList.add('solved');if(p.dataset.task)completeTask(p.dataset.task);}
+      else{fb.className='fb bad';fb.textContent='✗ ليست صحيحة بعد. '+(p.dataset.hint?'تلميح: '+p.dataset.hint:'');}};
+    btn.addEventListener('click',check);inp.addEventListener('keydown',e=>{if(e.key==='Enter')check();});
+  });
+}
+function mcq(root,sel,q,opts,a,onOk){
+  const box=$(sel,root);
+  box.innerHTML=`<p class="q" style="margin:0 0 6px;font-weight:600">${q}</p><div class="opts">${opts.map((o,i)=>`<button type="button" class="opt" data-i="${i}">${o}</button>`).join('')}</div><p class="fb" aria-live="polite"></p>`;
+  $$('.opt',box).forEach(b=>b.addEventListener('click',()=>{const i=+b.dataset.i;$$('.opt',box).forEach(x=>x.classList.remove('ok','bad'));
+    if(i===a){b.classList.add('ok');$('.fb',box).className='fb ok';$('.fb',box).textContent='✓ صحيح!';onOk&&onOk();}
+    else{b.classList.add('bad');$('.fb',box).className='fb bad';$('.fb',box).textContent='✗ حاولي مرة أخرى.';}}));
+}
+
+/* ---------- concept maps & illustrations ---------- */
+const AR=id=>`<defs><marker id="${id}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="cm-ah"/></marker></defs>`;
+function flowMap(title,steps,note){return `<h4>${title}</h4><div class="flowmap">${steps.map((s,i)=>(i?'<span class="farr" aria-hidden="true">←</span>':'')+`<div class="fstep${s.k?' k':''}">${s.t}${s.s?`<small>${s.s}</small>`:''}</div>`).join('')}</div>${note?`<p class="cm-note">${note}</p>`:''}`;}
+const VIS={
+ energyMap:{html:()=>`<h4>🗺️ خريطة مفاهيم: الطاقة</h4>
+  <svg viewBox="0 0 640 360" role="img" aria-label="خريطة مفاهيم الطاقة">${AR('am1')}
+   <rect x="170" y="10" width="300" height="56" rx="14" class="cm-main"/><text x="320" y="34" text-anchor="middle" class="cm-tw" font-size="17" font-weight="700">الطاقة</text><text x="320" y="55" text-anchor="middle" class="cm-tw" font-size="13">القدرة على بذل شغل أو إنتاج حرارة</text>
+   <path d="M260 66 L160 110" class="cm-ln" marker-end="url(#am1)"/><path d="M380 66 L480 110" class="cm-ln" marker-end="url(#am1)"/>
+   <text x="200" y="84" text-anchor="middle" class="cm-t" font-size="12">تكون في صورة</text><text x="440" y="84" text-anchor="middle" class="cm-t" font-size="12">تكون في صورة</text>
+   <rect x="380" y="112" width="220" height="56" rx="12" class="cm-box"/><text x="490" y="136" text-anchor="middle" class="cm-t" font-weight="700">طاقة الوضع</text><text x="490" y="156" text-anchor="middle" class="cm-t" font-size="12">تعتمد على الموضع أو التركيب</text>
+   <rect x="40" y="112" width="220" height="56" rx="12" class="cm-box"/><text x="150" y="136" text-anchor="middle" class="cm-t" font-weight="700">الطاقة الحركية</text><text x="150" y="156" text-anchor="middle" class="cm-t" font-size="12">تنتج عن حركة الأجسام والجسيمات</text>
+   <path d="M490 168 L490 202" class="cm-ln" marker-end="url(#am1)"/><path d="M150 168 L150 202" class="cm-ln" marker-end="url(#am1)"/>
+   <text x="482" y="190" text-anchor="start" class="cm-t" font-size="12">منها</text><text x="142" y="190" text-anchor="start" class="cm-t" font-size="12">ترتبط بـ</text>
+   <rect x="380" y="204" width="220" height="56" rx="12" class="cm-box"/><text x="490" y="228" text-anchor="middle" class="cm-t" font-weight="700">طاقة الوضع الكيميائية</text><text x="490" y="248" text-anchor="middle" class="cm-t" font-size="12">مخزنة في الروابط الكيميائية</text>
+   <rect x="40" y="204" width="220" height="56" rx="12" class="cm-box"/><text x="150" y="228" text-anchor="middle" class="cm-t" font-weight="700">درجة الحرارة</text><text x="150" y="248" text-anchor="middle" class="cm-t" font-size="12">مقياس لمتوسط الطاقة الحركية</text>
+   <path d="M380 232 L262 232" class="cm-ln" marker-end="url(#am1)"/><text x="321" y="222" text-anchor="middle" class="cm-t" font-size="12">تتحرر حرارةً فترفع</text>
+   <rect x="60" y="290" width="520" height="56" rx="14" class="cm-k"/><text x="320" y="314" text-anchor="middle" class="cm-t" font-weight="700">قانون حفظ الطاقة</text><text x="320" y="334" text-anchor="middle" class="cm-t" font-size="13">تتحول الطاقة من شكل إلى آخر، لكنها لا تُستحدث ولا تفنى</text>
+  </svg>`},
+ unitsMap:{html:()=>`<h4>🗺️ خريطة مفاهيم: التحويل بين وحدات الطاقة</h4>
+  <svg viewBox="0 0 600 330" role="img" aria-label="التحويل بين Cal و cal و J">${AR('am2')}
+   <rect x="190" y="14" width="220" height="62" rx="12" class="cm-main"/><text x="300" y="44" text-anchor="middle" class="cm-tw" font-size="19" font-weight="700">السُّعر الغذائي</text><text x="300" y="66" text-anchor="middle" class="cm-tw" font-size="15">Cal = kcal</text>
+   <rect x="210" y="132" width="180" height="56" rx="12" class="cm-box"/><text x="300" y="158" text-anchor="middle" class="cm-t" font-size="18" font-weight="700">السُّعر</text><text x="300" y="178" text-anchor="middle" class="cm-t" font-size="14">cal</text>
+   <rect x="225" y="246" width="150" height="56" rx="12" class="cm-box"/><text x="300" y="272" text-anchor="middle" class="cm-t" font-size="18" font-weight="700">الجول</text><text x="300" y="292" text-anchor="middle" class="cm-t" font-size="14">J</text>
+   <path d="M410 45 L470 45 L470 160 L394 160" class="cm-ln" marker-end="url(#am2)"/><path d="M390 168 L470 168 L470 274 L379 274" class="cm-ln" marker-end="url(#am2)"/>
+   <path d="M210 160 L130 160 L130 45 L186 45" class="cm-ln" marker-end="url(#am2)"/><path d="M225 274 L130 274 L130 168 L206 168" class="cm-ln" marker-end="url(#am2)"/>
+   <rect x="478" y="88" width="104" height="34" rx="8" class="cm-x"/><text x="530" y="111" text-anchor="middle" class="cm-t" font-size="17" font-weight="700">× 1000</text>
+   <rect x="478" y="204" width="104" height="34" rx="8" class="cm-x"/><text x="530" y="227" text-anchor="middle" class="cm-t" font-size="17" font-weight="700">× 4.184</text>
+   <rect x="18" y="88" width="104" height="34" rx="8" class="cm-d"/><text x="70" y="111" text-anchor="middle" class="cm-t" font-size="17" font-weight="700">÷ 1000</text>
+   <rect x="18" y="204" width="104" height="34" rx="8" class="cm-d"/><text x="70" y="227" text-anchor="middle" class="cm-t" font-size="17" font-weight="700">÷ 4.184</text>
+  </svg><p class="cm-note">قاعدة سهلة: من الوحدة الأكبر إلى الأصغر نضرب (نزولًا)، ومن الأصغر إلى الأكبر نقسم (صعودًا). مثال: <span class="f">230 Cal × 1000 × 4.184 = 9.62 × 10⁵ J</span></p>`},
+ qMap:{html:()=>`<h4>🗺️ خريطة مفاهيم: معادلة حساب الحرارة</h4>
+  <svg viewBox="0 0 600 230" role="img" aria-label="q يساوي c في m في دلتا T">${AR('am3')}
+   <rect x="180" y="10" width="240" height="70" rx="14" class="cm-main"/><text x="300" y="42" text-anchor="middle" class="cm-tw" font-size="24" font-weight="700">q</text><text x="300" y="66" text-anchor="middle" class="cm-tw" font-size="12.5">الحرارة الممتصة أو المنطلقة (J)</text>
+   ${[[460,'c','الحرارة النوعية','J/g·°C'],[300,'m','الكتلة','g'],[140,'ΔT','التغير في درجة الحرارة','Tf − Ti (°C)']].map(([x,s,a,u])=>`<path d="M${x} 138 L${x===300?300:x>300?380:220} 84" class="cm-ln" marker-end="url(#am3)"/><rect x="${x-72}" y="140" width="144" height="80" rx="12" class="cm-box"/><text x="${x}" y="168" text-anchor="middle" class="cm-t" font-size="22" font-weight="700">${s}</text><text x="${x}" y="190" text-anchor="middle" class="cm-t" font-size="12.5">${a}</text><text x="${x}" y="208" text-anchor="middle" class="cm-t" font-size="12" direction="ltr">${u}</text>`).join('')}
+   <text x="380" y="186" text-anchor="middle" class="cm-t" font-size="22" font-weight="700">×</text><text x="220" y="186" text-anchor="middle" class="cm-t" font-size="22" font-weight="700">×</text>
+  </svg><p class="cm-note">إذا ارتفعت درجة الحرارة (ΔT موجبة) امتصت المادة حرارة، وإذا انخفضت (ΔT سالبة) أطلقت حرارة.</p>`},
+ beach:{html:()=>`<h4>🏖️ صورة توضيحية: لماذا يحرق الرمل قدميك والماء بارد؟</h4>
+  <svg viewBox="0 0 600 300" role="img" aria-label="شاطئ عليه ميزان حرارة في الرمل وآخر في الماء">
+   <defs><linearGradient id="bsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7EC8F0"/><stop offset="1" stop-color="#E4F4FC"/></linearGradient><linearGradient id="bsea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3FA9DD"/><stop offset="1" stop-color="#8FD3F2"/></linearGradient></defs>
+   <rect width="600" height="300" fill="url(#bsky)"/>
+   <g id="bSun"><circle cx="90" cy="60" r="30" fill="#FFC93C"/>${[...Array(10)].map((_,i)=>{const a=i*Math.PI/5;return `<line x1="${90+Math.cos(a)*38}" y1="${60+Math.sin(a)*38}" x2="${90+Math.cos(a)*50}" y2="${60+Math.sin(a)*50}" stroke="#FFC93C" stroke-width="4" stroke-linecap="round"/>`;}).join('')}</g>
+   <g fill="#fff" opacity=".9"><ellipse cx="430" cy="60" rx="55" ry="22"/><ellipse cx="470" cy="48" rx="35" ry="22"/><ellipse cx="250" cy="90" rx="35" ry="13"/></g>
+   <rect x="0" y="170" width="600" height="130" fill="url(#bsea)"/>
+   <path d="M0 175 C120 175 230 190 330 225 C400 250 470 280 600 290 L600 300 L0 300Z" fill="#F3DDA6"/>
+   <path d="M0 175 C120 175 230 190 330 225 C400 250 470 280 600 290" fill="none" stroke="#fff" stroke-width="4" opacity=".7"/>
+   <path d="M60 230 Q120 150 185 200" fill="#E9573F"/><path d="M60 230 Q95 185 122 196 Q150 180 185 200 Z" fill="#F7B733" opacity=".8"/><line x1="122" y1="196" x2="140" y2="275" stroke="#7A5230" stroke-width="4"/>
+   ${[['bThS',230,215,'الرمل'],['bThW',470,200,'ماء البحر']].map(([id,x,y,l])=>`<g transform="translate(${x},${y})"><rect x="-10" y="-60" width="20" height="70" rx="10" fill="#fff" stroke="#222" stroke-width="3"/><circle cx="0" cy="18" r="14" fill="#E0472B" stroke="#222" stroke-width="3"/><rect id="${id}" x="-4" y="-20" width="8" height="38" fill="#E0472B"/><rect x="-46" y="38" width="92" height="40" rx="8" fill="rgba(255,255,255,.88)"/><text x="0" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#222">${l}</text><text id="${id}v" x="0" y="72" text-anchor="middle" font-size="13" fill="#222" direction="ltr">25 °C</text></g>`).join('')}
+  </svg>
+  <label class="ctrl" style="margin-top:10px">ساعات سطوع الشمس: <b class="ltr" id="bHr">0</b><input type="range" dir="ltr" id="bSl" min="0" max="6" step="0.5" value="0"></label>
+  <p class="cm-note" id="bTxt">حرّكي المؤشر لتمرّ ساعات النهار. كل جرام من الرمل والماء يمتص من الشمس كمية الطاقة نفسها تقريبًا.</p>`,
+  init(root){const sl=$('#bSl',root);const up=()=>{const h=+sl.value,w=25+1*h,s=25+5.2*h;
+    const set=(id,t)=>{const hh=Math.min(58,8+(t-20)*1.25);const r=$('#'+id,root);r.setAttribute('y',18-hh);r.setAttribute('height',hh);$('#'+id+'v',root).textContent=t.toFixed(1)+' °C';};
+    set('bThS',s);set('bThW',w);$('#bHr',root).textContent=h;
+    $('#bTxt',root).innerHTML=h===0?'حرّكي المؤشر لتمرّ ساعات النهار. كل جرام من الرمل والماء يمتص من الشمس كمية الطاقة نفسها تقريبًا.':`بعد ${h} ساعة: الرمل <b class="ltr">${s.toFixed(1)} °C</b> والماء <b class="ltr">${w.toFixed(1)} °C</b>. الحرارة النوعية للماء (4.184 J/g·°C) أكبر بنحو 5 مرات من الرمل (≈ 0.8 J/g·°C)، فيحتاج الماء طاقة أكبر ليرتفع درجة واحدة، لذلك يسخن الرمل أسرع.`;};
+    sl.addEventListener('input',up);up();}},
+ bank:{html:()=>`<svg viewBox="0 0 300 120" role="img" aria-label="تشبيه حفظ الطاقة بحسابين بنكيين">
+   <text x="225" y="16" text-anchor="middle" class="cm-t" font-size="12" font-weight="700">قبل التحويل</text><text x="75" y="16" text-anchor="middle" class="cm-t" font-size="12" font-weight="700">بعد التحويل</text>
+   ${[[170,'600','400'],[20,'300','700']].map(([x,a,b])=>`<rect x="${x}" y="26" width="52" height="54" rx="6" class="cm-box"/><text x="${x+26}" y="58" text-anchor="middle" class="cm-t" font-size="14" font-weight="700">${a}</text><rect x="${x+58}" y="26" width="52" height="54" rx="6" class="cm-box"/><text x="${x+84}" y="58" text-anchor="middle" class="cm-t" font-size="14" font-weight="700">${b}</text><text x="${x+55}" y="104" text-anchor="middle" class="cm-t" font-size="12.5">المجموع = 1000</text>`).join('')}
+   <text x="150" y="58" text-anchor="middle" class="cm-t" font-size="18">←</text></svg>`},
+ flame:{html:()=>`<svg viewBox="0 0 300 110" role="img" aria-label="لهب موقد غاز">
+   <rect x="70" y="80" width="160" height="12" rx="6" fill="#555"/>${[95,125,150,175,205].map((x,i)=>`<path d="M${x} 80 C${x-10} 62 ${x-4} 48 ${x} ${36+(i%2)*8} C${x+4} 48 ${x+10} 62 ${x} 80Z" fill="#3B7BFF" opacity=".85"/><path d="M${x} 80 C${x-5} 70 ${x-2} 62 ${x} ${56+(i%2)*6} C${x+2} 62 ${x+5} 70 ${x} 80Z" fill="#9BD1FF"/>`).join('')}
+   <text x="150" y="14" text-anchor="middle" class="cm-t" font-size="12">روابط البروبان ← حرارة للطهو</text></svg>`},
+ systemMap:{html:()=>`<h4>🗺️ خريطة مفاهيم: النظام والمحيط واتجاه الحرارة</h4>
+  <svg viewBox="0 0 600 260" role="img" aria-label="النظام والمحيط في التفاعل الطارد والماص">${AR('am4')}
+   <rect x="20" y="10" width="560" height="200" rx="18" class="cm-k"/><text x="300" y="34" text-anchor="middle" class="cm-t" font-weight="700">الكون = النظام + المحيط</text>
+   <rect x="230" y="70" width="140" height="80" rx="40" class="cm-main"/><text x="300" y="104" text-anchor="middle" class="cm-tw" font-weight="700">النظام</text><text x="300" y="126" text-anchor="middle" class="cm-tw" font-size="12">التفاعل أو العملية</text>
+   <text x="70" y="70" class="cm-t" font-size="13" font-weight="700">المحيط</text><text x="490" y="70" class="cm-t" font-size="13" font-weight="700">المحيط</text>
+   <path d="M375 100 L520 100" stroke="#DE4527" stroke-width="4" fill="none" marker-end="url(#am4)"/><text x="447" y="92" text-anchor="middle" font-size="12.5" fill="#DE4527" font-weight="700">طارد: ΔH &lt; 0</text><text x="447" y="120" text-anchor="middle" class="cm-t" font-size="12">الكمادة الساخنة</text>
+   <path d="M80 120 L225 120" stroke="#2763D8" stroke-width="4" fill="none" marker-end="url(#am4)"/><text x="153" y="112" text-anchor="middle" font-size="12.5" fill="#2763D8" font-weight="700">ماص: ΔH &gt; 0</text><text x="153" y="140" text-anchor="middle" class="cm-t" font-size="12">الكمادة الباردة</text>
+   <text x="300" y="238" text-anchor="middle" class="cm-t" font-size="15" direction="ltr">ΔH = Hproducts − Hreactants</text>
+  </svg>`},
+ phaseMap:{html:()=>`<h4>🗺️ خريطة مفاهيم: تغيرات حالة الماء وحرارتها المولارية</h4>
+  <svg viewBox="0 0 600 230" role="img" aria-label="الصلب والسائل والغاز وحرارة التحول بينها">${AR('am5')}
+   ${[[490,'صلب','جليد','🧊'],[300,'سائل','ماء','💧'],[110,'غاز','بخار','☁️']].map(([x,a,b,e])=>`<rect x="${x-70}" y="80" width="140" height="70" rx="14" class="cm-box"/><text x="${x}" y="110" text-anchor="middle" class="cm-t" font-size="17" font-weight="700">${e} ${a}</text><text x="${x}" y="134" text-anchor="middle" class="cm-t" font-size="13">${b}</text>`).join('')}
+   <path d="M440 78 C420 30 380 30 360 78" stroke="#2763D8" stroke-width="3" fill="none" marker-end="url(#am5)"/><text x="400" y="26" text-anchor="middle" font-size="12.5" fill="#2763D8" font-weight="700">انصهار ΔHfus = +6.01</text>
+   <path d="M250 78 C230 30 190 30 170 78" stroke="#2763D8" stroke-width="3" fill="none" marker-end="url(#am5)"/><text x="210" y="26" text-anchor="middle" font-size="12.5" fill="#2763D8" font-weight="700">تبخر ΔHvap = +40.7</text>
+   <path d="M360 152 C380 200 420 200 440 152" stroke="#DE4527" stroke-width="3" fill="none" marker-end="url(#am5)"/><text x="400" y="216" text-anchor="middle" font-size="12.5" fill="#DE4527" font-weight="700">تجمد ΔHsolid = −6.01</text>
+   <path d="M170 152 C190 200 230 200 250 152" stroke="#DE4527" stroke-width="3" fill="none" marker-end="url(#am5)"/><text x="210" y="216" text-anchor="middle" font-size="12.5" fill="#DE4527" font-weight="700">تكثف ΔHcond = −40.7</text>
+  </svg><p class="cm-note">الأسهم الزرقاء ماصة للحرارة (ΔH موجبة)، والحمراء طاردة (ΔH سالبة)، والقيم بوحدة kJ/mol: العملية العكسية لها القيمة نفسها بإشارة معاكسة.</p>`},
+ qnMap:{html:()=>flowMap('🗺️ خريطة مفاهيم: من الكتلة إلى الحرارة',[{t:'الكتلة',s:'g'},{t:'÷ الكتلة المولية',s:'g/mol',k:1},{t:'عدد المولات',s:'mol'},{t:'× ΔH',s:'kJ/mol',k:1},{t:'كمية الحرارة q',s:'kJ'}],'مثال: <span class="f">54.0 g ÷ 180.18 = 0.300 mol</span>، ثم <span class="f">0.300 × 2808 = 842 kJ</span> من احتراق الجلوكوز.')},
+ hessMap:{html:()=>flowMap('🗺️ خريطة مفاهيم: خطوات قانون هس',[{t:'1. اكتبي المعادلة المطلوبة'},{t:'2. اعكسي ما يلزم',s:'وغيّري إشارة ΔH',k:1},{t:'3. اضربي ما يلزم',s:'واضربي ΔH بالعدد نفسه',k:1},{t:'4. اجمعي المعادلات',s:'واحذفي المتكرر على الطرفين'},{t:'ΔH الكلي',s:'= مجموع قيم ΔH'}],'السبب: حرارة التفاعل تعتمد على البداية والنهاية فقط، لا على الطريق، كفرق الارتفاع بين أسفل الجبل وقمته.')},
+ sumMap:{html:()=>flowMap('🗺️ خريطة مفاهيم: معادلة التجميع',[{t:'اضربي ΔH°f لكل مادة في معاملها'},{t:'اجمعي قيم النواتج',s:'ΣΔH°f(products)',k:1},{t:'اجمعي قيم المتفاعلات',s:'ΣΔH°f(reactants)',k:1},{t:'النواتج − المتفاعلات',s:'= ΔH°rxn'}],'تذكّري: حرارة تكوين العنصر في حالته القياسية (مثل O2 و N2) تساوي صفرًا.')}
+};
+
+/* ---------- SIMS ---------- */
+const SIMS={};
+
+SIMS.skier={title:'المتزلج وحفظ الطاقة',
+html:()=>`<h3>المتزلج وحفظ الطاقة</h3><p class="desc">حرّكي المتزلج على المسار. في أعلى المسار تكون طاقة الوضع أكبر ما يمكن، ومع النزول تتحول إلى طاقة حركية. راقبي المجموع.</p>
+ <svg viewBox="0 0 600 250" role="img" aria-label="مسار التزلج"><path id="trk" fill="none" stroke="currentColor" stroke-width="4" opacity=".55"/><line x1="560" y1="200" x2="560" y2="240" stroke="var(--hot)" stroke-width="4"/><g id="skr"><circle r="11" fill="var(--cold)"/><circle r="4" cy="-17" fill="var(--cold)"/></g></svg>
+ <div class="row"><label class="ctrl">موضع المتزلج على المسار<input type="range" dir="ltr" id="skX" min="0" max="1000" value="0"></label>
+ <label class="switch"><input type="checkbox" id="skF"> مع احتكاك الثلج</label></div>
+ <div class="bars">
+  <div class="bar"><span>طاقة الوضع</span><span class="tr"><i id="bPE" style="background:var(--cold)"></i></span><b id="vPE"></b></div>
+  <div class="bar"><span>الطاقة الحركية</span><span class="tr"><i id="bKE" style="background:var(--hot)"></i></span><b id="vKE"></b></div>
+  <div class="bar"><span>حرارة الاحتكاك</span><span class="tr"><i id="bQ" style="background:var(--amber)"></i></span><b id="vQ"></b></div>
+  <div class="bar"><span><b>المجموع</b></span><span class="tr"><i id="bT" style="background:var(--ok)"></i></span><b id="vT"></b></div>
+ </div><p class="hint" id="skMsg"></p>`,
+init(root){
+  const h=x=>(1-x)*(0.75+0.25*Math.cos(3*Math.PI*x));
+  const X=x=>30+x*530,Y=x=>210-h(x)*180;
+  let d='';for(let i=0;i<=100;i++){const x=i/100;d+=(i?'L':'M')+X(x).toFixed(1)+' '+Y(x).toFixed(1);}
+  $('#trk',root).setAttribute('d',d+' L560 210');
+  const upd=()=>{const x=+$('#skX',root).value/1000,fr=$('#skF',root).checked;
+    const pe=h(x),q=fr?0.25*x:0,ke=Math.max(0,1-pe-q);
+    $('#skr',root).setAttribute('transform',`translate(${X(x)},${Y(x)-12})`);
+    [['PE',pe],['KE',ke],['Q',q],['T',pe+ke+q]].forEach(([k,v])=>{$('#b'+k,root).style.width=(v*100)+'%';$('#v'+k,root).textContent=Math.round(v*100)+'%';});
+    $('#skMsg',root).textContent=fr?'مع الاحتكاك يتحول جزء من الطاقة إلى حرارة، لكن المجموع يبقى 100%: الطاقة لا تفنى.':'دون احتكاك: كل ما تفقده طاقة الوضع يظهر طاقة حركية.';
+    if(x>=0.98){completeTask('l1-skier');if(fr)completeTask('l1-friction');}};
+  $('#skX',root).addEventListener('input',upd);$('#skF',root).addEventListener('change',upd);upd();
+}};
+
+SIMS.convert={title:'محوّل وحدات الطاقة',
+html:()=>`<h3>محوّل وحدات الطاقة</h3><p class="desc">جرّبي التحويل بين الجول والسُّعر والسُّعر الغذائي، وراقبي عوامل التحويل.</p>
+ <div class="row"><input type="number" id="cvV" value="230" style="width:140px" aria-label="القيمة">
+ <select id="cvF" aria-label="من">${['Cal','cal','kJ','J'].map(u=>`<option ${u==='Cal'?'selected':''}>${u}</option>`).join('')}</select>
+ <span>إلى</span><select id="cvT" aria-label="إلى">${['J','kJ','cal','Cal'].map(u=>`<option>${u}</option>`).join('')}</select></div>
+ <p style="font-size:22px;font-weight:700;margin:12px 0 2px" class="ltr" id="cvR"></p><p class="hint" id="cvC"></p>
+ <table class="ctable"><tr><th>العلاقة</th><th>عامل التحويل</th></tr><tr><td class="n">1 J = 0.2390 cal</td><td class="n">1 J / 0.2390 cal</td></tr><tr><td class="n">1 cal = 4.184 J</td><td class="n">4.184 J / 1 cal</td></tr><tr><td class="n">1 Cal = 1 kcal = 1000 cal</td><td class="n">1000 cal / 1 Cal</td></tr></table>
+ ${prac('وجبة إفطار من الحبوب وعصير البرتقال والحليب تحتوي على 230 Cal. عبّري عن هذه الطاقة بوحدة الجول.','J',962320,0.02,'l1-conv1','حوّلي Cal إلى cal بالضرب في 1000، ثم اضربي في 4.184.')}
+ ${prac('يطلق تفاعل طارد للطاقة 86.5 kJ من الحرارة. ما مقدار الحرارة بوحدة Cal؟','Cal',20.67,0.02,'l1-conv2','86.5 kJ = 86500 J، اقسمي على 4.184 لتحصلي على cal ثم على 1000.')}`,
+init(root){
+  const F={J:1,kJ:1000,cal:4.184,Cal:4184};
+  const upd=()=>{const v=+$('#cvV',root).value,f=$('#cvF',root).value,t=$('#cvT',root).value;const r=v*F[f]/F[t];
+    $('#cvR',root).textContent=v+' '+f+' = '+nice(r,3)+' '+t;
+    $('#cvC',root).textContent=f===t?'الوحدتان متماثلتان.':'الطريقة: نحوّل '+f+' إلى J أولًا ثم من J إلى '+t+'.';};
+  ['#cvV','#cvF','#cvT'].forEach(s=>$(s,root).addEventListener('input',upd));upd();
+}};
+
+SIMS.race={title:'سباق التسخين والحرارة النوعية',
+html:()=>`<h3>سباق التسخين والحرارة النوعية</h3><p class="desc">اختاري مواد كتلة كل منها 50.0 g ودرجة حرارتها 25°C، ثم امنحيها الطاقة نفسها. من تسخن أكثر؟ (<span class="f">ΔT = q ÷ (c × m)</span>)</p>
+ <div class="chips" id="rcC">${CSPEC.map((s,i)=>`<button type="button" class="chip" data-i="${i}" aria-pressed="${[0,2,4,6].includes(i)}">${s[0]} <span class="ltr" style="opacity:.7">${s[1]}</span></button>`).join('')}</div>
+ <label class="ctrl" style="margin-top:12px">الطاقة الممتصة: <b class="ltr" id="rcQv">500 J</b><input type="range" id="rcQ" min="0" max="2000" step="10" value="500"></label>
+ <div class="thermos" id="rcT"></div>
+ <div id="rcQz" style="margin-top:16px"></div>
+ ${prac('احسبي كمية الحرارة الممتصة عند تسخين 50.0 g من الألومنيوم من 25°C إلى 95.0°C علمًا أن c = 0.897 J/g·°C','J',3139.5,0.02,'l1-q','q = c × m × ΔT و ΔT = 95.0 − 25 = 70.0°C')}
+ ${prac('ارتفعت درجة حرارة 34.4 g من الإيثانول من 25°C إلى 78.8°C. ما كمية الحرارة التي امتصها؟ (c = 2.44 J/g·°C)','J',4515.8,0.02,'','ΔT = 53.8°C')}`,
+init(root){
+  const upd=()=>{const q=+$('#rcQ',root).value;$('#rcQv',root).textContent=q+' J';
+    const sel=$$('.chip',root).filter(c=>c.getAttribute('aria-pressed')==='true').map(c=>CSPEC[+c.dataset.i]);
+    const temps=sel.map(s=>25+q/(s[1]*50));const mx=Math.max(100,...temps);
+    $('#rcT',root).innerHTML=sel.map((s,i)=>`<div class="thermo"><div class="tube"><i style="height:${Math.min(100,(temps[i]+20)/(mx+20)*100)}%"></i></div><b>${temps[i].toFixed(1)} °C</b><span>${s[0]}</span></div>`).join('')||'<p class="hint">اختاري مادة واحدة على الأقل.</p>';};
+  $$('.chip',root).forEach(c=>c.addEventListener('click',()=>{c.setAttribute('aria-pressed',c.getAttribute('aria-pressed')==='true'?'false':'true');upd();}));
+  $('#rcQ',root).addEventListener('input',upd);upd();
+  mcq(root,'#rcQz','إذا امتصت كتل متساوية من مواد مختلفة الطاقة نفسها، فإن المادة ذات الحرارة النوعية الأقل:',['ترتفع درجة حرارتها أكثر','ترتفع درجة حرارتها أقل','لا تتغير درجة حرارتها','تفقد حرارة'],0,()=>completeTask('l1-race'));
+}};
+
+SIMS.calo={title:'تجربة المسعر الافتراضية',
+html:()=>`<h3>تجربة المسعر: فلز مجهول</h3><p class="desc">عيّنة فلز مجهول كتلتها 50.0 g تُسخَّن إلى 115.0°C ثم تُسقط في 125 g من الماء عند 25.60°C داخل كأس بوليسترين. احسبي حرارته النوعية وتعرّفيه.</p>
+ <div class="calo">
+  <svg viewBox="0 0 200 260" role="img" aria-label="مسعر كأس البوليسترين">
+   <rect x="40" y="70" width="110" height="170" rx="10" fill="var(--surface2)" stroke="var(--muted)" stroke-width="3"/>
+   <rect x="46" y="120" width="98" height="114" rx="6" fill="var(--cold)" opacity=".18"/>
+   <rect id="metal" x="78" y="20" width="34" height="24" rx="4" fill="#9aa3b5" stroke="var(--muted)"/>
+   <rect x="128" y="10" width="10" height="200" rx="5" fill="var(--surface)" stroke="var(--muted)"/>
+   <rect id="merc" x="130" y="150" width="6" height="58" rx="3" fill="var(--hot)"/>
+   <circle cx="133" cy="212" r="9" fill="var(--hot)"/>
+   <text id="tread" x="100" y="258" text-anchor="middle" font-size="16" fill="currentColor" font-weight="700">25.60 °C</text>
+  </svg>
+  <div>
+   <table class="dtable"><tr><td>كتلة الماء</td><td>125 g</td></tr><tr><td>درجة حرارة الماء الابتدائية</td><td>25.60 °C</td></tr><tr><td>كتلة الفلز</td><td>50.0 g</td></tr><tr><td>درجة حرارة الفلز الابتدائية</td><td id="tm">25.00 °C</td></tr><tr><td>درجة الحرارة النهائية</td><td id="tf">؟</td></tr></table>
+   <div class="row" style="margin-top:12px"><button class="btn sm hot" type="button" id="cHeat">1. سخّني الفلز</button><button class="btn sm cold" type="button" id="cDrop" disabled>2. أسقطيه في المسعر</button><button class="btn sm ghost" type="button" id="cNew">عيّنة جديدة</button></div>
+  </div>
+ </div>
+ <div id="cSteps" style="display:none">
+  <div class="prac" id="cq"><p class="q">الخطوة 1: احسبي الحرارة التي اكتسبها الماء (c = 4.184 J/g·°C).</p><div class="row"><input class="ans" inputmode="decimal" aria-label="q الماء"><span class="unit">J</span><button class="btn sm" type="button">تحقّقي</button></div><p class="fb"></p></div>
+  <div class="prac" id="cc"><p class="q">الخطوة 2: الحرارة التي فقدها الفلز = الحرارة التي اكتسبها الماء. احسبي الحرارة النوعية للفلز.</p><div class="row"><input class="ans" inputmode="decimal" aria-label="c الفلز"><span class="unit">J/g·°C</span><button class="btn sm" type="button">تحقّقي</button></div><p class="fb"></p></div>
+  <div class="prac"><p class="q">الخطوة 3: قارني بالجدول 1-2 وحدّدي الفلز.</p>
+   <table class="ctable"><tr><th>الفلز</th><th>c (J/g·°C)</th></tr>${METALS().map(m=>`<tr><td>${m[0]}</td><td class="n">${m[1]}</td></tr>`).join('')}</table>
+   <div class="row" style="margin-top:8px"><select id="cId" aria-label="الفلز"><option value="">اختاري الفلز</option>${METALS().map((m,i)=>`<option value="${i}">${m[0]}</option>`).join('')}</select><button class="btn sm" type="button" id="cIdB">تحقّقي</button></div><p class="fb" id="cIdF"></p></div>
+ </div>
+ ${prac('تمتص قطعة فلز كتلتها 4.68 g مقدار 256 J من الحرارة عندما ترتفع درجة حرارتها 182°C. ما الحرارة النوعية للفلز؟','J/g·°C',0.301,0.02,'l2-prac','c = q ÷ (m × ΔT)')}`,
+init(root){
+  const MS=METALS();let mi=Math.floor(Math.random()*MS.length),state=0,Tf=0;
+  const mw=125,Tw=25.6,mm=50,Tm=115;
+  const setMerc=t=>{const h=Math.max(4,Math.min(190,(t-15)/(120-15)*190));const m=$('#merc',root);m.setAttribute('y',208-h);m.setAttribute('height',h);};
+  const anim=(from,to,ms,cb,fin)=>{if(reduced){cb(to);fin&&fin();return;}const t0=performance.now();const f=t=>{const k=Math.min(1,(t-t0)/ms);cb(from+(to-from)*(1-Math.pow(1-k,3)));if(k<1)raf=requestAnimationFrame(f);else fin&&fin();};let raf=requestAnimationFrame(f);onCleanup(()=>cancelAnimationFrame(raf));};
+  const reset=()=>{state=0;$('#tm',root).textContent='25.00 °C';$('#tf',root).textContent='؟';$('#tread',root).textContent='25.60 °C';setMerc(25.6);
+    $('#metal',root).setAttribute('y',20);$('#metal',root).setAttribute('fill','#9aa3b5');$('#cDrop',root).disabled=true;$('#cHeat',root).disabled=false;$('#cSteps',root).style.display='none';
+    $$('#cSteps .prac',root).forEach(p=>{p.classList.remove('solved');const i=$('input',p);if(i)i.value='';$('.fb',p).textContent='';});$('#cId',root).value='';};
+  $('#cHeat',root).addEventListener('click',()=>{$('#cHeat',root).disabled=true;anim(25,115,1200,v=>{$('#tm',root).textContent=v.toFixed(2)+' °C';$('#metal',root).setAttribute('fill',v>80?'var(--hot)':'#c9a08a');},()=>{$('#cDrop',root).disabled=false;state=1;});});
+  $('#cDrop',root).addEventListener('click',()=>{if(state!==1)return;$('#cDrop',root).disabled=true;const c=MS[mi][1];
+    Tf=(mw*4.184*Tw+mm*c*Tm)/(mw*4.184+mm*c);Tf=Math.round(Tf*100)/100;
+    anim(20,170,600,v=>$('#metal',root).setAttribute('y',v),()=>{anim(Tw,Tf,1800,v=>{$('#tread',root).textContent=v.toFixed(2)+' °C';setMerc(v);},()=>{$('#tf',root).textContent=Tf.toFixed(2)+' °C';$('#cSteps',root).style.display='block';completeTask('l2-run');});});});
+  $('#cNew',root).addEventListener('click',()=>{let n;do{n=Math.floor(Math.random()*MS.length);}while(n===mi);mi=n;reset();});
+  const chk=(id,ans,tol,task,hint)=>{const p=$(id,root),i=$('input',p),fb=$('.fb',p);const go=()=>{const v=parseNum(i.value),a=ans();if(!isNaN(v)&&Math.abs(v-a)<=tol*Math.abs(a)){fb.className='fb ok';fb.textContent='✓ صحيح! ≈ '+nice(a);p.classList.add('solved');task&&completeTask(task);}else{fb.className='fb bad';fb.textContent='✗ '+hint;}};$('button',p).addEventListener('click',go);i.addEventListener('keydown',e=>{if(e.key==='Enter')go();});};
+  chk('#cq',()=>125*4.184*(Tf-25.6),0.03,'','q = 4.184 × 125 × (Tf − 25.60)');
+  chk('#cc',()=>125*4.184*(Tf-25.6)/(50*(115-Tf)),0.04,'l2-c','c = q ÷ (50.0 × (115.0 − Tf))، واستعملي القيمة الموجبة.');
+  $('#cIdB',root).addEventListener('click',()=>{const f=$('#cIdF',root);if($('#cId',root).value===''){f.className='fb bad';f.textContent='اختاري فلزًا أولًا.';return;}
+    if(+$('#cId',root).value===mi){f.className='fb ok';f.textContent='✓ أحسنتِ، الفلز هو '+MS[mi][0]+'.';completeTask('l2-id');}else{f.className='fb bad';f.textContent='✗ قارني قيمتك المحسوبة بأقرب قيمة في الجدول.';}});
+  reset();
+}};
+function METALS(){return [['الماغنسيوم',1.023],['الألومنيوم',0.897],['الكالسيوم',0.647],['الحديد',0.449],['الفضة',0.235],['الرصاص',0.128]];}
+
+SIMS.packs={title:'الكمادة الساخنة والباردة',
+html:()=>`<h3>الكمادة الساخنة والكمادة الباردة</h3><p class="desc">اختاري الكمادة وراقبي اتجاه انتقال الحرارة بين النظام والمحيط، وإشارة ΔH في مخطط المحتوى الحراري.</p>
+ <div class="packs"><button type="button" class="btn sm hot" data-p="hot">الكمادة الساخنة</button><button type="button" class="btn sm cold" data-p="cold">الكمادة الباردة</button></div>
+ <div id="pkOut"><p class="hint">اضغطي على إحدى الكمادتين للبدء.</p></div>`,
+init(root){
+  const seen={};
+  const D={hot:{eq:'<span class="f">4Fe(s) + 3O2(g) → 2Fe2O3(s)</span>',top:'<span class="f">4Fe(s) + 3O2(g)</span>',tl:'المواد المتفاعلة',bot:'<span class="f">2Fe2O3(s)</span>',bl:'الناتج',dir:'down',dh:'ΔH = −1625 kJ',kind:'تفاعل طارد للحرارة: ΔH &lt; 0',flow:'🔥 ➜ ✋',ft:'تنتقل الحرارة من الكمادة (النظام) إلى يديك (المحيط).',bg:'var(--hot-soft)',note:'المحتوى الحراري للنواتج أقل من المتفاعلات، فالفرق سالب.'},
+    cold:{eq:'<span class="fx" dir="ltr">NH<sub>4</sub>NO<sub>3(s)</sub> → NH<sub>4</sub><sup>+</sup><sub>(aq)</sub> + NO<sub>3</sub><sup>−</sup><sub>(aq)</sub></span>',top:'<span class="fx" dir="ltr">NH<sub>4</sub><sup>+</sup><sub>(aq)</sub> + NO<sub>3</sub><sup>−</sup><sub>(aq)</sub></span>',tl:'النواتج',bot:'<span class="fx" dir="ltr">NH<sub>4</sub>NO<sub>3(s)</sub></span>',bl:'المادة المتفاعلة',dir:'up',dh:'ΔH = +27 kJ',kind:'عملية ماصة للحرارة: ΔH &gt; 0',flow:'✋ ➜ ❄️',ft:'تنتقل الحرارة من جلدك (المحيط) إلى الكمادة (النظام) فتشعرين بالبرودة.',bg:'var(--cold-soft)',note:'المحتوى الحراري للنواتج أعلى من المتفاعلة بمقدار 27 kJ.'}};
+  $$('[data-p]',root).forEach(b=>b.addEventListener('click',()=>{const d=D[b.dataset.p];seen[b.dataset.p]=1;
+    $('#pkOut',root).innerHTML=`<p style="font-size:17px;margin:0 0 10px">${d.eq}</p>
+    <div class="ediag"><div class="levels"><span class="axis">المحتوى الحراري</span>
+      <div class="lv top"><span>${d.top}</span> <small style="color:var(--muted)">${d.tl}</small></div>
+      <div class="lv bot"><span>${d.bot}</span> <small style="color:var(--muted)">${d.bl}</small></div>
+      <div class="arrowv ${d.dir}"></div><div class="dhlabel">${d.dh}</div></div>
+      <div class="flow" style="background:${d.bg}"><span class="big">${d.flow}</span><b>${d.kind}</b><span>${d.ft}</span></div></div>
+    <p class="hint">${d.note}</p>`;fmAll(root);
+    if(seen.hot&&seen.cold)completeTask('l2-packs');}));
+}};
+
+SIMS.curve={title:'منحنى تسخين الماء',
+html:()=>`<h3>منحنى تسخين الماء</h3><p class="desc">عيّنة من الماء كتلتها 180 g (10 mol) تُسخَّن من −20°C إلى 120°C. زيدي الحرارة المضافة وراقبي المناطق الخمس.</p>
+ <div class="hc"><canvas id="hcC" aria-label="منحنى التسخين"></canvas></div>
+ <label class="ctrl" style="margin-top:10px">الحرارة المضافة: <b class="ltr" id="hcQv">0 kJ</b><input type="range" dir="ltr" id="hcQ" min="0" max="557" step="0.5" value="0"></label>
+ <p style="margin:6px 0 0;font-weight:600" id="hcState"></p>
+ <div class="seglist" id="hcSeg"></div>
+ <div id="hcQz" style="margin-top:16px"></div>`,
+init(root){
+  const B=[0,7.308,67.408,142.72,549.72,556.956];
+  const NM=['تسخين الجليد','انصهار الجليد','تسخين الماء السائل','غليان الماء (تبخر)','تسخين بخار الماء'];
+  const FM=['q = 180 × 2.03 × 20','q = 10 × 6.01','q = 180 × 4.184 × 100','q = 10 × 40.7','q = 180 × 2.01 × 20'];
+  const VL=['7.31 kJ','60.1 kJ','75.3 kJ','407 kJ','7.24 kJ'];
+  const CL=['#6E9BFF','#9B7BE0','#4FA3D9','#D9709A','#FF7B5E'];
+  $('#hcSeg',root).innerHTML=NM.map((n,i)=>`<div class="seg" data-s="${i}"><span class="dot" style="background:${CL[i]}"></span><span>${n} <span class="f" style="color:var(--muted);font-size:13.5px">${FM[i]}</span></span><b>${VL[i]}</b></div>`).join('');
+  fmAll(root);
+  const stateAt=q=>{if(q<B[1])return{s:0,T:-20+q*1000/(180*2.03)};if(q<B[2])return{s:1,T:0,f:(q-B[1])/60.1};if(q<B[3])return{s:2,T:(q-B[2])*1000/(180*4.184)};if(q<B[4])return{s:3,T:100,f:(q-B[3])/407};return{s:4,T:Math.min(120,100+(q-B[4])*1000/(180*2.01))};};
+  const cv=$('#hcC',root),ctx=cv.getContext('2d');let W,H;
+  const fit=()=>{const r=cv.getBoundingClientRect(),d=window.devicePixelRatio||1;W=r.width;H=r.height;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);draw();};
+  const px=q=>46+(q/557)*(W-66), py=T=>H-30-(T+30)/160*(H-50);
+  function draw(){if(!W)return;const q=+$('#hcQ',root).value;const st=stateAt(q);ctx.clearRect(0,0,W,H);ctx.direction='ltr';const ink=cssv('--muted');
+    ctx.strokeStyle=ink;ctx.lineWidth=1;ctx.font="12px 'IBM Plex Sans Arabic', sans-serif";ctx.fillStyle=ink;
+    [-20,0,50,100,120].forEach(T=>{ctx.globalAlpha=.25;ctx.beginPath();ctx.moveTo(px(0),py(T));ctx.lineTo(px(557),py(T));ctx.stroke();ctx.globalAlpha=1;ctx.textAlign='left';ctx.fillText(T+'°C',4,py(T)-3);});
+    ctx.textAlign='center';[0,100,200,300,400,500].forEach(v=>ctx.fillText(v,px(v),H-12));
+    ctx.textAlign='right';ctx.fillText('kJ',W-4,H-28);
+    const pts=[[0,-20],[B[1],0],[B[2],0],[B[3],100],[B[4],100],[B[5],120]];
+    for(let i=0;i<5;i++){ctx.strokeStyle=CL[i];ctx.lineWidth=4;ctx.globalAlpha=.35;ctx.beginPath();ctx.moveTo(px(pts[i][0]),py(pts[i][1]));ctx.lineTo(px(pts[i+1][0]),py(pts[i+1][1]));ctx.stroke();}
+    ctx.globalAlpha=1;
+    for(let i=0;i<5;i++){if(q<=pts[i][0])break;const q2=Math.min(q,pts[i+1][0]);const T2=stateAt(Math.min(q2,556.9)).T;ctx.strokeStyle=CL[i];ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(px(pts[i][0]),py(pts[i][1]));ctx.lineTo(px(q2),py(q2>=pts[i+1][0]?pts[i+1][1]:T2));ctx.stroke();}
+    ctx.beginPath();ctx.arc(px(q),py(st.T),7,0,Math.PI*2);ctx.fillStyle=CL[st.s];ctx.fill();ctx.strokeStyle=cssv('--surface');ctx.lineWidth=2;ctx.stroke();}
+  const upd=()=>{const q=+$('#hcQ',root).value,st=stateAt(q);$('#hcQv',root).textContent=q.toFixed(1)+' kJ';
+    let t=NM[st.s]+' | درجة الحرارة '+st.T.toFixed(1)+' °C';if(st.f!=null)t+=(st.s===1?' | انصهر ':' | تبخّر ')+Math.round(st.f*100)+'% من العينة';
+    $('#hcState',root).textContent=t;$$('.seg',root).forEach(s=>s.classList.toggle('on',+s.dataset.s===st.s));draw();
+    if(st.s===1)completeTask('l3-melt');if(q>=B[4])completeTask('l3-steam');};
+  $('#hcQ',root).addEventListener('input',upd);
+  const ro=new ResizeObserver(fit);ro.observe(cv);onCleanup(()=>ro.disconnect());
+  const th=()=>draw();window.addEventListener('themechange',th);onCleanup(()=>window.removeEventListener('themechange',th));
+  fit();upd();
+  mcq(root,'#hcQz','أي المناطق الخمس تحتاج إلى أكبر كمية من الحرارة؟ ولماذا يبدو الجزء الأفقي فيها الأطول؟',NM,3,()=>completeTask('l3-max'));
+}};
+
+SIMS.comb={title:'حاسبة الاحتراق وتغيرات الحالة',
+html:()=>`<h3>حاسبة حرارة الاحتراق</h3><p class="desc">اختاري وقودًا من الجدول 1-3 وأدخلي كتلته: نحوّل الجرامات إلى مولات ثم نضرب في <span class="f">ΔHcomb</span>.</p>
+ <div class="row"><select id="cbF" aria-label="الوقود">${FUELS.map((f,i)=>`<option value="${i}">${f[0]}</option>`).join('')}</select>
+ <input type="number" id="cbM" value="54.0" style="width:120px" aria-label="الكتلة"><span class="unit">g</span></div>
+ <div id="cbOut" style="margin-top:10px;font-size:16px;line-height:2"></div>
+ <h3 style="margin-top:20px">جدول حرارة التبخر والانصهار القياسية</h3>
+ <table class="ctable"><tr><th>المادة</th><th>ΔH°vap (kJ/mol)</th><th>ΔH°fus (kJ/mol)</th></tr>${PHASE.map(p=>`<tr><td>${p[0]} <span class="f">${p[1]}</span></td><td class="n">${p[2]}</td><td class="n">${p[3]}</td></tr>`).join('')}</table>
+ ${prac('ما كمية الحرارة الناتجة عن احتراق 54.0 g من الجلوكوز C6H12O6 (الكتلة المولية 180.18 g/mol، ΔHcomb = −2808 kJ/mol)؟ اكتبي مقدار الحرارة المنطلقة.','kJ',842,0.01,'l3-glu','n = 54.0 ÷ 180.18 = 0.300 mol ثم اضربي في 2808.')}
+ ${prac('احسبي الحرارة اللازمة لصهر 25.7 g من الميثانول الصلب CH3OH (الكتلة المولية 32.04 g/mol) عند درجة انصهاره.','kJ',2.583,0.02,'l3-fus','n = 25.7 ÷ 32.04 ثم اضربي في ΔHfus للميثانول 3.22.')}
+ ${prac('ما كمية الحرارة عند تكثف 275 g من غاز الأمونيا NH3 (17.03 g/mol) إلى سائل؟ انتبهي للإشارة.','kJ',-376.3,0.02,'','ΔHcond = −ΔHvap = −23.3 kJ/mol')}`,
+init(root){
+  const upd=()=>{const f=FUELS[+$('#cbF',root).value],m=+$('#cbM',root).value;const n=m/f[2],q=n*f[3];
+    $('#cbOut',root).innerHTML=`<span class="f">${f[1]}</span>: الكتلة المولية ${f[2]} g/mol و <span class="f">ΔHcomb</span> = ${f[3]} kJ/mol<br>
+    عدد المولات = ${m} ÷ ${f[2]} = <b class="ltr">${nice(n,3)} mol</b><br>
+    الحرارة = ${nice(n,3)} × ${f[3]} = <b class="ltr" style="color:var(--hot)">${nice(q,4)} kJ</b> (تنطلق ${nice(Math.abs(q),4)} kJ)`;fmAll($('#cbOut',root));};
+  $('#cbF',root).addEventListener('input',upd);$('#cbM',root).addEventListener('input',upd);upd();
+}};
+
+const HESS=[
+ {name:'ثالث أكسيد الكبريت',target:{'S(s)':-2,'O2(g)':-3,'SO3(g)':2},dh:-792,task:'l4-h1',
+  cards:[{R:{'S(s)':1,'O2(g)':1},P:{'SO2(g)':1},dh:-297},{R:{'SO3(g)':2},P:{'SO2(g)':2,'O2(g)':1},dh:198}]},
+ {name:'فوق أكسيد الهيدروجين',target:{'H2O2(l)':-2,'H2O(l)':2,'O2(g)':1},dh:-196,task:'l4-h2',
+  cards:[{R:{'H2(g)':2,'O2(g)':1},P:{'H2O(l)':2},dh:-572},{R:{'H2(g)':1,'O2(g)':1},P:{'H2O2(l)':1},dh:-188}]},
+ {name:'تحدّي: NO + O',target:{'NO(g)':-1,'O(g)':-1,'NO2(g)':1},dh:-233,task:'l4-h3',
+  cards:[{R:{'O2(g)':1},P:{'O(g)':2},dh:495},{R:{'O3(g)':2},P:{'O2(g)':3},dh:-427},{R:{'NO(g)':1,'O3(g)':1},P:{'NO2(g)':1,'O2(g)':1},dh:-199}]}
+];
+function coefStr(c){if(Math.abs(c-1)<1e-9)return '';if(Math.abs(c-Math.round(c))<1e-9)return String(Math.round(c));if(Math.abs(c-0.5)<1e-9)return '½';if(Math.abs(c*2-Math.round(c*2))<1e-9)return Math.round(c*2)+'/2 ';if(Math.abs(c-0.25)<1e-9)return '¼';return Math.round(c*4)+'/4 ';}
+function eqHTML(R,P){const side=o=>Object.keys(o).map(k=>coefStr(o[k])+k).join(' + ')||'—';return '<span class="f">'+side(R)+' → '+side(P)+'</span>';}
+
+SIMS.hess={title:'أحجية قانون هس',
+html:()=>`<h3>أحجية قانون هس</h3><p class="desc">عدّلي المعادلات المعلومة بالعكس أو الضرب حتى يعطي مجموعها المعادلة المطلوبة. تذكّري: العكس يغيّر إشارة ΔH، والضرب يضرب ΔH.</p>
+ <div class="tabs" role="tablist">${HESS.map((h,i)=>`<button type="button" class="tab ${S.tasks[h.task]?'solved':''}" role="tab" data-t="${i}" aria-selected="${i===0}">${h.name}</button>`).join('')}</div>
+ <div id="hsBox"></div>`,
+init(root){
+  let cur=0,st=[];
+  const render=()=>{const P=HESS[cur];
+    const tR={},tP={};for(const k in P.target){if(P.target[k]<0)tR[k]=-P.target[k];else tP[k]=P.target[k];}
+    let net={},dh=0;
+    const cards=P.cards.map((c,i)=>{const s=st[i];const f=s.m*(s.r?-1:1);const R={},Pp={};
+      for(const k in c.R){(s.r?Pp:R)[k]=c.R[k]*s.m;net[k]=(net[k]||0)-c.R[k]*f;}
+      for(const k in c.P){(s.r?R:Pp)[k]=c.P[k]*s.m;net[k]=(net[k]||0)+c.P[k]*f;}
+      const d=c.dh*f;dh+=d;
+      return `<div class="hcard"><div><div class="eq">${eqHTML(R,Pp)}</div><div class="dh">ΔH = ${sgn(d)} kJ</div></div>
+        <div class="tools"><button type="button" class="btn sm ghost" data-a="r" data-i="${i}">اعكسي</button><button type="button" class="btn sm ghost" data-a="x2" data-i="${i}"><span dir="ltr">×2</span></button><button type="button" class="btn sm ghost" data-a="h" data-i="${i}"><span dir="ltr">×½</span></button><button type="button" class="btn sm ghost" data-a="z" data-i="${i}" aria-label="إعادة">↺</button></div></div>`;}).join('');
+    const nR={},nP={};let ok=true;const keys=new Set([...Object.keys(net),...Object.keys(P.target)]);
+    keys.forEach(k=>{const v=net[k]||0;if(v<-1e-9)nR[k]=-v;else if(v>1e-9)nP[k]=v;if(Math.abs(v-(P.target[k]||0))>1e-9)ok=false;});
+    $('#hsBox',root).innerHTML=`<div class="target"><b>المطلوب:</b> ${eqHTML(tR,tP)} <span class="f">ΔH = ?</span></div>${cards}
+      <div class="sum"><b>المجموع بعد حذف المواد المتكررة على الطرفين:</b><br>${eqHTML(nR,nP)} <span class="ltr" style="font-weight:700">ΔH = ${sgn(dh)} kJ</span></div>
+      <div class="status ${ok?'ok':'wait'}">${ok?'✓ ممتاز! حصلتِ على المعادلة المطلوبة، و ΔH = '+sgn(dh)+' kJ':'لم تطابق المعادلة المطلوبة بعد. ابحثي عن المادة التي يجب أن تكون في الطرف الآخر، أو المعامل الذي يحتاج تعديلًا.'}</div>`;
+    fmAll(root);
+    $$('[data-a]',root).forEach(b=>b.addEventListener('click',()=>{const s=st[+b.dataset.i];const a=b.dataset.a;if(a==='r')s.r=!s.r;if(a==='x2')s.m=Math.min(4,s.m*2);if(a==='h')s.m=Math.max(0.25,s.m/2);if(a==='z'){s.m=1;s.r=false;}render();}));
+    if(ok){completeTask(P.task);const t=$$('.tab',root)[cur];t&&t.classList.add('solved');}
+  };
+  const pick=i=>{cur=i;st=HESS[i].cards.map(()=>({m:1,r:false}));$$('.tab',root).forEach((t,j)=>t.setAttribute('aria-selected',j===i));render();};
+  $$('.tab',root).forEach(t=>t.addEventListener('click',()=>pick(+t.dataset.t)));pick(0);
+}};
+
+SIMS.hf={title:'معادلة التجميع',
+html:()=>`<h3>حساب ΔH°rxn من حرارة التكوين القياسية</h3><p class="desc">طبّقي معادلة التجميع: <span class="f">ΔH°rxn = ΣΔH°f(products) − ΣΔH°f(reactants)</span>، ولا تنسي الضرب في المعاملات.</p>
+ <p style="font-size:17px;margin:0 0 6px"><b>احتراق الميثان:</b> <span class="f">CH4(g) + 2O2(g) → CO2(g) + 2H2O(l)</span></p>
+ <table class="ctable"><tr><th>المادة</th><th>ΔH°f (kJ/mol)</th></tr><tr><td><span class="f">CO2(g)</span></td><td class="n">−394</td></tr><tr><td><span class="f">H2O(l)</span></td><td class="n">−286</td></tr><tr><td><span class="f">CH4(g)</span></td><td class="n">−75</td></tr><tr><td><span class="f">O2(g)</span></td><td class="n">0.0</td></tr></table>
+ ${prac('1) مجموع حرارة تكوين النواتج ΣΔH°f(products):','kJ',-966,0.005,'','(−394) + 2 × (−286)')}
+ ${prac('2) مجموع حرارة تكوين المتفاعلات ΣΔH°f(reactants):','kJ',-75,0.005,'','(−75) + 2 × (0.0)')}
+ ${prac('3) إذن ΔH°rxn لاحتراق الميثان:','kJ',-891,0.005,'l4-hf','النواتج − المتفاعلات = (−966) − (−75)')}
+ <p style="font-size:17px;margin:22px 0 6px"><b>تدريب إضافي:</b> <span class="f">H2S(g) + 4F2(g) → 2HF(g) + SF6(g)</span></p>
+ <p class="hint">ΔH°f: HF = −273، SF6 = −1220، H2S = −21، F2 = 0 (kJ/mol)</p>
+ ${prac('احسبي ΔH°rxn لهذا التفاعل:','kJ',-1745,0.005,'','[2(−273) + (−1220)] − [(−21) + 0]')}`,
+init(){}};
+
+SIMS.ladder={title:'سلّم حرارة التكوين',
+html:()=>`<h3>سلّم حرارة التكوين القياسية</h3><p class="desc">العناصر في حالاتها القياسية عند الصفر. المركبات فوق الصفر تكوينها ماص للحرارة، وتحت الصفر طارد وأكثر استقرارًا. اضغطي على أي مادة.</p>
+ <div class="ladwrap"><div class="ladder" id="ldr"><span class="ax"></span></div>
+ <div><div class="box" id="ldInfo" style="min-height:120px"><p class="hint" style="margin:0">اختاري مادة من السلّم لتري تفاصيلها.</p></div>
+ ${prac('من السلّم: ΔH°f للماء السائل −285.8 وللماء الغازي −241.8 kJ/mol. ما حرارة تبخر الماء H2O(l) → H2O(g) عند 298 K؟','kJ',44.0,0.02,'l4-vap','الفرق بين المستويين: (−241.8) − (−285.8)')}</div></div>`,
+init(root){
+  const IT=[['العناصر 0.0',0,'r','zero'],['NO2(g)',33.2,'l'],['H2S(g)',-21,'l'],['CH4(g)',-75,'l'],['H2O(g)',-241.8,'r'],['HF(g)',-273,'l'],['H2O(l)',-285.8,'r'],['CO2(g)',-394,'l'],['SO3(g)',-396,'r']];
+  const top=v=>4+(60-v)/480*92;
+  $('#ldr',root).innerHTML+=IT.map((it,i)=>`<button type="button" class="lpt ${it[2]} ${it[3]||''}" data-i="${i}" style="top:${top(it[1])}%"><i class="ln"></i><span ${it[3]?'style="direction:rtl"':''}>${it[3]?it[0]:fm(it[0])+' &nbsp;'+(it[1]>0?'+':'')+it[1]}</span></button>`).join('');
+  $$('.lpt',root).forEach(b=>b.addEventListener('click',()=>{$$('.lpt',root).forEach(x=>x.classList.remove('sel'));b.classList.add('sel');const it=IT[+b.dataset.i];
+    $('#ldInfo',root).innerHTML=it[1]===0?'<b>العناصر في حالاتها القياسية</b><p style="margin:6px 0 0">حرارة تكوينها تساوي 0.0 kJ/mol، وهي نقطة البداية للتدريج كما أن 0°C نقطة تجمد الماء.</p>':
+     `<b><span class="f">${it[0]}</span></b><p style="margin:6px 0 0" class="ltr">ΔH°f = ${it[1]>0?'+':''}${it[1]} kJ/mol</p><p style="margin:6px 0 0">${it[1]>0?'تكوينه ماص للحرارة، فمحتواه الحراري أعلى من عناصره وهو أقل استقرارًا منها.':'تكوينه طارد للحرارة، فمحتواه الحراري أقل من عناصره وهو أكثر استقرارًا منها.'}</p>`;fmAll($('#ldInfo',root));}));
+}};
+
+/* ---------- games ---------- */
+const GAMES={
+ g1:{title:'طاقة وضع أم طاقة حركية؟',items:[['كتب موضوعة على الرفوف',0],['نهر جارٍ',1],['انهيار ثلجي',1],['مغناطيسان منفصلان',0],['سباق سيارات',1],['فصل الشحنات في بطارية',0],['متزلج واقف في أعلى المسار',0],['جزيئات غاز تتحرك عشوائيًا',1],['البروبان في أسطوانة الغاز',0],['ماء مخزّن خلف السد',0],['توربين يدور في محطة كهرومائية',1],['روابط جزيء الجلوكوز',0],['عربة أفعوانية تهبط بسرعة',1],['سيارة متحركة على الطريق',1]],labels:['طاقة وضع','طاقة حركية']},
+ g2:{title:'طارد أم ماص للحرارة؟',items:[['احتراق الميثان',0],['انصهار الجليد',1],['تبخر الماء من الجلد',1],['تكثف بخار الماء',0],['تجمد الماء',0],['الكمادة الساخنة',0],['الكمادة الباردة',1],['ذوبان نترات الأمونيوم في الماء',1],['ΔH = −1625 kJ',0],['ΔH = +27 kJ',1],['Hproducts > Hreactants',1],['Hproducts < Hreactants',0],['أيض الجلوكوز في الخلايا',0],['هيدروكسيد الباريوم مع ثيوسيانات الأمونيوم',1]],labels:['طارد','ماص']},
+ g3:{title:'ما قيمة ΔH؟',gen:()=>{const p=PHASE[Math.floor(Math.random()*PHASE.length)];const pr=[['تبخر',p[2]],['تكثف',-p[2]],['انصهار',p[3]],['تجمد',-p[3]]];const k=Math.floor(Math.random()*4);
+   const vals=[p[2],-p[2],p[3],-p[3]];return{p:'ΔH لـ '+pr[k][0]+' 1 mol من '+p[0]+' <span class="f">'+p[1]+'</span>',o:vals.map(v=>(v>0?'+':'')+v+' kJ'),a:k};}},
+ g4:{title:'قانون هس السريع',gen:()=>{const R=[['S(s) + O2(g) → SO2(g)',-297],['N2(g) + O2(g) → 2NO(g)',180.6],['2H2(g) + O2(g) → 2H2O(l)',-572],['H2(g) + O2(g) → H2O2(l)',-188],['½N2(g) + O2(g) → NO2(g)',33.2],['CH4(g) + 2O2(g) → CO2(g) + 2H2O(l)',-891],['O2(g) → 2O(g)',495],['C(s) + O2(g) → CO2(g)',-394]];
+   const r=R[Math.floor(Math.random()*R.length)],x=r[1];const T=[['اعكسي المعادلة',-x],['اضربي المعادلة في 2',2*x],['اعكسيها واضربيها في 2',-2*x],['اضربيها في ½',x/2]];const k=Math.floor(Math.random()*4);
+   return{p:'<span class="f">'+r[0]+'</span> ΔH = '+sgn(x)+' kJ<br>'+T[k][0]+'، فما ΔH الجديدة؟',o:T.map(t=>sgn(t[1])+' kJ'),a:k};}}
+};
+Object.values(GAMES).forEach(g=>{g.html=`<h3>${g.title}</h3><p class="desc">لديك 45 ثانية. أجيبي عن أكبر عدد من الأسئلة: 5 إجابات صحيحة = نجمة، 10 = نجمتان، 15 = ثلاث نجوم.</p><div class="gbox" aria-live="polite"></div>`;});
+function initGame(root,g){
+  const box=$('.gbox',root);const id=Object.keys(GAMES).find(k=>GAMES[k]===g);let timer=null,score=0,left=45,deck=[],busy=false;
+  const starRow=n=>'<div class="stars3">'+[1,2,3].map(i=>`<span class="${i<=n?'':'off'}">★</span>`).join('')+'</div>';
+  const intro=()=>{const b=S.games[id]||0;box.innerHTML=`${starRow(gameStars(b))}<p style="margin:0">أفضل نتيجة: <b>${b}</b></p><button type="button" class="btn hot">ابدئي التحدي</button>`;$('button',box).addEventListener('click',start);};
+  const next=()=>{let it;
+    if(g.gen)it=g.gen();else{if(!deck.length)deck=shuffle(g.items);const x=deck.pop();it={p:x[0],o:g.labels,a:x[1]};}
+    box.innerHTML=`<div class="ghead"><span>النقاط: ${score}</span><span class="timer">⏱ ${left}s</span></div><div class="gprompt">${g.gen?it.p:fm(it.p)}</div><div class="gopts">${it.o.map((o,i)=>`<button type="button" class="opt" data-i="${i}">${o}</button>`).join('')}</div>`;
+    fmAll(box);busy=false;
+    $$('.opt',box).forEach(b=>b.addEventListener('click',()=>{if(busy)return;busy=true;const ok=+b.dataset.i===it.a;
+      if(ok){score++;b.classList.add('ok');box.classList.add('flash-ok');}else{b.classList.add('bad');$$('.opt',box)[it.a].classList.add('ok');box.classList.add('flash-bad');}
+      setTimeout(()=>{box.classList.remove('flash-ok','flash-bad');if(left>0)next();},ok?260:650);}));};
+  const tick=()=>{left--;const t=$('.timer',box);if(t)t.textContent='⏱ '+left+'s';if(left<=0)end();};
+  const start=()=>{score=0;left=45;deck=[];next();clearInterval(timer);timer=setInterval(tick,1000);};
+  const end=()=>{clearInterval(timer);const prev=S.games[id]||0;const before=gameStars(prev);if(score>prev){S.games[id]=score;save();refreshStars();}
+    const st=gameStars(Math.max(prev,score));
+    box.innerHTML=`<div class="gscore">${score}</div><p style="margin:0">إجابة صحيحة في 45 ثانية</p>${starRow(gameStars(score))}<p style="margin:0;color:var(--muted)">أفضل نتيجة: ${Math.max(prev,score)}</p><button type="button" class="btn hot">العبي مرة أخرى</button>`;
+    $('button',box).addEventListener('click',start);if(st>before)toast('★ نجوم جديدة من التحدي!');};
+  onCleanup(()=>clearInterval(timer));intro();
+}
+
+/* ---------- quiz runner ---------- */
+function quizRunner(el,qs,opt){
+  let order,idx,score,wrong;
+  const begin=()=>{order=qs.map(q=>{const p=shuffle(q.o.map((t,i)=>({t,i})));return{...q,opts:p,ans:p.findIndex(x=>x.i===q.a)};});if(opt.shuffle!==false)order=shuffle(order);idx=0;score=0;wrong=[];show();};
+  const show=()=>{const q=order[idx];
+    el.innerHTML=`<div class="qr"><div class="qtop"><span>السؤال ${idx+1} من ${order.length}${q.y?'<span class="yr">'+(q.y==='--'?'تجميعات':'تحصيلي '+q.y)+'</span>':''}</span><span class="qsc">صحيحة: ${score}</span></div>
+     <div class="qbar"><i style="width:${idx/order.length*100}%"></i></div>
+     <div class="qtext">${q.q}</div>
+     <div class="opts">${q.opts.map((o,i)=>`<button type="button" class="opt" data-i="${i}"><span dir="auto">${fm(o.t)}</span></button>`).join('')}</div>
+     <div class="qx"></div></div>`;
+    fmAll(el);
+    $$('.opt',el).forEach(b=>b.addEventListener('click',()=>{const i=+b.dataset.i;$$('.opt',el).forEach(x=>x.disabled=true);
+      const ok=i===q.ans;if(ok)score++;else wrong.push(q);b.classList.add(ok?'ok':'bad');$$('.opt',el)[q.ans].classList.add('ok');
+      $('.qx',el).innerHTML=`<div class="exp ${ok?'ok':'bad'}"><b>${ok?'✓ إجابة صحيحة.':'✗ الإجابة الصحيحة: '+fm(q.opts[q.ans].t)}</b> ${q.e||''}</div><div class="qnav"><button type="button" class="btn">${idx<order.length-1?'السؤال التالي':'عرض النتيجة'}</button></div>`;
+      $('.qsc',el).textContent='صحيحة: '+score;
+      $('.qnav button',el).addEventListener('click',()=>{idx++;if(idx<order.length)show();else finish();});
+      $('.qnav button',el).focus();}));};
+  const finish=()=>{const pct=Math.round(score/order.length*100);opt.onDone&&opt.onDone(score,order.length,pct);
+    const msg=pct>=90?'ممتاز! أداء متقن.':pct>=80?'رائع! أنتِ مستعدة.':pct>=60?'جيد، راجعي الأسئلة التي أخطأتِ فيها.':'لا بأس، راجعي الدروس وحاولي مرة أخرى.';
+    el.innerHTML=`<div class="qr result"><div class="gscore">${score} / ${order.length}</div><p style="margin:4px 0;font-weight:600">${pct}%: ${msg}</p>
+     <div class="row" style="justify-content:center;margin-top:10px"><button type="button" class="btn" id="qAgain">أعيدي الاختبار</button>${opt.extra||''}</div>
+     ${wrong.length?'<div class="review"><b>راجعي هذه الأسئلة:</b>'+wrong.map(w=>`<div>${w.q}<br><b>الإجابة:</b> <span dir="auto">${fm(w.opts[w.ans].t)}</span>. ${w.e||''}</div>`).join('')+'</div>':''}</div>`;
+    fmAll(el);$('#qAgain',el).addEventListener('click',()=>opt.restart?opt.restart():begin());};
+  if(opt.autostart===false)return{begin};begin();return{begin};
+}
+
+/* ---------- final ---------- */
+function viewFinal(){
+  app.innerHTML=`<div class="crumbs"><a href="#home">→ الصفحة الرئيسة</a></div>
+  <header class="lhead"><div class="lnum">ΔH</div><div><h1>الاختبار الختامي</h1><div class="en">تجميعات الاختبار التحصيلي: الطاقة والكيمياء الحرارية</div>
+   <p class="idea" style="margin:10px 0 0"><strong>تعليمات:</strong> اختاري نوع الاختبار. بعد كل إجابة يظهر التصحيح مع شرح قصير. احصلي على 80% أو أكثر لتنالي شارة <b>بطلة التحصيلي</b> و5 نجوم.${S.final!=null?' أفضل نتيجة لك: '+S.final+'%.':''}</p></div></header>
+  <section class="panel" style="margin-top:24px" id="finBox"></section>`;
+  const box=$('#finBox');
+  const modes=()=>{box.innerHTML=`<h3>اختاري نوع الاختبار</h3><div class="modes">
+    <button type="button" class="mode" data-m="all"><b>الاختبار الكامل</b><span>جميع الأسئلة (${TAH.length} سؤالًا) بترتيب عشوائي.</span></button>
+    <button type="button" class="mode" data-m="20"><b>اختبار سريع</b><span>20 سؤالًا عشوائيًا من بنك التجميعات.</span></button>
+    <button type="button" class="mode" data-m="recent"><b>أسئلة 2024 و 2025</b><span>الأسئلة الأحدث فقط.</span></button></div>`;
+    $$('.mode',box).forEach(b=>b.addEventListener('click',()=>{const m=b.dataset.m;let qs=TAH;if(m==='20')qs=shuffle(TAH).slice(0,20);if(m==='recent')qs=TAH.filter(q=>q.y==='2024'||q.y==='2025');
+      quizRunner(box,qs,{restart:modes,extra:'<a class="btn ghost" href="#home">الصفحة الرئيسة</a>',onDone:(sc,tot,pct)=>{const prev=S.final;S.final=Math.max(prev||0,pct);save();refreshStars();if(pct>=80&&!(prev>=80))toast('🏆 حصلتِ على شارة بطلة التحصيلي!');}});}));};
+  modes();
+}
+
+/* ---------- runtime capabilities ---------- */
+const capP={};
+function cap(n){if(!window.claude||typeof window.claude.use!=='function')return Promise.resolve(null);if(!capP[n])capP[n]=window.claude.use(n).catch(()=>null);return capP[n];}
+let viewTok=0;
+function esc(t){return String(t==null?'':t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+/* ---------- chemistry advisor bot ---------- */
+/* تعليمات المساعد محفوظة في الخادم: lib/rules.js */
+const BOT={turns:[],busy:false,ctl:null,sample:null};
+function botFmt(t){let h=esc(t);h=h.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');h=h.replace(/^\s*[-•]\s+/gm,'• ');return h.replace(/\n/g,'<br>');}
+function botAdd(cls,html){const m=document.createElement('div');m.className='msg '+cls;m.innerHTML=html;$('#botMsgs').appendChild(m);$('#botMsgs').scrollTop=1e9;return m;}
+function botSugg(){const n=(location.hash.match(/lesson-(\d)/)||[])[1];const base={1:['ما الفرق بين طاقة الوضع والطاقة الحركية؟','كيف أحوّل من Cal إلى J؟','اشرحي لي الحرارة النوعية بمثال'],2:['كيف يعمل المسعر؟','ما الفرق بين الطارد والماص للحرارة؟','لماذا إشارة ΔH سالبة في الطارد؟'],3:['ما معنى حرارة الاحتراق؟','لماذا ΔHcond = −ΔHvap؟','كيف أحسب حرارة احتراق كتلة من الجلوكوز؟'],4:['اشرحي لي قانون هس ببساطة','متى أعكس إشارة ΔH؟','كيف أستخدم معادلة التجميع؟']}[n]||['اشرحي لي قانون هس ببساطة','كيف أحسب q = c × m × ΔT؟','ما الفرق بين الطارد والماص للحرارة؟'];
+  $('#botSugg').innerHTML=base.map(q=>`<button type="button">${esc(q)}</button>`).join('');$$('#botSugg button').forEach(b=>b.addEventListener('click',()=>botAsk(b.textContent)));}
+async function botAsk(q){
+  q=(q||'').trim();if(!q||BOT.busy)return;BOT.busy=true;$('#botSend').disabled=true;$('#botIn').value='';
+  botAdd('me',esc(q));BOT.turns.push({role:'user',content:q.slice(0,1500)});
+  const bub=botAdd('bot','<span style="color:var(--muted)">يفكّر المساعد…</span>');
+  const n=(location.hash.match(/lesson-(\d)/)||[])[1];
+  BOT.ctl=new AbortController();const to=setTimeout(()=>BOT.ctl.abort(),45000);
+  try{
+    const r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},signal:BOT.ctl.signal,
+      body:JSON.stringify({ch:CH_NO,lesson:n?LESSONS[n-1].code+' '+LESSONS[n-1].title:'',messages:BOT.turns.slice(-10)})});
+    let data={};try{data=await r.json();}catch(e){}
+    if(!r.ok||!data.text){const err=new Error('x');err.code=data.error||('http_'+r.status);throw err;}
+    bub.innerHTML=botFmt(data.text);BOT.turns.push({role:'assistant',content:data.text});$('#botMsgs').scrollTop=1e9;
+  }catch(e){
+    BOT.turns.pop();bub.remove();
+    const code=e&&e.code;
+    if(code==='rate_limited')botAdd('err','وصلتِ إلى الحد المسموح من الأسئلة الآن. حاولي بعد قليل.');
+    else if(code==='not_configured')botAdd('err','المساعد غير مفعّل بعد. أخبري معلمتك.');
+    else if(e&&e.name==='AbortError')botAdd('err','استغرق الرد وقتًا طويلًا. حاولي مرة أخرى.');
+    else botAdd('err','تعذّر الحصول على إجابة الآن. حاولي مرة أخرى بعد قليل.');
+  }finally{clearTimeout(to);BOT.busy=false;$('#botSend').disabled=false;}
+}
+function initBot(){
+  const fab=$('#botFab'),panel=$('#botPanel');
+  const open=v=>{panel.classList.toggle('open',v);fab.setAttribute('aria-expanded',v);if(v){botSugg();if(!$('#botMsgs').children.length)botAdd('bot','مرحبًا! أنا مساعدك الكيميائي 🧪<br>اسأليني عن أي فكرة في الفصل الأول: الطاقة، الحرارة، المعادلات الحرارية، أو قانون هس.');setTimeout(()=>$('#botIn').focus(),50);}};
+  fab.addEventListener('click',()=>open(!panel.classList.contains('open')));
+  $('#botClose').addEventListener('click',()=>open(false));
+  $('#botForm').addEventListener('submit',e=>{e.preventDefault();botAsk($('#botIn').value);});
+  $('#botIn').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();botAsk($('#botIn').value);}});
+  window.addEventListener('hashchange',()=>{if(panel.classList.contains('open'))botSugg();});
+  fab.style.display='inline-flex';
+}
+
+/* ---------- assignment (المهمة) ---------- */
+const OK_TYPES=/^(image\/(png|jpeg|gif|webp)|application\/pdf|text\/plain|text\/csv|text\/markdown)$/;
+function guessType(f){if(f.type)return f.type;const e=(f.name.split('.').pop()||'').toLowerCase();return {png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',gif:'image/gif',webp:'image/webp',pdf:'application/pdf',txt:'text/plain',csv:'text/csv',md:'text/markdown'}[e]||'';}
+function fsize(b){return b>1048576?(b/1048576).toFixed(1)+' MB':Math.max(1,Math.round(b/1024))+' KB';}
+function fdate(iso){try{return new Date(iso).toLocaleString('ar-SA',{dateStyle:'medium',timeStyle:'short'});}catch(e){return iso;}}
+function fileLink(f){return `<a href="/_blob/${esc(f.id)}" target="_blank" rel="noopener"><bdi>${esc(f.name)}</bdi></a> <span style="color:var(--muted)">(${fsize(f.size||0)})</span>`;}
+
+function viewTask(){
+  app.innerHTML=`<div class="crumbs"><a href="#home">→ الصفحة الرئيسة</a></div>
+  <header class="lhead"><div class="lnum">📎</div><div><h1>مهمة الفصل الأول</h1><div class="en">الطاقة والتغيرات الكيميائية</div>
+   <p class="idea" style="margin:10px 0 0"><strong>طريقة التسليم:</strong> اقرئي المهمة، ثم ارفعي ملف إجابتك (صورة أو PDF) واضغطي «سلّمي المهمة». يمكنك تعديل تسليمك قبل الموعد.</p></div></header>
+  <section class="panel" style="margin-top:24px" id="taskBox"><p class="hint">جارٍ تحميل المهمة…</p></section>`;
+  initTask(++viewTok);
+}
+async function initTask(tok){
+  const box=$('#taskBox');
+  const [db,user]=await Promise.all([cap('db'),cap('user')]);
+  if(tok!==viewTok)return;
+  if(!db){box.innerHTML=`<div class="notice">📎 رفع المهام يعمل عند فتح المنصة من داخل claude.ai بحساب مسجّل الدخول، بعد أن تشاركها المعلمة معك. إن لم يظهر نموذج التسليم، فأرسلي إجابتك لمعلمتك بالطريقة التي تحددها.</div>`;return;}
+  const teacher=user?await user.canEdit():false;
+  const uid=user?await user.id():null;
+  if(tok!==viewTok)return;
+  let A=null,aLoaded=false;
+  let mine=null,mineLoaded=false,draft=null,assets=null,assetsChecked=false;
+  let subs=[],subsLoaded=false,showOld=false;
+  box.innerHTML=`<div id="aBox"><p class="hint">جارٍ تحميل المهمة…</p></div><div id="sBox"></div>`;
+  const slow=setTimeout(()=>{if(!aLoaded)$('#aBox')&&($('#aBox').innerHTML='<div class="notice">تعذّر الوصول إلى المهمة الآن. تحققي من اتصالك ثم افتحي الصفحة لاحقًا.</div>');},10000);
+  onCleanup(()=>clearTimeout(slow));
+  const unA=db.doc('assignment/current').onSnapshot(sn=>{if(!sn.metadata.fromCache){aLoaded=true;clearTimeout(slow);}A=sn.exists?sn.data():null;renderA();if(teacher)renderSubs();else renderMine();},
+    ()=>{clearTimeout(slow);aLoaded=true;$('#aBox').innerHTML='<div class="notice">تعذّر تحميل المهمة.</div>';});
+  onCleanup(unA);
+
+  function renderA(){
+    const el=$('#aBox');if(!el)return;
+    const card=A?`<div class="assign"><h3>${esc(A.title)}</h3><div class="body">${esc(A.details)}</div>${A.due?`<span class="due">📅 آخر موعد للتسليم: ${esc(A.due)}</span>`:''}</div>`:'<div class="notice">لم تُنشر مهمة بعد.</div>';
+    if(!teacher){el.innerHTML=card;return;}
+    el.innerHTML=`${card}<details style="margin-top:14px" ${A?'':'open'}><summary style="cursor:pointer;font-weight:600">✏️ تعديل المهمة أو نشر مهمة جديدة (يظهر لك فقط بصفتك المعلمة)</summary>
+      <label class="fld">عنوان المهمة<input id="aT" value="${esc(A?A.title:'')}"></label>
+      <label class="fld">تفاصيل المهمة<textarea id="aD">${esc(A?A.details:'')}</textarea></label>
+      <label class="fld">آخر موعد للتسليم<input id="aDue" value="${esc(A?A.due:'')}" placeholder="مثال: الخميس 12 جمادى الأولى"></label>
+      <div class="row" style="margin-top:12px"><button type="button" class="btn sm" id="aSave" ${A?'':'disabled'}>حفظ التعديلات</button><button type="button" class="btn sm hot" id="aNew">نشر كمهمة جديدة</button></div>
+      <p class="hint">«نشر كمهمة جديدة» يبدأ تسليمًا جديدًا، فتظهر تسليمات المهمة السابقة في قائمة منفصلة.</p><p class="fb" id="aFb"></p></details>`;
+    const save=async(isNew)=>{const t=$('#aT').value.trim(),d=$('#aD').value.trim(),due=$('#aDue').value.trim();if(!t||!d){$('#aFb').className='fb bad';$('#aFb').textContent='اكتبي العنوان والتفاصيل.';return;}
+      $('#aSave').disabled=$('#aNew').disabled=true;
+      try{await db.doc('assignment/current').set({id:isNew||!A?('a'+Date.now()):A.id,title:t,details:d,due,updatedAt:new Date().toISOString()});toast(isNew?'نُشرت المهمة الجديدة':'حُفظت التعديلات');}
+      catch(e){$('#aFb').className='fb bad';$('#aFb').textContent='تعذّر الحفظ. تأكدي أنك صاحبة المنصة أو محررة فيها.';}
+      finally{if($('#aNew')){$('#aNew').disabled=false;$('#aSave').disabled=!A;}}};
+    $('#aSave').addEventListener('click',()=>save(false));$('#aNew').addEventListener('click',()=>save(true));
+  }
+
+  /* --- student --- */
+  if(!teacher){
+    if(!uid){$('#sBox').innerHTML='<div class="notice" style="margin-top:14px">سجّلي الدخول إلى حسابك لتتمكني من تسليم المهمة.</div>';return;}
+    cap('assets').then(a=>{assets=a;assetsChecked=true;renderMine();});
+    const unM=db.doc('submissions/'+uid).onSnapshot(sn=>{mineLoaded=true;mine=sn.exists?sn.data():null;if(!draft&&mine)draft={name:mine.name||'',note:mine.note||'',files:(mine.files||[]).slice()};renderMine();},()=>{mineLoaded=true;renderMine();});
+    onCleanup(unM);
+  }
+  function renderMine(){
+    const el=$('#sBox');if(!el||teacher||!uid)return;
+    if(!A){el.innerHTML='';return;}
+    if(!mineLoaded){el.innerHTML='<p class="hint" style="margin-top:14px">جارٍ التحقق من تسليمك…</p>';return;}
+    if(!draft)draft={name:'',note:'',files:[]};
+    const done=mine&&mine.aid===A.id;
+    const status=done?`<span class="stat ok">✓ سلّمتِ المهمة في ${esc(fdate(mine.at))}</span>`:`<span class="stat no">لم تُسلّمي بعد</span>`;
+    const fb=done&&(mine.feedback||mine.grade)?`<div class="fb-box"><b>ملاحظات المعلمة:</b> ${esc(mine.feedback||'')}${mine.grade?`<br><b>الدرجة:</b> ${esc(mine.grade)}`:''}</div>`:'';
+    let form='';
+    if(assetsChecked&&!assets){form=`<div class="notice" style="margin-top:12px">لا تملكين صلاحية رفع الملفات في هذه المنصة. اطلبي من معلمتك مشاركة المنصة معك بصلاحية «مساهِمة» (Contributor).</div>`;}
+    else{form=`<label class="fld">اسمك وشعبتك<input id="sName" value="${esc(draft.name)}" placeholder="مثال: نورة محمد، 2/3"></label>
+      <div class="drop" id="sDrop" tabindex="0" role="button">📤 اضغطي لاختيار ملف الإجابة أو اسحبيه إلى هنا<br><small style="color:var(--muted)">صور (JPG أو PNG) أو PDF، حتى 20 MB للملف. ملفات Word احفظيها PDF أولًا.</small><input type="file" id="sFile" multiple accept="image/png,image/jpeg,image/webp,application/pdf,.txt" hidden></div>
+      <div class="flist" id="sList">${draft.files.map((f,i)=>`<div class="fitem"><span>${f.id?fileLink(f):esc(f.name)+' <span style="color:var(--muted)">جارٍ الرفع…</span>'}</span>${f.id?`<button type="button" data-rm="${i}">حذف</button>`:''}</div>`).join('')}</div>
+      <label class="fld">ملاحظة لمعلمتك (اختياري)<textarea id="sNote" style="min-height:70px">${esc(draft.note)}</textarea></label>
+      <div class="row" style="margin-top:12px"><button type="button" class="btn" id="sSend" style="background:var(--green);color:#fff">${done?'تحديث التسليم':'سلّمي المهمة'}</button></div><p class="fb" id="sFb"></p>`;}
+    el.innerHTML=`<div style="margin-top:18px"><h3 style="margin:0 0 8px">تسليمك</h3>${status}${fb}${form}</div>`;
+    if(!assets)return;
+    const fi=$('#sFile'),dr=$('#sDrop');
+    $('#sName').addEventListener('input',e=>draft.name=e.target.value);$('#sNote').addEventListener('input',e=>draft.note=e.target.value);
+    dr.addEventListener('click',()=>fi.click());dr.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();fi.click();}});
+    dr.addEventListener('dragover',e=>{e.preventDefault();dr.classList.add('over');});dr.addEventListener('dragleave',()=>dr.classList.remove('over'));
+    dr.addEventListener('drop',e=>{e.preventDefault();dr.classList.remove('over');addFiles(e.dataTransfer.files);});
+    fi.addEventListener('change',()=>addFiles(fi.files));
+    $$('[data-rm]',el).forEach(b=>b.addEventListener('click',()=>{const f=draft.files[+b.dataset.rm];draft.files.splice(+b.dataset.rm,1);const inSaved=mine&&(mine.files||[]).some(x=>x.id===f.id);if(!inSaved&&f.id)assets.delete(f.id).catch(()=>{});renderMine();}));
+    $('#sSend').addEventListener('click',submit);
+  }
+  async function addFiles(list){
+    const fb=()=>$('#sFb');
+    for(const f of Array.from(list)){
+      const t=guessType(f);
+      if(!OK_TYPES.test(t)){if(fb()){fb().className='fb bad';fb().textContent='الملف «'+f.name+'» بصيغة غير مدعومة. استعملي صورة JPG أو PNG أو ملف PDF.';}continue;}
+      if(f.size>20*1048576){if(fb()){fb().className='fb bad';fb().textContent='الملف «'+f.name+'» أكبر من 20 MB.';}continue;}
+      const item={name:f.name,size:f.size};draft.files.push(item);renderMine();
+      try{const r=await assets.upload(f,{type:t});item.id=r.id;item.size=r.sizeBytes;item.type=r.contentType;}
+      catch(e){draft.files.splice(draft.files.indexOf(item),1);if(fb()){fb().className='fb bad';fb().textContent=e&&e.code==='quota_exceeded'?'امتلأت مساحة التخزين في المنصة. أخبري معلمتك.':'تعذّر رفع «'+f.name+'». جرّبي مرة أخرى أو بصيغة أخرى.';}}
+      renderMine();
+    }
+  }
+  async function submit(){
+    const fb=$('#sFb');
+    if(draft.files.some(f=>!f.id)){fb.className='fb bad';fb.textContent='انتظري حتى يكتمل رفع الملفات.';return;}
+    if(!draft.name.trim()){fb.className='fb bad';fb.textContent='اكتبي اسمك وشعبتك.';return;}
+    if(!draft.files.length){fb.className='fb bad';fb.textContent='ارفعي ملف إجابتك أولًا.';return;}
+    $('#sSend').disabled=true;
+    try{await db.doc('submissions/'+uid).set({aid:A.id,name:draft.name.trim(),note:draft.note.trim(),files:draft.files.map(f=>({id:f.id,name:f.name,size:f.size||0,type:f.type||''})),at:new Date().toISOString()});toast('📎 تم تسليم المهمة بنجاح');}
+    catch(e){fb.className='fb bad';fb.textContent=e&&e.code==='invalid_argument'?'لا تملكين صلاحية التسليم. اطلبي من معلمتك صلاحية «مساهِمة».':'تعذّر التسليم الآن. حاولي مرة أخرى.';if($('#sSend'))$('#sSend').disabled=false;}
+  }
+
+  /* --- teacher --- */
+  if(teacher){
+    const unS=db.collection('submissions').onSnapshot(q=>{subsLoaded=true;subs=q.docs.map(d=>({uid:d.id,...d.data()}));renderSubs();},()=>{subsLoaded=true;renderSubs();});
+    onCleanup(unS);
+  }
+  async function renderSubs(){
+    const el=$('#sBox');if(!el||!teacher)return;
+    if(!subsLoaded){el.innerHTML='<p class="hint" style="margin-top:14px">جارٍ تحميل التسليمات…</p>';return;}
+    const cur=subs.filter(x=>A&&x.aid===A.id).sort((a,b)=>(b.at||'').localeCompare(a.at||''));
+    const old=subs.filter(x=>!A||x.aid!==A.id);
+    let names={};try{if(user)names=await user.profiles(subs.map(x=>x.uid));}catch(e){}
+    if(!$('#sBox'))return;
+    const card=x=>{const p=names[x.uid];const acc=p&&p.name?` <span style="color:var(--muted);font-size:13.5px">(${esc(p.name)})</span>`:'';
+      return `<div class="subcard"><div class="row" style="justify-content:space-between"><b>${esc(x.name||'بدون اسم')}${acc}</b><span class="hint" style="margin:0">${esc(fdate(x.at))}</span></div>
+      ${x.note?`<div style="font-size:15px">📝 ${esc(x.note)}</div>`:''}
+      <div class="flist">${(x.files||[]).map(f=>`<div class="fitem"><span>${fileLink(f)}</span></div>`).join('')}</div>
+      <div class="row"><input class="ans" style="width:110px;text-align:center" data-g="${esc(x.uid)}" value="${esc(x.grade||'')}" placeholder="الدرجة" aria-label="الدرجة"><input class="tinput" style="flex:1;min-width:160px" data-f="${esc(x.uid)}" value="${esc(x.feedback||'')}" placeholder="ملاحظة للطالبة" aria-label="ملاحظة"><button type="button" class="btn sm" data-sv="${esc(x.uid)}">حفظ</button></div></div>`;};
+    el.innerHTML=`<div style="margin-top:20px"><h3 style="margin:0 0 4px">تسليمات الطالبات (${cur.length})</h3><p class="hint" style="margin:0">تظهر هذه القائمة لك فقط. الدرجة والملاحظة تظهران للطالبة في صفحة تسليمها.</p>
+      <div class="subgrid">${cur.length?cur.map(card).join(''):'<div class="notice">لم تصل تسليمات لهذه المهمة بعد.</div>'}</div>
+      ${old.length?`<button type="button" class="btn sm ghost" id="oldT" style="margin-top:14px">${showOld?'إخفاء':'عرض'} تسليمات المهام السابقة (${old.length})</button>${showOld?`<div class="subgrid">${old.map(card).join('')}</div>`:''}`:''}</div>`;
+    const oT=$('#oldT');if(oT)oT.addEventListener('click',()=>{showOld=!showOld;renderSubs();});
+    $$('[data-sv]',el).forEach(b=>b.addEventListener('click',async()=>{const id=b.dataset.sv;b.disabled=true;
+      try{await db.doc('submissions/'+id).update({grade:$(`[data-g="${id}"]`,el).value.trim(),feedback:$(`[data-f="${id}"]`,el).value.trim()});toast('حُفظت الملاحظة');}
+      catch(e){toast('تعذّر الحفظ');}finally{b.disabled=false;}}));
+  }
+}
+
+applyTheme();
+initBot();
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{applyTheme();window.dispatchEvent(new Event('themechange'));});
+route();
+</script>
+</body>
+</html>

@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مختبر سرعة التفاعلات الكيميائية | كيمياء 2-2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Noto+Kufi+Arabic:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F1EBFC; --surface:#FFFFFF; --surface2:#F8F5FE; --ink:#1E1638; --muted:#5E5677; --line:#DCD2F1; --grid:rgba(124,77,214,.11); --head:var(--ink);
+  --cold:#2763D8; --hot:#DE4527; --mid:#8A4FC8; --amber:#D18A0B; --ok:#12916A; --bad:#C7362A; --chip:#ECE4FA; --green:#6D3FC4;
+  --cold-soft:#E3ECFC; --hot-soft:#FCE7E2; --ok-soft:#DFF4EC; --bad-soft:#FBE4E1;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16112A; --surface:#201A3A; --surface2:#271F45; --ink:#EEE9FA; --muted:#B3A9CF; --line:#3A3160; --grid:rgba(184,140,255,.08); --head:var(--ink);
+    --cold:#6E9BFF; --hot:#FF7B5E; --mid:#B88CFF; --amber:#F4BD4C; --ok:#3CC799; --bad:#FF6E61; --chip:#2D2552; --green:#7E55D6;
+    --cold-soft:#1C2C55; --hot-soft:#3A2028; --ok-soft:#143A33; --bad-soft:#3D1F25;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16112A; --surface:#201A3A; --surface2:#271F45; --ink:#EEE9FA; --muted:#B3A9CF; --line:#3A3160; --grid:rgba(184,140,255,.08); --head:var(--ink);
+  --cold:#6E9BFF; --hot:#FF7B5E; --mid:#B88CFF; --amber:#F4BD4C; --ok:#3CC799; --bad:#FF6E61; --chip:#2D2552; --green:#7E55D6;
+  --cold-soft:#1C2C55; --hot-soft:#3A2028; --ok-soft:#143A33; --bad-soft:#3D1F25;
+  color-scheme:dark;
+}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--thermal:linear-gradient(to left,var(--cold),var(--mid) 55%,var(--hot));}
+html{scroll-padding-top:env(safe-area-inset-top,0px);}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background-color:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:26px 26px;color:var(--ink);font-family:"IBM Plex Sans Arabic",system-ui,"Segoe UI",Tahoma,sans-serif;font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased}
+img,svg,canvas{max-width:100%}
+.kufi,h1,h2,h3,.lnum,.lcode,.gscore,.temp-big,.brand,.lcard h3,.final-band h3,.teacher .av{font-family:"Noto Kufi Arabic","IBM Plex Sans Arabic",system-ui,sans-serif}
+.hero h1{font-weight:800;line-height:1.35}
+h1,h2,h3,.lcard h3{color:var(--head)}
+.lhead h1{color:var(--head)}
+.teacher{display:flex;align-items:center;gap:12px;margin:6px 0 20px}
+.teacher .av{flex:0 0 48px;height:48px;border-radius:50%;background:var(--cold);color:#fff;display:grid;place-items:center;font-weight:700;font-size:18px}
+.teacher small{display:block;color:var(--muted);font-size:15px;line-height:1.4}
+.teacher b{display:block;font-size:17px;line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+a{color:var(--cold)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:6px}
+.f{font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;unicode-bidi:isolate;display:inline-block;max-width:100%}
+.tinput{font:inherit;font-size:15px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface2);color:var(--ink)}
+.hcard .f,.target .f,.sum .f,.ctable .f,.ediag .f{white-space:nowrap}
+.f sub,.fx sub{font-size:.68em}
+.ltr{direction:ltr;unicode-bidi:isolate}
+
+/* top bar */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:600}
+.brand-mark{width:34px;height:34px;border-radius:50%;background:var(--thermal);display:grid;place-items:center;color:#fff;font-size:15px}
+.top-tools{display:flex;align-items:center;gap:10px}
+.starpill{display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-weight:600}
+.starpill b{color:var(--amber)}
+.iconbtn{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer;font-size:14px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:10px;padding:11px 20px;font-weight:600;cursor:pointer;background:var(--ink);color:var(--bg);text-decoration:none;transition:transform .12s}
+.btn:active{transform:scale(.97)}
+.btn.cold{background:var(--cold);color:#fff}
+.btn.hot{background:var(--hot);color:#fff}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn.sm{padding:7px 14px;font-size:15px;border-radius:8px}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center;padding:26px 0 40px}
+.kicker{color:var(--muted);font-size:15px;margin:0 0 6px}
+.hero h1{font-size:clamp(2rem,4.6vw,3.25rem);line-height:1.22;margin:0 0 16px;font-weight:700;letter-spacing:-.01em}
+.hero h1 .grad{background:var(--thermal);-webkit-background-clip:text;background-clip:text;color:transparent}
+.idea{background:var(--surface);border-inline-start:5px solid var(--mid);border-radius:4px 12px 12px 4px;padding:12px 16px;margin:0 0 16px}
+.idea strong{color:var(--mid)}
+.hero p.lead{color:var(--muted);margin:0 0 20px;max-width:58ch}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.progress-line{margin-top:18px;color:var(--muted);font-size:15px}
+.credit-card{margin-top:20px;font-size:19px;color:var(--muted);line-height:1.6}
+.credit-card b{color:var(--mid);font-weight:700}
+.task-band{margin-top:-14px}
+.tb-in{display:flex;align-items:center;gap:16px}
+.tb-in .ti{flex:0 0 54px;height:54px;border-radius:14px;background:var(--thermal);display:grid;place-items:center;font-size:27px}
+.task-tile{display:flex;align-items:center;gap:14px;margin-top:18px;background:var(--surface);border:2px solid var(--mid);border-radius:16px;padding:12px 18px 12px 14px;text-decoration:none;color:var(--ink);max-width:440px;transition:transform .15s}
+.task-tile:hover{transform:translateY(-2px)}
+.task-tile .ti{flex:0 0 54px;height:54px;border-radius:14px;background:var(--thermal);display:grid;place-items:center;font-size:27px}
+.task-tile b{display:block;font-size:18px}
+.task-tile small{color:var(--muted);font-size:14px}
+
+.beaker-card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:16px;position:relative}
+.beaker-card canvas{display:block;width:100%;height:330px;touch-action:none;cursor:ew-resize;border-radius:14px;background:var(--surface2)}
+.beaker-read{display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:10px;flex-wrap:wrap}
+.temp-big{font-size:30px;font-weight:700;direction:ltr}
+.phase-tag{padding:3px 12px;border-radius:999px;font-weight:600;font-size:15px;background:var(--chip)}
+.beaker-card input[type=range]{width:100%;margin-top:8px}
+.hint{font-size:14px;color:var(--muted);margin:6px 0 0}
+
+/* path */
+h2.sec{font-size:clamp(1.35rem,2.6vw,1.8rem);margin:8px 0 6px}
+.sec-sub{color:var(--muted);margin:0 0 20px}
+.thermo-track{position:relative;height:14px;border-radius:999px;background:var(--thermal);margin:22px 0 0}
+.thermo-track .bulb{position:absolute;inset-inline-start:-8px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:var(--cold)}
+.lessons{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:-7px}
+.lcard{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:0 0 16px 16px;padding:26px 18px 18px;display:flex;flex-direction:column;gap:8px}
+.lcard .node{position:absolute;top:-8px;inset-inline-start:18px;width:30px;height:30px;border-radius:50%;background:var(--surface);border:4px solid var(--c);display:grid;place-items:center;font-size:13px;font-weight:700;color:var(--c)}
+.lcard.done .node{background:var(--c);color:#fff}
+.lcode{font-size:34px;font-weight:700;color:var(--c);line-height:1;direction:ltr;text-align:right}
+.lcard h3{margin:2px 0 0;font-size:19px;line-height:1.4}
+.lcard p{margin:0;color:var(--muted);font-size:15px;line-height:1.6;flex:1}
+.lmeta{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--muted)}
+.lmeta .st{color:var(--amber);font-weight:600}
+
+.badges{display:flex;flex-wrap:wrap;gap:14px;margin:8px 0 0}
+.badge{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px dashed var(--line);border-radius:999px;padding:6px 16px 6px 8px;color:var(--muted);font-size:15px}
+.badge i{font-style:normal;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--chip);filter:grayscale(1);opacity:.6;font-size:18px}
+.badge.on{border-style:solid;color:var(--ink);font-weight:600}
+.badge.on i{filter:none;opacity:1;background:var(--thermal)}
+
+.final-band{margin:36px 0;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;position:relative;overflow:hidden}
+.final-band::before{content:"";position:absolute;inset-block:0;inset-inline-start:0;width:6px;background:var(--thermal)}
+.final-band h3{margin:0 0 4px;font-size:22px}
+.final-band p{margin:0;color:var(--muted)}
+
+footer.foot{border-top:1px solid var(--line);margin-top:40px;padding:22px 0 30px;color:var(--muted);font-size:14px;text-align:center;line-height:1.7}
+footer.foot b{color:var(--ink)}
+
+/* lesson page */
+.crumbs{margin:6px 0 10px}
+.crumbs a{text-decoration:none;font-size:15px}
+.lhead{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:end;padding:10px 0 22px;border-bottom:1px solid var(--line)}
+.lnum{font-size:clamp(4rem,11vw,7.5rem);font-weight:700;line-height:.9;direction:ltr;background:var(--thermal);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lhead h1{margin:0;font-size:clamp(1.7rem,3.6vw,2.4rem);line-height:1.3}
+.lhead .en{color:var(--muted);direction:ltr;text-align:right;font-size:16px}
+.vocab{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
+.vocab span{background:var(--chip);border-radius:6px;padding:2px 10px;font-size:14px}
+
+.lgrid{display:grid;grid-template-columns:300px 1fr;gap:28px;margin-top:24px;align-items:start}
+.side{position:sticky;top:12px;display:flex;flex-direction:column;gap:16px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.box h4{margin:0 0 8px;font-size:16px}
+.tasks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.tasks li{display:flex;gap:10px;align-items:flex-start;font-size:15px;line-height:1.5;color:var(--muted)}
+.tasks li .ck{flex:0 0 22px;height:22px;border-radius:6px;border:2px solid var(--line);display:grid;place-items:center;font-size:13px;margin-top:1px}
+.tasks li.on{color:var(--ink)}
+.tasks li.on .ck{background:var(--ok);border-color:var(--ok);color:#fff}
+.tbar{height:8px;border-radius:99px;background:var(--chip);overflow:hidden;margin-top:12px}
+.tbar i{display:block;height:100%;background:var(--thermal);width:0;transition:width .4s}
+.side nav{display:flex;flex-direction:column;gap:2px}
+.side nav a{text-decoration:none;color:var(--muted);font-size:15px;padding:4px 8px;border-radius:6px}
+.side nav a:hover{background:var(--chip);color:var(--ink)}
+
+.learn ul{margin:0;padding-inline-start:20px}
+.learn li{margin:0 0 8px}
+.main-col{display:flex;flex-direction:column;gap:26px;min-width:0}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;min-width:0}
+.panel.sim{border-top:4px solid var(--c,var(--cold))}
+.panel h3{margin:0 0 4px;font-size:21px;line-height:1.4}
+.panel .tag{display:inline-block;font-size:13px;font-weight:600;color:var(--c,var(--cold));margin-bottom:4px}
+.panel .desc{color:var(--muted);margin:0 0 16px;font-size:15.5px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.ctrl{display:flex;flex-direction:column;gap:4px;font-size:15px;color:var(--muted);flex:1;min-width:180px}
+input[type=range]{accent-color:var(--mid);width:100%}
+input[type=number],input[type=text],input.ans,select{font:inherit;font-size:16px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface2);color:var(--ink);min-width:0}
+input.ans{width:150px;direction:ltr;text-align:center}
+.unit{color:var(--muted);font-size:15px}
+
+.prac{background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:14px}
+.prac p.q{margin:0 0 10px;font-size:16px}
+.prac .fb{margin:8px 0 0;font-size:15px;min-height:1.2em}
+.fb.ok{color:var(--ok)} .fb.bad{color:var(--bad)}
+.prac.solved{border-color:var(--ok);background:var(--ok-soft)}
+
+/* skier */
+.bars{display:grid;gap:8px;margin-top:12px}
+.bar{display:grid;grid-template-columns:120px 1fr 50px;gap:10px;align-items:center;font-size:14.5px}
+.bar .tr{height:16px;background:var(--chip);border-radius:99px;overflow:hidden}
+.bar .tr i{display:block;height:100%;border-radius:99px;transition:width .08s}
+.bar b{direction:ltr;text-align:left;font-weight:600}
+.switch{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-size:15px}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--surface2);border-radius:999px;padding:5px 14px;cursor:pointer;font-size:14.5px}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.thermos{display:grid;grid-template-columns:repeat(auto-fit,minmax(78px,1fr));gap:12px;margin-top:16px;align-items:end}
+.thermo{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:13.5px;text-align:center}
+.thermo .tube{width:22px;height:170px;border-radius:12px;background:var(--chip);position:relative;overflow:hidden;border:2px solid var(--line)}
+.thermo .tube i{position:absolute;bottom:0;inset-inline:0;background:linear-gradient(to top,var(--cold),var(--hot));transition:height .25s}
+.thermo b{direction:ltr;font-size:14px}
+
+/* options quiz */
+.opts{display:grid;gap:8px;margin-top:10px}
+.opt{text-align:start;border:1.5px solid var(--line);background:var(--surface2);border-radius:10px;padding:10px 14px;cursor:pointer;font-size:16px;line-height:1.5}
+.opt:hover:not([disabled]){border-color:var(--mid)}
+.opt.ok{background:var(--ok-soft);border-color:var(--ok)}
+.opt.bad{background:var(--bad-soft);border-color:var(--bad)}
+.opt[disabled]{cursor:default}
+
+/* calorimeter */
+.calo{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+.calo svg{width:100%;height:auto}
+.dtable{width:100%;border-collapse:collapse;font-size:15px}
+.dtable td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.dtable td:last-child{direction:ltr;text-align:left;font-weight:600}
+.ctable{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+.ctable th,.ctable td{padding:5px 8px;border-bottom:1px solid var(--line);text-align:start}
+.ctable td.n{direction:ltr;text-align:left}
+
+/* packs */
+.packs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.ediag{display:grid;grid-template-columns:1fr 150px;gap:16px;align-items:stretch;background:var(--surface2);border-radius:12px;padding:16px}
+.levels{position:relative;min-height:220px;border-inline-start:2px solid var(--muted);padding-inline-start:12px}
+.levels .axis{position:absolute;inset-inline-start:-28px;top:50%;transform:translateY(-50%) rotate(-90deg);font-size:13px;color:var(--muted);white-space:nowrap}
+.lv{position:absolute;inset-inline:12px;border-top:2px dashed var(--muted);font-size:15px;padding-top:2px}
+.lv span{background:var(--chip);padding:1px 8px;border-radius:6px}
+.lv.top{top:20px}.lv.bot{top:170px}
+.arrowv{position:absolute;inset-inline-end:30%;top:30px;height:140px;width:4px;border-radius:4px}
+.arrowv::after{content:"";position:absolute;inset-inline-start:-7px;border:9px solid transparent}
+.arrowv.down{background:var(--hot)} .arrowv.down::after{bottom:-14px;border-top-color:var(--hot)}
+.arrowv.up{background:var(--cold)} .arrowv.up::after{top:-14px;border-bottom-color:var(--cold)}
+.dhlabel{position:absolute;inset-inline-end:calc(30% + 14px);top:84px;font-weight:700;direction:ltr}
+.flow{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;text-align:center;font-size:14.5px;border-radius:10px;padding:10px}
+.flow .big{font-size:30px}
+
+/* heating curve */
+.hc canvas{width:100%;height:300px;display:block;background:var(--surface2);border-radius:12px}
+.seglist{display:grid;gap:6px;margin-top:12px}
+.seg{display:grid;grid-template-columns:24px 1fr auto;gap:10px;align-items:center;padding:6px 10px;border-radius:8px;font-size:14.5px;border:1px solid transparent}
+.seg.on{border-color:var(--mid);background:var(--chip)}
+.seg .dot{width:12px;height:12px;border-radius:50%}
+.seg b{direction:ltr}
+
+/* hess */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tab{border:1.5px solid var(--line);background:var(--surface2);border-radius:8px;padding:6px 14px;cursor:pointer;font-size:15px}
+.tab[aria-selected=true]{background:var(--mid);color:#fff;border-color:var(--mid)}
+.tab.solved::after{content:" ✓"}
+.target{background:var(--surface2);border:1.5px dashed var(--mid);border-radius:12px;padding:12px 14px;margin-bottom:12px;font-size:17px;overflow-x:auto}
+.hcard{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;background:var(--surface)}
+.hcard .eq{font-size:16.5px;overflow-x:auto;padding-bottom:2px}
+.hcard .dh{direction:ltr;font-weight:600;font-size:14.5px;color:var(--muted)}
+.hcard .tools{display:flex;gap:6px;flex-wrap:wrap}
+.sum{border-top:2px solid var(--ink);margin-top:8px;padding-top:10px;font-size:17px;overflow-x:auto}
+.status{margin-top:10px;padding:10px 14px;border-radius:10px;font-weight:600}
+.status.ok{background:var(--ok-soft);color:var(--ok)}
+.status.wait{background:var(--chip);color:var(--muted)}
+
+/* ladder */
+.ladwrap{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.ladder{position:relative;height:440px;background:var(--surface2);border-radius:12px}
+.ladder .ax{position:absolute;top:12px;bottom:12px;inset-inline-start:50%;width:3px;background:var(--thermal);transform:translateX(50%)}
+.lpt{position:absolute;transform:translateY(-50%);display:flex;align-items:center;gap:6px;cursor:pointer;border:0;background:transparent;padding:0;font-size:14px}
+.lpt .ln{width:34px;height:2px;background:var(--muted)}
+.lpt span{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:1px 8px;direction:ltr;white-space:nowrap}
+.lpt.r{inset-inline-start:calc(50% + 2px)}
+.lpt.l{inset-inline-end:calc(50% + 2px);flex-direction:row-reverse}
+.lpt.zero span{background:var(--chip)}
+.lpt:hover span,.lpt.sel span{border-color:var(--mid);box-shadow:0 0 0 2px var(--mid)}
+
+/* games */
+.game .gbox{background:var(--surface2);border-radius:14px;padding:20px;text-align:center;min-height:230px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px}
+.ghead{display:flex;justify-content:space-between;width:100%;font-weight:600;font-size:15px}
+.timer{direction:ltr}
+.gprompt{font-size:20px;font-weight:600;line-height:1.5;max-width:46ch}
+.gopts{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.gopts .opt{min-width:120px;text-align:center}
+.gscore{font-size:42px;font-weight:700;direction:ltr}
+.flash-ok{animation:fo .35s}
+.flash-bad{animation:fb .35s}
+@keyframes fo{50%{background:var(--ok-soft)}}
+@keyframes fb{50%{background:var(--bad-soft)}}
+.stars3{font-size:28px;letter-spacing:4px;color:var(--amber)}
+.stars3 .off{color:var(--line)}
+
+/* quiz runner */
+.qr .qtop{display:flex;justify-content:space-between;font-size:14.5px;color:var(--muted);margin-bottom:6px}
+.qr .qbar{height:6px;border-radius:99px;background:var(--chip);overflow:hidden;margin-bottom:14px}
+.qr .qbar i{display:block;height:100%;background:var(--thermal);transition:width .3s}
+.qr .qtext{font-size:18.5px;font-weight:600;line-height:1.6}
+.qr .exp{margin-top:12px;padding:10px 14px;border-radius:10px;font-size:15.5px}
+.qr .exp.ok{background:var(--ok-soft)} .qr .exp.bad{background:var(--bad-soft)}
+.qr .qnav{display:flex;justify-content:flex-end;margin-top:14px}
+.yr{display:inline-block;font-size:12.5px;font-weight:600;background:var(--chip);border-radius:6px;padding:1px 8px;margin-inline-start:6px;vertical-align:middle;color:var(--muted)}
+.result{text-align:center;padding:10px 0}
+.result .gscore{font-size:52px}
+.review{text-align:start;margin-top:16px;display:grid;gap:10px}
+.review div{background:var(--surface2);border-radius:10px;padding:10px 14px;font-size:15px;border-inline-start:4px solid var(--bad)}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:14px}
+.mode{border:1.5px solid var(--line);border-radius:14px;padding:16px;background:var(--surface2);cursor:pointer;text-align:start}
+.mode:hover{border-color:var(--mid)}
+.mode b{display:block;font-size:18px;margin-bottom:4px}
+.mode span{color:var(--muted);font-size:14.5px}
+
+.act{margin-top:20px;padding-top:18px;border-top:2px dashed var(--line)}
+.act-tag{display:inline-block;background:var(--chip);border-radius:8px;padding:2px 10px;margin-bottom:8px!important}
+.cmap{margin-top:16px;background:var(--surface2);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.cmap h4{margin:0 0 10px;font-size:16.5px}
+.cmap svg{display:block;width:100%;height:auto;max-width:640px;margin:0 auto}
+.cm-box{fill:var(--surface);stroke:var(--mid);stroke-width:2}
+.cm-main{fill:var(--mid)}
+.cm-k{fill:var(--chip);stroke:var(--line);stroke-width:1.5}
+.cm-x{fill:rgba(39,99,216,.14);stroke:var(--cold);stroke-width:1.5}
+.cm-d{fill:rgba(222,69,39,.12);stroke:var(--hot);stroke-width:1.5}
+.cm-t{fill:var(--ink);font-family:inherit;font-size:14px}
+.cm-tw{fill:#fff;font-family:inherit;font-size:14px}
+.cm-ln{stroke:var(--muted);stroke-width:2;fill:none}
+.cm-ah{fill:var(--muted)}
+.cm-note{margin:10px 0 0;font-size:15px;color:var(--muted);line-height:1.8}
+.flowmap{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px}
+.fstep{background:var(--surface);border:2px solid var(--mid);border-radius:12px;padding:8px 14px;text-align:center;font-size:15px;font-weight:600;max-width:200px}
+.fstep.k{border-color:var(--hot);background:var(--hot-soft)}
+.fstep small{display:block;font-weight:400;color:var(--muted);font-size:13px;direction:auto}
+.farr{font-size:22px;color:var(--mid);font-weight:700}
+.lc-img{background:var(--surface);border-radius:10px;padding:6px}
+.lc-img svg{display:block;width:100%;height:auto}
+.lab{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:center;background:var(--surface2);border:1px solid var(--line);border-radius:14px;padding:12px}
+.labsvg{width:100%;height:auto;display:block}
+.labside{display:flex;flex-direction:column;gap:10px}
+.lablbl{font-size:14px;color:var(--muted)}
+.watch{display:flex;align-items:center;gap:10px;background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:6px 14px;width:max-content}
+.watch b{font-size:24px;font-variant-numeric:tabular-nums}
+.ordgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.ord{background:var(--surface);border:2px solid var(--mid);border-radius:14px;padding:10px;text-align:center;display:flex;flex-direction:column;gap:4px}
+.ord em{font-style:normal;font-size:28px;font-weight:700;color:var(--hot)}
+.ord small{color:var(--muted)}
+@media (max-width:700px){.lab{grid-template-columns:1fr}}
+.lcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:6px}
+.lc{background:var(--surface2);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:6px}
+.lc .ic{font-size:30px;line-height:1}
+.lc h5{margin:2px 0 0;font-size:17.5px}
+.lc p{margin:0;font-size:15.5px;line-height:1.7}
+.lc .ex{margin-top:auto;background:var(--chip);border-radius:10px;padding:8px 12px;font-size:14.5px;line-height:1.6}
+.lc .ex b{color:var(--green)}
+.simple{font-size:18px;background:var(--chip);border-radius:12px;padding:12px 16px;margin:4px 0 14px;line-height:1.8}
+.navlink{text-decoration:none;font-weight:600;font-size:15px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 14px;color:var(--ink)}
+/* bot */
+.bot-fab{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));inset-inline-end:16px;z-index:40;display:none;align-items:center;gap:8px;border:0;border-radius:999px;padding:12px 18px;background:var(--green);color:#fff;font-weight:600;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.22)}
+.bot-fab .em{font-size:20px}
+.bot-panel{position:fixed;bottom:calc(78px + env(safe-area-inset-bottom,0px));inset-inline-end:16px;z-index:41;width:min(400px,calc(100vw - 24px));height:min(580px,calc(100vh - 120px));display:none;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:0 12px 40px rgba(0,0,0,.25);overflow:hidden}
+.bot-panel.open{display:flex}
+.bot-head{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:var(--green);color:#fff}
+.bot-head b{font-size:16px}.bot-head small{display:block;opacity:.9;font-size:12.5px}
+.bot-head button{background:transparent;border:0;color:#fff;font-size:22px;cursor:pointer;line-height:1}
+.bot-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px;background:var(--surface2)}
+.msg{max-width:88%;padding:9px 13px;border-radius:14px;font-size:15.5px;line-height:1.75;white-space:normal;word-wrap:break-word}
+.msg.me{align-self:flex-start;background:var(--green);color:#fff;border-end-start-radius:4px}
+.msg.bot{align-self:flex-end;background:var(--surface);border:1px solid var(--line);border-end-end-radius:4px}
+.msg.err{align-self:center;background:var(--bad-soft);color:var(--bad);font-size:14px}
+.bot-sugg{display:flex;flex-wrap:wrap;gap:6px;padding:8px 12px 0}
+.bot-sugg button{border:1px solid var(--line);background:var(--surface2);border-radius:999px;padding:4px 10px;font-size:13.5px;cursor:pointer}
+.bot-form{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line)}
+.bot-form textarea{flex:1;resize:none;font:inherit;font-size:15.5px;border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--surface2);color:var(--ink);height:44px;max-height:110px}
+.bot-note{font-size:12px;color:var(--muted);text-align:center;padding:0 10px 8px}
+/* task */
+.notice{background:var(--chip);border-radius:12px;padding:14px 16px;line-height:1.8}
+.assign{background:var(--surface2);border:1.5px solid var(--green);border-radius:16px;padding:18px}
+.assign h3{margin:0 0 6px}
+.assign .due{display:inline-block;background:var(--chip);border-radius:8px;padding:2px 10px;font-size:14px;margin-top:6px}
+.assign .body{white-space:pre-wrap;margin:8px 0 0}
+.fld{display:flex;flex-direction:column;gap:4px;margin-top:12px;font-size:15px;color:var(--muted)}
+.fld input,.fld textarea{font:inherit;font-size:16px;padding:9px 11px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface2);color:var(--ink)}
+.fld textarea{min-height:90px;resize:vertical}
+.drop{border:2px dashed var(--line);border-radius:14px;padding:18px;text-align:center;margin-top:12px;cursor:pointer;background:var(--surface2)}
+.drop.over{border-color:var(--green);background:var(--chip)}
+.flist{display:grid;gap:6px;margin-top:10px}
+.fitem{display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:7px 12px;font-size:14.5px}
+.fitem a{word-break:break-all}
+.fitem button{border:0;background:transparent;color:var(--bad);cursor:pointer;font-size:14px}
+.stat{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:3px 12px;font-weight:600;font-size:14.5px}
+.stat.ok{background:var(--ok-soft);color:var(--ok)}.stat.no{background:var(--hot-soft);color:var(--hot)}
+.subcard{border:1px solid var(--line);border-radius:14px;padding:14px;background:var(--surface);display:grid;gap:6px}
+.subgrid{display:grid;gap:12px;margin-top:12px}
+.fb-box{background:var(--ok-soft);border-radius:10px;padding:10px 14px;margin-top:10px}
+.qfig{max-width:330px;margin:10px auto 4px;background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:6px 8px;font-weight:400}
+.qfig svg{display:block;width:100%;height:auto}
+#toast{position:fixed;inset-inline:0;bottom:calc(18px + env(safe-area-inset-bottom,0px));display:flex;justify-content:center;pointer-events:none;z-index:50}
+#toast div{background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:12px;font-weight:600;box-shadow:0 6px 24px rgba(0,0,0,.25);opacity:0;transform:translateY(10px);transition:all .25s;max-width:90vw}
+#toast div.show{opacity:1;transform:none}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .lessons{grid-template-columns:repeat(2,1fr);margin-top:14px}
+  .thermo-track{display:none}
+  .lcard{border-radius:16px}
+  .lgrid{grid-template-columns:1fr}
+  .side{position:static}
+  .side nav{display:none}
+  .calo{grid-template-columns:1fr}
+  .calo svg{max-width:220px;margin:0 auto;display:block}
+  .ladwrap{grid-template-columns:1fr}
+  .final-band{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .lessons{grid-template-columns:1fr}
+  .lhead{grid-template-columns:1fr;gap:4px}
+  .ediag{grid-template-columns:1fr}
+  .bar{grid-template-columns:96px 1fr 44px}
+  .panel{padding:16px}
+  .hcard{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+.report-band .rb-in{display:flex;flex-direction:column;gap:10px;width:100%}.rb-row{display:flex;gap:8px;flex-wrap:wrap}.rb-row input{flex:1;min-width:180px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit}
+.rb-code{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px dashed var(--mid);border-radius:12px;padding:8px 10px}.rb-code code{flex:1;word-break:break-all;font-size:12px;user-select:all}.rb-sum{margin:6px 0 0;font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#home"><span class="brand-mark">⏱</span><span>مختبر سرعة التفاعل</span></a>
+    <div class="top-tools">
+      <span class="starpill" title="مجموع النجوم"><b>★</b><span id="starCount">0</span></span>
+      <button class="iconbtn" id="themeBtn" type="button">الوضع الليلي</button>
+    </div>
+  </header>
+  <main id="app"></main>
+  <footer class="foot" style="font-size:12.5px">إعداد المعلمة: صباح داخل الأحمدي - الثانوية السادسة والثلاثون بالمدينة المنورة</footer>
+</div>
+<div id="toast" aria-live="polite"></div>
+<button type="button" class="bot-fab" id="botFab" aria-controls="botPanel" aria-expanded="false"><span class="em">🧪</span>اسألي مساعدك الكيميائي</button>
+<section class="bot-panel" id="botPanel" aria-label="اسألي مساعدك الكيميائي">
+  <div class="bot-head"><div><b>🧪 اسألي مساعدك الكيميائي</b><small>اسأليني عن سرعة التفاعلات الكيميائية</small></div><button type="button" id="botClose" aria-label="إغلاق">×</button></div>
+  <div class="bot-msgs" id="botMsgs" aria-live="polite"></div>
+  <div class="bot-sugg" id="botSugg"></div>
+  <form class="bot-form" id="botForm"><textarea id="botIn" rows="1" placeholder="اكتبي سؤالك هنا…" aria-label="سؤالك"></textarea><button class="btn sm" type="submit" id="botSend" style="background:var(--green);color:#fff">إرسال</button></form>
+  <div class="bot-note">المساعد يساعدك على الفهم، فتحققي دائمًا من كتابك ومعلمتك.</div>
+</section>
+
+<script>
+"use strict";
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const LS='rates22-sabah-ch2-v1';
+let S={tasks:{},games:{},quiz:{},done:{},final:null,theme:null};
+try{const raw=localStorage.getItem(LS);if(raw)S=Object.assign(S,JSON.parse(raw));}catch(e){}
+function save(){try{localStorage.setItem(LS,JSON.stringify(S));}catch(e){}try{autoSync();}catch(e){}}
+const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let cleanups=[];
+function onCleanup(fn){cleanups.push(fn);}
+
+/* ---------- helpers ---------- */
+function fm(s){return String(s).replace(/([A-Za-z\)])(\d+)/g,'$1<sub>$2</sub>').replace(/\((s|l|g|aq)\)/g,'<sub>($1)</sub>');}
+function fmAll(root){$$('.f',root).forEach(e=>{if(!e.dataset.fm){e.innerHTML=fm(e.textContent);e.dataset.fm='1';e.setAttribute('dir','ltr');}});}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function parseNum(s){
+  s=String(s).trim().replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[٫]/g,'.').replace(/[,،\s]/g,'').replace(/[−–]/g,'-');
+  const m=s.match(/^([+-]?\d*\.?\d+)[×xX\*]10\^?([+-]?\d+)$/);
+  if(m)return parseFloat(m[1])*Math.pow(10,+m[2]);
+  if(s==='')return NaN; const v=Number(s); return isFinite(v)?v:NaN;
+}
+const SUP={'-':'⁻','0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'};
+function nice(x,p=3){
+  if(!isFinite(x))return '—';
+  const a=Math.abs(x);
+  if(a!==0&&(a>=1e5||a<1e-3)){const e=Math.floor(Math.log10(a));const m=x/Math.pow(10,e);return (+m.toFixed(p-1))+' × 10'+String(e).split('').map(c=>SUP[c]).join('');}
+  return String(+x.toPrecision(Math.max(p,String(Math.round(a)).length)));
+}
+function sci(x){const e=Math.floor(Math.log10(Math.abs(x)));return (x/Math.pow(10,e)).toFixed(2)+' × 10'+String(e).split('').map(c=>SUP[c]).join('');}
+function sgn(x){x=Math.round(x*10)/10;return (x>0?'+':'')+x;}
+function cssv(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
+function toast(msg){const t=$('#toast');t.innerHTML='<div>'+msg+'</div>';const d=t.firstChild;requestAnimationFrame(()=>d.classList.add('show'));setTimeout(()=>{d.classList.remove('show');},2600);}
+
+/* ---------- scoring ---------- */
+function gameStars(b){return b>=15?3:b>=10?2:b>=5?1:0;}
+function totalStars(){let n=Object.keys(S.tasks).length;for(const k in S.games)n+=gameStars(S.games[k]);for(const k in S.quiz)if(S.quiz[k]>=4)n+=3;if(S.final!=null&&S.final>=80)n+=5;return n;}
+function refreshStars(){$('#starCount').textContent=totalStars();}
+function completeTask(id){
+  if(S.tasks[id])return;S.tasks[id]=true;save();refreshStars();
+  const li=document.querySelector('[data-task-li="'+id+'"]');if(li){li.classList.add('on');li.querySelector('.ck').textContent='✓';}
+  updateTaskBar();toast('★ أحسنتِ! أنجزتِ مهمة جديدة');
+}
+function updateTaskBar(){const b=$('#tbar');if(!b)return;const n=+b.dataset.lesson;const ts=LESSONS[n-1].tasks;const d=ts.filter(t=>S.tasks[t.id]).length;b.style.width=(d/ts.length*100)+'%';const c=$('#tcount');if(c)c.textContent=d+' من '+ts.length;}
+
+/* ---------- theme ---------- */
+function effectiveDark(){return S.theme?S.theme==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;}
+function applyTheme(){if(S.theme)document.documentElement.setAttribute('data-theme',S.theme);else document.documentElement.removeAttribute('data-theme');$('#themeBtn').textContent=effectiveDark()?'الوضع النهاري':'الوضع الليلي';}
+$('#themeBtn').addEventListener('click',()=>{S.theme=effectiveDark()?'light':'dark';save();applyTheme();window.dispatchEvent(new Event('themechange'));});
+
+/* ---------- data ---------- */
+const TASK_FORM='https://forms.gle/cetyBPcCpcKmnP6U7';
+const N2O5=[[0,0.01756],[20,0.00933],[40,0.00531],[60,0.00295],[80,0.00167],[100,0.00094]];
+
+const LESSONS=[
+{n:1,code:'2-1',title:'نظرية التصادم وسرعة التفاعل الكيميائي',en:'Collision Theory and Reaction Rate',c:'var(--cold)',
+ idea:'نظرية التصادم هي المفتاح لفهم الاختلاف في سرعة التفاعلات.',
+ blurb:'متوسط سرعة التفاعل، نظرية التصادم، المعقد المنشط، وطاقة التنشيط.',
+ vocab:['سرعة التفاعل الكيميائي','نظرية التصادم','المعقد المنشط','طاقة التنشيط'],
+ learn:[
+  {i:'⏱️',t:'ما سرعة التفاعل؟',s:'هي التغير في تركيز المواد المتفاعلة أو الناتجة في وحدة الزمن، ووحدتها <span class="f">mol/L·s</span>.',ex:'عداد السيارة يقيس المسافة لكل ساعة، ونحن نقيس التغير في التركيز لكل ثانية.'},
+  {i:'➗',t:'متوسط السرعة',s:'نقسم التغير في التركيز على التغير في الزمن. للمتفاعلات نضع إشارة سالبة لتبقى السرعة موجبة: <span class="f">Rate = −Δ[reactants]/Δt</span>',ex:'تركيز <span class="f">C4H9Cl</span> نقص من 0.220 إلى 0.100 M في 4.00 s، فالسرعة <span class="f">0.0300 mol/L·s</span>'},
+  {i:'📉',t:'السرعة تتباطأ',s:'كلما استُهلكت المواد المتفاعلة قلّ عدد جسيماتها، فتقل التصادمات وتقل السرعة.',ex:'تحلل <span class="f">N2O5</span> في أول 20 دقيقة أسرع منه في آخر 20 دقيقة.'},
+  {i:'💥',t:'نظرية التصادم',img:'collideArt',s:'لا يحدث التفاعل إلا إذا تصادمت الذرات أو الأيونات أو الجزيئات، لكن ليس كل تصادم يكوّن نواتج.',ex:'مثل المفتاح: لا يفتح القفل إلا إذا دخل في الاتجاه الصحيح.'},
+  {i:'🧭',t:'التصادم المثمر',s:'له شرطان: اتجاه صحيح، وطاقة كافية لتكوين المعقد المنشط (حالة انتقالية غير مستقرة).',ex:'ذرة C في <span class="f">CO</span> يجب أن تصطدم بذرة O في <span class="f">NO2</span>.'},
+  {i:'⛰️',t:'طاقة التنشيط Ea',s:'أقل طاقة تحتاجها الجسيمات لتكوين المعقد المنشط. كلما كبرت قلّت التصادمات الناجحة وقلّت السرعة.',ex:'دفع عربة إلى قمة تل مرتفع يحتاج طاقة أكبر ووقتًا أطول.'},
+  {i:'🔁',t:'التفاعل العكسي',s:'في التفاعل الطارد للحرارة تكون طاقة تنشيط التفاعل العكسي أكبر من طاقة تنشيط التفاعل الأمامي.',ex:'العودة إلى قمة التل من الوادي الأعمق تحتاج صعودًا أطول.'}],
+ tasks:[{id:'l1-trend',t:'استنتجي كيف تتغير سرعة تحلل N2O5 مع الزمن'},{id:'l1-calc',t:'احسبي متوسط سرعة تفاعل كلوريد البيوتيل'},{id:'l1-hit',t:'نفّذي تصادمًا مثمرًا يكوّن نواتج'},{id:'l1-miss',t:'جرّبي تصادمًا فاشلًا بسبب الاتجاه وآخر بسبب الطاقة'},{id:'l1-endo',t:'حوّلي مخطط الطاقة إلى تفاعل ماص للحرارة'},{id:'l1-rev',t:'قارني طاقة تنشيط التفاعلين الأمامي والعكسي'}],
+ groups:[{sim:'rate',cards:[0,1,2],maps:['flasks','rateMap']},{sim:'collide',cards:[3,4],maps:['collisionMap']},{sim:'profile',cards:[5,6],maps:['bikes']}],game:'g1'},
+{n:2,code:'2-2',title:'العوامل المؤثرة في سرعة التفاعل الكيميائي',en:'Factors Affecting Reaction Rates',c:'var(--mid)',
+ idea:'تؤثر عوامل كثيرة في سرعة التفاعل الكيميائي، منها: طبيعة المواد المتفاعلة، والتركيز، ودرجة الحرارة، ومساحة السطح، والمحفزات.',
+ blurb:'طبيعة المواد، التركيز، مساحة السطح، درجة الحرارة، والمحفزات والمثبطات.',
+ vocab:['المحفزات','المثبطات'],
+ learn:[
+  {i:'🧪',t:'طبيعة المواد المتفاعلة',s:'بعض المواد أنشط كيميائيًا من غيرها فتتفاعل أسرع.',ex:'الخارصين يتفاعل مع نترات الفضة أسرع من النحاس.'},
+  {i:'🎢',t:'التركيز',s:'زيادة تركيز المواد المتفاعلة تزيد عدد جسيماتها، فيزداد عدد التصادمات وتزداد السرعة.',ex:'الشمعة في أكسجين نقي (100%) تشتعل أقوى منها في الهواء (20%)، وشريط الماغنسيوم يختفي أسرع في الحمض المركز.'},
+  {i:'🧊',t:'مساحة السطح',s:'تقطيع المادة أو طحنها يكشف جسيمات أكثر للتصادم، فتزداد السرعة.',ex:'سلك تنظيف الأواني يشتعل بشدة، بينما المسمار يتوهج فقط.'},
+  {i:'🌡️',t:'درجة الحرارة',s:'رفع الحرارة يزيد الطاقة الحركية، فتكثر التصادمات ويزداد عدد الجسيمات التي تملك طاقة التنشيط.',ex:'زيادة 10 K تضاعف السرعة تقريبًا، لذلك نحفظ الطعام في الثلاجة.'},
+  {i:'⚡',t:'المحفزات',s:'مواد تزيد سرعة التفاعل بتقليل طاقة التنشيط دون أن تُستهلك، ولا تُكتب في المعادلة.',ex:'الإنزيمات في جسمك محفزات خلقها الله لتسرّع تفاعلات الحياة.'},
+  {i:'🛑',t:'المثبطات',s:'مواد تبطئ التفاعل أو تمنعه، مثل التي تتفاعل مع المحفز أو تغلق مسارات الطاقة المنخفضة.',ex:'المواد الحافظة في الأغذية مثبطات تطيل صلاحية الطعام.'}],
+ tasks:[{id:'l2-nat',t:'مختبر الخارصين والنحاس: فسّري الفرق في السرعة'},{id:'l2-conc',t:'مختبر الماغنسيوم: اربطي التركيز بزمن التفاعل'},{id:'l2-surf',t:'مختبر القرص الفوار: قارني القرص والقطع والمسحوق'},{id:'l2-temp',t:'مختبر درجة الحرارة: أجري التجربة عند 3 درجات'},{id:'l2-325',t:'حدّدي السرعة النسبية عند 325 K'},{id:'l2-cat',t:'مختبر فوق أكسيد الهيدروجين: حدّدي دور المحفز'}],
+ groups:[{sim:'labNature',cards:[0],maps:['factorsMap']},{sim:'labConc',cards:[1]},{sim:'labSurface',cards:[2]},{sim:'labTemp',cards:[3],after:['maxwell']},{sim:'labCat',cards:[4,5]}],game:'g2'},
+{n:3,code:'2-3',title:'قوانين سرعة التفاعل الكيميائي',en:'Reaction Rate Laws',c:'var(--hot)',
+ idea:'قانون سرعة التفاعل علاقة رياضية، يمكن تحديدها بالتجربة، تربط بين سرعة التفاعل وتركيز المادة المتفاعلة.',
+ blurb:'قانون سرعة التفاعل، ثابت السرعة، رتبة التفاعل، وطريقة السرعات الابتدائية.',
+ vocab:['قانون سرعة التفاعل','ثابت سرعة التفاعل','رتبة التفاعل'],
+ learn:[
+  {i:'📜',t:'قانون السرعة',s:'يربط سرعة التفاعل بتركيز المواد المتفاعلة، مثل <span class="f">R = k[A]</span>.',ex:'عندما يزداد انهمار المطر تزداد سرعة جريان الماء.'},
+  {i:'🔑',t:'ثابت السرعة k',s:'قيمة ثابتة لكل تفاعل عند درجة حرارة معينة، لا تتغير بالتركيز، وتتغير بتغير درجة الحرارة.',ex:'قيمة k الكبيرة تعني أن التفاعل سريع.'},
+  {i:'🔢',t:'رتبة التفاعل',s:'هي الأس الذي يُرفع إليه تركيز المادة المتفاعلة، وتُحدد بالتجربة لا من معاملات المعادلة.',ex:'<span class="f">R = k[H2O2]</span> رتبة أولى: إذا تضاعف التركيز تضاعفت السرعة.'},
+  {i:'➕',t:'الرتبة الكلية',s:'مجموع رتب المواد المتفاعلة (مجموع الأسس): <span class="f">R = k[A]ᵐ[B]ⁿ</span> رتبته الكلية m + n.',ex:'<span class="f">R = k[NO]²[H2]</span> رتبته الكلية 2 + 1 = 3.'},
+  {i:'🔬',t:'طريقة السرعات الابتدائية',s:'نغيّر تركيز مادة واحدة ونثبت الأخرى، ونقارن السرعات الابتدائية لمعرفة الرتبة.',ex:'تضاعف [A] فتضاعفت السرعة: m = 1. تضاعف [B] فصارت السرعة 4 أضعاف: n = 2.'}],
+ tasks:[{id:'l3-total',t:'حدّدي الرتبة الكلية من قانون السرعة'},{id:'l3-x3',t:'احسبي تغير السرعة عند مضاعفة التركيز'},{id:'l3-fill',t:'أكملي بيانات جدول تفاعل الأسيتالدهيد'},{id:'l3-law',t:'اكتشفي قانون السرعة في مختبر السرعات الابتدائية'}],
+ groups:[{sim:'mult',cards:[0,1,2,3],maps:['kMap','orderMap']},{sim:'order',cards:[4]}],game:'g3'}
+];
+const BADGES=[['l1','💥','خبيرة التصادم'],['l2','🌡️','متحكمة السرعة'],['l3','📜','صانعة القوانين'],['final','🏆','بطلة التحصيلي']];
+
+/* ---------- figures for questions ---------- */
+const FIG={
+ wrap:s=>`<div class="qfig">${s}</div>`,
+ axes:(w,h,yl,xl)=>`<line x1="30" y1="${h-22}" x2="${w-10}" y2="${h-22}" stroke="currentColor" stroke-width="2"/><line x1="30" y1="${h-22}" x2="30" y2="10" stroke="currentColor" stroke-width="2"/><text x="${w/2}" y="${h-5}" text-anchor="middle" font-size="11" fill="currentColor">${xl||'سير التفاعل'}</text><text x="14" y="${h/2}" text-anchor="middle" font-size="11" fill="currentColor" transform="rotate(-90 14 ${h/2})">${yl||'الطاقة'}</text>`,
+ profile(){return FIG.wrap(`<svg viewBox="0 0 280 170" role="img" aria-label="مخطط طاقة مرقم">${FIG.axes(280,170)}<path d="M40 120 L95 120 C115 120 118 30 135 30 C152 30 155 82 180 82 L265 82" fill="none" stroke="#1E9E63" stroke-width="3"/><line x1="95" y1="120" x2="150" y2="120" stroke="currentColor" stroke-dasharray="4 3"/><line x1="135" y1="118" x2="135" y2="36" stroke="currentColor" stroke-width="1.5" marker-end="url(#ah)"/><defs><marker id="ah" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="currentColor"/></marker></defs><text x="141" y="82" font-size="13" fill="currentColor">1</text><text x="70" y="112" font-size="13" fill="currentColor">2</text><text x="131" y="22" font-size="13" fill="currentColor">3</text><text x="225" y="74" font-size="13" fill="currentColor">4</text></svg>`);},
+ exo(lbl){return FIG.wrap(`<svg viewBox="0 0 280 170" role="img" aria-label="مخطط طاقة لتفاعل طارد">${FIG.axes(280,170)}<path d="M40 70 L95 70 C118 70 120 25 140 25 C162 25 165 125 195 125 L265 125" fill="none" stroke="#C7362A" stroke-width="3"/><line x1="95" y1="70" x2="265" y2="70" stroke="currentColor" stroke-dasharray="4 3" opacity=".6"/><text x="45" y="62" font-size="10.5" fill="currentColor">المتفاعلات</text><text x="215" y="118" font-size="10.5" fill="currentColor">النواتج</text><text x="128" y="17" font-size="10.5" fill="currentColor">المعقد المنشط</text>${lbl?`<text x="215" y="100" font-size="10.5" fill="currentColor">ΔH</text><line x1="240" y1="72" x2="240" y2="122" stroke="currentColor"/>`:''}</svg>`);},
+ two(){return FIG.wrap(`<svg viewBox="0 0 280 170" role="img" aria-label="مخطط طاقة بقمتين">${FIG.axes(280,170,'الطاقة','مسار التفاعل')}<path d="M40 90 L65 90 C80 90 82 25 100 25 C118 25 118 135 140 135 C160 135 162 45 180 45 C198 45 200 90 220 90 L265 90" fill="none" stroke="currentColor" stroke-width="3"/></svg>`);},
+ enz(){return FIG.wrap(`<svg viewBox="0 0 280 170" role="img" aria-label="أربعة مسارات للطاقة">${FIG.axes(280,170)}${[[22,'1'],[45,'2'],[65,'3'],[85,'4']].map(([p,l])=>`<path d="M40 120 L80 120 C110 120 115 ${p} 140 ${p} C165 ${p} 170 120 200 120 L265 120" fill="none" stroke="currentColor" stroke-width="2"/><text x="136" y="${p-4}" font-size="12" fill="currentColor" font-weight="700">${l}</text>`).join('')}</svg>`);},
+ cat(a,b){return FIG.wrap(`<svg viewBox="0 0 280 170" role="img" aria-label="تفاعل محفز وغير محفز">${FIG.axes(280,170)}<path d="M40 85 L85 85 C110 85 112 20 135 20 C158 20 160 135 190 135 L265 135" fill="none" stroke="#C7362A" stroke-width="3"/><path d="M40 85 L85 85 C110 85 112 55 135 55 C158 55 160 135 190 135 L265 135" fill="none" stroke="#2763D8" stroke-width="3"/><text x="160" y="22" font-size="11" fill="#C7362A">${a}</text><text x="160" y="62" font-size="11" fill="#2763D8">${b}</text><text x="42" y="78" font-size="10" fill="currentColor">المتفاعلات</text><text x="225" y="128" font-size="10" fill="currentColor">النواتج</text></svg>`);},
+ mb(){return FIG.wrap(`<svg viewBox="0 0 280 180" role="img" aria-label="منحنى توزيع طاقة الجسيمات">${FIG.axes(280,180,'عدد الجسيمات','طاقة التصادم')}<path d="M30 158 C60 20 100 20 130 90 C150 140 190 150 265 155" fill="none" stroke="#2763D8" stroke-width="2.5"/><path d="M30 158 C80 80 120 70 160 100 C190 120 220 135 265 142" fill="none" stroke="#C7362A" stroke-width="2.5"/><line x1="195" y1="20" x2="195" y2="158" stroke="currentColor" stroke-dasharray="4 3"/><text x="200" y="30" font-size="10.5" fill="currentColor">طاقة التنشيط</text><text x="62" y="30" font-size="11" fill="#2763D8">T₁</text><text x="125" y="72" font-size="11" fill="#C7362A">T₂</text><text x="235" y="18" font-size="10.5" fill="currentColor">T₂ &gt; T₁</text><text x="70" y="95" font-size="13" font-weight="700" fill="currentColor">A</text><text x="95" y="140" font-size="13" font-weight="700" fill="currentColor">B</text><text x="215" y="133" font-size="13" font-weight="700" fill="currentColor">C</text><text x="215" y="153" font-size="13" font-weight="700" fill="currentColor">D</text></svg>`);},
+ temp(){const P=[[290,2],[310,8],[320,16],[330,32]];const X=t=>40+(t-280)/55*220,Y=r=>150-r/35*135;let d='';for(let t=280;t<=333;t+=1){d+=(t===280?'M':'L')+X(t).toFixed(1)+' '+Y(2*Math.pow(2,(t-290)/10)).toFixed(1);}
+   return FIG.wrap(`<svg viewBox="0 0 280 175" role="img" aria-label="سرعة التفاعل ودرجة الحرارة">${FIG.axes(280,175,'السرعة النسبية','درجة الحرارة (K)')}<path d="${d}" fill="none" stroke="#2763D8" stroke-width="2.5"/>${P.map(([t,r])=>`<circle cx="${X(t)}" cy="${Y(r)}" r="3.5" fill="currentColor"/><text x="${X(t)-48}" y="${Y(r)-5}" font-size="10" fill="currentColor">(${t} K, ${r})</text>`).join('')}</svg>`);},
+ lock(){return FIG.wrap(`<svg viewBox="0 0 300 120" role="img" aria-label="إنزيم يرتبط بمادتين ثم يطلقهما ناتجًا">${[30,130,230].map((x,i)=>`<path d="M${x} 70 Q${x+30} 115 ${x+60} 70 L${x+50} 70 Q${x+30} 95 ${x+10} 70z" fill="#2763D8" opacity=".75"/>`).join('')}<polygon points="40,25 50,18 60,25 60,37 50,44 40,37" fill="#C7362A"/><polygon points="68,25 78,18 88,25 88,37 78,44 68,37" fill="#E39B12"/><polygon points="140,50 150,43 160,50 160,62 150,69 140,62" fill="#C7362A"/><polygon points="160,50 170,43 180,50 180,62 170,69 160,62" fill="#E39B12"/><polygon points="230,20 240,13 250,20 250,32 240,39 230,32" fill="#C7362A"/><polygon points="250,20 260,13 270,20 270,32 260,39 250,32" fill="#E39B12"/><text x="105" y="62" font-size="18" fill="currentColor">→</text><text x="205" y="62" font-size="18" fill="currentColor">→</text></svg>`);},
+ table(){return `<table class="ctable" style="max-width:260px;margin:8px auto"><tr><th>الأنبوب</th><th>طاقة التنشيط</th></tr><tr><td>1</td><td class="n">25</td></tr><tr><td>2</td><td class="n">22</td></tr><tr><td>3</td><td class="n">23</td></tr><tr><td>4</td><td class="n">26</td></tr></table>`;}
+};
+
+/* ---------- quizzes ---------- */
+const QUIZ={
+1:[
+ {q:'تُقاس سرعة التفاعل الكيميائي غالبًا بوحدة:',o:['mol/L·s','mol/L','L/mol·s','s/mol'],a:0,e:'التغير في التركيز (mol/L) لكل ثانية.'},
+ {q:'تركيز <span class="f">C4H9Cl</span> كان 0.220 M ثم أصبح 0.100 M بعد 4.00 s. متوسط سرعة التفاعل:',o:['0.0300 mol/L·s','0.0800 mol/L·s','0.120 mol/L·s','0.0550 mol/L·s'],a:0,e:'Rate = −(0.100 − 0.220) ÷ 4.00 = 0.0300 mol/L·s.'},
+ {q:'أي العبارات الآتية صحيحة وفق نظرية التصادم؟',o:['ليس كل تصادم بين الجسيمات يؤدي إلى تفاعل','كل تصادم يكوّن نواتج','التفاعل يحدث دون تصادم','اتجاه التصادم لا يهم'],a:0,e:'يلزم اتجاه صحيح وطاقة كافية حتى يكون التصادم مثمرًا.'},
+ {q:'المعقد المنشط:',o:['حالة انتقالية غير مستقرة تتكسر فيها روابط وتتكون أخرى','مادة محفزة تضاف للتفاعل','ناتج مستقر للتفاعل','مادة متفاعلة لا تتغير'],a:0,e:'جسيم قصير العمر قد يكوّن النواتج أو يعود إلى المتفاعلات.'},
+ {q:'كلما زادت طاقة التنشيط لتفاعل ما:',o:['قلّت سرعة التفاعل','زادت سرعة التفاعل','لا تتغير السرعة','تحوّل التفاعل إلى ماص'],a:0,e:'يقل عدد التصادمات التي تملك طاقة كافية.'}],
+2:[
+ {q:'يتفاعل الخارصين مع نترات الفضة أسرع من النحاس بسبب:',o:['طبيعة المواد المتفاعلة','درجة الحرارة','التركيز','مساحة السطح'],a:0,e:'الخارصين أنشط كيميائيًا من النحاس.'},
+ {q:'تزداد سرعة التفاعل بزيادة تركيز المواد المتفاعلة لأن:',o:['عدد التصادمات يزداد','طاقة التنشيط تزداد','المحفز يُستهلك','النواتج تقل'],a:0,e:'جسيمات أكثر في الحجم نفسه تعني تصادمات أكثر.'},
+ {q:'إذا كانت زيادة الحرارة 10 K تضاعف سرعة تفاعل، فإن زيادتها 20 K:',o:['تضاعف السرعة 4 مرات','تضاعفها مرتين','تضاعفها 20 مرة','لا تغيّرها'],a:0,e:'2 × 2 = 4 أضعاف.'},
+ {q:'المحفز مادة:',o:['تزيد السرعة بتقليل طاقة التنشيط ولا تُستهلك','تزيد طاقة التنشيط','تُستهلك في التفاعل','تزيد كمية النواتج'],a:0,e:'المحفز لا يزيد عدد النواتج ولا يُكتب ضمن المتفاعلات.'},
+ {q:'تعمل المواد الحافظة في الأغذية بوصفها:',o:['مثبطات','محفزات','إنزيمات','مواد متفاعلة'],a:0,e:'تبطئ التفاعلات التي تفسد الطعام.'}],
+3:[
+ {q:'قانون السرعة <span class="f">R = k[A]</span> يعني أن التفاعل:',o:['من الرتبة الأولى بالنسبة لـ A','من الرتبة الثانية','من الرتبة صفر','لا يعتمد على A'],a:0,e:'الأس 1 يعني رتبة أولى.'},
+ {q:'إذا كان التفاعل من الرتبة الأولى بالنسبة لمادة، وضُوعف تركيزها ثلاث مرات، فإن السرعة:',o:['تتضاعف 3 مرات','تتضاعف 9 مرات','لا تتغير','تقل إلى الثلث'],a:0,e:'3¹ = 3.'},
+ {q:'الرتبة الكلية للتفاعل <span class="f">R = k[NO]²[H2]</span>:',o:['الثالثة','الثانية','الأولى','الرابعة'],a:0,e:'2 + 1 = 3.'},
+ {q:'يتغير ثابت سرعة التفاعل k بتغير:',o:['درجة الحرارة','تركيز المتفاعلات','تركيز النواتج','زمن التفاعل'],a:0,e:'k ثابت عند درجة حرارة معينة.'},
+ {q:'ضُوعف [B] مع ثبات [A] فأصبحت السرعة 4 أضعاف. رتبة التفاعل بالنسبة لـ B:',o:['الثانية','الأولى','الرابعة','صفر'],a:0,e:'2ⁿ = 4، إذن n = 2.'}]
+};
+
+/* ---------- Tahsili bank ---------- */
+const TAH=[
+ {y:'2024',q:'إذا كان تركيز الهيدروجين في بداية تفاعله مع الكلور 4 M ثم أصبح 2 M بعد مرور 4 ثوانٍ، فإن متوسط سرعة التفاعل:',o:['0.5 mol/L·s','16 mol/L·s','2 mol/L·s','8 mol/L·s'],a:0,e:'(4 − 2) ÷ 4 = 0.5 mol/L·s.'},
+ {y:'2025',q:'إذا كان تركيز الهيدروجين في بداية تفاعله مع الكلور 0.7 M ثم أصبح 0.3 M بعد مرور 4 ثوانٍ، فإن متوسط سرعة التفاعل:',o:['0.1 mol/L·s','16 mol/L·s','2 mol/L·s','8 mol/L·s'],a:0,e:'(0.7 − 0.3) ÷ 4 = 0.1 mol/L·s.'},
+ {y:'2025',q:'«معدل التغير في كميات المواد المتفاعلة أو الناتجة في وحدة الزمن» هذا النص يعبر عن:',o:['الاتزان الكيميائي','المادة المحفزة','التعادل','متوسط سرعة التفاعل'],a:3,e:'هذا تعريف متوسط سرعة التفاعل.'},
+ {y:'2021',q:'أي الآتي لا يمثل شرطًا لحدوث التفاعل وفقًا لنظرية التصادم؟',o:['حدوث تصادمات بين الجزيئات المتفاعلة','التصادمات في الاتجاه الصحيح','ثبوت درجة الحرارة عند حدوث التصادمات','طاقة التصادم كافية للمعقد المنشط'],a:2,e:'ثبوت الحرارة ليس من شروط النظرية.'},
+ {y:'2025',q:'ما الذي يلزم وجوده لاحتراق قطعة خشب في الهواء الجوي؟',o:['أكسجين','هيدروجين','عامل محفز','طاقة منشطة'],a:3,e:'الأكسجين موجود في الهواء أصلًا، والذي ينقص هو طاقة التنشيط.'},
+ {y:'2025',q:'لا يحترق الخشب في الهواء الجوي بسبب:',o:['عدم وجود أكسجين','عدم وجود عامل محفز','عدم وجود نيتروجين','عدم وجود طاقة منشطة'],a:3,e:'يلزم طاقة كافية لتجاوز طاقة التنشيط.'},
+ {y:'2022',q:'الحد الأدنى من الطاقة اللازمة لإحداث التفاعل:',o:['طاقة التنشيط','نوع المادة','الاتجاه المناسب','مساحة السطح'],a:0,e:'تعريف طاقة التنشيط Ea.'},
+ {y:'2025',q:'في الرسم البياني، حدّدي المنطقة التي تمثل العدد الأكبر من الجسيمات التي لها طاقة كافية للتفاعل:'+FIG.mb(),o:['A','A و B','C','C و D'],a:2,e:'المنطقة C تحت منحنى الحرارة الأعلى T₂ وبعد خط طاقة التنشيط، وهي أكبر من D.'},
+ {y:'2025',q:'في المخطط، أي الآتي صحيح حول طاقة التنشيط؟'+FIG.exo(false),o:['طاقة التنشيط للتفاعل العكسي أكبر من التفاعل الأمامي','متساوية للتفاعلين الأمامي والعكسي','متساوية للمتفاعلات','تساوي طاقة النواتج'],a:0,e:'النواتج أدنى من المتفاعلات، فالعودة إلى القمة منها أطول.'},
+ {y:'2025',q:'في الشكل، طاقة النواتج ...... طاقة المتفاعلات.'+FIG.profile(),o:['≤','≥','>','<'],a:2,e:'مستوى النواتج (4) أعلى من مستوى المتفاعلات (2).'},
+ {y:'2023',q:'في مخطط الطاقة، أي الرموز يمثل طاقة تنشيط التفاعل؟'+FIG.profile(),o:['1','2','3','4'],a:0,e:'السهم 1 من مستوى المتفاعلات إلى القمة.'},
+ {y:'2021',q:'في التفاعل الطارد للحرارة، طاقة النواتج ...... طاقة المتفاعلات.',o:['تساوي','أقل من','ضعف','أكثر من'],a:1,e:'تُفقد طاقة إلى المحيط فتكون النواتج أقل طاقة.'},
+ {y:'2025',q:'ماذا يسمى الرقم 3 في الشكل؟'+FIG.profile(),o:['طاقة التنشيط','المعقد المنشط','طاقة المتفاعلات','طاقة النواتج'],a:1,e:'القمة تمثل المعقد المنشط.'},
+ {y:'2025',q:'أي الخيارات صحيح بناءً على التفاعل الموضح في الشكل؟'+FIG.two(),o:['يوجد معقد نشط واحد','التفاعل ماص للحرارة','التفاعل يتم في خطوتين','التفاعل من الرتبة الأولى'],a:2,e:'قمتان تعنيان معقدين منشطين، أي خطوتين.'},
+ {y:'2025',q:'مادة تزيد سرعة التفاعل دون أن تُستهلك فيه:',o:['المحفز','المثبط','المعقد المنشط','طاقة التنشيط'],a:0,e:'تعريف المحفز.'},
+ {y:'2024',q:'تُضاف المواد الحافظة في صناعة الأغذية لكي:',o:['تقلل طاقة التنشيط أثناء التفاعل','تساعد على أكسدة الغذاء','تزيد الطاقة الناتجة من احتراق الغذاء','تعمل كمثبط للتفاعل'],a:3,e:'المواد الحافظة مثبطات.'},
+ {y:'2025',q:'وُضعت مادة غذائية في أربعة أنابيب، وأُضيف إليها إنزيم هاضم بكميات مختلفة، وسُجلت طاقة التنشيط. أي الأنابيب كان الأسرع؟'+FIG.table(),o:['1','2','3','4'],a:1,e:'أقل طاقة تنشيط (22) تعني أسرع تفاعل.'},
+ {y:'2025',q:'قطعة خشب كتلتها 1 kg ونشارة خشب كتلتها 1 kg أُشعلتا معًا، فاحترقت النشارة أسرع. ما المختلف بينهما؟',o:['التركيز','نوع المادة','الحرارة','مساحة السطح'],a:3,e:'النشارة لها مساحة سطح أكبر.'},
+ {y:'2021',q:'في الشكل، أي الإنزيمات يعد أكثر فعالية؟'+FIG.enz(),o:['1','2','3','4'],a:3,e:'الإنزيم 4 يعطي أقل طاقة تنشيط.'},
+ {y:'2025',q:'ما العامل المؤثر عند تعريض التفاعلين 1 و 2 المكونين من المواد نفسها لظرفين مختلفين؟'+FIG.cat('2','1'),o:['طبيعة المواد المتفاعلة','تركيز المواد المتفاعلة','درجة الحرارة','العامل المحفز'],a:3,e:'المسار 1 طاقة تنشيطه أقل والطاقة الكلية نفسها، وهذا أثر المحفز.'},
+ {y:'2024',q:'لماذا يذوب 50 g من مسحوق السكر أسرع من 50 g سكر متماسك؟',o:['بسبب مساحة السطح','درجة الحرارة','الضغط','المواد المحفزة'],a:0,e:'المسحوق مساحة سطحه أكبر.'},
+ {y:'2022',q:'تصدأ برادة الحديد أسرع من قضيب الحديد عند تفاعلها مع الأكسجين لأن السرعة تعتمد على:',o:['مساحة السطح','درجة الحرارة','الضغط','المواد المحفزة'],a:0,e:'البرادة مساحة سطحها أكبر.'},
+ {y:'2024',q:'ما وظيفة الإنزيم في الشكل؟'+FIG.lock(),o:['يُستهلك في التفاعل','يقلل طاقة التنشيط','يزيد النواتج','يزيد المتفاعلات'],a:1,e:'الإنزيم محفز يقلل طاقة التنشيط ويخرج دون تغيير.'},
+ {y:'2024',q:'عالم يجري تجربة على خلية إنسان لكن تفاعلها بطيء، فماذا يفعل ليكون التفاعل أسرع؟',o:['إضافة إنزيم','زيادة طاقة التنشيط','رفع درجة الحرارة إلى 50°C','إضافة مثبط'],a:0,e:'رفع الحرارة يضر الخلية، والإنزيم يسرّع التفاعل بأمان.'},
+ {y:'2025',q:'أي الآتي يصف التفاعل 1 والتفاعل 2؟'+FIG.cat('2','1'),o:['1 يحوي إنزيمًا، 2 بدون إنزيم','1 بدون إنزيم، 2 يحوي إنزيمًا','1 بدون إنزيم، 2 بدون إنزيم','1 يحوي إنزيمًا، 2 يحوي إنزيمًا'],a:0,e:'المسار 1 طاقة تنشيطه أقل، فهو المحفَّز بالإنزيم.'},
+ {y:'2024',q:'ما رتبة التفاعل <span class="f">R = k[A][B]²</span>؟',o:['الأولى','الثانية','الثالثة','الرابعة'],a:2,e:'1 + 2 = 3.'},
+ {y:'2024',q:'قانون السرعة العام لتفاعل ما <span class="f">R = k[A][B]³</span>. ما رتبة هذا التفاعل؟',o:['الأولى','الثانية','الثالثة','الرابعة'],a:3,e:'1 + 3 = 4.'},
+ {y:'2023',q:'في التفاعل <span class="f">aA + bB → AB</span> إذا كان قانون السرعة <span class="f">Rate = k[A]²[B]</span>، فإن الرتبة الكلية:',o:['3','5','4','2'],a:0,e:'2 + 1 = 3.'},
+ {y:'2025',q:'من خلال قانون السرعة <span class="f">R = k[H2][NO]²</span> يُصنَّف التفاعل من الرتبة:',o:['الأولى','الثانية','الثالثة','الرابعة'],a:2,e:'1 + 2 = 3.'},
+ {y:'2024',q:'ما رتبة التفاعل <span class="f">R = k[A]²[B]²</span>؟',o:['الأولى','الثانية','الثالثة','الرابعة'],a:3,e:'2 + 2 = 4.'},
+ {y:'2021',q:'قانون سرعة التفاعل في المعادلة <span class="f">2NO(g) + O2(g) → 2NO2(g)</span> (على افتراض أنه يحدث في خطوة واحدة):',o:['R = k[NO]³[O2]²','R = k[NO][O2]³','R = k[NO]²[O2]','R = k[NO]²[O2]²'],a:2,e:'في تفاعل الخطوة الواحدة تساوي الرتب المعاملات. وتذكّري أن الرتب تُحدد عمومًا بالتجربة.'},
+ {y:'--',q:'احسبي سرعة التفاعل <span class="f">H2(g) + Cl2(g) → 2HCl(g)</span> علمًا أن [H2] في البداية 0.9 mol/L ثم أصبح 0.1 mol/L بعد 4 s:',o:['0.1 mol/L·s','0.2 mol/L·s','0.3 mol/L·s','0.4 mol/L·s'],a:1,e:'(0.9 − 0.1) ÷ 4 = 0.2 mol/L·s.'},
+ {y:'--',q:'سرعة التفاعل الابتدائية تُقاس لحظة:',o:['إضافة المتفاعلات','إضافة العامل المحفز','منتصف التفاعل','الحصول على النواتج'],a:0,e:'لحظة خلط المواد المتفاعلة ذات التراكيز المعروفة.'},
+ {y:'2020',q:'أي الآتي صحيح للتصادم المثمر في التفاعلات الكيميائية؟',o:['لا ينتج عنه تفاعل','يحدث للنواتج','من العوامل المحفزة','من شروط بدء التفاعل'],a:3,e:'التصادم المثمر شرط لحدوث التفاعل.'},
+ {y:'2020',q:'المعقد المنشط:',o:['عامل محفز','حالة غير مستقرة','حالة مستقرة','من النواتج'],a:1,e:'حالة انتقالية غير مستقرة قصيرة العمر.'},
+ {y:'--',q:'في التفاعل الماص للحرارة، طاقة النواتج ...... طاقة المتفاعلات.',o:['تساوي نصف','تساوي ثلثي','تساوي','أكبر من'],a:3,e:'التفاعل يمتص طاقة فتكون النواتج أعلى طاقة.'},
+ {y:'2020',q:'الشكل يمثل تفاعلًا:'+FIG.exo(true),o:['متعادلًا','طاردًا للحرارة','مساويًا في الطاقة','ماصًا للحرارة'],a:1,e:'النواتج أدنى من المتفاعلات.'},
+ {y:'--',q:'حسب الشكل، أي العبارات تنطبق على التفاعل؟'+FIG.cat('تفاعل غير محفز','تفاعل محفز'),o:['تفاعل يحوي مواد محفزة مما يزيد السرعة بخفض طاقة التنشيط','تفاعل يحوي مواد محفزة مما يزيد السرعة بزيادة طاقة التنشيط','تفاعل خالٍ من المحفزات مما يزيد السرعة بزيادة طاقة التنشيط','تفاعل خالٍ من المحفزات فيكون بطيئًا وتقل طاقة التنشيط'],a:0,e:'المحفز يخفض طاقة التنشيط فيزيد السرعة.'},
+ {y:'--',q:'الشكل يمثل تفاعلًا:'+FIG.profile(),o:['متعادلًا','طاردًا للحرارة','متساويًا في الحرارة','ماصًا للحرارة'],a:3,e:'النواتج (4) أعلى من المتفاعلات (2).'},
+ {y:'2020',q:'أي العوامل الآتية لا يؤثر في سرعة التفاعل؟',o:['طبيعة المواد المتفاعلة','طبيعة المواد الناتجة','درجة الحرارة','التركيز'],a:1,e:'العوامل تتعلق بالمتفاعلات وظروفها لا بالنواتج.'},
+ {y:'--',q:'سرعة التفاعل تتناسب ...... تركيز المتفاعلات.',o:['طرديًا مع','عكسيًا مع','طرديًا مع مربع','عكسيًا مع مربع'],a:0,e:'زيادة التركيز تزيد السرعة.'},
+ {y:'--',q:'الخارصين أسرع من النحاس عند التفاعل مع نترات الفضة بسبب:',o:['طبيعة المتفاعلات','درجة الحرارة','التركيز','مساحة السطح'],a:0,e:'الخارصين أنشط كيميائيًا.'},
+ {y:'2020',q:'في الشكل، كلما زادت درجة حرارة التفاعل زاد:'+FIG.temp(),o:['حجم التفاعل','المادة المحفزة للتفاعل','ضغط التفاعل','عدد التصادمات بين الجسيمات'],a:3,e:'ترتفع الطاقة الحركية فتكثر التصادمات الفعالة.'},
+ {y:'--',q:'بروتين يزيد من سرعة التفاعلات الكيميائية:',o:['الهرمون','كربوهيدرات','كوليسترول','الإنزيم'],a:3,e:'الإنزيمات بروتينات محفزة.'},
+ {y:'2020',q:'أي الآتي ليس من وحدات قياس ثابت سرعة التفاعل؟',o:['L²/mol²·s','L/mol','s⁻¹','L/mol·s'],a:1,e:'وحدات k تتضمن الزمن دائمًا؛ L/mol لا تحتوي زمنًا.'},
+ {y:'--',q:'أُس تركيز المادة المتفاعلة A في معادلة سرعة التفاعل يمثل:',o:['تركيز المادة A','العدد الكتلي للمادة A','رتبة تفاعل المادة A','العدد الذري للمادة A'],a:2,e:'الأس هو رتبة التفاعل بالنسبة لـ A.'},
+ {y:'--',q:'الكثير من التفاعلات التي تحوي أكثر من مادة متفاعلة ليست من:',o:['الرتبة الأولى','الرتبة الثانية','الرتبة الثالثة','الرتبة الرابعة'],a:0,e:'كما ورد في الكتاب.'},
+ {y:'--',q:'أي الآتي يغيّر قيمة ثابت سرعة التفاعل؟',o:['تركيز المتفاعلات','تركيز النواتج','درجة الحرارة','العامل المحفز'],a:2,e:'k ثابت عند درجة حرارة معينة ويتغير بتغيرها.'}
+];
+
+/* ---------- views ---------- */
+const app=$('#app');
+function route(){
+  cleanups.forEach(f=>{try{f();}catch(e){}});cleanups=[];
+  const h=location.hash.replace('#','');
+  if(new RegExp('^lesson-[1-'+LESSONS.length+']$').test(h))viewLesson(+h.slice(7));
+  else if(h==='final')viewFinal();
+  else viewHome();
+  fmAll(app);refreshStars();window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',route);
+
+function badgeHTML(){return '<div class="badges">'+BADGES.map(b=>{const on=b[0]==='final'?(S.final!=null&&S.final>=80):S.done[b[0].slice(1)];return `<div class="badge ${on?'on':''}"><i>${b[1]}</i>${b[2]}</div>`;}).join('')+'</div>';}
+function lessonStars(L){let n=L.tasks.filter(t=>S.tasks[t.id]).length;n+=gameStars(S.games[L.game]||0);if((S.quiz[L.n]||0)>=4)n+=3;return n;}
+function lessonMax(L){return L.tasks.length+3+3;}
+
+const CH_NO=2;
+/* ---------- progress report code for the teacher ---------- */
+const RKEY=LS+'-name';
+function repHash(str){let h=7;for(const c of str)h=(h*31+c.codePointAt(0))%1000003;return h;}
+function repCode(name){const total=LESSONS.length;const done=LESSONS.filter(L=>S.done[L.n]).length;const max=LESSONS.reduce((a,L)=>a+lessonMax(L),0)+5;
+  const p={v:1,c:CH_NO,n:name.trim(),d:done,t:total,f:S.final==null?null:S.final,s:totalStars(),m:max,ts:Date.now()};const body=JSON.stringify(p);
+  return 'KIM-'+btoa(unescape(encodeURIComponent(body))).replace(/=+$/,'')+'-'+repHash(body).toString(36);}
+function reportHTML(){let nm='';try{nm=localStorage.getItem(RKEY)||'';}catch(e){}
+  return `<section class="final-band report-band"><div class="rb-in"><div><h3>📤 تقرير التقدم للمعلمة</h3><p>اكتبي اسمك الثلاثي ثم اضغطي «احفظي تقدمي لدى المعلمة»؛ بعدها يُحدَّث تقدمك تلقائيًا كلما أنجزتِ شيئًا جديدًا. ويمكنك أيضًا إنشاء رمز التقدم وإرساله لمعلمتك.</p></div>
+   <div class="rb-row"><input type="text" id="repName" placeholder="اسم الطالبة" value="${nm.replace(/"/g,'&quot;')}" aria-label="اسم الطالبة"><button type="button" class="btn hot" id="repSync">☁️ احفظي تقدمي لدى المعلمة</button><button type="button" class="btn cold" id="repGo">أنشئي الرمز</button></div>
+   <div id="repOut"></div></div></section>`;}
+function bindReport(){const go=$('#repGo');if(!go)return;
+  $('#repSync').addEventListener('click',async()=>{const nm=$('#repName').value.trim(),out=$('#repOut');if(nm.split(/\s+/).length<2){out.innerHTML='<p class="fb bad">اكتبي اسمك الثنائي أو الثلاثي حتى تتعرف عليك المعلمة.</p>';return;}
+    try{localStorage.setItem(RKEY,nm);}catch(e){}out.innerHTML='<p class="fb">جارٍ الحفظ…</p>';
+    try{await syncProgress(true);out.innerHTML=`<p class="fb ok">✓ حُفظ تقدمك لدى المعلمة باسم «${esc(nm)}». سيُحدَّث تلقائيًا عند أي إنجاز جديد.</p>`;}catch(e){out.innerHTML='<p class="fb bad">تعذّر الحفظ الآن. تحققي من الاتصال بالإنترنت، أو أنشئي رمز التقدم وأرسليه لمعلمتك.</p>';}});go.addEventListener('click',()=>{const nm=$('#repName').value.trim();const out=$('#repOut');
+  if(nm.split(/\s+/).length<2){out.innerHTML='<p class="fb bad">اكتبي اسمك الثنائي أو الثلاثي حتى تتعرف عليك المعلمة.</p>';return;}
+  try{localStorage.setItem(RKEY,nm);}catch(e){}const code=repCode(nm);const done=LESSONS.filter(L=>S.done[L.n]).length;
+  out.innerHTML=`<div class="rb-code"><code class="ltr" id="repCode">${code}</code><button type="button" class="btn sm" id="repCopy">📋 انسخي الرمز</button></div><p class="rb-sum">الدروس المنجزة: <b>${done} من ${LESSONS.length}</b> | الاختبار الختامي: <b>${S.final==null?'لم يُنجز':S.final+'%'}</b> | النجوم: <b>${totalStars()}</b></p>`;
+  $('#repCopy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(code);toast('تم نسخ الرمز ✓');}catch(e){const r=document.createRange();r.selectNodeContents($('#repCode'));const sel=getSelection();sel.removeAllRanges();sel.addRange(r);toast('حدّدي الرمز وانسخيه يدويًا');}});});}
+
+
+/* ---------- مزامنة التقدم مع قاعدة البيانات (Cloudflare D1) ---------- */
+let _syncT=null;
+async function syncProgress(manual){let nm='';try{nm=localStorage.getItem(RKEY)||'';}catch(e){}if(!nm)return false;
+  const done=LESSONS.filter(L=>S.done[L.n]).length,max=LESSONS.reduce((a,L)=>a+lessonMax(L),0)+5;
+  try{const r=await fetch('/api/progress',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:nm,chapter:CH_NO,done,total:LESSONS.length,final:S.final==null?null:S.final,stars:totalStars(),max})});
+    if(!r.ok)throw 0;try{localStorage.setItem(RKEY+'-synced','1');}catch(e){}return true;}catch(e){if(manual)throw e;return false;}}
+function autoSync(){let on='';try{on=localStorage.getItem(RKEY+'-synced');}catch(e){}if(!on)return;clearTimeout(_syncT);_syncT=setTimeout(()=>syncProgress(false),3000);}
+
+function viewHome(){
+  const done=Object.keys(S.done).filter(k=>S.done[k]).length;
+  app.innerHTML=`
+  <section class="hero">
+    <div>
+      <p class="kicker">كيمياء 2-2، الفصل الثاني، رحلة تعليمية تفاعلية</p>
+      <h1 style="margin-bottom:6px">مختبر <span class="grad">سرعة التفاعلات الكيميائية</span></h1>
+      <div class="teacher"><span class="av">ص</span><div><small>إعداد المعلمة:</small><b>صباح داخل الأحمدي</b></div></div>
+      <p class="idea"><strong>الفكرة العامة:</strong> لا يحدث التفاعل إلا بتصادم الجسيمات بطاقة كافية وفي الاتجاه الصحيح، ويمكننا قياس سرعته والتحكم فيها بتغيير ظروفه.</p>
+      <p class="lead">ثلاثة دروس تجرّبين فيها بنفسك: تحسبين متوسط السرعة من منحنى التركيز، وتصادمين الجزيئات لتري متى يكون التصادم مثمرًا، وتغيّرين التركيز والحرارة ومساحة السطح والمحفز في غرفة التفاعل، وتكتشفين قانون السرعة في مختبر السرعات الابتدائية. اجمعي النجوم والشارات، وأنجزي مهام كل درس، وتحدّي نفسك في ألعاب الـ45 ثانية. في نهاية كل درس اختبار قصير، وفي آخر الرحلة اختبار ختامي من أسئلة التحصيلي.</p>
+      <div class="hero-actions">
+        <a class="btn cold" href="#lesson-1">ابدئي الرحلة</a>
+        <a class="btn ghost" href="#final">الاختبار الختامي</a>
+      </div>
+      <p class="progress-line">أنجزتِ ${done} من ${LESSONS.length} دروس</p>
+    </div>
+    <div class="beaker-card">
+      <canvas id="beaker" aria-label="محاكاة تصادم الجسيمات عند درجات حرارة مختلفة"></canvas>
+      <input type="range" dir="ltr" id="bT" min="250" max="450" value="300" step="5" aria-label="درجة الحرارة">
+      <div class="beaker-read"><span class="temp-big" id="bTv">300 K</span><span class="phase-tag" id="bPh">تصادمات فعالة: 0</span></div>
+      <p class="hint" id="bHint">اسحبي على الصندوق أو المؤشر لرفع درجة الحرارة.</p>
+    </div>
+  </section>
+  <section>
+    <h2 class="sec">مسار الدروس</h2>
+    <p class="sec-sub">من الأبطأ إلى الأسرع: كل درس يزيد سرعة رحلتك.</p>
+    <div class="thermo-track"><span class="bulb"></span></div>
+    <div class="lessons">
+      ${LESSONS.map(L=>`<article class="lcard ${S.done[L.n]?'done':''}" style="--c:${L.c}">
+        <span class="node">${S.done[L.n]?'✓':L.n}</span>
+        <div class="lcode">${L.code}</div>
+        <h3>${L.title}</h3>
+        <p>${L.blurb}</p>
+        <div class="lmeta"><span class="st">★ ${lessonStars(L)} / ${lessonMax(L)}</span><a class="btn sm ghost" href="#lesson-${L.n}">ادخلي</a></div>
+      </article>`).join('')}
+    </div>
+  </section>
+  <section style="margin-top:34px">
+    <h2 class="sec">الشارات</h2>
+    <p class="sec-sub">تحصلين على شارة كل درس عند اجتياز اختباره القصير بأربع إجابات صحيحة أو أكثر.</p>
+    ${badgeHTML()}
+  </section>
+  <section class="final-band">
+    <div><h3>الاختبار الختامي: تجميعات التحصيلي</h3><p>${TAH.length} سؤالًا من اختبارات التحصيلي السابقة في سرعة التفاعلات الكيميائية، مع تصحيح فوري وشرح لكل إجابة.${S.final!=null?' أفضل نتيجة لك: '+S.final+'%':''}</p></div>
+    <a class="btn hot" href="#final">ابدئي الاختبار</a>
+  </section>
+  <section class="final-band task-band"><div class="tb-in"><span class="ti">📝</span><div><h3>مهمة أدائية</h3><p>اقرئي المهمة وارفعي إجابتها من خلال النموذج.</p></div></div>${TASK_FORM?`<a class="btn cold" href="${TASK_FORM}" target="_blank" rel="noopener">افتحي المهمة</a>`:`<span class="btn ghost" aria-disabled="true" style="opacity:.6;cursor:default">يُضاف الرابط قريبًا</span>`}</section>
+  ${reportHTML()}`;
+  initBeaker();bindReport();
+}
+
+/* ---------- lesson view ---------- */
+function viewLesson(n){
+  const L=LESSONS[n-1];
+  app.innerHTML=`
+  <div class="crumbs"><a href="#home">→ الصفحة الرئيسة</a></div>
+  <header class="lhead">
+    <div class="lnum">${L.code}</div>
+    <div><h1>${L.title}</h1><div class="en">${L.en}</div>
+      <p class="idea" style="margin:10px 0 0"><strong>الفكرة الرئيسة:</strong> ${L.idea}</p>
+      <div class="vocab">${L.vocab.map(v=>'<span>'+v+'</span>').join('')}</div></div>
+  </header>
+  <div class="lgrid">
+    <aside class="side">
+      <div class="box"><h4>مهام الدرس <span id="tcount" style="color:var(--muted);font-weight:400;font-size:14px"></span></h4>
+        <ul class="tasks">${L.tasks.map(t=>`<li data-task-li="${t.id}" class="${S.tasks[t.id]?'on':''}"><span class="ck">${S.tasks[t.id]?'✓':''}</span><span>${t.t}</span></li>`).join('')}</ul>
+        <div class="tbar"><i id="tbar" data-lesson="${n}"></i></div></div>
+      <div class="box"><nav>${L.groups.map(g=>`<a href="#" data-jump="sim-${g.sim}">${SIMS[g.sim].title}</a>`).join('')}<a href="#" data-jump="game">لعبة 45 ثانية</a><a href="#" data-jump="quiz">الاختبار القصير</a></nav></div>
+    </aside>
+    <div class="main-col">
+      ${L.groups.map((g,i)=>`<section class="panel sim" id="sim-${g.sim}" style="--c:${L.c}">
+        <span class="tag">الجزء ${i+1}: الفكرة ببساطة</span>
+        <div class="lcards">${g.cards.map(k=>L.learn[k]).map(c=>`<div class="lc"><span class="ic">${c.i}</span><h5>${c.t}</h5><p>${c.s}</p>${c.img?`<div class="lc-img">${VIS[c.img].html()}</div>`:''}<div class="ex"><b>مثال:</b> ${c.ex}</div></div>`).join('')}</div>
+        ${(g.maps||[]).map(m=>`<div class="cmap" data-vis="${m}">${VIS[m].html()}</div>`).join('')}
+        <div class="act"><span class="tag act-tag">🔬 نشاط تفاعلي</span>${SIMS[g.sim].html()}</div>${(g.after||[]).map(m=>`<div class="cmap" data-vis="${m}">${VIS[m].html()}</div>`).join('')}</section>`).join('')}
+      <section class="panel game" id="game"><span class="tag" style="color:var(--amber)">تحدّي 45 ثانية</span>${GAMES[L.game].html}</section>
+      <section class="panel" id="quiz"><span class="tag">اختبار الدرس ${L.code}</span><h3>اختبار قصير</h3><p class="desc">خمسة أسئلة. أجيبي عن أربعة منها أو أكثر بشكل صحيح لتحصلي على شارة الدرس و3 نجوم.${S.quiz[n]!=null?' أفضل نتيجة لك: '+S.quiz[n]+' من 5.':''}</p><div id="quizBox"></div></section>
+      <div class="row" style="justify-content:space-between">
+        ${n>1?`<a class="btn ghost" href="#lesson-${n-1}">الدرس السابق</a>`:'<span></span>'}
+        ${n<LESSONS.length?`<a class="btn cold" href="#lesson-${n+1}">الدرس التالي</a>`:`<a class="btn hot" href="#final">إلى الاختبار الختامي</a>`}
+      </div>
+    </div>
+  </div>`;
+  $$('[data-jump]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const t=document.getElementById(a.dataset.jump);if(t)t.scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'});}));
+  updateTaskBar();
+  fmAll(app);
+  L.groups.forEach(g=>SIMS[g.sim].init(document.getElementById('sim-'+g.sim)));
+  $$('[data-vis]',app).forEach(el=>{const v=VIS[el.dataset.vis];if(v&&v.init)v.init(el);});
+  bindPrac(app);
+  initGame($('#game'),GAMES[L.game]);
+  quizRunner($('#quizBox'),QUIZ[n],{onDone:(sc)=>{
+    const prev=S.quiz[n]||0;S.quiz[n]=Math.max(prev,sc);
+    if(sc>=4&&!S.done[n]){S.done[n]=true;save();refreshStars();const b=BADGES[n-1];toast(b[1]+' حصلتِ على شارة: '+b[2]);}
+    else{save();refreshStars();}
+  }});
+}
+
+/* ---------- practice widgets ---------- */
+function prac(prompt,unit,ans,tol,task,hint){
+  return `<div class="prac" data-ans="${ans}" data-tol="${tol}" data-task="${task||''}" data-hint="${hint||''}">
+    <p class="q">${prompt}</p>
+    <div class="row"><input class="ans" inputmode="decimal" aria-label="إجابتك" placeholder="إجابتك"><span class="unit f">${unit}</span><button type="button" class="btn sm">تحقّقي</button></div>
+    <p class="fb" aria-live="polite"></p></div>`;
+}
+function bindPrac(root){
+  $$('.prac[data-ans]',root).forEach(p=>{
+    const inp=$('input',p),btn=$('button',p),fb=$('.fb',p);
+    if(p.dataset.task&&S.tasks[p.dataset.task])p.classList.add('solved');
+    const check=()=>{const v=parseNum(inp.value),a=+p.dataset.ans,t=+p.dataset.tol;
+      if(isNaN(v)){fb.className='fb bad';fb.textContent='اكتبي رقمًا، مثل 9.6e5 أو 960000.';return;}
+      if(Math.abs(v-a)<=t*Math.abs(a)){fb.className='fb ok';fb.textContent='✓ إجابة صحيحة! الناتج ≈ '+nice(a);p.classList.add('solved');if(p.dataset.task)completeTask(p.dataset.task);}
+      else{fb.className='fb bad';fb.textContent='✗ ليست صحيحة بعد. '+(p.dataset.hint?'تلميح: '+p.dataset.hint:'');}};
+    btn.addEventListener('click',check);inp.addEventListener('keydown',e=>{if(e.key==='Enter')check();});
+  });
+}
+function mcq(root,sel,q,opts,a,onOk){
+  const box=$(sel,root);
+  box.innerHTML=`<p class="q" style="margin:0 0 6px;font-weight:600">${q}</p><div class="opts">${opts.map((o,i)=>`<button type="button" class="opt" data-i="${i}">${o}</button>`).join('')}</div><p class="fb" aria-live="polite"></p>`;
+  $$('.opt',box).forEach(b=>b.addEventListener('click',()=>{const i=+b.dataset.i;$$('.opt',box).forEach(x=>x.classList.remove('ok','bad'));
+    if(i===a){b.classList.add('ok');$('.fb',box).className='fb ok';$('.fb',box).textContent='✓ صحيح!';onOk&&onOk();}
+    else{b.classList.add('bad');$('.fb',box).className='fb bad';$('.fb',box).textContent='✗ حاولي مرة أخرى.';}}));
+}
+
+/* ---------- particle chamber engine ---------- */
+function Chamber(cv,opt){
+  const ctx=cv.getContext('2d');let W=0,H=0;const r=opt.r||7;
+  const st={nA:opt.nA||12,nB:opt.nB||12,T:opt.T||300,cat:false,P:[],flash:[],events:[],coll:0,eff:0,t0:performance.now()};
+  function fit(){const b=cv.getBoundingClientRect(),d=window.devicePixelRatio||1;W=b.width;H=b.height;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);}
+  const base=()=>2.1*Math.sqrt(st.T/300)*(reduced?0.45:1);
+  const rv=()=>base()*(0.35+Math.random()*1.45);
+  function mk(type){const a=Math.random()*Math.PI*2,v=rv();return{x:r+Math.random()*(W-2*r),y:r+Math.random()*(H-2*r),vx:Math.cos(a)*v,vy:Math.sin(a)*v,t:type};}
+  st.reset=function(){if(!W)fit();st.P=[];for(let i=0;i<st.nA;i++)st.P.push(mk('A'));for(let i=0;i<st.nB;i++)st.P.push(mk('B'));st.flash=[];st.events=[];st.coll=0;st.eff=0;st.t0=performance.now();};
+  st.rate=function(){const now=performance.now();st.events=st.events.filter(t=>now-t<5000);const span=Math.min(5,(now-st.t0)/1000);return span>0.5?st.events.length/span:0;};
+  st.left=function(){let a=0,b=0;st.P.forEach(p=>{if(p.t==='A')a++;else if(p.t==='B')b++;});return Math.min(a,b);};
+  st.step=function(){
+    const th=(st.cat?2.8:4.4)*(reduced?0.45:1);
+    for(const p of st.P){p.x+=p.vx;p.y+=p.vy;
+      if(p.x<r||p.x>W-r){p.vx=-p.vx;p.x=Math.max(r,Math.min(W-r,p.x));const s=rv()/Math.hypot(p.vx,p.vy);p.vx*=s;p.vy*=s;}
+      if(p.y<r||p.y>H-r){p.vy=-p.vy;p.y=Math.max(r,Math.min(H-r,p.y));const s=rv()/Math.hypot(p.vx,p.vy);p.vx*=s;p.vy*=s;}}
+    const rm=new Set(),add=[];
+    for(let i=0;i<st.P.length;i++)for(let j=i+1;j<st.P.length;j++){const a=st.P[i],b=st.P[j];if(rm.has(a)||rm.has(b)||a.t==='P'||b.t==='P')continue;
+      const dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy);if(d>=2*r||d===0)continue;
+      const nx=dx/d,ny=dy/d,vn=(a.vx-b.vx)*nx+(a.vy-b.vy)*ny;if(vn<=0)continue;
+      if(a.t!==b.t){st.coll++;
+        if(vn>th){rm.add(a);rm.add(b);st.eff++;st.events.push(performance.now());add.push({x:(a.x+b.x)/2,y:(a.y+b.y)/2,vx:(a.vx+b.vx)/2,vy:(a.vy+b.vy)/2,t:'P'});st.flash.push({x:(a.x+b.x)/2,y:(a.y+b.y)/2,l:18});continue;}}
+      a.vx-=vn*nx;a.vy-=vn*ny;b.vx+=vn*nx;b.vy+=vn*ny;}
+    if(rm.size)st.P=st.P.filter(p=>!rm.has(p)).concat(add);
+  };
+  st.draw=function(){ctx.clearRect(0,0,W,H);
+    for(const p of st.P){ctx.beginPath();if(p.t==='P'){ctx.arc(p.x-4,p.y,r-1,0,7);ctx.arc(p.x+4,p.y,r-1,0,7);ctx.fillStyle='#8A4FC8';}else{ctx.arc(p.x,p.y,r,0,7);ctx.fillStyle=p.t==='A'?'#3B7BFF':'#FF5A3C';}ctx.fill();}
+    st.flash=st.flash.filter(f=>f.l-->0);for(const f of st.flash){ctx.save();ctx.translate(f.x,f.y);ctx.fillStyle='rgba(244,189,76,'+(f.l/18)+')';ctx.beginPath();for(let k=0;k<10;k++){const rr=k%2?6:16-(18-f.l)*0.3;ctx.lineTo(Math.cos(k*Math.PI/5)*rr,Math.sin(k*Math.PI/5)*rr);}ctx.closePath();ctx.fill();ctx.restore();}};
+  fit();const ro=new ResizeObserver(()=>{fit();});ro.observe(cv);onCleanup(()=>ro.disconnect());
+  st.reset();return st;
+}
+
+/* ---------- hero: collision chamber ---------- */
+function initBeaker(){
+  const cv=$('#beaker'),rng=$('#bT');if(!cv)return;
+  const C=Chamber(cv,{nA:14,nB:14,T:300});let raf=0,done=0;
+  const setT=v=>{C.T=Math.max(250,Math.min(450,Math.round(v)));rng.value=C.T;$('#bTv').textContent=C.T+' K';};
+  rng.addEventListener('input',()=>setT(+rng.value));
+  let drag=false,sx=0,sT=0;
+  cv.addEventListener('pointerdown',e=>{drag=true;sx=e.clientX;sT=C.T;cv.setPointerCapture(e.pointerId);});
+  cv.addEventListener('pointermove',e=>{if(drag)setT(sT+(e.clientX-sx)*0.6);});
+  cv.addEventListener('pointerup',()=>drag=false);
+  const loop=()=>{C.step();C.draw();
+    $('#bPh').textContent='تصادمات فعالة: '+C.eff;
+    $('#bHint').textContent=C.T>=380?'حرارة عالية: الجسيمات أسرع، فيمتلك عدد أكبر منها طاقة التنشيط وتتكون النواتج بسرعة.':C.T<=280?'حرارة منخفضة: معظم التصادمات ترتد دون تفاعل لأن طاقتها أقل من طاقة التنشيط.':'اسحبي على الصندوق أو المؤشر لرفع درجة الحرارة، وراقبي الومضات: كل ومضة تصادم فعال يكوّن ناتجًا.';
+    if(C.left()<=1){if(!done)done=performance.now();else if(performance.now()-done>1800){C.reset();done=0;}}
+    raf=requestAnimationFrame(loop);};
+  setT(300);loop();onCleanup(()=>cancelAnimationFrame(raf));
+}
+
+/* ---------- concept maps & illustrations ---------- */
+const AR=id=>`<defs><marker id="${id}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="cm-ah"/></marker></defs>`;
+function flowMap(title,steps,note){return `<h4>${title}</h4><div class="flowmap">${steps.map((s,i)=>(i?'<span class="farr" aria-hidden="true">←</span>':'')+`<div class="fstep${s.k?' k':''}">${s.t}${s.s?`<small>${s.s}</small>`:''}</div>`).join('')}</div>${note?`<p class="cm-note">${note}</p>`:''}`;}
+function flaskSVG(x,nR,nP,clock,hl){
+  let s=`<g transform="translate(${x},0)"><circle cx="50" cy="22" r="16" fill="var(--surface)" stroke="currentColor" stroke-width="2"/>`;
+  if(clock>0){const a=clock*2*Math.PI;s+=clock>=1?`<circle cx="50" cy="22" r="14" fill="#D9338F"/>`:`<path d="M50 22 L50 8 A14 14 0 ${clock>0.5?1:0} 1 ${50+14*Math.sin(a)} ${22-14*Math.cos(a)} Z" fill="#D9338F"/>`;}
+  s+=`<line x1="50" y1="22" x2="50" y2="9" stroke="currentColor" stroke-width="1.5"/><rect x="38" y="44" width="24" height="14" rx="3" fill="#777"/><path d="M40 58 L40 92 L8 190 Q6 198 16 198 L84 198 Q94 198 92 190 L60 92 L60 58" fill="${hl?'rgba(138,79,200,.12)':'rgba(255,255,255,.35)'}" stroke="${hl?'#8A4FC8':'currentColor'}" stroke-width="${hl?3:2}"/>`;
+  const pts=[];let seed=7;const rnd=()=>{seed=(seed*9301+49297)%233280;return seed/233280;};
+  for(let i=0;i<20;i++){const y=104+rnd()*86,half=10+(y-92)*0.32;pts.push([50-half+6+rnd()*(2*half-12),y]);}
+  pts.forEach(([px,py],i)=>{s+=i<nR?`<rect x="${px-3.5}" y="${py-3.5}" width="7" height="7" rx="1.5" fill="#9B3FC8" transform="rotate(${i*23} ${px} ${py})"/>`:`<polygon points="${px},${py-5} ${px+5},${py+4} ${px-5},${py+4}" fill="#1FAE7A"/>`;});
+  return s+'</g>';
+}
+const FL=[20,14,9,6];
+const VIS={
+ flasks:{html:()=>`<h4>🧪 صورة تفاعلية: كيف نعبّر عن السرعة؟</h4>
+  <svg viewBox="0 0 440 215" id="flS" role="img" aria-label="أربعة دوارق تتحول فيها المواد المتفاعلة إلى نواتج مع الزمن"></svg>
+  <div class="row" style="gap:12px;margin-top:6px"><span style="font-size:14px"><span style="color:#9B3FC8">■</span> مادة متفاعلة</span><span style="font-size:14px"><span style="color:#1FAE7A">▲</span> مادة ناتجة</span></div>
+  <div class="chips" id="flI" style="margin-top:10px">${['0 → 1 min','1 → 2 min','2 → 3 min'].map((l,i)=>`<button type="button" class="chip" data-i="${i}" aria-pressed="${i===0}"><span class="ltr">${l}</span></button>`).join('')}</div>
+  <p class="cm-note" id="flT"></p>`,
+  init(root){const draw=i=>{$('#flS',root).innerHTML=[0,1,2,3].map(k=>flaskSVG(10+k*108,FL[k],20-FL[k],k/4,k===i||k===i+1)).join('');
+    const dR=FL[i]-FL[i+1];$('#flT',root).innerHTML=`خلال الفترة من الدقيقة ${i} إلى ${i+1}: نقص عدد جسيمات المتفاعلات من ${FL[i]} إلى ${FL[i+1]}، وزاد عدد النواتج ${dR}. السرعة = <b>${dR} جسيمات في الدقيقة</b>. ${i>0?'لاحظي أن السرعة أقل من الفترة السابقة لأن المتفاعلات قلّت.':'جرّبي الفترات الأخرى وقارني.'}`;};
+    $$('#flI .chip',root).forEach(b=>b.addEventListener('click',()=>{$$('#flI .chip',root).forEach(x=>x.setAttribute('aria-pressed',x===b));draw(+b.dataset.i);}));draw(0);}},
+ rateMap:{html:()=>`<h4>🗺️ خريطة مفاهيم: سرعة التفاعل الكيميائي</h4>
+  <svg viewBox="0 0 640 300" role="img" aria-label="خريطة مفاهيم سرعة التفاعل">${AR('rm1')}
+   <rect x="200" y="10" width="240" height="54" rx="14" class="cm-main"/><text x="320" y="34" text-anchor="middle" class="cm-tw" font-size="17" font-weight="700">سرعة التفاعل الكيميائي</text><text x="320" y="54" text-anchor="middle" class="cm-tw" font-size="12.5">التغير في التركيز في وحدة الزمن</text>
+   ${[[90,'وحدتها','mol/L·s','تُقرأ: مول لكل لتر في الثانية'],[320,'تُحسب من المتفاعلات','Rate = −Δ[A]/Δt','بإشارة سالبة لتبقى موجبة'],[550,'تُحسب من النواتج','Rate = Δ[B]/Δt','قيمة موجبة مباشرة']].map(([x,a,b,c])=>`<path d="M320 64 L${x} 112" class="cm-ln" marker-end="url(#rm1)"/><rect x="${x-90}" y="114" width="180" height="78" rx="12" class="cm-box"/><text x="${x}" y="138" text-anchor="middle" class="cm-t" font-weight="700">${a}</text><text x="${x}" y="161" text-anchor="middle" class="cm-t" font-size="15" direction="ltr">${b}</text><text x="${x}" y="181" text-anchor="middle" class="cm-t" font-size="11.5">${c}</text>`).join('')}
+   <rect x="110" y="222" width="420" height="62" rx="14" class="cm-k"/><text x="320" y="246" text-anchor="middle" class="cm-t" font-weight="700">تتناقص مع مرور الزمن</text><text x="320" y="268" text-anchor="middle" class="cm-t" font-size="13">لأن المتفاعلات تُستهلك فيقل عدد التصادمات</text>
+  </svg>`},
+ collideArt:{html:()=>`<svg viewBox="0 0 300 110" role="img" aria-label="جسيمان يتصادمان">
+   ${[0,1,2].map(i=>`<line x1="${18+i*6}" y1="${40+i*14}" x2="${58+i*6}" y2="${40+i*14}" stroke="currentColor" stroke-width="2" opacity=".4"/><line x1="${242-i*6}" y1="${40+i*14}" x2="${282-i*6}" y2="${40+i*14}" stroke="currentColor" stroke-width="2" opacity=".4"/>`).join('')}
+   <circle cx="112" cy="56" r="38" fill="#3B7BFF"/><circle cx="188" cy="56" r="38" fill="#FF5A3C"/>
+   <circle cx="100" cy="46" r="5" fill="#fff"/><circle cx="200" cy="46" r="5" fill="#fff"/><circle cx="101" cy="47" r="2.5" fill="#222"/><circle cx="199" cy="47" r="2.5" fill="#222"/>
+   <polygon points="150,14 158,38 180,30 164,50 186,62 160,64 166,88 150,70 134,88 140,64 114,62 136,50 120,30 142,38" fill="#F4BD4C"/></svg>`},
+ collisionMap:{html:()=>`<h4>🗺️ خريطة مفاهيم: نظرية التصادم</h4>
+  <svg viewBox="0 0 640 330" role="img" aria-label="خريطة مفاهيم نظرية التصادم">${AR('cm2')}
+   <rect x="220" y="10" width="200" height="50" rx="14" class="cm-main"/><text x="320" y="41" text-anchor="middle" class="cm-tw" font-size="17" font-weight="700">تصادم الجسيمات</text>
+   <path d="M290 60 L170 104" class="cm-ln" marker-end="url(#cm2)"/><path d="M350 60 L470 104" class="cm-ln" marker-end="url(#cm2)"/>
+   <rect x="370" y="106" width="200" height="66" rx="12" class="cm-box" style="stroke:#12916A"/><text x="470" y="132" text-anchor="middle" class="cm-t" font-weight="700">✓ اتجاه صحيح</text><text x="470" y="156" text-anchor="middle" class="cm-t" font-weight="700">✓ طاقة ≥ طاقة التنشيط</text>
+   <rect x="70" y="106" width="200" height="66" rx="12" class="cm-box" style="stroke:#C7362A"/><text x="170" y="132" text-anchor="middle" class="cm-t" font-weight="700">✗ اتجاه خاطئ</text><text x="170" y="156" text-anchor="middle" class="cm-t" font-weight="700">أو ✗ طاقة غير كافية</text>
+   <path d="M470 172 L470 202" class="cm-ln" marker-end="url(#cm2)"/><path d="M170 172 L170 202" class="cm-ln" marker-end="url(#cm2)"/>
+   <rect x="370" y="204" width="200" height="44" rx="12" class="cm-x"/><text x="470" y="232" text-anchor="middle" class="cm-t" font-weight="700">تصادم مثمر ← معقد منشط</text>
+   <rect x="70" y="204" width="200" height="44" rx="12" class="cm-d"/><text x="170" y="232" text-anchor="middle" class="cm-t" font-weight="700">تصادم غير مثمر</text>
+   <path d="M470 248 L470 276" class="cm-ln" marker-end="url(#cm2)"/><path d="M170 248 L170 276" class="cm-ln" marker-end="url(#cm2)"/>
+   <rect x="370" y="278" width="200" height="40" rx="12" class="cm-main"/><text x="470" y="304" text-anchor="middle" class="cm-tw" font-weight="700">تتكون النواتج</text>
+   <rect x="70" y="278" width="200" height="40" rx="12" class="cm-k"/><text x="170" y="304" text-anchor="middle" class="cm-t" font-weight="700">ترتد الجسيمات دون تفاعل</text>
+  </svg>`},
+ bikes:{html:()=>`<h4>🚴‍♀️ صورة تفاعلية: علاقة طاقة التنشيط بسرعة التفاعل</h4>
+  <svg viewBox="0 0 600 300" id="bkS" role="img" aria-label="دراجتان تعبران تلًا صغيرًا وتلًا كبيرًا"></svg>
+  <div class="row" style="margin-top:6px"><button type="button" class="btn sm hot" id="bkGo">🏁 انطلقا!</button></div>
+  <p class="cm-note" id="bkT">التل يمثل طاقة التنشيط Ea. اضغطي «انطلقا» وراقبي من يصل إلى العلم أولًا.</p>`,
+  init(root){const hill=[18,80],Y=[80,240];const bike=(c)=>`<g><circle cx="-14" cy="-10" r="10" fill="none" stroke="#222" stroke-width="3"/><circle cx="14" cy="-10" r="10" fill="none" stroke="#222" stroke-width="3"/><path d="M-14 -10 L-2 -26 L10 -26 L14 -10 M-2 -26 L2 -10" fill="none" stroke="${c}" stroke-width="3"/><circle cx="2" cy="-46" r="6" fill="${c}"/><path d="M2 -40 L-2 -28 L8 -28" fill="none" stroke="${c}" stroke-width="5" stroke-linecap="round"/></g>`;
+    const yAt=(i,x)=>{const h=hill[i],w=i?70:40;const d=Math.abs(x-300);return Y[i]-(d<w?h*Math.cos(d/w*Math.PI/2):0);};
+    const path=i=>{let d=`M60 ${Y[i]}`;for(let x=60;x<=540;x+=4)d+=` L${x} ${yAt(i,x).toFixed(1)}`;return d;};
+    const base=()=>`${[0,1].map(i=>`<path d="${path(i)} L540 ${Y[i]+26} L60 ${Y[i]+26} Z" fill="var(--chip)" stroke="var(--line)"/><text x="300" y="${Y[i]+18}" text-anchor="middle" font-size="${i?22:14}" font-weight="700" fill="#C7362A">Ea</text><line x1="540" y1="${Y[i]}" x2="540" y2="${Y[i]-44}" stroke="#2763D8" stroke-width="3"/><path d="M540 ${Y[i]-44} L566 ${Y[i]-36} L540 ${Y[i]-28}Z" fill="#2763D8"/><circle cx="34" cy="${Y[i]+12}" r="16" fill="#E39B12"/><text x="34" y="${Y[i]+18}" text-anchor="middle" font-size="15" font-weight="700" fill="#fff">${i+1}</text><text x="300" y="${Y[i]+48}" text-anchor="middle" font-size="13" class="cm-t" font-weight="700">${i?'طاقة تنشيط كبيرة = تفاعل بطيء':'طاقة تنشيط صغيرة = تفاعل سريع'}</text>`).join('')}`;
+    let pos=[90,90],raf=0;const draw=()=>{$('#bkS',root).innerHTML=base()+[0,1].map(i=>`<g transform="translate(${pos[i]},${yAt(i,pos[i])})">${bike(i?'#1FAE7A':'#C7362A')}</g>`).join('');};
+    $('#bkGo',root).addEventListener('click',()=>{cancelAnimationFrame(raf);pos=[90,90];let done=[false,false];const t0=performance.now();
+      const step=t=>{for(let i=0;i<2;i++){if(pos[i]>=530){done[i]=true;continue;}const climb=yAt(i,pos[i]+2)<yAt(i,pos[i])?(i?0.25:0.7):1;pos[i]+=(reduced?6:2.4)*climb;}
+        draw();if(done[0]&&!done[1])$('#bkT',root).innerHTML='وصلت الدراجة 1 أولًا: التل الصغير (طاقة تنشيط صغيرة) يجتازه عدد أكبر من الجسيمات بسرعة، فيكون التفاعل أسرع.';
+        if(!(done[0]&&done[1])){raf=requestAnimationFrame(step);}};raf=requestAnimationFrame(step);});
+    onCleanup(()=>cancelAnimationFrame(raf));draw();}},
+ factorsMap:{html:()=>`<h4>🗺️ خريطة مفاهيم: العوامل المؤثرة في سرعة التفاعل</h4>
+  <svg viewBox="0 0 640 300" role="img" aria-label="العوامل المؤثرة في سرعة التفاعل">${AR('fm1')}
+   <circle cx="320" cy="150" r="66" class="cm-main"/><text x="320" y="146" text-anchor="middle" class="cm-tw" font-size="17" font-weight="700">سرعة</text><text x="320" y="168" text-anchor="middle" class="cm-tw" font-size="17" font-weight="700">التفاعل</text>
+   ${[[110,48,'🧪 طبيعة المواد','الأنشط أسرع'],[530,48,'🎢 التركيز','زيادته تزيد التصادمات'],[90,150,'🧊 مساحة السطح','الطحن يزيد السرعة'],[550,150,'🌡️ درجة الحرارة','+10 K تضاعفها تقريبًا'],[320,268,'⚡ المحفزات','تخفض طاقة التنشيط']].map(([x,y,a,b])=>`<path d="M${x+(x<320?75:x>320?-75:0)} ${y+(y<150?12:y>150?-22:0)} L${320+(x<320?-60:x>320?60:0)*(y===150?1:0.6)} ${150+(y<150?-40:y>150?62:0)}" class="cm-ln" marker-end="url(#fm1)"/><rect x="${x-80}" y="${y-24}" width="160" height="50" rx="12" class="cm-box"/><text x="${x}" y="${y-3}" text-anchor="middle" class="cm-t" font-weight="700">${a}</text><text x="${x}" y="${y+17}" text-anchor="middle" class="cm-t" font-size="12">${b}</text>`).join('')}
+  </svg><p class="cm-note">وكلها تفسرها نظرية التصادم: إما أن تزيد عدد التصادمات، أو تزيد نسبة التصادمات التي تملك طاقة التنشيط. أما المثبطات فتبطئ التفاعل.</p>`},
+ kMap:{html:()=>`<h4>🗺️ خريطة مفاهيم: قانون السرعة وثابت السرعة k</h4>
+  <svg viewBox="0 0 640 260" role="img" aria-label="خصائص ثابت السرعة">${AR('km1')}
+   <rect x="200" y="10" width="240" height="56" rx="14" class="cm-main"/><text x="320" y="36" text-anchor="middle" class="cm-tw" font-size="20" font-weight="700" direction="ltr">R = k[A]ᵐ[B]ⁿ</text><text x="320" y="56" text-anchor="middle" class="cm-tw" font-size="12">يُحدد قانون السرعة تجريبيًا</text>
+   ${[[90,'k ثابت السرعة','قيمة محددة لكل تفاعل'],[250,'لا يتغير','بتغير التركيز'],[390,'يتغير','بتغير درجة الحرارة'],[550,'k كبيرة','تعني تفاعلًا سريعًا']].map(([x,a,b])=>`<path d="M320 66 L${x} 106" class="cm-ln" marker-end="url(#km1)"/><rect x="${x-70}" y="108" width="140" height="60" rx="12" class="cm-box"/><text x="${x}" y="133" text-anchor="middle" class="cm-t" font-weight="700">${a}</text><text x="${x}" y="154" text-anchor="middle" class="cm-t" font-size="12">${b}</text>`).join('')}
+   <rect x="80" y="192" width="480" height="54" rx="14" class="cm-k"/><text x="320" y="214" text-anchor="middle" class="cm-t" font-weight="700">من وحداته</text><text x="320" y="236" text-anchor="middle" class="cm-t" font-size="15" direction="ltr">s⁻¹ ، L/mol·s ، L²/mol²·s</text>
+  </svg>`},
+ orderMap:{html:()=>`<h4>🗺️ خريطة مفاهيم: ماذا يحدث للسرعة إذا تضاعف تركيز A؟</h4>
+  <div class="ordgrid">${[['الرتبة صفر','R = k[A]⁰','لا تتغير','×1'],['الرتبة الأولى','R = k[A]¹','تتضاعف مرتين','×2'],['الرتبة الثانية','R = k[A]²','تتضاعف 4 مرات','×4'],['الرتبة الثالثة','R = k[A]³','تتضاعف 8 مرات','×8']].map(([a,b,c,d])=>`<div class="ord"><b>${a}</b><span class="ltr">${b}</span><em>${d}</em><small>${c}</small></div>`).join('')}</div>
+  <p class="cm-note">القاعدة: السرعة الجديدة = (مقدار التضاعف) مرفوعًا للرتبة. مثال: إذا تضاعف التركيز 3 مرات في تفاعل من الرتبة الثانية، تزداد السرعة 3² = 9 مرات.</p>`}
+};
+
+/* ---------- virtual lab helpers ---------- */
+function bubbleAnim(g,{x0,x1,y0,yTop,rate,dur,onTick,onEnd}){
+  const NS='http://www.w3.org/2000/svg';let raf=0,acc=0,last=performance.now();const t0=last;const bs=[];
+  const step=t=>{const dt=(t-last)/1000;last=t;const k=Math.min(1,(t-t0)/dur);acc+=rate*dt*(1-k*0.6);
+    while(acc>=1){acc--;const c=document.createElementNS(NS,'circle');const x=x0+Math.random()*(x1-x0);c.setAttribute('cx',x);c.setAttribute('cy',y0);c.setAttribute('r',1.5+Math.random()*2.5);c.setAttribute('fill','rgba(255,255,255,.85)');c.setAttribute('stroke','rgba(60,90,140,.6)');g.appendChild(c);bs.push({c,x,y:y0,v:40+Math.random()*50});}
+    for(let i=bs.length-1;i>=0;i--){const b=bs[i];b.y-=b.v*dt;b.c.setAttribute('cy',b.y);b.c.setAttribute('cx',b.x+Math.sin(b.y/6)*1.5);if(b.y<yTop){b.c.remove();bs.splice(i,1);}}
+    onTick&&onTick(k);if(k<1)raf=requestAnimationFrame(step);else{bs.forEach(b=>b.c.remove());onEnd&&onEnd();}};
+  raf=requestAnimationFrame(step);onCleanup(()=>cancelAnimationFrame(raf));return ()=>cancelAnimationFrame(raf);
+}
+const BEAKER=(liq,extra='')=>`<path d="M100 60 L100 222 Q100 236 114 236 L246 236 Q260 236 260 222 L260 60" fill="none" stroke="currentColor" stroke-width="3"/><line x1="94" y1="60" x2="106" y2="60" stroke="currentColor" stroke-width="3"/><line x1="254" y1="60" x2="266" y2="60" stroke="currentColor" stroke-width="3"/>
+  <path d="M102 120 L258 120 L258 222 Q258 234 246 234 L114 234 Q102 234 102 222 Z" fill="${liq}" id="lqd"/>${[90,130,170,210].map(y=>`<line x1="240" y1="${y}" x2="258" y2="${y}" stroke="currentColor" opacity=".5"/>`).join('')}${extra}<g id="bub"></g>`;
+function labShell(id,title,desc,controls){return `<h3>🔬 ${title}</h3><p class="desc">${desc}</p>
+  <div class="lab"><svg viewBox="0 0 360 260" id="${id}S" class="labsvg" role="img" aria-label="${title}"></svg>
+  <div class="labside">${controls}<div class="watch"><span>⏱</span><b class="ltr" id="${id}W">0.0 s</b></div><button type="button" class="btn hot" id="${id}Go">ابدئي التجربة</button><p class="fb" id="${id}Msg" style="min-height:1.4em"></p></div></div>`;}
+function radioChips(id,opts){return `<div class="chips" id="${id}">${opts.map((o,i)=>`<button type="button" class="chip" data-v="${o[0]}" aria-pressed="${i===0}">${o[1]}</button>`).join('')}</div>`;}
+function chipVal(root,id){const b=$(`#${id} .chip[aria-pressed=true]`,root);return b?b.dataset.v:null;}
+function bindChips(root,id,cb){$$(`#${id} .chip`,root).forEach(b=>b.addEventListener('click',()=>{if(b.closest('.lab')&&b.closest('.lab').dataset.busy==='1')return;$$(`#${id} .chip`,root).forEach(x=>x.setAttribute('aria-pressed',x===b));cb&&cb(b.dataset.v);}));}
+
+/* ---------- SIMS ---------- */
+const SIMS={};
+
+SIMS.rate={title:'منحنى التركيز ومتوسط السرعة',
+html:()=>`<h3>منحنى التركيز ومتوسط السرعة</h3><p class="desc">بيانات تحلل <span class="f">N2O5</span> عند 45°C. اختاري بداية الفترة ونهايتها، وسيُرسم الخط الذي يمثل متوسط السرعة خلالها.</p>
+ <div class="hc"><canvas id="rtC" aria-label="منحنى تركيز N2O5 مع الزمن"></canvas></div>
+ <div class="row" style="margin-top:10px"><label class="ctrl">بداية الفترة t₁: <b class="ltr" id="t1v"></b><input type="range" dir="ltr" id="t1" min="0" max="100" step="20" value="0"></label>
+ <label class="ctrl">نهاية الفترة t₂: <b class="ltr" id="t2v"></b><input type="range" dir="ltr" id="t2" min="0" max="100" step="20" value="20"></label></div>
+ <p style="font-size:17px;margin:8px 0 0" id="rtOut"></p>
+ <div id="rtQ" style="margin-top:14px"></div>
+ ${prac('إذا كان تركيز كلوريد البيوتيل <span class="f">C4H9Cl</span> في بداية تفاعله مع الماء 0.220 M ثم أصبح 0.100 M بعد 4.00 s، فاحسبي متوسط سرعة التفاعل.','mol/L·s',0.03,0.02,'l1-calc','Rate = −([C4H9Cl]₂ − [C4H9Cl]₁) ÷ (t₂ − t₁)')}
+ ${prac('في التفاعل <span class="f">H2 + Cl2 → 2HCl</span> نقص [H2] من 0.030 M إلى 0.020 M خلال 4.00 s. احسبي متوسط السرعة بعدد مولات H2 المستهلكة لكل لتر في الثانية.','mol/L·s',0.0025,0.02,'','(0.030 − 0.020) ÷ 4.00')}
+ ${prac('احسبي متوسط سرعة التفاعل بين A و B إذا تغير تركيز A من 1.00 M إلى 0.50 M خلال 2.00 s.','mol/L·s',0.25,0.02,'','(1.00 − 0.50) ÷ 2.00')}`,
+init(root){
+  const cv=$('#rtC',root),ctx=cv.getContext('2d');let W,H;
+  const fit=()=>{const b=cv.getBoundingClientRect(),d=window.devicePixelRatio||1;W=b.width;H=b.height;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);draw();};
+  const X=t=>58+t/100*(W-80),Y=c=>H-34-c/0.018*(H-60);
+  function draw(){if(!W)return;const t1=+$('#t1',root).value,t2=+$('#t2',root).value;ctx.clearRect(0,0,W,H);ctx.direction='ltr';const ink=cssv('--muted');ctx.strokeStyle=ink;ctx.fillStyle=ink;ctx.font='12px sans-serif';ctx.lineWidth=1;
+    [0,0.005,0.010,0.015].forEach(c=>{ctx.globalAlpha=.25;ctx.beginPath();ctx.moveTo(X(0),Y(c));ctx.lineTo(X(100),Y(c));ctx.stroke();ctx.globalAlpha=1;ctx.textAlign='right';ctx.fillText(c.toFixed(3),X(0)-6,Y(c)+4);});
+    ctx.textAlign='center';N2O5.forEach(([t])=>ctx.fillText(t,X(t),H-16));ctx.fillText('الزمن (min)',W/2,H-2);
+    ctx.save();ctx.translate(12,H/2);ctx.rotate(-Math.PI/2);ctx.fillText('[N2O5] (M)',0,0);ctx.restore();
+    ctx.strokeStyle='#2763D8';ctx.lineWidth=3;ctx.beginPath();N2O5.forEach(([t,c],i)=>i?ctx.lineTo(X(t),Y(c)):ctx.moveTo(X(t),Y(c)));ctx.stroke();
+    N2O5.forEach(([t,c])=>{ctx.beginPath();ctx.arc(X(t),Y(c),4,0,7);ctx.fillStyle='#2763D8';ctx.fill();});
+    if(t2>t1){const c1=N2O5[t1/20][1],c2=N2O5[t2/20][1];ctx.strokeStyle='#DE4527';ctx.lineWidth=2.5;ctx.setLineDash([6,4]);ctx.beginPath();ctx.moveTo(X(t1),Y(c1));ctx.lineTo(X(t2),Y(c2));ctx.stroke();ctx.setLineDash([]);
+      [[t1,c1],[t2,c2]].forEach(([t,c])=>{ctx.beginPath();ctx.arc(X(t),Y(c),6,0,7);ctx.fillStyle='#DE4527';ctx.fill();});}}
+  const seen=new Set();
+  const upd=()=>{const t1=+$('#t1',root).value,t2=+$('#t2',root).value;$('#t1v',root).textContent=t1+' min';$('#t2v',root).textContent=t2+' min';
+    const o=$('#rtOut',root);
+    if(t2<=t1){o.innerHTML='اجعلي نهاية الفترة بعد بدايتها.';}
+    else{const c1=N2O5[t1/20][1],c2=N2O5[t2/20][1],r=-(c2-c1)/(t2-t1);seen.add(t1+'-'+t2);
+      o.innerHTML=`<span class="ltr">Rate = −(${c2} − ${c1}) ÷ (${t2} − ${t1}) = <b style="color:var(--hot)">${nice(r,3)} mol/L·min</b></span>`;}
+    draw();};
+  ['#t1','#t2'].forEach(s=>$(s,root).addEventListener('input',upd));
+  const ro=new ResizeObserver(fit);ro.observe(cv);onCleanup(()=>ro.disconnect());fit();upd();
+  mcq(root,'#rtQ','جرّبي الفترات (0–20) ثم (40–60) ثم (80–100). كيف يتغير متوسط سرعة تحلل N2O5 مع تقدم الزمن؟',['يقل لأن تركيز المادة المتفاعلة يقل فتقل التصادمات','يزداد لأن النواتج تزداد','يبقى ثابتًا طوال التفاعل','يزداد ثم يثبت'],0,()=>completeTask('l1-trend'));
+}};
+
+SIMS.collide={title:'مختبر التصادم',
+html:()=>`<h3>مختبر التصادم: <span class="f">CO</span> مع <span class="f">NO2</span></h3><p class="desc">اختاري اتجاه التصادم وطاقته، ثم اضغطي «صادمي». هل يتكون المعقد المنشط وتتكون النواتج؟</p>
+ <svg viewBox="0 0 600 190" id="clS" role="img" aria-label="تصادم جزيئين"><line x1="0" y1="170" x2="600" y2="170" stroke="currentColor" opacity=".2"/><g id="clCO"></g><g id="clNO"></g><g id="clFx"></g><text x="300" y="30" text-anchor="middle" font-size="15" font-weight="700" id="clLbl" fill="currentColor"></text></svg>
+ <div class="row" style="gap:6px;margin:6px 0 4px"><span style="font-size:13px;color:var(--muted)">⚫ كربون</span><span style="font-size:13px;color:var(--muted)">🔴 أكسجين</span><span style="font-size:13px;color:var(--muted)">🔵 نيتروجين</span></div>
+ <div class="chips" id="clOr" role="radiogroup" aria-label="اتجاه التصادم">
+  <button type="button" class="chip" data-o="ok" aria-pressed="true">ذرة C تصطدم بذرة O</button>
+  <button type="button" class="chip" data-o="o" aria-pressed="false">ذرة O من CO تصطدم بـ NO2</button>
+  <button type="button" class="chip" data-o="n" aria-pressed="false">ذرة C تصطدم بذرة N</button></div>
+ <label class="ctrl" style="margin-top:12px">طاقة التصادم: <b class="ltr" id="clEv"></b> <span style="font-size:13px">(طاقة التنشيط = 60)</span><input type="range" dir="ltr" id="clE" min="10" max="100" step="5" value="75"></label>
+ <div class="row" style="margin-top:10px"><button type="button" class="btn hot" id="clGo">💥 صادمي</button></div>
+ <div class="status wait" id="clRes" style="margin-top:12px">اختاري الاتجاه والطاقة ثم صادمي.</div>
+ <table class="ctable" style="margin-top:10px"><tr><th>المحاولة</th><th>الاتجاه</th><th>الطاقة</th><th>النتيجة</th></tr><tbody id="clLog"></tbody></table>`,
+init(root){
+  const C='#4A4F5C',O='#E0472B',N='#3B9BFF',at=(x,y,c,r=13)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${c}" stroke="rgba(0,0,0,.25)"/>`;
+  const CO=or=>or==='o'?at(-26,0,C)+at(0,0,O):at(-26,0,O)+at(0,0,C);
+  const NO2=or=>or==='n'?at(0,0,N)+at(18,-20,O)+at(18,20,O):at(0,0,O)+at(24,0,N)+at(40,-20,O);
+  let or='ok',busy=false,n=0;const seen={o:false,e:false};
+  const gco=$('#clCO',root),gno=$('#clNO',root),fx=$('#clFx',root),lbl=$('#clLbl',root);
+  const place=(a,b)=>{gco.setAttribute('transform',`translate(${a},110)`);gno.setAttribute('transform',`translate(${b},110)`);};
+  const reset=()=>{gco.innerHTML=CO(or);gno.innerHTML=NO2(or);fx.innerHTML='';lbl.textContent='';place(90,500);};
+  const anim=(ms,f)=>new Promise(res=>{if(reduced){f(1);res();return;}const t0=performance.now();const s=t=>{const k=Math.min(1,(t-t0)/ms);f(k);if(k<1){const id=requestAnimationFrame(s);onCleanup(()=>cancelAnimationFrame(id));}else res();};requestAnimationFrame(s);});
+  $$('#clOr .chip',root).forEach(b=>b.addEventListener('click',()=>{if(busy)return;or=b.dataset.o;$$('#clOr .chip',root).forEach(x=>x.setAttribute('aria-pressed',x===b));reset();}));
+  const ev=()=>{$('#clEv',root).textContent=$('#clE',root).value;};$('#clE',root).addEventListener('input',ev);ev();
+  $('#clGo',root).addEventListener('click',async()=>{if(busy)return;busy=true;reset();const E=+$('#clE',root).value,ok=or==='ok'&&E>=60;
+    const ms=1400-E*8;await anim(ms,k=>place(90+(287-90)*k,500-(500-313)*k));
+    fx.innerHTML=`<g transform="translate(300,110)"><polygon points="0,-34 8,-10 32,-12 12,4 22,28 0,14 -22,28 -12,4 -32,-12 -8,-10" fill="#F4BD4C" opacity=".85"/></g>`;
+    const res=$('#clRes',root);let why;
+    if(ok){lbl.textContent='المعقد المنشط';await anim(500,()=>{});fx.innerHTML='';
+      gco.innerHTML=at(-26,0,O)+at(0,0,C)+at(26,0,O);gno.innerHTML=at(0,0,N)+at(26,0,O);lbl.textContent='النواتج: CO2 + NO';
+      await anim(900,k=>place(287-200*k,330+170*k));
+      res.className='status ok';res.textContent='✓ تصادم مثمر: الاتجاه صحيح والطاقة أكبر من طاقة التنشيط، فتكوّن المعقد المنشط ثم النواتج CO2 و NO.';why='مثمر';completeTask('l1-hit');}
+    else{if(or!=='ok')seen.o=true;else seen.e=true;await anim(150,()=>{});fx.innerHTML='';
+      await anim(800,k=>place(287-197*k,313+187*k));
+      res.className='status wait';res.textContent=or!=='ok'?'✗ تصادم غير مثمر: الاتجاه غير صحيح، فلم تلمس ذرة C ذرة O، وارتدت الجزيئات دون تكوين روابط.':'✗ تصادم غير مثمر: الاتجاه صحيح لكن الطاقة أقل من طاقة التنشيط، فلم يتكون المعقد المنشط.';why=or!=='ok'?'اتجاه خاطئ':'طاقة غير كافية';
+      if(seen.o&&seen.e)completeTask('l1-miss');}
+    const names={ok:'C نحو O',o:'O نحو NO2',n:'C نحو N'};$('#clLog',root).insertAdjacentHTML('afterbegin',`<tr><td class="n">${++n}</td><td>${names[or]}</td><td class="n">${E}</td><td>${why}</td></tr>`);
+    busy=false;});
+  reset();
+}};
+
+SIMS.profile={title:'مخطط طاقة التفاعل',
+html:()=>`<h3>مخطط طاقة التفاعل</h3><p class="desc">غيّري طاقة التنشيط والتغير في المحتوى الحراري، وراقبي شكل المخطط وطاقة تنشيط التفاعل العكسي.</p>
+ <svg viewBox="0 0 520 270" id="pfS" role="img" aria-label="مخطط الطاقة"></svg>
+ <div class="row"><label class="ctrl">طاقة التنشيط Ea: <b class="ltr" id="pfEv"></b><input type="range" dir="ltr" id="pfE" min="20" max="150" step="5" value="80"></label>
+ <label class="ctrl">التغير في المحتوى الحراري ΔH: <b class="ltr" id="pfHv"></b><input type="range" dir="ltr" id="pfH" min="-100" max="100" step="5" value="-60"></label></div>
+ <div class="status wait" id="pfOut" style="margin-top:10px"></div>
+ <div id="pfQ" style="margin-top:14px"></div>`,
+init(root){
+  const k=0.9,yr=150;
+  const upd=()=>{let E=+$('#pfE',root).value;const dH=+$('#pfH',root).value;if(dH>0&&E<dH+10){E=dH+10;$('#pfE',root).value=E;}
+    const pk=yr-E*k,yp=yr-dH*k,ink='currentColor',col=dH<0?'#DE4527':'#2763D8';
+    $('#pfS',root).innerHTML=`<defs><marker id="pa" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker></defs>
+     <line x1="30" y1="255" x2="510" y2="255" stroke="${ink}" stroke-width="2"/><line x1="30" y1="255" x2="30" y2="8" stroke="${ink}" stroke-width="2"/>
+     <text x="270" y="268" text-anchor="middle" font-size="12" fill="${ink}">سير التفاعل</text>
+     <path d="M40 ${yr} L150 ${yr} C200 ${yr} 210 ${pk} 260 ${pk} C310 ${pk} 320 ${yp} 370 ${yp} L495 ${yp}" fill="none" stroke="${col}" stroke-width="3.5"/>
+     <line x1="150" y1="${yr}" x2="495" y2="${yr}" stroke="${ink}" stroke-dasharray="5 4" opacity=".5"/>
+     <line x1="245" y1="${yr}" x2="245" y2="${pk+4}" stroke="${ink}" marker-end="url(#pa)"/><text x="196" y="${(yr+pk)/2}" font-size="12" fill="${ink}">Ea أمامي</text>
+     <line x1="285" y1="${yp}" x2="285" y2="${pk+4}" stroke="#8A4FC8" marker-end="url(#pa)"/><text x="292" y="${(yp+pk)/2}" font-size="12" fill="#8A4FC8">Ea عكسي</text>
+     <line x1="450" y1="${yr}" x2="450" y2="${yp+(dH<0?-4:4)}" stroke="${ink}" marker-end="url(#pa)"/><text x="457" y="${(yr+yp)/2}" font-size="12" fill="${ink}">ΔH</text>
+     <text x="45" y="${yr-8}" font-size="12" fill="${ink}">المتفاعلات</text><text x="380" y="${yp-8}" font-size="12" fill="${ink}">النواتج</text><text x="225" y="${pk-8}" font-size="12" fill="${ink}">المعقد المنشط</text>`;
+    $('#pfEv',root).textContent=E+' kJ';$('#pfHv',root).textContent=(dH>0?'+':'')+dH+' kJ';
+    const o=$('#pfOut',root);o.className='status '+(dH<0?'wait':'ok');
+    o.innerHTML=`${dH<0?'تفاعل طارد للحرارة: النواتج أقل طاقة من المتفاعلات.':dH>0?'تفاعل ماص للحرارة: النواتج أعلى طاقة من المتفاعلات.':'ΔH = 0'}<br><span class="ltr">Ea (أمامي) = ${E} kJ ، Ea (عكسي) = Ea − ΔH = ${E-dH} kJ</span>`;
+    if(dH>0)completeTask('l1-endo');};
+  ['#pfE','#pfH'].forEach(s=>$(s,root).addEventListener('input',upd));upd();
+  mcq(root,'#pfQ','في التفاعل الطارد للحرارة، طاقة تنشيط التفاعل العكسي:',['أكبر من طاقة تنشيط التفاعل الأمامي','أقل من طاقة تنشيط التفاعل الأمامي','تساوي طاقة تنشيط التفاعل الأمامي','تساوي صفرًا'],0,()=>completeTask('l1-rev'));
+}};
+
+SIMS.box={title:'غرفة التفاعل',
+html:()=>`<h3>غرفة التفاعل: التركيز ودرجة الحرارة والمحفز</h3><p class="desc">جسيمات A (🔵) تتفاعل مع B (🔴) لتكوين AB (🟣). غيّري الظروف وراقبي عدد التصادمات الفعالة في الثانية، أي سرعة التفاعل.</p>
+ <div class="hc"><canvas id="bxC" style="height:280px" aria-label="غرفة تفاعل"></canvas></div>
+ <div class="row" style="margin-top:10px"><label class="ctrl">عدد جسيمات B (التركيز): <b class="ltr" id="bxBv"></b><input type="range" dir="ltr" id="bxB" min="4" max="30" step="2" value="10"></label>
+ <label class="ctrl">درجة الحرارة: <b class="ltr" id="bxTv"></b><input type="range" dir="ltr" id="bxT" min="250" max="450" step="10" value="300"></label></div>
+ <div class="row" style="margin-top:8px"><label class="switch"><input type="checkbox" id="bxK"> إضافة محفز (يخفض طاقة التنشيط)</label><button type="button" class="btn sm ghost" id="bxR">↺ إعادة التفاعل</button></div>
+ <div class="row" style="margin-top:10px;gap:18px"><span>سرعة التفاعل: <b class="ltr" id="bxRate" style="color:var(--hot);font-size:20px">0</b> تصادم فعال/ثانية</span><span>النواتج AB: <b id="bxP">0</b></span><span>كل التصادمات: <b id="bxAll">0</b></span></div>
+ <p class="hint">تقل السرعة تدريجيًا كلما استُهلكت المواد المتفاعلة. أعيدي التفاعل بعد كل تغيير للمقارنة.</p>`,
+init(root){
+  const cv=$('#bxC',root);const C=Chamber(cv,{nA:14,nB:10,T:300,r:10});let raf=0,timer=0;
+  const sched=(id,cond)=>{clearTimeout(timer);timer=setTimeout(()=>{if(cond())completeTask(id);},3500);};
+  const lab=()=>{$('#bxBv',root).textContent=$('#bxB',root).value;$('#bxTv',root).textContent=$('#bxT',root).value+' K';};
+  $('#bxB',root).addEventListener('input',()=>{C.nB=+$('#bxB',root).value;lab();C.reset();sched('l2-conc',()=>C.nB>=24);});
+  $('#bxT',root).addEventListener('input',()=>{C.T=+$('#bxT',root).value;lab();C.reset();sched('l2-temp',()=>C.T>=380);});
+  $('#bxK',root).addEventListener('change',()=>{C.cat=$('#bxK',root).checked;C.reset();sched('l2-cat',()=>C.cat);});
+  $('#bxR',root).addEventListener('click',()=>C.reset());
+  let fr=0;const loop=()=>{C.step();C.draw();if(++fr%10===0){$('#bxRate',root).textContent=C.rate().toFixed(1);$('#bxP',root).textContent=C.eff;$('#bxAll',root).textContent=C.coll;}raf=requestAnimationFrame(loop);};
+  lab();loop();onCleanup(()=>{cancelAnimationFrame(raf);clearTimeout(timer);});
+}};
+
+SIMS.cube={title:'مساحة السطح',
+html:()=>`<h3>قطّعي المكعب: مساحة السطح</h3><p class="desc">مكعب طول ضلعه 2 cm. كلما قطّعناه قطعًا أصغر زادت مساحة السطح المعرّضة للتصادم، دون أن تتغير الكتلة.</p>
+ <div class="row" style="align-items:center;gap:20px"><svg viewBox="0 0 300 275" id="cbS" style="max-width:280px;flex:1;min-width:220px" role="img" aria-label="مكعب مقطع"></svg>
+ <div style="flex:1;min-width:220px"><label class="ctrl">عدد القطع على كل ضلع: <b class="ltr" id="cbNv"></b><input type="range" dir="ltr" id="cbN" min="1" max="5" step="1" value="1"></label>
+ <table class="dtable" style="margin-top:10px"><tr><td>عدد القطع</td><td id="cbP"></td></tr><tr><td>طول ضلع القطعة</td><td id="cbL"></td></tr><tr><td>مساحة السطح الكلية</td><td id="cbA"></td></tr></table>
+ <div style="margin-top:10px;font-size:15px">السرعة النسبية للتفاعل</div><div class="tbar" style="height:14px"><i id="cbBar" style="width:20%"></i></div></div></div>
+ ${prac('مكعب من مادة طول ضلعه 3 cm، قُطّع إلى 27 مكعبًا صغيرًا طول ضلع كل منها 1 cm. احسبي مساحة السطح الكلية بعد التقطيع.','cm²',162,0.01,'l2-area','مساحة المكعب الصغير = 6 × 1² ، ثم اضربي في عدد المكعبات.')}`,
+init(root){
+  const cx=150,cy=140,a=104,b=60,h=120,P=(x,y,z)=>[cx+(x-y)*a,cy+(x+y)*b-z*h];
+  const poly=(pts,fill)=>`<polygon points="${pts.map(p=>p.join(',')).join(' ')}" fill="${fill}" stroke="currentColor" stroke-width="1.5"/>`;
+  const ln=(p,q)=>`<line x1="${p[0]}" y1="${p[1]}" x2="${q[0]}" y2="${q[1]}" stroke="currentColor" stroke-width="1" opacity=".7"/>`;
+  const upd=()=>{const n=+$('#cbN',root).value;let s='';
+    s+=poly([P(0,0,1),P(1,0,1),P(1,1,1),P(0,1,1)],'rgba(138,79,200,.25)');
+    s+=poly([P(1,0,0),P(1,1,0),P(1,1,1),P(1,0,1)],'rgba(39,99,216,.22)');
+    s+=poly([P(0,1,0),P(1,1,0),P(1,1,1),P(0,1,1)],'rgba(222,69,39,.18)');
+    for(let i=1;i<n;i++){const f=i/n;
+      s+=ln(P(f,0,1),P(f,1,1))+ln(P(0,f,1),P(1,f,1));
+      s+=ln(P(1,f,0),P(1,f,1))+ln(P(1,0,f),P(1,1,f));
+      s+=ln(P(f,1,0),P(f,1,1))+ln(P(0,1,f),P(1,1,f));}
+    $('#cbS',root).innerHTML=s;const area=24*n;
+    $('#cbNv',root).textContent=n;$('#cbP',root).textContent=n**3;$('#cbL',root).textContent=(2/n).toFixed(2).replace(/\.?0+$/,'')+' cm';$('#cbA',root).textContent=area+' cm²';
+    $('#cbBar',root).style.width=(area/120*100)+'%';if(n>=4)completeTask('l2-cube');};
+  $('#cbN',root).addEventListener('input',upd);upd();
+}};
+
+SIMS.maxwell={title:'الحرارة وطاقة التنشيط',
+html:()=>`<h3>درجة الحرارة وطاقة التنشيط</h3><p class="desc">المنحنى يوضح توزيع طاقات الجسيمات. المنطقة الملونة بعد الخط المتقطع هي الجسيمات التي تملك طاقة التنشيط أو أكثر.</p>
+ <div class="hc"><canvas id="mxC" aria-label="توزيع طاقة الجسيمات"></canvas></div>
+ <div class="row" style="margin-top:10px"><label class="ctrl">درجة الحرارة T₂: <b class="ltr" id="mxTv"></b><input type="range" dir="ltr" id="mxT" min="290" max="350" step="5" value="310"></label>
+ <label class="switch"><input type="checkbox" id="mxK"> إضافة محفز</label></div>
+ <div class="status wait" id="mxOut" style="margin-top:10px"></div>
+ ${prac('من منحنى «سرعة التفاعل ودرجة الحرارة» (الشكل 2-10): السرعة النسبية 2 عند 290 K، وتتضاعف تقريبًا كل 10 K. حدّدي السرعة النسبية عند 325 K.','',22.6,0.08,'l2-325','عند 320 K السرعة 16، وعند 330 K السرعة 32، و325 K في المنتصف على منحنى أسي.')}`,
+init(root){
+  const cv=$('#mxC',root),ctx=cv.getContext('2d');let W,H;
+  const f=(E,T)=>2/Math.sqrt(Math.PI)*Math.sqrt(E)/Math.pow(T,1.5)*Math.exp(-E/T);
+  const frac=(Ea,T)=>{let s=0;const dE=5;for(let E=Ea;E<Ea+20*T;E+=dE)s+=f(E,T)*dE;return s;};
+  const fit=()=>{const b=cv.getBoundingClientRect(),d=window.devicePixelRatio||1;W=b.width;H=b.height;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);upd();};
+  function upd(){if(!W)return;const T=+$('#mxT',root).value,cat=$('#mxK',root).checked,Ea=cat?850:1250,T1=290,Em=2400,D=t=>300+(t-290)*6;
+    const X=E=>40+E/Em*(W-60),ymax=f(D(T1)/2,D(T1))*1.1,Y=v=>H-30-v/ymax*(H-50);
+    ctx.clearRect(0,0,W,H);ctx.direction='ltr';const ink=cssv('--muted');ctx.strokeStyle=ink;ctx.fillStyle=ink;ctx.lineWidth=1.5;ctx.font='12px sans-serif';
+    ctx.beginPath();ctx.moveTo(40,H-30);ctx.lineTo(W-15,H-30);ctx.moveTo(40,H-30);ctx.lineTo(40,10);ctx.stroke();
+    ctx.textAlign='center';ctx.fillText('طاقة التصادم',W/2,H-10);
+    [[T,'rgba(222,69,39,.25)'],[T1,'rgba(39,99,216,.35)']].forEach(([t,c])=>{ctx.fillStyle=c;ctx.beginPath();ctx.moveTo(X(Ea),Y(0));for(let E=Ea;E<=Em;E+=10)ctx.lineTo(X(E),Y(f(E,D(t))));ctx.lineTo(X(Em),Y(0));ctx.closePath();ctx.fill();});
+    [[T1,'#2763D8','T₁ = 290 K'],[T,'#DE4527','T₂ = '+T+' K']].forEach(([t,c,l],i)=>{ctx.strokeStyle=c;ctx.lineWidth=2.5;ctx.beginPath();for(let E=1;E<=Em;E+=8){const x=X(E),y=Y(f(E,D(t)));E===1?ctx.moveTo(x,y):ctx.lineTo(x,y);}ctx.stroke();ctx.fillStyle=c;ctx.textAlign='left';ctx.fillText(l,W-120,22+i*16);});
+    ctx.strokeStyle=ink;ctx.setLineDash([6,4]);ctx.beginPath();ctx.moveTo(X(Ea),12);ctx.lineTo(X(Ea),H-30);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle=ink;ctx.textAlign='center';ctx.fillText(cat?'طاقة التنشيط مع محفز':'طاقة التنشيط',X(Ea),24);
+    const rel=2*Math.pow(2,(T-290)/10);
+    $('#mxTv',root).textContent=T+' K';
+    $('#mxOut',root).innerHTML=`${T>290?'المنطقة الحمراء (الجسيمات التي تملك طاقة التنشيط عند T₂) أكبر من الزرقاء عند T₁، لذلك تزداد التصادمات الفعالة.':'حرّكي T₂ إلى درجة أعلى وقارني المنطقتين الملونتين.'}<br>السرعة النسبية من الشكل 2-10 عند ${T} K ≈ <b class="ltr">${rel.toFixed(1)}</b>${cat?'، والمحفز يزيدها أكثر لأنه يخفض طاقة التنشيط.':''}`;}
+  ['#mxT','#mxK'].forEach(s=>$(s,root).addEventListener('input',upd));
+  const ro=new ResizeObserver(fit);ro.observe(cv);onCleanup(()=>ro.disconnect());
+  const th=()=>upd();window.addEventListener('themechange',th);onCleanup(()=>window.removeEventListener('themechange',th));fit();
+}};
+
+SIMS.mult={title:'مختبر الرتب',
+html:()=>`<h3>مختبر الرتب: كيف تتغير السرعة؟</h3><p class="desc">اختاري رتبة كل مادة في قانون السرعة، ثم غيّري التراكيز وراقبي كم مرة تتضاعف السرعة.</p>
+ <p style="font-size:22px;font-weight:700;margin:4px 0 10px" class="ltr" id="mlLaw"></p>
+ <div class="row"><label class="ctrl">رتبة A (m)<select id="mlM">${[0,1,2,3].map(v=>`<option ${v===1?'selected':''}>${v}</option>`).join('')}</select></label>
+ <label class="ctrl">رتبة B (n)<select id="mlN">${[0,1,2,3].map(v=>`<option ${v===2?'selected':''}>${v}</option>`).join('')}</select></label>
+ <label class="ctrl">[A] تُضرب في<select id="mlFA">${[1,2,3].map(v=>`<option ${v===2?'selected':''}>${v}</option>`).join('')}</select></label>
+ <label class="ctrl">[B] تُضرب في<select id="mlFB">${[1,2,3].map(v=>`<option>${v}</option>`).join('')}</select></label></div>
+ <div class="status ok" id="mlOut" style="margin-top:12px"></div>
+ <div id="mlQ" style="margin-top:14px"></div>
+ ${prac('إذا كانت رتبة المادة المتفاعلة في تفاعل كيميائي من الرتبة الأولى، فكم مرة تتضاعف سرعة التفاعل إذا تضاعف تركيزها ثلاث مرات؟','مرات',3,0.001,'l3-x3','الرتبة الأولى: السرعة تتغير بالمقدار نفسه الذي يتغير به التركيز.')}
+ ${prac('قانون سرعة التفاعل <span class="f">CH3CHO(g) → CH4(g) + CO(g)</span> هو <span class="f">R = k[CH3CHO]²</span>. السرعة 2.70 × 10⁻¹¹ mol/(L·s) عندما [A] = 2.00 × 10⁻³ M. ما السرعة عندما [A] = 8.00 × 10⁻³ M؟','mol/(L·s)',4.32e-10,0.02,'l3-fill','التركيز تضاعف 4 مرات، والرتبة الثانية: 4² = 16.')}`,
+init(root){
+  const sup=v=>v===1?'':String(v).split('').map(c=>SUP[c]).join('');
+  const upd=()=>{const m=+$('#mlM',root).value,n=+$('#mlN',root).value,fa=+$('#mlFA',root).value,fb=+$('#mlFB',root).value;
+    $('#mlLaw',root).innerHTML='R = k'+(m?'[A]'+sup(m):'')+(n?'[B]'+sup(n):'');
+    const mul=Math.pow(fa,m)*Math.pow(fb,n);
+    $('#mlOut',root).innerHTML=`الرتبة الكلية = ${m} + ${n} = <b>${m+n}</b><br><span class="ltr">السرعة الجديدة = ${fa}${sup(m)||(m?'':'⁰')} × ${fb}${sup(n)||(n?'':'⁰')} = <b style="font-size:20px">${mul}×</b></span> السرعة الأصلية`;};
+  ['#mlM','#mlN','#mlFA','#mlFB'].forEach(s=>$(s,root).addEventListener('input',upd));upd();
+  mcq(root,'#mlQ','ما الرتبة الكلية للتفاعل <span class="f">R = k[NO]²[H2]</span>؟',['الأولى','الثانية','الثالثة','الرابعة'],2,()=>completeTask('l3-total'));
+  fmAll(root);
+}};
+
+SIMS.order={title:'مختبر السرعات الابتدائية',
+html:()=>`<h3>مختبر السرعات الابتدائية: اكتشفي القانون</h3><p class="desc">تفاعل مجهول <span class="f">aA + bB → نواتج</span>. اختاري التراكيز الابتدائية وأجري المحاولات، ثم حدّدي رتبة كل مادة. نصيحة: غيّري تركيز مادة واحدة فقط في كل مرة.</p>
+ <div class="row"><label class="ctrl">[A] (M)<select id="orA"><option>0.100</option><option>0.200</option><option>0.300</option></select></label>
+ <label class="ctrl">[B] (M)<select id="orB"><option>0.100</option><option>0.200</option><option>0.300</option></select></label>
+ <button type="button" class="btn sm cold" id="orRun" style="align-self:flex-end">🧪 أجري المحاولة</button></div>
+ <table class="ctable" style="margin-top:12px"><tr><th>المحاولة</th><th>[A] (M)</th><th>[B] (M)</th><th>السرعة الابتدائية mol/(L·s)</th></tr><tbody id="orT"></tbody></table>
+ <div class="row" style="margin-top:14px"><label class="ctrl">رتبة A (m)<select id="orM"><option value="">?</option><option>0</option><option>1</option><option>2</option></select></label>
+ <label class="ctrl">رتبة B (n)<select id="orN"><option value="">?</option><option>0</option><option>1</option><option>2</option></select></label>
+ <button type="button" class="btn sm" id="orChk" style="align-self:flex-end">تحقّقي</button><button type="button" class="btn sm ghost" id="orNew" style="align-self:flex-end">تفاعل جديد</button></div>
+ <p class="fb" id="orFb"></p>`,
+init(root){
+  let m,n,k,cnt;
+  const nw=()=>{do{m=Math.floor(Math.random()*3);n=Math.floor(Math.random()*3);}while(m+n===0);k=[0.15,0.2,0.25,0.4][Math.floor(Math.random()*4)];cnt=0;$('#orT',root).innerHTML='';$('#orFb',root).textContent='';$('#orM',root).value='';$('#orN',root).value='';};
+  $('#orRun',root).addEventListener('click',()=>{const A=+$('#orA',root).value,B=+$('#orB',root).value,R=k*Math.pow(A,m)*Math.pow(B,n);
+    $('#orT',root).insertAdjacentHTML('beforeend',`<tr><td class="n">${++cnt}</td><td class="n">${A.toFixed(3)}</td><td class="n">${B.toFixed(3)}</td><td class="n">${sci(R)}</td></tr>`);});
+  $('#orChk',root).addEventListener('click',()=>{const fb=$('#orFb',root),M=$('#orM',root).value,N=$('#orN',root).value;
+    if(M===''||N===''){fb.className='fb bad';fb.textContent='اختاري رتبة A ورتبة B.';return;}
+    if(cnt<3){fb.className='fb bad';fb.textContent='أجري ثلاث محاولات على الأقل قبل التحقق.';return;}
+    if(+M===m&&+N===n){const s=v=>v===1?'':String(v).split('').map(c=>SUP[c]).join('');fb.className='fb ok';fb.innerHTML=`✓ أحسنتِ! القانون: <span class="ltr">R = k${m?'[A]'+s(m):''}${n?'[B]'+s(n):''}</span>، والرتبة الكلية ${m+n}.`;completeTask('l3-law');}
+    else{fb.className='fb bad';fb.textContent='✗ ليست صحيحة. قارني محاولتين تغيّر فيهما تركيز مادة واحدة فقط: إذا تضاعفت السرعة مرتين فالرتبة 1، وأربع مرات فالرتبة 2، وإذا لم تتغير فالرتبة 0.';}});
+  $('#orNew',root).addEventListener('click',nw);nw();
+}};
+
+/* ---------- virtual labs (lesson 2-2) ---------- */
+function labRun(root,id,{dur,simT,rate,box,onTick,onEnd}){
+  const lab=$('.lab',root);lab.dataset.busy='1';$(`#${id}Go`,root).disabled=true;
+  bubbleAnim($(`#${id}S #bub`,root),{...box,rate,dur,onTick:k=>{$(`#${id}W`,root).textContent=(simT*k).toFixed(1)+' s';onTick&&onTick(k);},onEnd:()=>{lab.dataset.busy='0';$(`#${id}Go`,root).disabled=false;onEnd&&onEnd();}});
+}
+function upsertRow(tb,key,cells){let tr=tb.querySelector(`tr[data-k="${key}"]`);if(!tr){tr=document.createElement('tr');tr.dataset.k=key;tb.appendChild(tr);}tr.innerHTML=cells.map(c=>`<td class="n">${c}</td>`).join('');}
+
+SIMS.labNature={title:'مختبر: طبيعة المواد المتفاعلة',
+html:()=>labShell('ln','مختبر: الخارصين والنحاس في نترات الفضة','ضعي شريطًا من الفلز في محلول نترات الفضة تركيزه 0.05 M وراقبي سرعة ترسّب بلورات الفضة. أجري التجربة على الفلزين بالتركيز نفسه.',
+  `<div class="lablbl">اختاري الفلز</div>${radioChips('lnM',[['zn','شريط خارصين Zn'],['cu','شريط نحاس Cu']])}`)+
+ `<table class="ctable" style="margin-top:12px"><tr><th>الفلز</th><th>كتلة الفضة المترسبة بعد 60 s</th><th>ملاحظات</th></tr><tbody id="lnT"></tbody></table>
+  <p style="margin:10px 0 0;font-size:15px"><span class="f">Zn(s) + 2AgNO3(aq) → Zn(NO3)2(aq) + 2Ag(s)</span><br><span class="f">Cu(s) + 2AgNO3(aq) → Cu(NO3)2(aq) + 2Ag(s)</span></p>
+  <div id="lnQ" style="margin-top:12px"></div>`,
+init(root){
+  const done=new Set();
+  const scene=m=>{$('#lnS',root).innerHTML=BEAKER('rgba(190,215,240,.45)',`<rect x="168" y="30" width="24" height="190" rx="3" fill="${m==='zn'?'#A9B3BE':'#C46A2F'}" stroke="rgba(0,0,0,.25)"/><g id="cry"></g><text x="180" y="252" text-anchor="middle" font-size="12" fill="currentColor" direction="ltr">AgNO3 0.05 M</text>`);};
+  bindChips(root,'lnM',scene);scene('zn');
+  $('#lnGo',root).addEventListener('click',()=>{const m=chipVal(root,'lnM');scene(m);const g=$('#cry',root),NS='http://www.w3.org/2000/svg';let made=0;const target=m==='zn'?90:30;
+    labRun(root,'ln',{dur:4200,simT:60,rate:m==='zn'?8:2,box:{x0:166,x1:194,y0:220,yTop:122},
+      onTick:k=>{while(made<target*k){const c=document.createElementNS(NS,'circle');const side=Math.random()<.5?-1:1;c.setAttribute('cx',180+side*(12+Math.random()*7));c.setAttribute('cy',126+Math.random()*94);c.setAttribute('r',1.6+Math.random()*2.2);c.setAttribute('fill','#D8DDE3');c.setAttribute('stroke','#8A939E');g.appendChild(c);made++;}
+        if(m==='cu')$('#lqd',root).setAttribute('fill',`rgba(${190-110*k},${215-60*k},${240-10*k},${.45+.15*k})`);},
+      onEnd:()=>{done.add(m);upsertRow($('#lnT',root),m,[m==='zn'?'الخارصين Zn':'النحاس Cu',m==='zn'?'0.82 g':'0.31 g',m==='zn'?'ترسبت بلورات كثيرة بسرعة':'ترسبت بلورات أقل، وتحول المحلول إلى الأزرق (أيونات Cu²⁺)']);
+        const note=$('#lnGo',root).nextElementSibling;note.className='fb ok';note.textContent=done.size<2?'سجّلي النتيجة، ثم جرّبي الفلز الآخر.':'قارني النتيجتين في الجدول ثم أجيبي عن السؤال.';
+        if(done.size===2&&!$('#lnQ .opts',root))mcq(root,'#lnQ','لماذا ترسبت الفضة على الخارصين أسرع من النحاس رغم تساوي التركيز ودرجة الحرارة؟',['لأن الخارصين أنشط كيميائيًا من النحاس','لأن تركيز نترات الفضة أكبر مع الخارصين','لأن النحاس محفز','لأن مساحة سطح النحاس أكبر'],0,()=>completeTask('l2-nat'));}});});
+}};
+
+SIMS.labConc={title:'مختبر: التركيز',
+html:()=>labShell('lc','مختبر: شريط الماغنسيوم في حمض الهيدروكلوريك','أسقطي شريط ماغنسيوم طوله 2 cm في حمض HCl بتراكيز مختلفة، وسجّلي الزمن حتى يختفي الشريط تمامًا. أجري التجربة بثلاثة تراكيز على الأقل.',
+  `<div class="lablbl">تركيز HCl</div>${radioChips('lcC',[['0.5','<span class="ltr">0.5 M</span>'],['1.0','<span class="ltr">1.0 M</span>'],['1.5','<span class="ltr">1.5 M</span>'],['2.0','<span class="ltr">2.0 M</span>']])}`)+
+ `<p style="margin:10px 0 0;font-size:15px"><span class="f">Mg(s) + 2HCl(aq) → MgCl2(aq) + H2(g)</span></p>
+  <table class="ctable" style="margin-top:10px"><tr><th>تركيز HCl (M)</th><th>زمن اختفاء الشريط (s)</th><th>معدل تصاعد الفقاعات</th></tr><tbody id="lcT"></tbody></table>
+  <div id="lcG" style="margin-top:12px"></div><div id="lcQ" style="margin-top:12px"></div>`,
+init(root){
+  const runs={};
+  const scene=c=>{$('#lcS',root).innerHTML=BEAKER(`rgba(230,240,190,${.3+c*.15})`,`<rect id="rib" x="150" y="222" width="60" height="6" rx="2" fill="#C9CDD3" stroke="#7d8590"/><text x="180" y="252" text-anchor="middle" font-size="12" fill="currentColor" direction="ltr">HCl ${(+c).toFixed(1)} M</text>`);};
+  bindChips(root,'lcC',v=>scene(+v));scene(0.5);
+  const graph=()=>{const ks=Object.keys(runs).map(Number).sort((a,b)=>a-b);if(ks.length<2){$('#lcG',root).innerHTML='';return;}
+    const X=c=>50+(c-0.25)/2*260,Y=t=>170-t/260*150;
+    $('#lcG',root).innerHTML=`<div class="cmap"><h4>📈 الرسم البياني: زمن التفاعل مقابل التركيز</h4><svg viewBox="0 0 340 200" role="img" aria-label="رسم زمن التفاعل مقابل التركيز"><line x1="50" y1="170" x2="330" y2="170" stroke="currentColor" stroke-width="2"/><line x1="50" y1="170" x2="50" y2="10" stroke="currentColor" stroke-width="2"/><text x="190" y="195" text-anchor="middle" font-size="11" fill="currentColor">تركيز HCl (M)</text><text x="16" y="90" font-size="11" fill="currentColor" transform="rotate(-90 16 90)" text-anchor="middle">الزمن (s)</text>
+      <polyline points="${ks.map(c=>X(c)+','+Y(runs[c])).join(' ')}" fill="none" stroke="#DE4527" stroke-width="2.5"/>${ks.map(c=>`<circle cx="${X(c)}" cy="${Y(runs[c])}" r="4.5" fill="#DE4527"/><text x="${X(c)}" y="185" text-anchor="middle" font-size="10" fill="currentColor">${c}</text><text x="${X(c)+8}" y="${Y(runs[c])-6}" font-size="10" fill="currentColor">${runs[c]}</text>`).join('')}</svg></div>`;};
+  $('#lcGo',root).addEventListener('click',()=>{const c=+chipVal(root,'lcC');scene(c);const t=Math.round(120/c);
+    labRun(root,'lc',{dur:Math.max(1200,t*18),simT:t,rate:14*c,box:{x0:152,x1:208,y0:220,yTop:122},
+      onTick:k=>{const r=$('#rib',root);r.setAttribute('width',Math.max(0,60*(1-k)));r.setAttribute('x',150+30*k);},
+      onEnd:()=>{runs[c]=t;upsertRow($('#lcT',root),c,[c.toFixed(1),t,c>=1.5?'سريع جدًا':c>=1?'متوسط':'بطيء']);
+        [...$('#lcT',root).children].sort((a,b)=>+a.dataset.k-+b.dataset.k).forEach(tr=>$('#lcT',root).appendChild(tr));graph();
+        const note=$('#lcGo',root).nextElementSibling;note.className='fb ok';const n=Object.keys(runs).length;note.textContent=n<3?`أجريتِ ${n} من 3 تجارب على الأقل.`:'ممتاز! حلّلي الرسم البياني وأجيبي عن السؤال.';
+        if(n>=3&&!$('#lcQ .opts',root))mcq(root,'#lcQ','من الجدول والرسم البياني: ما العلاقة بين تركيز الحمض وسرعة التفاعل؟ وكيف تفسرينها بنظرية التصادم؟',['كلما زاد التركيز قلّ زمن التفاعل وزادت سرعته، لأن عدد التصادمات بين الحمض والماغنسيوم يزداد','كلما زاد التركيز زاد زمن التفاعل','لا علاقة بين التركيز وسرعة التفاعل','زيادة التركيز تزيد طاقة التنشيط'],0,()=>completeTask('l2-conc'));}});});
+}};
+
+SIMS.labSurface={title:'مختبر: مساحة السطح',
+html:()=>labShell('ls','مختبر: القرص الفوار ومساحة السطح','ضعي قرصًا فوارًا كتلته ثابتة في الماء بثلاث صور: قرص كامل، أو مقطّع إلى أربع قطع، أو مطحون كمسحوق. سجّلي زمن اختفائه.',
+  `<div class="lablbl">صورة القرص</div>${radioChips('lsF',[['whole','قرص كامل'],['pieces','4 قطع'],['powder','مسحوق']])}`)+
+ `<table class="ctable" style="margin-top:12px"><tr><th>صورة القرص</th><th>زمن الذوبان (s)</th><th>مساحة السطح</th></tr><tbody id="lsT"></tbody></table>
+  <div id="lsQ" style="margin-top:12px"></div>
+  ${prac('تطبيق: مكعب طول ضلعه 3 cm قُطّع إلى 27 مكعبًا طول ضلع كل منها 1 cm. احسبي مساحة السطح الكلية بعد التقطيع (قبل التقطيع 54 cm²).','cm²',162,0.01,'','مساحة المكعب الصغير = 6 × 1²، ثم اضربي في 27.')}`,
+init(root){
+  const T={whole:60,pieces:28,powder:10},RT={whole:12,pieces:30,powder:70},NM={whole:'قرص كامل',pieces:'4 قطع',powder:'مسحوق'},SA={whole:'صغيرة',pieces:'متوسطة',powder:'كبيرة جدًا'};const runs=new Set();
+  const parts=f=>f==='whole'?[[180,222,14]]:f==='pieces'?[[150,226,7],[170,226,7],[192,226,7],[212,226,7]]:[...Array(26)].map((_,i)=>[122+i*4.6+Math.random()*3,224+Math.random()*8,2.2]);
+  const scene=f=>{$('#lsS',root).innerHTML=BEAKER('rgba(190,225,245,.45)',`<g id="tab">${parts(f).map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" data-r="${r}" fill="#F5F5F0" stroke="#999"/>`).join('')}</g>`);};
+  bindChips(root,'lsF',scene);scene('whole');
+  $('#lsGo',root).addEventListener('click',()=>{const f=chipVal(root,'lsF');scene(f);const t=T[f];
+    labRun(root,'ls',{dur:Math.max(1500,t*70),simT:t,rate:RT[f],box:{x0:f==='whole'?168:120,x1:f==='whole'?192:240,y0:220,yTop:122},
+      onTick:k=>{$$('#tab circle',root).forEach(c=>c.setAttribute('r',Math.max(0,+c.dataset.r*(1-k))));},
+      onEnd:()=>{runs.add(f);upsertRow($('#lsT',root),f,[NM[f],t,SA[f]]);const note=$('#lsGo',root).nextElementSibling;note.className='fb ok';note.textContent=runs.size<3?`جرّبي الصور الأخرى (${runs.size} من 3).`:'قارني النتائج وأجيبي عن السؤال.';
+        if(runs.size===3&&!$('#lsQ .opts',root))mcq(root,'#lsQ','لماذا ذاب المسحوق أسرع من القرص الكامل رغم تساوي الكتلة؟',['لأن مساحة سطحه أكبر فتزداد التصادمات بين جسيماته والماء','لأن كتلته أقل','لأن درجة حرارته أعلى','لأنه يحتوي على محفز'],0,()=>completeTask('l2-surf'));}});});
+}};
+
+SIMS.labTemp={title:'مختبر: درجة الحرارة',
+html:()=>labShell('lt','مختبر: سرعة التفاعل ودرجة الحرارة','كما في تجربة الكتاب: ضعي ربع قرص فوار كتلته 0.80 g في 50 mL من الماء عند درجات حرارة مختلفة، وسجّلي زمن ذوبانه، ثم احسبي السرعة = الكتلة المستهلكة ÷ الزمن.',
+  `<div class="lablbl">درجة حرارة الماء</div>${radioChips('ltT',[['10','<span class="ltr">10 °C</span>'],['25','<span class="ltr">25 °C</span>'],['40','<span class="ltr">40 °C</span>'],['50','<span class="ltr">50 °C</span>']])}`)+
+ `<table class="ctable" style="margin-top:12px"><tr><th>درجة الحرارة (°C)</th><th>الكتلة (g)</th><th>الزمن (s)</th><th>السرعة (g/s)</th></tr><tbody id="ltT2"></tbody></table>
+  <div id="ltQ" style="margin-top:12px"></div>`,
+init(root){
+  const runs=new Set();
+  const scene=T=>{const hot=T>25,col=T<=10?'#7EC8F0':hot?`rgba(222,69,39,${(T-25)/30})`:'#bbb';const h=Math.max(6,(T+5)/60*80);
+    $('#ltS',root).innerHTML=BEAKER(`rgba(190,225,245,.45)`,`<rect x="80" y="238" width="200" height="14" rx="4" fill="${col}" stroke="currentColor"/><text x="180" y="258" text-anchor="middle" font-size="10" fill="currentColor">${T<=10?'حمام ثلجي':hot?'سخان كهربائي':'درجة حرارة الغرفة'}</text>
+      <rect x="226" y="40" width="10" height="140" rx="5" fill="var(--surface)" stroke="currentColor"/><rect x="228.5" y="${176-h}" width="5" height="${h}" fill="#E0472B"/><circle cx="231" cy="184" r="8" fill="#E0472B"/><text x="250" y="${180-h}" font-size="12" fill="currentColor" direction="ltr">${T} °C</text>
+      <path id="tab" d="M160 228 L184 228 L184 212 Z" fill="#F5F5F0" stroke="#999"/>`);};
+  bindChips(root,'ltT',v=>scene(+v));scene(10);
+  $('#ltGo',root).addEventListener('click',()=>{const T=+chipVal(root,'ltT');scene(T);const t=+(40*Math.pow(2,-(T-25)/10)).toFixed(1);
+    labRun(root,'lt',{dur:Math.min(6500,Math.max(900,t*50)),simT:t,rate:4+T*0.9,box:{x0:160,x1:184,y0:220,yTop:122},
+      onTick:k=>{$('#tab',root).setAttribute('transform',`translate(${172*k*0},${0}) scale(1)`);$('#tab',root).setAttribute('opacity',1-k);},
+      onEnd:()=>{runs.add(T);upsertRow($('#ltT2',root),T,[T,'0.80',t,(0.8/t).toFixed(3)]);[...$('#ltT2',root).children].sort((a,b)=>+a.dataset.k-+b.dataset.k).forEach(tr=>$('#ltT2',root).appendChild(tr));
+        const note=$('#ltGo',root).nextElementSibling;note.className='fb ok';note.textContent=runs.size<3?`أجريتِ ${runs.size} من 3 تجارب على الأقل. توقعي النتيجة قبل كل تجربة!`:'لاحظي: كل زيادة قرابة 10 °C تجعل الزمن نصف ما كان تقريبًا.';
+        if(runs.size>=3&&!$('#ltQ .opts',root))mcq(root,'#ltQ','ما العلاقة بين درجة الحرارة وسرعة التفاعل في هذه التجربة؟',['كلما ارتفعت درجة الحرارة قلّ الزمن وزادت السرعة، لأن الطاقة الحركية للجسيمات تزداد فتكثر التصادمات الفعالة','كلما ارتفعت درجة الحرارة قلّت السرعة','درجة الحرارة لا تؤثر في السرعة','ارتفاع الحرارة يزيد كتلة القرص'],0,()=>completeTask('l2-temp'));}});});
+}};
+
+SIMS.labCat={title:'مختبر: المحفزات والمثبطات',
+html:()=>labShell('lk','مختبر: تحلل فوق أكسيد الهيدروجين','يتحلل فوق أكسيد الهيدروجين ببطء شديد. أضيفي إليه مواد مختلفة، وقيسي حجم الأكسجين المتكوّن في 30 s، وقرّبي شظية متوهجة من فوهة الأنبوب.',
+  `<div class="lablbl">المادة المضافة</div>${radioChips('lkA',[['none','لا شيء'],['mno2','ثاني أكسيد المنجنيز MnO₂'],['potato','قطعة بطاطس (إنزيم الكاتاليز)'],['inhib','مادة مثبطة']])}`)+
+ `<p style="margin:10px 0 0;font-size:15px"><span class="f">2H2O2(aq) → 2H2O(l) + O2(g)</span></p>
+  <table class="ctable" style="margin-top:10px"><tr><th>المادة المضافة</th><th>حجم O₂ في 30 s</th><th>الشظية المتوهجة</th><th>ملاحظة</th></tr><tbody id="lkT"></tbody></table>
+  <div id="lkQ" style="margin-top:12px"></div>`,
+init(root){
+  const V={none:2,mno2:45,potato:36,inhib:0.5},RT={none:2,mno2:60,potato:45,inhib:0.6},NM={none:'لا شيء',mno2:'MnO₂',potato:'بطاطس (إنزيم)',inhib:'مادة مثبطة'};const runs=new Set();
+  const add=a=>a==='mno2'?[...Array(16)].map((_,i)=>`<circle cx="${166+(i%8)*4}" cy="${214+Math.floor(i/8)*5}" r="2.2" fill="#222"/>`).join(''):a==='potato'?`<rect x="168" y="208" width="24" height="12" rx="3" fill="#E8D27A" stroke="#a8913a"/>`:a==='inhib'?[...Array(6)].map((_,i)=>`<rect x="${168+i*4}" y="216" width="3" height="3" fill="#fff" stroke="#999"/>`).join(''):'';
+  const scene=a=>{$('#lkS',root).innerHTML=`<path d="M150 50 L150 210 Q150 232 180 232 Q210 232 210 210 L210 50" fill="none" stroke="currentColor" stroke-width="3"/><path d="M152 110 L208 110 L208 210 Q208 230 180 230 Q152 230 152 210Z" fill="rgba(190,225,245,.45)"/><rect id="foam" x="152" y="110" width="56" height="0" fill="rgba(255,255,255,.9)"/>${add(a)}<g id="bub"></g>
+     <g id="spl"><line x1="180" y1="6" x2="180" y2="40" stroke="#8B5A2B" stroke-width="5" stroke-linecap="round"/><circle id="tip" cx="180" cy="42" r="4" fill="#E86A1C"/><path id="flm" d="M180 58 C170 50 172 40 180 30 C188 40 190 50 180 58Z" fill="#FFB52E" opacity="0"/></g>
+     <text x="250" y="140" font-size="11" fill="currentColor" direction="ltr">H2O2</text><text x="250" y="30" font-size="11" fill="currentColor">شظية متوهجة</text>`;};
+  bindChips(root,'lkA',scene);scene('none');
+  $('#lkGo',root).addEventListener('click',()=>{const a=chipVal(root,'lkA');scene(a);const strong=V[a]>20;
+    labRun(root,'lk',{dur:4200,simT:30,rate:RT[a],box:{x0:156,x1:204,y0:210,yTop:60},
+      onTick:k=>{if(strong){$('#foam',root).setAttribute('height',Math.min(55,60*k));$('#foam',root).setAttribute('y',110-Math.min(55,60*k));if(k>0.35){$('#flm',root).setAttribute('opacity',1);$('#tip',root).setAttribute('fill','#FFD23F');}}},
+      onEnd:()=>{runs.add(a);upsertRow($('#lkT',root),a,[NM[a],V[a]+' mL',strong?'اشتعلت 🔥':'لم تشتعل',a==='mno2'?'كتلة MnO₂ قبل 0.50 g وبعد 0.50 g':a==='potato'?'الإنزيم محفز حيوي':a==='inhib'?'تباطأ التحلل أكثر':'تحلل بطيء جدًا']);
+        const note=$('#lkGo',root).nextElementSibling;note.className='fb ok';note.textContent=strong?'اشتعال الشظية المتوهجة دليل على تصاعد غاز الأكسجين بسرعة.':runs.size<3?`جرّبي مواد أخرى (${runs.size} من 3).`:'قارني النتائج وأجيبي عن السؤال.';
+        if(runs.size>=3&&!$('#lkQ .opts',root))mcq(root,'#lkQ','ما دور MnO₂ في هذه التجربة؟',['محفز يزيد سرعة التحلل بخفض طاقة التنشيط دون أن يُستهلك','مادة متفاعلة تُستهلك في التفاعل','مثبط يبطئ التحلل','يزيد كمية الأكسجين الناتجة النهائية'],0,()=>completeTask('l2-cat'));}});});
+}};
+
+VIS.maxwell={html:SIMS.maxwell.html,init:SIMS.maxwell.init};
+
+/* ---------- games ---------- */
+const GAMES={
+ g1:{title:'تصادم فعال أم غير فعال؟',gen:(()=>{const items=[['اتجاه صحيح وطاقة أكبر من طاقة التنشيط',0],['اتجاه غير صحيح بين الجزيئات',1],['طاقة التصادم أقل من طاقة التنشيط',1],['يتكون المعقد المنشط ثم النواتج',0],['ترتد الجزيئات دون تكوين روابط',1],['ذرة C في CO تصطدم بذرة O في NO2 بطاقة كافية',0],['ذرة C في CO تصطدم بذرة N في NO2',1],['اتجاه صحيح لكن الطاقة غير كافية',1],['تتكسر روابط وتتكون روابط جديدة',0]];let deck=[];
+   return()=>{if(Math.random()<0.45){const c1=+(0.4+Math.random()*1.6).toFixed(2),d=+(0.1+Math.random()*(c1-0.15)).toFixed(2),t=[2,4,5,10][Math.floor(Math.random()*4)],r=d/t;const o=shuffle([r,r*2,d*t,r/2].map(v=>+v.toPrecision(3)));return{p:`نقص التركيز من ${c1} M إلى ${(c1-d).toFixed(2)} M خلال ${t} s. ما متوسط السرعة؟`,o:o.map(v=>v+' mol/L·s'),a:o.indexOf(+r.toPrecision(3))};}
+   if(!deck.length)deck=shuffle(items);const x=deck.pop();return{p:x[0],o:['تصادم فعال','تصادم غير فعال'],a:x[1]};};})()},
+ g2:{title:'يزيد السرعة أم يقللها؟',items:[['رفع درجة الحرارة',0],['وضع الطعام في الثلاجة',1],['طحن المادة الصلبة إلى مسحوق',0],['إضافة محفز',0],['إضافة مادة حافظة (مثبط)',1],['زيادة تركيز المواد المتفاعلة',0],['تخفيف المحلول بالماء',1],['استعمال الخارصين بدل النحاس مع نترات الفضة',0],['وضع الشمعة في أكسجين نقي',0],['استعمال قطعة خشب كبيرة بدل النشارة',1],['إضافة إنزيم مناسب',0],['خفض درجة الحرارة 10 K',1],['زيادة طاقة التنشيط',1],['تقطيع المكعب إلى قطع صغيرة',0]],labels:['يزيد السرعة','يقلل السرعة']},
+ g3:{title:'رتبة التفاعل السريعة',gen:()=>{let m,n;do{m=Math.floor(Math.random()*4);n=Math.floor(Math.random()*4);}while(m+n===0);const s=v=>v===1?'':String(v).split('').map(c=>SUP[c]).join('');const law='R = k'+(m?'[A]'+s(m):'')+(n?'[B]'+s(n):'');
+   if(Math.random()<0.5){const opts=shuffle([...new Set([m+n,m+n+1,Math.max(1,m+n-1),m*n||m+n+2])]).slice(0,4);while(opts.length<4)opts.push(opts.length+5);return{p:`<span class="ltr">${law}</span><br>ما الرتبة الكلية للتفاعل؟`,o:opts.map(String),a:opts.indexOf(m+n)};}
+   const ans=Math.pow(2,m),opts=shuffle([1,2,4,8]);return{p:`<span class="ltr">${law}</span><br>إذا تضاعف [A] مرتين مع ثبات [B]، فالسرعة تتضاعف:`,o:opts.map(v=>v+'×'),a:opts.indexOf(ans)};}}
+};
+Object.values(GAMES).forEach(g=>{g.html=`<h3>${g.title}</h3><p class="desc">لديك 45 ثانية. أجيبي عن أكبر عدد من الأسئلة: 5 إجابات صحيحة = نجمة، 10 = نجمتان، 15 = ثلاث نجوم.</p><div class="gbox" aria-live="polite"></div>`;});
+
+function initGame(root,g){
+  const box=$('.gbox',root);const id=Object.keys(GAMES).find(k=>GAMES[k]===g);let timer=null,score=0,left=45,deck=[],busy=false;
+  const starRow=n=>'<div class="stars3">'+[1,2,3].map(i=>`<span class="${i<=n?'':'off'}">★</span>`).join('')+'</div>';
+  const intro=()=>{const b=S.games[id]||0;box.innerHTML=`${starRow(gameStars(b))}<p style="margin:0">أفضل نتيجة: <b>${b}</b></p><button type="button" class="btn hot">ابدئي التحدي</button>`;$('button',box).addEventListener('click',start);};
+  const next=()=>{let it;
+    if(g.gen)it=g.gen();else{if(!deck.length)deck=shuffle(g.items);const x=deck.pop();it={p:x[0],o:g.labels,a:x[1]};}
+    box.innerHTML=`<div class="ghead"><span>النقاط: ${score}</span><span class="timer">⏱ ${left}s</span></div><div class="gprompt">${g.gen?it.p:fm(it.p)}</div><div class="gopts">${it.o.map((o,i)=>`<button type="button" class="opt" data-i="${i}">${o}</button>`).join('')}</div>`;
+    fmAll(box);busy=false;
+    $$('.opt',box).forEach(b=>b.addEventListener('click',()=>{if(busy)return;busy=true;const ok=+b.dataset.i===it.a;
+      if(ok){score++;b.classList.add('ok');box.classList.add('flash-ok');}else{b.classList.add('bad');$$('.opt',box)[it.a].classList.add('ok');box.classList.add('flash-bad');}
+      setTimeout(()=>{box.classList.remove('flash-ok','flash-bad');if(left>0)next();},ok?260:650);}));};
+  const tick=()=>{left--;const t=$('.timer',box);if(t)t.textContent='⏱ '+left+'s';if(left<=0)end();};
+  const start=()=>{score=0;left=45;deck=[];next();clearInterval(timer);timer=setInterval(tick,1000);};
+  const end=()=>{clearInterval(timer);const prev=S.games[id]||0;const before=gameStars(prev);if(score>prev){S.games[id]=score;save();refreshStars();}
+    const st=gameStars(Math.max(prev,score));
+    box.innerHTML=`<div class="gscore">${score}</div><p style="margin:0">إجابة صحيحة في 45 ثانية</p>${starRow(gameStars(score))}<p style="margin:0;color:var(--muted)">أفضل نتيجة: ${Math.max(prev,score)}</p><button type="button" class="btn hot">العبي مرة أخرى</button>`;
+    $('button',box).addEventListener('click',start);if(st>before)toast('★ نجوم جديدة من التحدي!');};
+  onCleanup(()=>clearInterval(timer));intro();
+}
+
+/* ---------- quiz runner ---------- */
+function quizRunner(el,qs,opt){
+  let order,idx,score,wrong;
+  const begin=()=>{order=qs.map(q=>{const p=shuffle(q.o.map((t,i)=>({t,i})));return{...q,opts:p,ans:p.findIndex(x=>x.i===q.a)};});if(opt.shuffle!==false)order=shuffle(order);idx=0;score=0;wrong=[];show();};
+  const show=()=>{const q=order[idx];
+    el.innerHTML=`<div class="qr"><div class="qtop"><span>السؤال ${idx+1} من ${order.length}${q.y?'<span class="yr">'+(q.y==='--'?'تجميعات':'تحصيلي '+q.y)+'</span>':''}</span><span class="qsc">صحيحة: ${score}</span></div>
+     <div class="qbar"><i style="width:${idx/order.length*100}%"></i></div>
+     <div class="qtext">${q.q}</div>
+     <div class="opts">${q.opts.map((o,i)=>`<button type="button" class="opt" data-i="${i}"><span dir="auto">${fm(o.t)}</span></button>`).join('')}</div>
+     <div class="qx"></div></div>`;
+    fmAll(el);
+    $$('.opt',el).forEach(b=>b.addEventListener('click',()=>{const i=+b.dataset.i;$$('.opt',el).forEach(x=>x.disabled=true);
+      const ok=i===q.ans;if(ok)score++;else wrong.push(q);b.classList.add(ok?'ok':'bad');$$('.opt',el)[q.ans].classList.add('ok');
+      $('.qx',el).innerHTML=`<div class="exp ${ok?'ok':'bad'}"><b>${ok?'✓ إجابة صحيحة.':'✗ الإجابة الصحيحة: '+fm(q.opts[q.ans].t)}</b> ${q.e||''}</div><div class="qnav"><button type="button" class="btn">${idx<order.length-1?'السؤال التالي':'عرض النتيجة'}</button></div>`;
+      $('.qsc',el).textContent='صحيحة: '+score;
+      $('.qnav button',el).addEventListener('click',()=>{idx++;if(idx<order.length)show();else finish();});
+      $('.qnav button',el).focus();}));};
+  const finish=()=>{const pct=Math.round(score/order.length*100);opt.onDone&&opt.onDone(score,order.length,pct);
+    const msg=pct>=90?'ممتاز! أداء متقن.':pct>=80?'رائع! أنتِ مستعدة.':pct>=60?'جيد، راجعي الأسئلة التي أخطأتِ فيها.':'لا بأس، راجعي الدروس وحاولي مرة أخرى.';
+    el.innerHTML=`<div class="qr result"><div class="gscore">${score} / ${order.length}</div><p style="margin:4px 0;font-weight:600">${pct}%: ${msg}</p>
+     <div class="row" style="justify-content:center;margin-top:10px"><button type="button" class="btn" id="qAgain">أعيدي الاختبار</button>${opt.extra||''}</div>
+     ${wrong.length?'<div class="review"><b>راجعي هذه الأسئلة:</b>'+wrong.map(w=>`<div>${w.q}<br><b>الإجابة:</b> <span dir="auto">${fm(w.opts[w.ans].t)}</span>. ${w.e||''}</div>`).join('')+'</div>':''}</div>`;
+    fmAll(el);$('#qAgain',el).addEventListener('click',()=>opt.restart?opt.restart():begin());};
+  if(opt.autostart===false)return{begin};begin();return{begin};
+}
+
+/* ---------- final ---------- */
+function viewFinal(){
+  app.innerHTML=`<div class="crumbs"><a href="#home">→ الصفحة الرئيسة</a></div>
+  <header class="lhead"><div class="lnum">⏱</div><div><h1>الاختبار الختامي</h1><div class="en">تجميعات الاختبار التحصيلي: سرعة التفاعلات الكيميائية</div>
+   <p class="idea" style="margin:10px 0 0"><strong>تعليمات:</strong> اختاري نوع الاختبار. بعد كل إجابة يظهر التصحيح مع شرح قصير. احصلي على 80% أو أكثر لتنالي شارة <b>بطلة التحصيلي</b> و5 نجوم.${S.final!=null?' أفضل نتيجة لك: '+S.final+'%.':''}</p></div></header>
+  <section class="panel" style="margin-top:24px" id="finBox"></section>`;
+  const box=$('#finBox');
+  const modes=()=>{box.innerHTML=`<h3>اختاري نوع الاختبار</h3><div class="modes">
+    <button type="button" class="mode" data-m="all"><b>الاختبار الكامل</b><span>جميع الأسئلة (${TAH.length} سؤالًا) بترتيب عشوائي.</span></button>
+    <button type="button" class="mode" data-m="20"><b>اختبار سريع</b><span>20 سؤالًا عشوائيًا من بنك التجميعات.</span></button>
+    <button type="button" class="mode" data-m="recent"><b>أسئلة 2024 و 2025</b><span>الأسئلة الأحدث فقط.</span></button></div>`;
+    $$('.mode',box).forEach(b=>b.addEventListener('click',()=>{const m=b.dataset.m;let qs=TAH;if(m==='20')qs=shuffle(TAH).slice(0,20);if(m==='recent')qs=TAH.filter(q=>q.y==='2024'||q.y==='2025');
+      quizRunner(box,qs,{restart:modes,extra:'<a class="btn ghost" href="#home">الصفحة الرئيسة</a>',onDone:(sc,tot,pct)=>{const prev=S.final;S.final=Math.max(prev||0,pct);save();refreshStars();if(pct>=80&&!(prev>=80))toast('🏆 حصلتِ على شارة بطلة التحصيلي!');}});}));};
+  modes();
+}
+
+/* ---------- runtime capabilities ---------- */
+const capP={};
+function cap(n){if(!window.claude||typeof window.claude.use!=='function')return Promise.resolve(null);if(!capP[n])capP[n]=window.claude.use(n).catch(()=>null);return capP[n];}
+let viewTok=0;
+function esc(t){return String(t==null?'':t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+/* ---------- chemistry advisor bot ---------- */
+/* تعليمات المساعد محفوظة في الخادم: lib/rules.js */
+const BOT={turns:[],busy:false,ctl:null,sample:null};
+function botFmt(t){let h=esc(t);h=h.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');h=h.replace(/^\s*[-•]\s+/gm,'• ');return h.replace(/\n/g,'<br>');}
+function botAdd(cls,html){const m=document.createElement('div');m.className='msg '+cls;m.innerHTML=html;$('#botMsgs').appendChild(m);$('#botMsgs').scrollTop=1e9;return m;}
+function botSugg(){const n=(location.hash.match(/lesson-(\d)/)||[])[1];const base={1:['ما المقصود بالتصادم المثمر؟','كيف أحسب متوسط سرعة التفاعل؟','ما المعقد المنشط؟'],2:['لماذا ترفع الحرارة سرعة التفاعل؟','كيف يعمل المحفز؟','لماذا يحترق المسحوق أسرع من القطعة؟'],3:['كيف أحدد رتبة التفاعل من جدول السرعات؟','ما الرتبة الكلية لـ R = k[A][B]²؟','ما الذي يغيّر ثابت السرعة k؟']}[n]||['اشرحي لي نظرية التصادم ببساطة','ما العوامل المؤثرة في سرعة التفاعل؟','كيف أحدد رتبة التفاعل؟'];
+  $('#botSugg').innerHTML=base.map(q=>`<button type="button">${esc(q)}</button>`).join('');$$('#botSugg button').forEach(b=>b.addEventListener('click',()=>botAsk(b.textContent)));}
+async function botAsk(q){
+  q=(q||'').trim();if(!q||BOT.busy)return;BOT.busy=true;$('#botSend').disabled=true;$('#botIn').value='';
+  botAdd('me',esc(q));BOT.turns.push({role:'user',content:q.slice(0,1500)});
+  const bub=botAdd('bot','<span style="color:var(--muted)">يفكّر المساعد…</span>');
+  const n=(location.hash.match(/lesson-(\d)/)||[])[1];
+  BOT.ctl=new AbortController();const to=setTimeout(()=>BOT.ctl.abort(),45000);
+  try{
+    const r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},signal:BOT.ctl.signal,
+      body:JSON.stringify({ch:CH_NO,lesson:n?LESSONS[n-1].code+' '+LESSONS[n-1].title:'',messages:BOT.turns.slice(-10)})});
+    let data={};try{data=await r.json();}catch(e){}
+    if(!r.ok||!data.text){const err=new Error('x');err.code=data.error||('http_'+r.status);throw err;}
+    bub.innerHTML=botFmt(data.text);BOT.turns.push({role:'assistant',content:data.text});$('#botMsgs').scrollTop=1e9;
+  }catch(e){
+    BOT.turns.pop();bub.remove();
+    const code=e&&e.code;
+    if(code==='rate_limited')botAdd('err','وصلتِ إلى الحد المسموح من الأسئلة الآن. حاولي بعد قليل.');
+    else if(code==='not_configured')botAdd('err','المساعد غير مفعّل بعد. أخبري معلمتك.');
+    else if(e&&e.name==='AbortError')botAdd('err','استغرق الرد وقتًا طويلًا. حاولي مرة أخرى.');
+    else botAdd('err','تعذّر الحصول على إجابة الآن. حاولي مرة أخرى بعد قليل.');
+  }finally{clearTimeout(to);BOT.busy=false;$('#botSend').disabled=false;}
+}
+function initBot(){
+  const fab=$('#botFab'),panel=$('#botPanel');
+  const open=v=>{panel.classList.toggle('open',v);fab.setAttribute('aria-expanded',v);if(v){botSugg();if(!$('#botMsgs').children.length)botAdd('bot','مرحبًا! أنا مساعدك الكيميائي 🧪<br>اسأليني عن أي فكرة في الفصل الثاني: سرعة التفاعل، نظرية التصادم، العوامل المؤثرة، أو قانون السرعة.');setTimeout(()=>$('#botIn').focus(),50);}};
+  fab.addEventListener('click',()=>open(!panel.classList.contains('open')));
+  $('#botClose').addEventListener('click',()=>open(false));
+  $('#botForm').addEventListener('submit',e=>{e.preventDefault();botAsk($('#botIn').value);});
+  $('#botIn').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();botAsk($('#botIn').value);}});
+  window.addEventListener('hashchange',()=>{if(panel.classList.contains('open'))botSugg();});
+  fab.style.display='inline-flex';
+}
+
+/* ---------- assignment (المهمة) ---------- */
+const OK_TYPES=/^(image\/(png|jpeg|gif|webp)|application\/pdf|text\/plain|text\/csv|text\/markdown)$/;
+function guessType(f){if(f.type)return f.type;const e=(f.name.split('.').pop()||'').toLowerCase();return {png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',gif:'image/gif',webp:'image/webp',pdf:'application/pdf',txt:'text/plain',csv:'text/csv',md:'text/markdown'}[e]||'';}
+function fsize(b){return b>1048576?(b/1048576).toFixed(1)+' MB':Math.max(1,Math.round(b/1024))+' KB';}
+function fdate(iso){try{return new Date(iso).toLocaleString('ar-SA',{dateStyle:'medium',timeStyle:'short'});}catch(e){return iso;}}
+function fileLink(f){return `<a href="/_blob/${esc(f.id)}" target="_blank" rel="noopener"><bdi>${esc(f.name)}</bdi></a> <span style="color:var(--muted)">(${fsize(f.size||0)})</span>`;}
+
+function viewTask(){
+  app.innerHTML=`<div class="crumbs"><a href="#home">→ الصفحة الرئيسة</a></div>
+  <header class="lhead"><div class="lnum">📎</div><div><h1>مهمة الفصل الأول</h1><div class="en">الطاقة والتغيرات الكيميائية</div>
+   <p class="idea" style="margin:10px 0 0"><strong>طريقة التسليم:</strong> اقرئي المهمة، ثم ارفعي ملف إجابتك (صورة أو PDF) واضغطي «سلّمي المهمة». يمكنك تعديل تسليمك قبل الموعد.</p></div></header>
+  <section class="panel" style="margin-top:24px" id="taskBox"><p class="hint">جارٍ تحميل المهمة…</p></section>`;
+  initTask(++viewTok);
+}
+async function initTask(tok){
+  const box=$('#taskBox');
+  const [db,user]=await Promise.all([cap('db'),cap('user')]);
+  if(tok!==viewTok)return;
+  if(!db){box.innerHTML=`<div class="notice">📎 رفع المهام يعمل عند فتح المنصة من داخل claude.ai بحساب مسجّل الدخول، بعد أن تشاركها المعلمة معك. إن لم يظهر نموذج التسليم، فأرسلي إجابتك لمعلمتك بالطريقة التي تحددها.</div>`;return;}
+  const teacher=user?await user.canEdit():false;
+  const uid=user?await user.id():null;
+  if(tok!==viewTok)return;
+  let A=null,aLoaded=false;
+  let mine=null,mineLoaded=false,draft=null,assets=null,assetsChecked=false;
+  let subs=[],subsLoaded=false,showOld=false;
+  box.innerHTML=`<div id="aBox"><p class="hint">جارٍ تحميل المهمة…</p></div><div id="sBox"></div>`;
+  const slow=setTimeout(()=>{if(!aLoaded)$('#aBox')&&($('#aBox').innerHTML='<div class="notice">تعذّر الوصول إلى المهمة الآن. تحققي من اتصالك ثم افتحي الصفحة لاحقًا.</div>');},10000);
+  onCleanup(()=>clearTimeout(slow));
+  const unA=db.doc('assignment/current').onSnapshot(sn=>{if(!sn.metadata.fromCache){aLoaded=true;clearTimeout(slow);}A=sn.exists?sn.data():null;renderA();if(teacher)renderSubs();else renderMine();},
+    ()=>{clearTimeout(slow);aLoaded=true;$('#aBox').innerHTML='<div class="notice">تعذّر تحميل المهمة.</div>';});
+  onCleanup(unA);
+
+  function renderA(){
+    const el=$('#aBox');if(!el)return;
+    const card=A?`<div class="assign"><h3>${esc(A.title)}</h3><div class="body">${esc(A.details)}</div>${A.due?`<span class="due">📅 آخر موعد للتسليم: ${esc(A.due)}</span>`:''}</div>`:'<div class="notice">لم تُنشر مهمة بعد.</div>';
+    if(!teacher){el.innerHTML=card;return;}
+    el.innerHTML=`${card}<details style="margin-top:14px" ${A?'':'open'}><summary style="cursor:pointer;font-weight:600">✏️ تعديل المهمة أو نشر مهمة جديدة (يظهر لك فقط بصفتك المعلمة)</summary>
+      <label class="fld">عنوان المهمة<input id="aT" value="${esc(A?A.title:'')}"></label>
+      <label class="fld">تفاصيل المهمة<textarea id="aD">${esc(A?A.details:'')}</textarea></label>
+      <label class="fld">آخر موعد للتسليم<input id="aDue" value="${esc(A?A.due:'')}" placeholder="مثال: الخميس 12 جمادى الأولى"></label>
+      <div class="row" style="margin-top:12px"><button type="button" class="btn sm" id="aSave" ${A?'':'disabled'}>حفظ التعديلات</button><button type="button" class="btn sm hot" id="aNew">نشر كمهمة جديدة</button></div>
+      <p class="hint">«نشر كمهمة جديدة» يبدأ تسليمًا جديدًا، فتظهر تسليمات المهمة السابقة في قائمة منفصلة.</p><p class="fb" id="aFb"></p></details>`;
+    const save=async(isNew)=>{const t=$('#aT').value.trim(),d=$('#aD').value.trim(),due=$('#aDue').value.trim();if(!t||!d){$('#aFb').className='fb bad';$('#aFb').textContent='اكتبي العنوان والتفاصيل.';return;}
+      $('#aSave').disabled=$('#aNew').disabled=true;
+      try{await db.doc('assignment/current').set({id:isNew||!A?('a'+Date.now()):A.id,title:t,details:d,due,updatedAt:new Date().toISOString()});toast(isNew?'نُشرت المهمة الجديدة':'حُفظت التعديلات');}
+      catch(e){$('#aFb').className='fb bad';$('#aFb').textContent='تعذّر الحفظ. تأكدي أنك صاحبة المنصة أو محررة فيها.';}
+      finally{if($('#aNew')){$('#aNew').disabled=false;$('#aSave').disabled=!A;}}};
+    $('#aSave').addEventListener('click',()=>save(false));$('#aNew').addEventListener('click',()=>save(true));
+  }
+
+  /* --- student --- */
+  if(!teacher){
+    if(!uid){$('#sBox').innerHTML='<div class="notice" style="margin-top:14px">سجّلي الدخول إلى حسابك لتتمكني من تسليم المهمة.</div>';return;}
+    cap('assets').then(a=>{assets=a;assetsChecked=true;renderMine();});
+    const unM=db.doc('submissions/'+uid).onSnapshot(sn=>{mineLoaded=true;mine=sn.exists?sn.data():null;if(!draft&&mine)draft={name:mine.name||'',note:mine.note||'',files:(mine.files||[]).slice()};renderMine();},()=>{mineLoaded=true;renderMine();});
+    onCleanup(unM);
+  }
+  function renderMine(){
+    const el=$('#sBox');if(!el||teacher||!uid)return;
+    if(!A){el.innerHTML='';return;}
+    if(!mineLoaded){el.innerHTML='<p class="hint" style="margin-top:14px">جارٍ التحقق من تسليمك…</p>';return;}
+    if(!draft)draft={name:'',note:'',files:[]};
+    const done=mine&&mine.aid===A.id;
+    const status=done?`<span class="stat ok">✓ سلّمتِ المهمة في ${esc(fdate(mine.at))}</span>`:`<span class="stat no">لم تُسلّمي بعد</span>`;
+    const fb=done&&(mine.feedback||mine.grade)?`<div class="fb-box"><b>ملاحظات المعلمة:</b> ${esc(mine.feedback||'')}${mine.grade?`<br><b>الدرجة:</b> ${esc(mine.grade)}`:''}</div>`:'';
+    let form='';
+    if(assetsChecked&&!assets){form=`<div class="notice" style="margin-top:12px">لا تملكين صلاحية رفع الملفات في هذه المنصة. اطلبي من معلمتك مشاركة المنصة معك بصلاحية «مساهِمة» (Contributor).</div>`;}
+    else{form=`<label class="fld">اسمك وشعبتك<input id="sName" value="${esc(draft.name)}" placeholder="مثال: نورة محمد، 2/3"></label>
+      <div class="drop" id="sDrop" tabindex="0" role="button">📤 اضغطي لاختيار ملف الإجابة أو اسحبيه إلى هنا<br><small style="color:var(--muted)">صور (JPG أو PNG) أو PDF، حتى 20 MB للملف. ملفات Word احفظيها PDF أولًا.</small><input type="file" id="sFile" multiple accept="image/png,image/jpeg,image/webp,application/pdf,.txt" hidden></div>
+      <div class="flist" id="sList">${draft.files.map((f,i)=>`<div class="fitem"><span>${f.id?fileLink(f):esc(f.name)+' <span style="color:var(--muted)">جارٍ الرفع…</span>'}</span>${f.id?`<button type="button" data-rm="${i}">حذف</button>`:''}</div>`).join('')}</div>
+      <label class="fld">ملاحظة لمعلمتك (اختياري)<textarea id="sNote" style="min-height:70px">${esc(draft.note)}</textarea></label>
+      <div class="row" style="margin-top:12px"><button type="button" class="btn" id="sSend" style="background:var(--green);color:#fff">${done?'تحديث التسليم':'سلّمي المهمة'}</button></div><p class="fb" id="sFb"></p>`;}
+    el.innerHTML=`<div style="margin-top:18px"><h3 style="margin:0 0 8px">تسليمك</h3>${status}${fb}${form}</div>`;
+    if(!assets)return;
+    const fi=$('#sFile'),dr=$('#sDrop');
+    $('#sName').addEventListener('input',e=>draft.name=e.target.value);$('#sNote').addEventListener('input',e=>draft.note=e.target.value);
+    dr.addEventListener('click',()=>fi.click());dr.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();fi.click();}});
+    dr.addEventListener('dragover',e=>{e.preventDefault();dr.classList.add('over');});dr.addEventListener('dragleave',()=>dr.classList.remove('over'));
+    dr.addEventListener('drop',e=>{e.preventDefault();dr.classList.remove('over');addFiles(e.dataTransfer.files);});
+    fi.addEventListener('change',()=>addFiles(fi.files));
+    $$('[data-rm]',el).forEach(b=>b.addEventListener('click',()=>{const f=draft.files[+b.dataset.rm];draft.files.splice(+b.dataset.rm,1);const inSaved=mine&&(mine.files||[]).some(x=>x.id===f.id);if(!inSaved&&f.id)assets.delete(f.id).catch(()=>{});renderMine();}));
+    $('#sSend').addEventListener('click',submit);
+  }
+  async function addFiles(list){
+    const fb=()=>$('#sFb');
+    for(const f of Array.from(list)){
+      const t=guessType(f);
+      if(!OK_TYPES.test(t)){if(fb()){fb().className='fb bad';fb().textContent='الملف «'+f.name+'» بصيغة غير مدعومة. استعملي صورة JPG أو PNG أو ملف PDF.';}continue;}
+      if(f.size>20*1048576){if(fb()){fb().className='fb bad';fb().textContent='الملف «'+f.name+'» أكبر من 20 MB.';}continue;}
+      const item={name:f.name,size:f.size};draft.files.push(item);renderMine();
+      try{const r=await assets.upload(f,{type:t});item.id=r.id;item.size=r.sizeBytes;item.type=r.contentType;}
+      catch(e){draft.files.splice(draft.files.indexOf(item),1);if(fb()){fb().className='fb bad';fb().textContent=e&&e.code==='quota_exceeded'?'امتلأت مساحة التخزين في المنصة. أخبري معلمتك.':'تعذّر رفع «'+f.name+'». جرّبي مرة أخرى أو بصيغة أخرى.';}}
+      renderMine();
+    }
+  }
+  async function submit(){
+    const fb=$('#sFb');
+    if(draft.files.some(f=>!f.id)){fb.className='fb bad';fb.textContent='انتظري حتى يكتمل رفع الملفات.';return;}
+    if(!draft.name.trim()){fb.className='fb bad';fb.textContent='اكتبي اسمك وشعبتك.';return;}
+    if(!draft.files.length){fb.className='fb bad';fb.textContent='ارفعي ملف إجابتك أولًا.';return;}
+    $('#sSend').disabled=true;
+    try{await db.doc('submissions/'+uid).set({aid:A.id,name:draft.name.trim(),note:draft.note.trim(),files:draft.files.map(f=>({id:f.id,name:f.name,size:f.size||0,type:f.type||''})),at:new Date().toISOString()});toast('📎 تم تسليم المهمة بنجاح');}
+    catch(e){fb.className='fb bad';fb.textContent=e&&e.code==='invalid_argument'?'لا تملكين صلاحية التسليم. اطلبي من معلمتك صلاحية «مساهِمة».':'تعذّر التسليم الآن. حاولي مرة أخرى.';if($('#sSend'))$('#sSend').disabled=false;}
+  }
+
+  /* --- teacher --- */
+  if(teacher){
+    const unS=db.collection('submissions').onSnapshot(q=>{subsLoaded=true;subs=q.docs.map(d=>({uid:d.id,...d.data()}));renderSubs();},()=>{subsLoaded=true;renderSubs();});
+    onCleanup(unS);
+  }
+  async function renderSubs(){
+    const el=$('#sBox');if(!el||!teacher)return;
+    if(!subsLoaded){el.innerHTML='<p class="hint" style="margin-top:14px">جارٍ تحميل التسليمات…</p>';return;}
+    const cur=subs.filter(x=>A&&x.aid===A.id).sort((a,b)=>(b.at||'').localeCompare(a.at||''));
+    const old=subs.filter(x=>!A||x.aid!==A.id);
+    let names={};try{if(user)names=await user.profiles(subs.map(x=>x.uid));}catch(e){}
+    if(!$('#sBox'))return;
+    const card=x=>{const p=names[x.uid];const acc=p&&p.name?` <span style="color:var(--muted);font-size:13.5px">(${esc(p.name)})</span>`:'';
+      return `<div class="subcard"><div class="row" style="justify-content:space-between"><b>${esc(x.name||'بدون اسم')}${acc}</b><span class="hint" style="margin:0">${esc(fdate(x.at))}</span></div>
+      ${x.note?`<div style="font-size:15px">📝 ${esc(x.note)}</div>`:''}
+      <div class="flist">${(x.files||[]).map(f=>`<div class="fitem"><span>${fileLink(f)}</span></div>`).join('')}</div>
+      <div class="row"><input class="ans" style="width:110px;text-align:center" data-g="${esc(x.uid)}" value="${esc(x.grade||'')}" placeholder="الدرجة" aria-label="الدرجة"><input class="tinput" style="flex:1;min-width:160px" data-f="${esc(x.uid)}" value="${esc(x.feedback||'')}" placeholder="ملاحظة للطالبة" aria-label="ملاحظة"><button type="button" class="btn sm" data-sv="${esc(x.uid)}">حفظ</button></div></div>`;};
+    el.innerHTML=`<div style="margin-top:20px"><h3 style="margin:0 0 4px">تسليمات الطالبات (${cur.length})</h3><p class="hint" style="margin:0">تظهر هذه القائمة لك فقط. الدرجة والملاحظة تظهران للطالبة في صفحة تسليمها.</p>
+      <div class="subgrid">${cur.length?cur.map(card).join(''):'<div class="notice">لم تصل تسليمات لهذه المهمة بعد.</div>'}</div>
+      ${old.length?`<button type="button" class="btn sm ghost" id="oldT" style="margin-top:14px">${showOld?'إخفاء':'عرض'} تسليمات المهام السابقة (${old.length})</button>${showOld?`<div class="subgrid">${old.map(card).join('')}</div>`:''}`:''}</div>`;
+    const oT=$('#oldT');if(oT)oT.addEventListener('click',()=>{showOld=!showOld;renderSubs();});
+    $$('[data-sv]',el).forEach(b=>b.addEventListener('click',async()=>{const id=b.dataset.sv;b.disabled=true;
+      try{await db.doc('submissions/'+id).update({grade:$(`[data-g="${id}"]`,el).value.trim(),feedback:$(`[data-f="${id}"]`,el).value.trim()});toast('حُفظت الملاحظة');}
+      catch(e){toast('تعذّر الحفظ');}finally{b.disabled=false;}}));
+  }
+}
+
+applyTheme();
+initBot();
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{applyTheme();window.dispatchEvent(new Event('themechange'));});
+route();
+</script>
+</body>
+</html>
