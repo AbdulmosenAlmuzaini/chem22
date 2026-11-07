@@ -19,7 +19,7 @@ h1{font-size:clamp(26px,4vw,38px)}h2{font-size:20px;margin-bottom:10px}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:20px;margin-bottom:18px;box-shadow:0 6px 24px rgba(80,40,160,.06)}
 .btn{border:0;border-radius:999px;padding:10px 22px;font:inherit;font-weight:600;cursor:pointer;background:var(--chip);color:var(--ink)}
 .btn.pri{background:var(--cold);color:#fff}.btn.hot{background:var(--hot);color:#fff}.btn.ghost{background:transparent;border:1px solid var(--line)}.btn.sm{padding:6px 14px;font-size:14px}
-input[type=password],input[type=text],textarea{font:inherit;color:var(--ink);background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+input[type=password],input[type=text],textarea,select{font:inherit;color:var(--ink);background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
 textarea{width:100%;min-height:110px;direction:ltr;font-size:12px}
 .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .notice{background:#E3E8FB;color:#2a3f9e;border-radius:12px;padding:12px 16px;margin-top:14px}
@@ -66,7 +66,7 @@ td.n{font-variant-numeric:tabular-nums;direction:ltr;text-align:right}
   </section>
 
   <section class="card">
-   <div class="row" style="justify-content:space-between"><h2>👩‍🎓 نتائج الطالبات</h2><input type="text" id="q" placeholder="ابحثي باسم الطالبة"></div>
+   <div class="row" style="justify-content:space-between"><h2>👩‍🎓 نتائج الطالبات</h2><div class="row"><select id="fg" aria-label="تصفية حسب الصف"><option value="">كل الصفوف</option><option>الأول الثانوي</option><option>الثاني الثانوي</option><option>الثالث الثانوي</option></select><select id="fs" aria-label="تصفية حسب الشعبة"><option value="">كل الشعب</option><option value="1">الشعبة 1</option><option value="2">الشعبة 2</option><option value="3">الشعبة 3</option><option value="4">الشعبة 4</option><option value="5">الشعبة 5</option><option value="6">الشعبة 6</option><option value="7">الشعبة 7</option><option value="8">الشعبة 8</option><option value="9">الشعبة 9</option><option value="10">الشعبة 10</option><option value="11">الشعبة 11</option><option value="12">الشعبة 12</option></select><input type="text" id="q" placeholder="ابحثي باسم الطالبة"></div></div>
    <div class="tw"><table id="stT"></table></div>
   </section>
  </div>
@@ -82,7 +82,7 @@ const CH=[
  {n:6,t:'الكيمياء الحيوية',l:4,c:'#8A3FD8',u:'/ch6/'}];
 const PW='123456',KEY='chem22-teacher-dashboard-v1';
 const $=s=>document.querySelector(s);
-let DB={},SRV={},PWV='',ONLINE=false;
+let DB={},SRV={},SKEY={},SMETA={},PWV='',ONLINE=false;
 window.__DBG=()=>DB;
 const load=()=>{try{DB=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){DB={};}};
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(DB));}catch(e){}};
@@ -90,7 +90,7 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 function hash(str){let h=7;for(const c of str)h=(h*31+c.codePointAt(0))%1000003;return h;}
 function parse(code){const m=code.trim().match(/^KIM-([A-Za-z0-9+/]+)-([0-9a-z]+)$/);if(!m)return null;try{const body=decodeURIComponent(escape(atob(m[1])));if(hash(body).toString(36)!==m[2])return null;const p=JSON.parse(body);if(!p.n||!(p.c>=1&&p.c<=6))return null;return p;}catch(e){return null;}}
 const keyOf=n=>n.replace(/\s+/g,' ').trim();
-async function fetchServer(pw){try{const r=await fetch('/api/results',{headers:{'x-teacher-password':pw},cache:'no-store'});if(r.status===401)return 'bad';if(!r.ok)return 'off';const d=await r.json();SRV={};(d.rows||[]).forEach(x=>{const k=keyOf(x.name);SRV[k]=SRV[k]||{};SRV[k][x.chapter]={d:x.lessons_done,t:x.lessons_total,f:x.final_score,s:x.stars,m:x.max_stars,ts:Date.parse((x.updated_at||'').replace(' ','T')+'Z')||0,srv:1};});ONLINE=true;return 'ok';}catch(e){return 'off';}}
+async function fetchServer(pw){try{const r=await fetch('/api/results',{headers:{'x-teacher-password':pw},cache:'no-store'});if(r.status===401)return 'bad';if(!r.ok)return 'off';const d=await r.json();SRV={};SKEY={};SMETA={};(d.rows||[]).forEach(x=>{const k=`${keyOf(x.name)} (${x.grade} · ${x.section})`;SRV[k]=SRV[k]||{};SKEY[k]=x.student_key;SMETA[k]={g:x.grade,s:x.section};if(x.chapter)SRV[k][x.chapter]={d:x.lessons_done,t:x.lessons_total,f:x.final_score,s:x.stars,m:x.max_stars,ts:Date.parse((x.updated_at||'').replace(' ','T')+'Z')||0,srv:1};});ONLINE=true;return 'ok';}catch(e){return 'off';}}
 function view(){const V=JSON.parse(JSON.stringify(DB));Object.entries(SRV).forEach(([n,chs])=>{V[n]=V[n]||{};Object.entries(chs).forEach(([c,r])=>{if(!V[n][c]||r.ts>=V[n][c].ts)V[n][c]=r;});});return V;}
 function srcNote(){const m=$('#srcMsg');m.style.display='block';if(ONLINE){m.className='notice ok';m.textContent='✓ متصلة بقاعدة البيانات. آخر تحديث: '+new Date().toLocaleTimeString('ar-SA');}else{m.className='notice';m.textContent='تعمل اللوحة دون قاعدة بيانات (افتحيها من موقع المشروع على Cloudflare للاتصال بها). تظهر الرموز الملصقة فقط.';}}
 async function unlock(pw){$('#gate').classList.add('hide');$('#dash').classList.remove('hide');load();PWV=pw;await fetchServer(pw);render();srcNote();}
@@ -104,7 +104,7 @@ $('#add').addEventListener('click',()=>{const lines=$('#codes').value.split(/[\s
   lines.forEach(c=>{const p=parse(c);if(!p){bad++;return;}const k=keyOf(p.n);DB[k]=DB[k]||{};const old=DB[k][p.c];if(!old||p.ts>=old.ts){if(old)upd++;DB[k][p.c]={d:p.d,t:p.t,f:p.f,s:p.s,m:p.m,ts:p.ts};}ok++;});
   save();render();$('#codes').value='';$('#addMsg').innerHTML=`<div class="notice ${bad?'bad':'ok'}">أُضيف ${ok} رمز${upd?` (منها ${upd} تحديث لنتيجة سابقة)`:''}.${bad?` تعذّرت قراءة ${bad} رمز: تأكدي أنه منسوخ كاملًا دون تعديل.`:''}</div>`;});
 $('#clear').addEventListener('click',async()=>{if(confirm('هل تريدين مسح جميع نتائج الطالبات؟ سيُحذف ذلك من قاعدة البيانات أيضًا ولا يمكن التراجع.')){DB={};save();if(ONLINE){try{await fetch('/api/results?all=1',{method:'DELETE',headers:{'x-teacher-password':PWV}});}catch(e){}SRV={};}render();}});
-$('#q').addEventListener('input',render);
+$('#q').addEventListener('input',render);$('#fg').addEventListener('change',render);$('#fs').addEventListener('change',render);
 function tag(f){if(f==null)return '<span class="d">—</span>';const c=f>=80?'g':f>=60?'m':'r';return `<span class="tag ${c}">${f}%</span>`;}
 function render(){const DB=view();const names=Object.keys(DB).sort((a,b)=>a.localeCompare(b,'ar'));
   let lessons=0,finals=[],stars=0,doneFinal=0;names.forEach(n=>Object.values(DB[n]).forEach(r=>{lessons+=r.d;stars+=r.s;if(r.f!=null){finals.push(r.f);doneFinal++;}}));
@@ -112,11 +112,11 @@ function render(){const DB=view();const names=Object.keys(DB).sort((a,b)=>a.loca
   $('#stats').innerHTML=[[names.length,'عدد الطالبات'],[names.length?`${lessons}/${names.length*totalL}`:'0/'+totalL,'الدروس المنجزة'],[doneFinal,'الاختبارات الختامية المنجزة'],[finals.length?Math.round(finals.reduce((a,b)=>a+b,0)/finals.length)+'%':'—','متوسط الاختبار الختامي'],[stars+' ⭐','مجموع النجوم المكتسبة']].map(([v,l])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join('');
   $('#chT').innerHTML=`<thead><tr><th>الفصل</th><th>الطالبات المرسِلات</th><th>متوسط الدروس المنجزة</th><th>متوسط الاختبار الختامي</th><th>متوسط النجوم</th><th></th></tr></thead><tbody>${CH.map(c=>{const rs=names.map(n=>DB[n][c.n]).filter(Boolean);const fs=rs.filter(r=>r.f!=null).map(r=>r.f);
     const avgD=rs.length?(rs.reduce((a,r)=>a+r.d,0)/rs.length):null;return `<tr><td><span class="chn" style="color:${c.c}">${c.n}</span>${c.t}</td><td class="n">${rs.length}</td><td class="n">${avgD==null?'—':avgD.toFixed(1)+'/'+c.l}</td><td>${fs.length?tag(Math.round(fs.reduce((a,b)=>a+b,0)/fs.length)):'—'}</td><td class="n">${rs.length?(rs.reduce((a,r)=>a+r.s,0)/rs.length).toFixed(1):'—'}</td><td><a class="btn ghost sm" href="${c.u}" target="_blank" rel="noopener">فتح المنصة</a></td></tr>`;}).join('')}</tbody>`;
-  const q=$('#q').value.trim();const shown=names.filter(n=>!q||n.includes(q));
+  const q=$('#q').value.trim(),fg=$('#fg').value,fs=$('#fs').value;const shown=names.filter(n=>(!q||n.includes(q))&&(!fg||(SMETA[n]&&SMETA[n].g===fg))&&(!fs||(SMETA[n]&&SMETA[n].s===fs)));
   $('#stT').innerHTML=`<thead><tr><th>الطالبة</th>${CH.map(c=>`<th><span class="chn" style="color:${c.c}">${c.n}</span>${c.t.split(' ')[0]}${c.t.split(' ').length>1?' …':''}</th>`).join('')}<th>المجموع</th><th></th></tr></thead><tbody>${shown.length?shown.map(n=>{const R=DB[n];let tl=0,ts=0;
     const cells=CH.map(c=>{const r=R[c.n];if(!r)return '<td class="cell empty">لم يُرسل</td>';tl+=r.d;ts+=r.s;return `<td class="cell"><div>📘 ${r.d}/${r.t} <span class="d">دروس</span></div><div class="bar"><i style="width:${Math.round(r.d/r.t*100)}%"></i></div><div>📝 ${tag(r.f)} · ⭐ ${r.s}</div></td>`;}).join('');
     return `<tr><td><b>${esc(n)}</b></td>${cells}<td class="cell"><div>📘 ${tl}/${totalL}</div><div>⭐ ${ts}</div></td><td><button class="del" data-n="${esc(n)}" title="حذف الطالبة" aria-label="حذف ${esc(n)}">✕</button></td></tr>`;}).join(''):`<tr><td colspan="${CH.length+3}" style="color:var(--muted);text-align:center;padding:24px">${names.length?'لا توجد نتائج مطابقة للبحث.':'لم تُضف رموز بعد. الصقي رموز الطالبات في الأعلى.'}</td></tr>`}</tbody>`;
-  document.querySelectorAll('.del').forEach(b=>b.addEventListener('click',async()=>{const n=b.dataset.n;if(confirm('حذف نتائج '+n+'؟')){delete DBL()[n];save();if(ONLINE){try{await fetch('/api/results?name='+encodeURIComponent(n),{method:'DELETE',headers:{'x-teacher-password':PWV}});}catch(e){}delete SRV[n];}render();}}));}
+  document.querySelectorAll('.del').forEach(b=>b.addEventListener('click',async()=>{const n=b.dataset.n;if(confirm('حذف نتائج '+n+'؟')){delete DBL()[n];save();if(ONLINE&&SKEY[n]){try{await fetch('/api/results?key='+encodeURIComponent(SKEY[n]),{method:'DELETE',headers:{'x-teacher-password':PWV}});}catch(e){}delete SRV[n];}render();}}));}
 function DBL(){return window.__DBG();}
 $('#csv').addEventListener('click',async()=>{const DB=view();const names=Object.keys(DB).sort((a,b)=>a.localeCompare(b,'ar'));const head=['الطالبة',...CH.flatMap(c=>[`ف${c.n} دروس`,`ف${c.n} الختامي %`,`ف${c.n} نجوم`])];
   const rows=names.map(n=>[n,...CH.flatMap(c=>{const r=DB[n][c.n];return r?[`${r.d}/${r.t}`,r.f==null?'':r.f,r.s]:['','','']})]);const csv='\ufeff'+[head,...rows].map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');

@@ -505,6 +505,7 @@ input.ans{width:150px;direction:ltr;text-align:center}
   <div class="bot-note">المساعد يساعدك على الفهم، فتحققي دائمًا من كتابك ومعلمتك.</div>
 </section>
 
+<script src="/student.js"></script>
 <script>
 "use strict";
 const $=(s,r=document)=>r.querySelector(s);
@@ -810,27 +811,29 @@ function repHash(str){let h=7;for(const c of str)h=(h*31+c.codePointAt(0))%10000
 function repCode(name){const total=LESSONS.length;const done=LESSONS.filter(L=>S.done[L.n]).length;const max=LESSONS.reduce((a,L)=>a+lessonMax(L),0)+5;
   const p={v:1,c:CH_NO,n:name.trim(),d:done,t:total,f:S.final==null?null:S.final,s:totalStars(),m:max,ts:Date.now()};const body=JSON.stringify(p);
   return 'KIM-'+btoa(unescape(encodeURIComponent(body))).replace(/=+$/,'')+'-'+repHash(body).toString(36);}
-function reportHTML(){let nm='';try{nm=localStorage.getItem(RKEY)||'';}catch(e){}
-  return `<section class="final-band report-band"><div class="rb-in"><div><h3>📤 تقرير التقدم للمعلمة</h3><p>اكتبي اسمك الثلاثي ثم اضغطي «احفظي تقدمي لدى المعلمة»؛ بعدها يُحدَّث تقدمك تلقائيًا كلما أنجزتِ شيئًا جديدًا. ويمكنك أيضًا إنشاء رمز التقدم وإرساله لمعلمتك.</p></div>
-   <div class="rb-row"><input type="text" id="repName" placeholder="اسم الطالبة" value="${nm.replace(/"/g,'&quot;')}" aria-label="اسم الطالبة"><button type="button" class="btn hot" id="repSync">☁️ احفظي تقدمي لدى المعلمة</button><button type="button" class="btn cold" id="repGo">أنشئي الرمز</button></div>
+function reportHTML(){const p=window.Chem22Student&&Chem22Student.get();
+  return `<section class="final-band report-band"><div class="rb-in"><div><h3>👩‍🎓 بياناتي وتقدمي</h3>${p?`<p>مسجلة باسم <b>${esc(p.name)}</b> · ${esc(p.grade)} · الشعبة ${esc(p.section)}. يُحفظ تقدمك لدى المعلمة تلقائيًا كلما أنجزتِ درسًا أو اختبارًا، وتجدينه على أي جهاز إذا أدخلتِ البيانات نفسها.</p>`:'<p>سجّلي اسمك الثلاثي وصفك وشعبتك ليُحفظ تقدمك لدى المعلمة، وتجديه على أي جهاز.</p>'}</div>
+   <div class="rb-row">${p?'<button type="button" class="btn hot" id="repSync">☁️ حفظ تقدمي الآن</button><button type="button" class="btn" id="repEdit">✏️ تعديل بياناتي</button><button type="button" class="btn cold" id="repGo">رمز التقدم</button>':'<button type="button" class="btn hot" id="repEdit">👩‍🎓 سجّلي بياناتك</button>'}</div>
    <div id="repOut"></div></div></section>`;}
-function bindReport(){const go=$('#repGo');if(!go)return;
-  $('#repSync').addEventListener('click',async()=>{const nm=$('#repName').value.trim(),out=$('#repOut');if(nm.split(/\s+/).length<2){out.innerHTML='<p class="fb bad">اكتبي اسمك الثنائي أو الثلاثي حتى تتعرف عليك المعلمة.</p>';return;}
-    try{localStorage.setItem(RKEY,nm);}catch(e){}out.innerHTML='<p class="fb">جارٍ الحفظ…</p>';
-    try{await syncProgress(true);out.innerHTML=`<p class="fb ok">✓ حُفظ تقدمك لدى المعلمة باسم «${esc(nm)}». سيُحدَّث تلقائيًا عند أي إنجاز جديد.</p>`;}catch(e){out.innerHTML='<p class="fb bad">تعذّر الحفظ الآن. تحققي من الاتصال بالإنترنت، أو أنشئي رمز التقدم وأرسليه لمعلمتك.</p>';}});go.addEventListener('click',()=>{const nm=$('#repName').value.trim();const out=$('#repOut');
-  if(nm.split(/\s+/).length<2){out.innerHTML='<p class="fb bad">اكتبي اسمك الثنائي أو الثلاثي حتى تتعرف عليك المعلمة.</p>';return;}
-  try{localStorage.setItem(RKEY,nm);}catch(e){}const code=repCode(nm);const done=LESSONS.filter(L=>S.done[L.n]).length;
-  out.innerHTML=`<div class="rb-code"><code class="ltr" id="repCode">${code}</code><button type="button" class="btn sm" id="repCopy">📋 انسخي الرمز</button></div><p class="rb-sum">الدروس المنجزة: <b>${done} من ${LESSONS.length}</b> | الاختبار الختامي: <b>${S.final==null?'لم يُنجز':S.final+'%'}</b> | النجوم: <b>${totalStars()}</b></p>`;
-  $('#repCopy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(code);toast('تم نسخ الرمز ✓');}catch(e){const r=document.createRange();r.selectNodeContents($('#repCode'));const sel=getSelection();sel.removeAllRanges();sel.addRange(r);toast('حدّدي الرمز وانسخيه يدويًا');}});});}
-
-
+function bindReport(){const ed=$('#repEdit');if(!ed)return;ed.addEventListener('click',()=>Chem22Student.open());
+  const sy=$('#repSync');if(sy)sy.addEventListener('click',async()=>{const out=$('#repOut');out.innerHTML='<p class="fb">جارٍ الحفظ…</p>';try{await syncProgress(true);out.innerHTML='<p class="fb ok">✓ حُفظ تقدمك لدى المعلمة.</p>';}catch(e){out.innerHTML='<p class="fb bad">تعذّر الحفظ الآن. تحققي من الاتصال بالإنترنت، أو أنشئي رمز التقدم وأرسليه لمعلمتك.</p>';}});
+  const go=$('#repGo');if(go)go.addEventListener('click',()=>{const p=Chem22Student.get();if(!p)return;const code=repCode(p.name+' ('+p.grade+' - '+p.section+')');const done=LESSONS.filter(L=>S.done[L.n]).length;
+    $('#repOut').innerHTML=`<div class="rb-code"><code class="ltr" id="repCode">${code}</code><button type="button" class="btn sm" id="repCopy">📋 انسخي الرمز</button></div><p class="rb-sum">الدروس المنجزة: <b>${done} من ${LESSONS.length}</b> | الاختبار الختامي: <b>${S.final==null?'لم يُنجز':S.final+'%'}</b> | النجوم: <b>${totalStars()}</b></p>`;
+    $('#repCopy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(code);toast('تم نسخ الرمز ✓');}catch(e){toast('حدّدي الرمز وانسخيه يدويًا');}});});}
 /* ---------- مزامنة التقدم مع قاعدة البيانات (Cloudflare D1) ---------- */
 let _syncT=null;
-async function syncProgress(manual){let nm='';try{nm=localStorage.getItem(RKEY)||'';}catch(e){}if(!nm)return false;
-  const done=LESSONS.filter(L=>S.done[L.n]).length,max=LESSONS.reduce((a,L)=>a+lessonMax(L),0)+5;
-  try{const r=await fetch('/api/progress',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:nm,chapter:CH_NO,done,total:LESSONS.length,final:S.final==null?null:S.final,stars:totalStars(),max})});
-    if(!r.ok)throw 0;try{localStorage.setItem(RKEY+'-synced','1');}catch(e){}return true;}catch(e){if(manual)throw e;return false;}}
-function autoSync(){let on='';try{on=localStorage.getItem(RKEY+'-synced');}catch(e){}if(!on)return;clearTimeout(_syncT);_syncT=setTimeout(()=>syncProgress(false),3000);}
+async function syncProgress(manual){const p=window.Chem22Student&&Chem22Student.get();if(!p)return false;
+  const list=LESSONS.filter(L=>S.done[L.n]).map(L=>L.n),max=LESSONS.reduce((a,L)=>a+lessonMax(L),0)+5;
+  try{const r=await fetch('/api/progress',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:p.name,grade:p.grade,section:p.section,chapter:CH_NO,done:list.length,done_list:list,total:LESSONS.length,final:S.final==null?null:S.final,stars:totalStars(),max})});
+    if(!r.ok)throw 0;return true;}catch(e){if(manual)throw e;return false;}}
+function autoSync(){if(!(window.Chem22Student&&Chem22Student.get()))return;clearTimeout(_syncT);_syncT=setTimeout(()=>syncProgress(false),2500);}
+/* استرجاع التقدم من قاعدة البيانات عند الدخول من جهاز آخر */
+async function restoreProgress(){const p=window.Chem22Student&&Chem22Student.get();if(!p)return;
+  try{const q=new URLSearchParams({name:p.name,grade:p.grade,section:p.section,chapter:CH_NO});const r=await fetch('/api/student?'+q);if(!r.ok)return;const d=await r.json();const row=(d.rows||[])[0];if(!row)return syncProgress(false);
+    let changed=false;String(row.done_list||'').split(',').map(Number).filter(Boolean).forEach(n=>{if(!S.done[n]){S.done[n]=true;changed=true;}});
+    if(row.final_score!=null&&(S.final==null||row.final_score>S.final)){S.final=row.final_score;changed=true;}
+    if(changed){try{localStorage.setItem(LS,JSON.stringify(S));}catch(e){}route();toast('استُرجع تقدمك المحفوظ ✓');}
+    syncProgress(false);}catch(e){}}
 
 function viewHome(){
   const done=Object.keys(S.done).filter(k=>S.done[k]).length;
@@ -1476,6 +1479,7 @@ applyTheme();
 initBot();
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{applyTheme();window.dispatchEvent(new Event('themechange'));});
 route();
+if(window.Chem22Student){restoreProgress();Chem22Student.onChange(()=>{if(!location.hash||location.hash==="#home")route();restoreProgress();});}
 </script>
 </body>
 </html>

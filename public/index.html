@@ -3,41 +3,226 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>منصات كيمياء 2-2 التفاعلية</title>
+<title>مختبر كيمياء 2-2</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#F1EBFC;--grid:rgba(124,77,214,.11);--surface:#fff;--ink:#1E1636;--muted:#5F5878;--line:#E2D9F3;--mid:#7C4DD6;color-scheme:light}
-@media (prefers-color-scheme:dark){:root{--bg:#16112A;--grid:rgba(184,140,255,.08);--surface:#211A3A;--ink:#EEE9FB;--muted:#B4ABD0;--line:#3A3060;color-scheme:dark}}
-*{box-sizing:border-box}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-body{margin:0;background-color:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:26px 26px;color:var(--ink);font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;line-height:1.7}
-.wrap{max-width:1050px;margin:0 auto;padding:34px 18px 50px}
-h1{font-family:"Noto Kufi Arabic",sans-serif;font-size:clamp(28px,5vw,44px);margin:0}
-.grad{background:linear-gradient(90deg,#2763D8,#8A4FC8,#DE4527);-webkit-background-clip:text;background-clip:text;color:transparent}
-.sub{color:var(--muted);margin:8px 0 26px}
-.teacher{display:flex;gap:10px;align-items:center;margin:14px 0 24px}.av{width:44px;height:44px;border-radius:50%;background:#2763D8;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-family:"Noto Kufi Arabic",sans-serif}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px}
-a.card{display:block;text-decoration:none;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:20px;border-top:6px solid var(--c);transition:transform .2s}
-a.card:hover{transform:translateY(-3px)}
-.num{font-family:"Noto Kufi Arabic",sans-serif;font-weight:800;color:var(--c);font-size:15px}.card h2{font-family:"Noto Kufi Arabic",sans-serif;font-size:21px;margin:4px 0 6px}.card p{margin:0;color:var(--muted);font-size:15px}
-.go{display:inline-block;margin-top:12px;background:var(--c);color:#fff;border-radius:999px;padding:6px 18px;font-weight:700;font-size:14px}
-.foot{text-align:center;color:var(--muted);font-size:12.5px;margin-top:30px}
+:root{--bg:#F4EFFC;--surface:#fff;--ink:#1E1636;--muted:#5F5878;--line:#E2D9F3;--wall:#EDE6F8;--bench:#5B4A86;--bench2:#3F3266;--board:#24363A;--chalk:#F2F0E6;--paper:#FFFDF6;--rule:#D6E4F2;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15112A;--surface:#211A3A;--ink:#EEE9FB;--muted:#B4ABD0;--line:#3A3060;--wall:#1C1636;--bench:#3A2E63;--bench2:#2A2150;--board:#17282B;--paper:#231C3D;--rule:#33405a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15112A;--surface:#211A3A;--ink:#EEE9FB;--muted:#B4ABD0;--line:#3A3060;--wall:#1C1636;--bench:#3A2E63;--bench2:#2A2150;--board:#17282B;--paper:#231C3D;--rule:#33405a;color-scheme:dark}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Arabic",system-ui,"Segoe UI",Tahoma,sans-serif;font-size:16.5px;line-height:1.75;overflow-x:hidden}
+h1,h2,h3{font-family:"Noto Kufi Arabic","IBM Plex Sans Arabic",sans-serif;margin:0}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+.theme{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:14px;z-index:20;background:var(--surface);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:6px 14px;font:inherit;font-size:14px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.08)}
+/* ===== hero: lab room ===== */
+.lab{position:relative;background:linear-gradient(var(--wall),var(--wall) 72%,transparent);padding:34px 0 0}
+.lab:before{content:"";position:absolute;inset:0 0 28% 0;background-image:linear-gradient(rgba(124,77,214,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(124,77,214,.08) 1px,transparent 1px);background-size:44px 44px;pointer-events:none}
+.labgrid{position:relative;display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:26px;align-items:center}
+.shelfwrap{padding-bottom:46px}
+@media (max-width:1100px) and (min-width:761px){.panel{padding:20px 18px 16px}.panel h1{font-size:clamp(28px,4vw,44px)}.hexes{gap:4px}.hex span{font-size:10px}.panel p{font-size:15px}.flask .tagx{font-size:clamp(8.5px,1.05vw,11px);min-height:52px;padding:3px 1px;letter-spacing:-.3px}}
+/* glass panel */
+.panel{position:relative;background:linear-gradient(145deg,color-mix(in srgb,var(--surface) 88%,transparent),color-mix(in srgb,var(--surface) 70%,transparent));backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:28px;padding:26px 26px 22px;margin-bottom:46px;box-shadow:0 24px 50px rgba(60,30,140,.14);overflow:hidden}
+.panel:before{content:"";position:absolute;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,#8a5cf6 0%,transparent 70%);opacity:.18;top:-90px;left:-80px}
+.panel:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,#2fb39a 0%,transparent 70%);opacity:.16;bottom:-90px;right:-60px}
+.panel>*{position:relative;z-index:1}
+.badge{display:inline-block;background:var(--wall);border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:13.5px;color:var(--muted);font-weight:600}
+.panel h1{font-size:clamp(34px,4.8vw,56px);line-height:1.3;margin:10px 0 8px}
+.panel h1 span{background:linear-gradient(90deg,#2F6FE4,#9140D8 55%,#E0662A);-webkit-background-clip:text;background-clip:text;color:transparent}
+.panel p{margin:0 0 14px;color:var(--muted)}
+.hexes{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:6px 0 12px}
+.hex{aspect-ratio:1/1.05;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:linear-gradient(160deg,var(--c1,#7C4DD6),var(--c2,#5148E0));color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;max-width:112px;justify-self:center;width:100%}
+.hex:nth-child(2){--c1:#2F6FE4;--c2:#1E9E9A}.hex:nth-child(3){--c1:#E0662A;--c2:#D9338F}.hex:nth-child(4){--c1:#1E9E52;--c2:#12916A}
+.hex b{font-family:"Noto Kufi Arabic",sans-serif;font-size:clamp(20px,2.6vw,28px);line-height:1.1}.hex span{font-size:11.5px;opacity:.95;padding:0 6px;line-height:1.3}
+.greet{background:var(--wall);border:1px solid var(--line);border-radius:14px;padding:9px 14px;font-size:14.5px}
+.who{display:flex;gap:10px;align-items:center;margin-top:12px}.who b{font-size:18px}.who small{color:var(--muted)}
+.seal{width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,#7C4DD6,#2F6FE4);display:flex;align-items:center;justify-content:center;flex:none}.seal svg{width:30px;height:30px}
+.panel .btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.panel .btns a{background:linear-gradient(90deg,#5148E0,#7C4DD6);color:#fff;text-decoration:none;border-radius:999px;padding:8px 20px;font-weight:700;font-size:15px}.panel .btns a.o{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+/* shelf & flasks */
+.shelfwrap{position:relative}
+.shelf-title{text-align:center;color:var(--muted);font-size:14px;margin-bottom:6px}
+.flasks{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));align-items:end;gap:4px;position:relative;z-index:2;padding:0 8px}
+.flask{min-width:0;position:relative;display:flex;flex-direction:column;align-items:center;text-decoration:none;color:inherit;cursor:pointer;outline:none}
+.flask svg{width:118%;max-width:170px;margin-inline:-9%;height:auto;overflow:visible;transition:transform .35s cubic-bezier(.3,1.6,.5,1),filter .3s}
+.flask:hover svg,.flask:focus-visible svg{transform:translateY(-12px) rotate(-4deg);filter:drop-shadow(0 12px 18px color-mix(in srgb,var(--c) 45%,transparent))}
+.flask .tagx{hyphens:manual;margin-top:6px;background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--c);border-radius:10px;padding:4px 8px;text-align:center;font-size:12.5px;line-height:1.4;min-height:56px;width:100%;max-width:140px;box-shadow:0 4px 10px rgba(0,0,0,.05)}
+.flask .tagx b{display:block;color:var(--c);font-size:12px}
+.liq{transition:transform .9s cubic-bezier(.3,1.2,.4,1)}
+.bub{animation:rise 3.2s infinite ease-in;opacity:0}
+@keyframes rise{0%{transform:translateY(0) scale(.6);opacity:0}15%{opacity:.9}100%{transform:translateY(-70px) scale(1.1);opacity:0}}
+.flask:hover .bub{animation-duration:1.2s}
+.steam{animation:steam 2.6s infinite ease-out;opacity:0}
+@keyframes steam{0%{transform:translateY(0) scaleX(1);opacity:0}30%{opacity:.5}100%{transform:translateY(-34px) scaleX(1.6);opacity:0}}
+.bench{position:relative;height:34px;background:linear-gradient(var(--bench),var(--bench2));border-radius:6px 6px 0 0;margin-top:-6px;box-shadow:0 10px 24px rgba(30,20,70,.25)}
+.bench:after{content:"";position:absolute;left:4%;right:4%;top:34px;height:60px;background:linear-gradient(var(--bench2),transparent);opacity:.35}
+.pour{position:fixed;inset:0;z-index:50;pointer-events:none;opacity:0;transition:opacity .35s}
+.pour.on{opacity:1}
+/* ===== reaction pathway ===== */
+section.sec{padding:70px 0 10px}
+.eyebrow{color:#2763D8;font-weight:600;font-size:14px;margin:0 0 4px}
+.sec h2{font-size:clamp(24px,3.4vw,34px)}.sec .sub{color:var(--muted);margin:8px 0 22px;max-width:800px}
+.pathbox{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:18px 18px 8px;overflow:hidden}
+#path{width:100%;height:auto;display:block}
+.axis{font-size:13px;fill:var(--muted)}
+.stations{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin-top:4px}
+.st{background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:12px;border-top:5px solid var(--c);transition:transform .25s,box-shadow .25s;position:relative}
+.st.lit{transform:translateY(-4px);box-shadow:0 14px 30px color-mix(in srgb,var(--c) 22%,transparent)}
+.st .no{font-family:"Noto Kufi Arabic",sans-serif;font-weight:800;color:var(--c);font-size:13px}
+.st h3{font-size:16px;line-height:1.5;margin:2px 0 6px}
+.st ul{list-style:none;margin:0 0 8px;padding:0;font-size:13px;color:var(--muted)}.st ul li{padding:1px 0}.st ul li.ok{color:var(--ink)}.st ul li.ok:before{content:"✓ ";color:var(--c);font-weight:700}
+.prog{height:7px;background:var(--line);border-radius:9px;overflow:hidden;margin:6px 0}.prog i{display:block;height:100%;background:var(--c)}
+.st a{display:block;text-align:center;background:var(--c);color:#fff;text-decoration:none;border-radius:999px;padding:6px;font-weight:700;font-size:14px;margin-top:8px}
+/* ===== tools ===== */
+.tools{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px}
+.tool{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:16px;text-align:center;transition:transform .25s}
+.tool:hover{transform:rotate(-1.5deg) translateY(-3px)}
+.tool .ic{font-size:34px;display:inline-block;animation:bob 3s infinite ease-in-out}.tool:nth-child(2n) .ic{animation-delay:.6s}
+@keyframes bob{50%{transform:translateY(-5px)}}
+.tool h3{font-size:15.5px;margin:6px 0}.tool p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.7}
+/* ===== results ===== */
+.results{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:20px}
+.rstats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.gauge{display:flex;gap:12px;align-items:center;border:1px solid var(--line);border-radius:18px;padding:12px 14px;background:var(--bg)}
+.gauge svg{width:62px;height:62px;flex:none;transform:rotate(-90deg)}.gauge b{display:block;font-family:"Noto Kufi Arabic",sans-serif;font-size:22px;line-height:1.2}.gauge span{color:var(--muted);font-size:13px}
+.rack{display:flex;flex-direction:column;gap:10px}
+.rrow{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,2fr) 92px 84px;gap:14px;align-items:center;padding:8px 10px;border-radius:14px}
+.rrow:hover{background:var(--bg)}
+.rname{display:flex;gap:10px;align-items:center;font-weight:600;font-size:15px}.rname i{width:32px;height:32px;border-radius:10px;background:var(--c);color:#fff;font-style:normal;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none}
+.cyl{position:relative;height:26px;border:2px solid var(--muted);border-radius:13px 4px 4px 13px;overflow:hidden;background:color-mix(in srgb,var(--c) 6%,transparent)}
+.cyl .fill{position:absolute;inset:0 0 0 auto;width:0;background:linear-gradient(270deg,color-mix(in srgb,var(--c) 70%,#fff),var(--c));transition:width 1.2s cubic-bezier(.3,1.2,.4,1)}
+.cyl .fill:after{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:rgba(255,255,255,.5);border-radius:6px}
+.cyl .tk{position:absolute;top:0;bottom:55%;width:1.5px;background:var(--muted);opacity:.6}
+.cyl b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12.5px;direction:ltr;color:var(--ink);font-weight:700}
+.score{text-align:center;border-radius:999px;padding:3px 8px;font-weight:700;font-size:14px;direction:ltr}
+.score.g{background:#E3F6EE;color:#12916A}.score.m{background:#FFF3D6;color:#9a6a00}.score.r{background:#FBE5E1;color:#B4321F}.score.n{background:var(--wall);color:var(--muted)}
+.rrow a{color:var(--c);font-weight:700;text-decoration:none;text-align:center;border:1.5px solid var(--c);border-radius:999px;padding:3px 6px;font-size:14px}
+.note{color:var(--muted);font-size:13px;margin-top:8px}
+.foot{text-align:center;color:var(--muted);font-size:13px;padding:40px 0 30px}
+@media (max-width:760px){.labgrid{grid-template-columns:1fr}.panel{margin-bottom:24px}.shelfwrap{padding-bottom:0}}
+@media (max-width:1000px){.stations{grid-template-columns:repeat(3,minmax(0,1fr))}.rstats{grid-template-columns:repeat(2,minmax(0,1fr))}.tools{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:620px){.flasks{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:14px}.bench{display:none}.stations,.tools{grid-template-columns:1fr 1fr}.hex span{font-size:10.5px}.rrow{grid-template-columns:minmax(0,1fr) 70px;row-gap:6px}.rrow .cyl{grid-column:1/-1;grid-row:2}.rstats{grid-template-columns:1fr 1fr}}
+@media (max-width:420px){.stations{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bub,.steam,.tool .ic{animation:none}.flask svg,.tool,.st,.liq{transition:none}}
 </style>
 </head>
 <body>
-<div class="wrap">
- <h1>منصات <span class="grad">كيمياء 2-2</span> التفاعلية</h1>
- <div class="teacher"><span class="av">ص</span><div><small>إعداد المعلمة:</small><br><b>صباح داخل الأحمدي</b></div></div>
- <p class="sub">رحلة تعليمية تفاعلية في ستة فصول: دروس مبسطة، ومختبرات افتراضية، وخرائط مفاهيم، وألعاب، واختبارات قصيرة، واختبار ختامي من أسئلة التحصيلي، ومساعد كيميائي.</p>
- <div class="grid">
-  <a class="card" href="/ch1/" style="--c:#2763D8"><span class="num">الفصل الأول</span><h2>الطاقة والتغيرات الكيميائية</h2><p>الطاقة، الحرارة، المعادلات الكيميائية الحرارية، وقانون هس.</p><span class="go">ادخلي</span></a>
-  <a class="card" href="/ch2/" style="--c:#12916A"><span class="num">الفصل الثاني</span><h2>سرعة التفاعلات الكيميائية</h2><p>نظرية التصادم، العوامل المؤثرة، وقوانين سرعة التفاعل.</p><span class="go">ادخلي</span></a>
-  <a class="card" href="/ch3/" style="--c:#DE6B27"><span class="num">الفصل الثالث</span><h2>الاتزان الكيميائي</h2><p>الاتزان الديناميكي، مبدأ لوتشاتلييه، وثوابت الاتزان.</p><span class="go">ادخلي</span></a>
-  <a class="card" href="/ch4/" style="--c:#4F4BD8"><span class="num">الفصل الرابع</span><h2>الهيدروكربونات</h2><p>الألكانات والألكينات والألكاينات، المتشكلات، والمركبات الأروماتية.</p><span class="go">ادخلي</span></a>
-  <a class="card" href="/ch5/" style="--c:#1FA34A"><span class="num">الفصل الخامس</span><h2>مشتقات المركبات الهيدروكربونية وتفاعلاتها</h2><p>الهاليدات، الكحولات، مركبات الكربونيل، التفاعلات، والبوليمرات.</p><span class="go">ادخلي</span></a>
-  <a class="card" href="/ch6/" style="--c:#8A3FD8"><span class="num">الفصل السادس</span><h2>الكيمياء الحيوية</h2><p>البروتينات، الكربوهيدرات، الليبيدات، والأحماض النووية.</p><span class="go">ادخلي</span></a>
+<button class="theme" id="theme" type="button">🌙 الوضع الليلي</button>
+<header class="lab">
+ <div class="wrap labgrid">
+  <div class="panel">
+   <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><span class="badge">⚗️ كيمياء 2-2 · المرحلة الثانوية</span><span data-student-slot></span></div>
+   <h1>مختبر <span>كيمياء 2-2</span></h1>
+   <p>ستة فصول، كل فصل قارورة على رف مختبرك. اختاري قارورة لتبدئي تجربتها: مختبرات افتراضية، وصور تفاعلية، وخرائط مفاهيم، وألعاب، واختبارات من أسئلة التحصيلي.</p>
+   <div class="hexes"><div class="hex"><b>6</b><span>فصول</span></div><div class="hex"><b>24</b><span>درسًا</span></div><div class="hex"><b>6</b><span>اختبارات ختامية</span></div><div class="hex"><b>504</b><span>سؤالًا تحصيليًا</span></div></div>
+   <div class="greet" id="greet">💡 مرّري على أي قارورة لتري اسم الفصل، واضغطي عليها للدخول.</div>
+   <div class="who"><span class="seal"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M15 6h10M17 6v10L8 32a3 3 0 0 0 3 4h18a3 3 0 0 0 3-4L23 16V6" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"/><path d="M11.5 27h17l2.5 5a2 2 0 0 1-2 3H11a2 2 0 0 1-2-3z" fill="#fff" opacity=".85"/></svg></span><div><small>إعداد المعلمة:</small><br><b>صباح داخل الأحمدي</b></div></div>
+   <div class="btns"><a href="#path-sec">مسار التفاعل ↓</a><a class="o" href="#results">سجل نتائجي</a><a class="o" href="/teacher/" target="_self">لوحة المتابعة</a></div>
+  </div>
+  <div class="shelfwrap">
+   <div class="shelf-title">🧪 رف المختبر: مستوى السائل في كل قارورة = نسبة ما أنجزتِه من دروس الفصل</div>
+   <div class="flasks" id="flasks"></div>
+   <div class="bench"></div>
+  </div>
  </div>
- <p class="foot">إعداد المعلمة: صباح داخل الأحمدي - الثانوية السادسة والثلاثون بالمدينة المنورة</p>
-</div>
+</header>
+
+<main class="wrap">
+ <section class="sec" id="path-sec">
+  <p class="eyebrow">مسار التفاعل</p>
+  <h2>رحلتك من المتفاعلات إلى النواتج</h2>
+  <p class="sub">مثل مخطط طاقة التفاعل: كل فصل «قمة» عليكِ اجتيازها. انزلي في الصفحة وراقبي الجزيء وهو يعبر قمم الفصول الستة، فعند كل قمة محطة فيها دروس الفصل ونسبة إنجازك.</p>
+  <div class="pathbox"><svg id="path" viewBox="0 0 1200 260" role="img" aria-label="مخطط طاقة يمثل الفصول الستة"></svg><div class="stations" id="stations"></div></div>
+ </section>
+
+ <section class="sec">
+  <p class="eyebrow">أدوات المختبر</p>
+  <h2>ما الذي ستجدينه في كل قارورة؟</h2>
+  <p class="sub">أدوات مشتركة في الفصول الستة، صُممت لتجعل المفهوم الكيميائي مرئيًا يمكن تجربته.</p>
+  <div class="tools">
+   <div class="tool"><span class="ic">🧪</span><h3>مختبرات افتراضية</h3><p>تغيّرين المتغيرات وتسجلين النتائج وتستنتجين العلاقات.</p></div>
+   <div class="tool"><span class="ic">🧊</span><h3>صور ونماذج تفاعلية</h3><p>جزيئات ثلاثية الأبعاد ورسوم متحركة تُحرَّك وتُقارَن.</p></div>
+   <div class="tool"><span class="ic">🗺️</span><h3>خرائط المفاهيم</h3><p>منظمات تربط الأفكار وجداول مقارنة تُظهر الفروق.</p></div>
+   <div class="tool"><span class="ic">🤖</span><h3>المساعد الكيميائي</h3><p>يجيب عن أسئلتك ويساعدك في المسائل خطوة بخطوة.</p></div>
+   <div class="tool"><span class="ic">⭐</span><h3>نجوم وألعاب</h3><p>مهام لكل درس، وشارات، وتحديات في 45 ثانية.</p></div>
+   <div class="tool"><span class="ic">📝</span><h3>التقويم</h3><p>اختبار قصير لكل درس، واختبار ختامي تحصيلي، ومهمة أدائية.</p></div>
+  </div>
+ </section>
+
+ <section class="sec" id="results">
+  <p class="eyebrow">سجل النتائج</p>
+  <h2>نتائج تجاربي</h2>
+  <p class="sub">يُسجَّل تقدمك تلقائيًا من هذا الجهاز: كل مخبار يمتلئ بقدر ما أنجزتِه من دروس الفصل، وبجانبه أعلى نتيجة لك في الاختبار الختامي.</p>
+  <div class="results"><div class="rstats" id="rstats"></div><div class="rack" id="rack"></div><p class="note" id="nbnote"></p></div>
+ </section>
+</main>
+<p class="foot">إعداد المعلمة: صباح داخل الأحمدي - الثانوية السادسة والثلاثون بالمدينة المنورة</p>
+<div class="pour" id="pour"></div>
+<script src="/student.js"></script>
+<script>
+const CH=[
+ {n:1,t:'الطاقة والتغيرات الكيميائية',s:'الطاقة',c:'#2F6FE4',ls:'thermo22-sabah-v1',u:'/ch1/',shape:'beaker',L:['الطاقة','الحرارة','المعادلات الكيميائية الحرارية','حساب التغير في المحتوى الحراري']},
+ {n:2,t:'سرعة التفاعلات الكيميائية',s:'سرعة التفاعلات',c:'#12916A',ls:'rates22-sabah-ch2-v1',u:'/ch2/',shape:'erlen',L:['نظرية التصادم وسرعة التفاعل','العوامل المؤثرة في سرعة التفاعل','قوانين سرعة التفاعل']},
+ {n:3,t:'الاتزان الكيميائي',s:'الاتزان',c:'#E0662A',ls:'equil22-sabah-ch3-v1',u:'/ch3/',shape:'round',L:['حالة الاتزان الديناميكي','العوامل المؤثرة في الاتزان','استعمال ثوابت الاتزان']},
+ {n:4,t:'الهيدروكربونات',s:'الهيدرو\u00ADكربونات',c:'#5148E0',ls:'hydro22-sabah-ch4-v1',u:'/ch4/',shape:'tube',L:['مقدمة إلى الهيدروكربونات','الألكانات','الألكينات والألكاينات','متشكلات الهيدروكربونات','الهيدروكربونات الأروماتية']},
+ {n:5,t:'مشتقات المركبات الهيدروكربونية وتفاعلاتها',s:'المشتقات',c:'#1E9E52',ls:'deriv22-sabah-ch5-v1',u:'/ch5/',shape:'vol',L:['هاليدات الألكيل والأريل','الكحولات والإيثرات والأمينات','مركبات الكربونيل','تفاعلات أخرى للمركبات العضوية','البوليمرات']},
+ {n:6,t:'الكيمياء الحيوية',s:'الكيمياء الحيوية',c:'#9140D8',ls:'bio22-sabah-ch6-v1',u:'/ch6/',shape:'cyl',L:['البروتينات','الكربوهيدرات','الليبيدات','الأحماض النووية']}];
+const TT='_self';const $=s=>document.querySelector(s);const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const P=CH.map(c=>{try{const s=JSON.parse(localStorage.getItem(c.ls)||'null');if(!s)return null;const d=c.L.map((_,i)=>!!(s.done&&s.done[i+1]));let nm='';try{nm=localStorage.getItem(c.ls+'-name')||'';}catch(e){}return{d,k:d.filter(Boolean).length,f:s.final==null?null:s.final,nm};}catch(e){return null;}});
+const AR=n=>String(n).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+/* glass shapes: outline path + liquid clip region (y from 0 top to 200 bottom, width 120) */
+const SH={
+ beaker:{o:'M22 30 L22 186 Q22 196 32 196 L88 196 Q98 196 98 186 L98 30 M16 30 L104 30',clip:'M24 30 L96 30 L96 186 Q96 194 88 194 L32 194 Q24 194 24 186Z',top:40,bot:194,marks:[70,110,150]},
+ erlen:{o:'M48 22 L48 82 L16 182 Q12 196 26 196 L94 196 Q108 196 104 182 L72 82 L72 22 M42 22 L78 22',clip:'M50 82 L70 82 L102 182 Q105 194 94 194 L26 194 Q15 194 18 182Z',top:96,bot:194,marks:[]},
+ round:{o:'M50 20 L50 92 A44 44 0 1 0 70 92 L70 20 M44 20 L76 20',clip:'M60 92 m-40 50 a40 40 0 1 0 80 0 a40 40 0 1 0 -80 0Z',top:96,bot:180,marks:[]},
+ tube:{o:'M44 14 L44 176 Q44 196 60 196 Q76 196 76 176 L76 14 M38 14 L82 14',clip:'M46 14 L74 14 L74 176 Q74 194 60 194 Q46 194 46 176Z',top:40,bot:194,marks:[60,100,140]},
+ vol:{o:'M54 10 L54 104 Q20 118 20 160 Q20 196 60 196 Q100 196 100 160 Q100 118 66 104 L66 10 M48 10 L72 10',clip:'M56 104 L64 104 Q98 118 98 160 Q98 194 60 194 Q22 194 22 160 Q22 118 56 104Z',top:120,bot:194,marks:[]},
+ cyl:{o:'M40 16 L40 184 L28 196 L92 196 L80 184 L80 16 M34 16 L86 16',clip:'M42 16 L78 16 L78 184 L42 184Z',top:30,bot:184,marks:[50,80,110,140,170]}};
+$('#flasks').innerHTML=CH.map((c,i)=>{const g=SH[c.shape],p=P[i],fr=p?p.k/c.L.length:0,lv=Math.max(.18,fr*.82+.18);const y=g.bot-(g.bot-g.top)*lv;
+ const bubs=[...Array(5)].map((_,k)=>`<circle class="bub" cx="${48+k*6}" cy="${g.bot-8}" r="${2+k%3}" fill="#fff" style="animation-delay:${k*.55+i*.2}s"/>`).join('');
+ return `<a class="flask" href="${c.u}" target="${TT}" data-i="${i}" style="--c:${c.c}" aria-label="الفصل ${c.n}: ${c.t}">
+  <svg viewBox="0 -40 120 240"><defs><clipPath id="cp${i}"><path d="${g.clip}"/></clipPath><linearGradient id="lg${i}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c.c}" stop-opacity=".75"/><stop offset="1" stop-color="${c.c}"/></linearGradient></defs>
+   ${[0,1].map(k=>`<path class="steam" d="M${52+k*14} 6 q6 -10 0 -20 q-6 -10 0 -20" fill="none" stroke="${c.c}" stroke-width="3" stroke-linecap="round" style="animation-delay:${k*1.2+i*.3}s;opacity:0"/>`).join('')}
+   <g clip-path="url(#cp${i})"><g class="liq" style="transform:translateY(${y}px)"><path d="M0 0 Q30 -6 60 0 T120 0 L120 240 L0 240Z" fill="url(#lg${i})"/></g>${bubs}</g>
+   <path d="${g.o}" fill="rgba(255,255,255,.18)" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+   ${g.marks.map(m=>`<line x1="${c.shape==='tube'?66:c.shape==='cyl'?70:84}" y1="${m}" x2="${c.shape==='tube'?74:c.shape==='cyl'?78:96}" y2="${m}" stroke="currentColor" opacity=".45"/>`).join('')}
+   <path d="M30 60 Q28 120 32 170" stroke="#fff" stroke-width="4" opacity=".35" fill="none" stroke-linecap="round"/>
+   <text x="60" y="${Math.min(g.bot-14,y+30)}" text-anchor="middle" font-family="Noto Kufi Arabic" font-weight="800" font-size="22" fill="#fff">${c.n}</text></svg>
+  <span class="tagx"><b>الفصل ${c.n} · ${p?p.k:0}/${c.L.length}</b>${c.s}</span></a>`;}).join('');
+document.querySelectorAll('.flask').forEach(a=>{a.addEventListener('click',e=>{if(reduced)return;e.preventDefault();const c=CH[+a.dataset.i];const po=$('#pour');po.style.background=`radial-gradient(circle at ${e.clientX}px ${e.clientY}px, ${c.c} 0%, ${c.c}cc 30%, transparent 70%)`;po.classList.add('on');setTimeout(()=>{if(TT==='_blank'){window.open(a.href,'_blank','noopener');po.classList.remove('on');}else location.href=a.href;},420);});
+ a.addEventListener('mouseenter',()=>{$('#greet').innerHTML=`🧪 <b>الفصل ${CH[+a.dataset.i].n}:</b> ${CH[+a.dataset.i].t}. اضغطي على القارورة للدخول.`;});});
+const SP=window.Chem22Student&&Chem22Student.get();const name=(SP&&SP.name)||(P.find(p=>p&&p.nm)||{}).nm,tot=CH.reduce((a,c)=>a+c.L.length,0),done=P.reduce((a,p)=>a+(p?p.k:0),0);
+let G0=name||done?`👋 مرحبًا${name?' يا <b>'+name.replace(/[<>&]/g,'')+'</b>':''}! أنجزتِ ${done} من ${tot} درسًا. القوارير تنتظر تجاربك.`:$('#greet').innerHTML;$('#greet').innerHTML=G0;
+$('.flasks').addEventListener('mouseleave',()=>{$('#greet').innerHTML=G0;});
+/* pathway */
+const svg=$('#path');const X=i=>1100-i*200;const peak=i=>[60,78,96,60,78,96][i];const val=i=>205-i*16;
+let d=`M1200 222`;let cx=1200,cy=222;CH.forEach((c,i)=>{const x=X(i),py=peak(i),v=val(i);d+=` C ${cx-50} ${cy}, ${x+50} ${py}, ${x} ${py} C ${x-50} ${py}, ${x-50} ${v}, ${x-100} ${v}`;cx=x-100;cy=v;});
+svg.innerHTML=`<defs><linearGradient id="pg" x1="1" x2="0"><stop offset="0" stop-color="${CH[0].c}"/><stop offset=".5" stop-color="${CH[2].c}"/><stop offset="1" stop-color="${CH[5].c}"/></linearGradient></defs>
+ <line x1="1195" y1="245" x2="1195" y2="10" stroke="currentColor" opacity=".35"/><line x1="1195" y1="245" x2="5" y2="245" stroke="currentColor" opacity=".35"/>
+ <text class="axis" x="1188" y="22" text-anchor="start">↑ الطاقة</text><text class="axis" x="10" y="238" text-anchor="end">مسار التفاعل ←</text>
+ <text class="axis" x="1188" y="238" text-anchor="start">المتفاعلات: بداية الرحلة</text><text class="axis" x="10" y="${val(5)-12}" text-anchor="end">النواتج: إتقان المقرر ✨</text>
+ <path id="pp" d="${d}" fill="none" stroke="url(#pg)" stroke-width="5" stroke-linecap="round"/>
+ ${CH.map((c,i)=>`<g><line x1="${X(i)}" y1="${peak(i)}" x2="${X(i)}" y2="240" stroke="${c.c}" stroke-dasharray="4 4" opacity=".45"/><circle cx="${X(i)}" cy="${peak(i)}" r="15" fill="${c.c}"/><text x="${X(i)}" y="${peak(i)+5}" text-anchor="middle" fill="#fff" font-weight="800" font-size="14">${c.n}</text><text x="${X(i)}" y="${peak(i)-24}" text-anchor="middle" font-size="13" font-weight="700" fill="${c.c}">${c.s}</text></g>`).join('')}
+ <g id="mol"><circle r="11" fill="#4a5263"/><circle cx="-10" cy="-7" r="6" fill="#fff" stroke="#999"/><circle cx="10" cy="-7" r="6" fill="#fff" stroke="#999"/></g>`;
+const pp=$('#pp');const L=pp.getTotalLength();
+$('#stations').innerHTML=CH.map((c,i)=>{const p=P[i],k=p?p.k:0;return `<div class="st" id="st${i}" style="--c:${c.c}"><span class="no">المحطة ${c.n}</span><h3>${c.t}</h3><ul>${c.L.map((l,j)=>`<li class="${p&&p.d[j]?'ok':''}">${c.n}-${j+1} ${l}</li>`).join('')}</ul><div class="prog"><i style="width:${k/c.L.length*100}%"></i></div><small>${k}/${c.L.length} دروس${p&&p.f!=null?' · الختامي '+p.f+'%':''}</small><a href="${c.u}" target="${TT}">ادخلي المختبر</a></div>`;}).join('');
+const mol=$('#mol');let tgt=0,cur=0;
+const place=()=>{const b=svg.getBoundingClientRect(),vh=innerHeight;const prog=Math.min(1,Math.max(0,(vh*.85-b.top)/(vh*.85+b.height*.3)));tgt=prog;};
+const tick=()=>{cur+=(tgt-cur)*.08;const pt=pp.getPointAtLength(cur*L);mol.setAttribute('transform',`translate(${pt.x},${pt.y-12})`);const idx=Math.min(5,Math.floor(cur*6.2));CH.forEach((_,i)=>document.getElementById('st'+i).classList.toggle('lit',i===idx&&cur>.03));requestAnimationFrame(tick);};
+addEventListener('scroll',place,{passive:true});place();if(reduced){cur=tgt=1;}tick();
+if(window.Chem22Student)Chem22Student.onChange(p=>{const g=`👋 مرحبًا يا <b>${p.name.replace(/[<>&]/g,'')}</b>! أنجزتِ ${done} من ${tot} درسًا. القوارير تنتظر تجاربك.`;$('#greet').innerHTML=g;G0=g;});
+/* results */
+const fin=P.filter(p=>p&&p.f!=null).map(p=>p.f);const avg=fin.length?Math.round(fin.reduce((a,b)=>a+b,0)/fin.length):null;const full=CH.filter((c,i)=>P[i]&&P[i].k===c.L.length).length;
+const gauge=(fr,col,v,l)=>{const R=24,C=2*Math.PI*R;return `<div class="gauge"><svg viewBox="0 0 62 62"><circle cx="31" cy="31" r="${R}" fill="none" stroke="var(--line)" stroke-width="7"/><circle cx="31" cy="31" r="${R}" fill="none" stroke="${col}" stroke-width="7" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-fr)}"/></svg><div><b>${v}</b><span>${l}</span></div></div>`;};
+$('#rstats').innerHTML=gauge(done/tot,'#2F6FE4',done+'/'+tot,'درسًا منجزًا')+gauge(fin.length/6,'#9140D8',fin.length+'/6','اختبارات ختامية')+gauge((avg||0)/100,'#1E9E52',avg==null?'—':avg+'%','متوسط الختامي')+gauge(full/6,'#E0662A',full+'/6','فصول مكتملة');
+$('#rack').innerHTML=CH.map((c,i)=>{const p=P[i],k=p?p.k:0,n=c.L.length,f=p&&p.f!=null?p.f:null,cls=f==null?'n':f>=80?'g':f>=60?'m':'r';
+ return `<div class="rrow" style="--c:${c.c}"><div class="rname"><i>${c.n}</i>${c.t}</div><div class="cyl" title="الدروس المنجزة">${[...Array(n-1)].map((_,t)=>`<span class="tk" style="right:${(t+1)/n*100}%"></span>`).join('')}<span class="fill" data-w="${k/n*100}"></span><b>${k}/${n}</b></div><span class="score ${cls}">${f==null?'لم يُنجز':f+'%'}</span><a href="${c.u}" target="${TT}">${k?'متابعة':'بدء'}</a></div>`;}).join('');
+new IntersectionObserver((en,ob)=>{en.forEach(e=>{if(e.isIntersecting){document.querySelectorAll('.cyl .fill').forEach(f=>f.style.width=f.dataset.w+'%');ob.disconnect();}});},{threshold:.2}).observe($('#rack'));
+$('#nbnote').textContent=P.some(Boolean)?'':'لم تبدئي أي فصل على هذا الجهاز بعد.';
+/* theme */
+const tb=$('#theme');const setT=t=>{document.documentElement.dataset.theme=t;tb.textContent=t==='dark'?'☀️ الوضع النهاري':'🌙 الوضع الليلي';try{localStorage.setItem('chem22-hub-theme',t);}catch(e){}};
+try{const t=localStorage.getItem('chem22-hub-theme');if(t)setT(t);}catch(e){}tb.addEventListener('click',()=>setT(document.documentElement.dataset.theme==='dark'?'light':'dark'));
+</script>
 </body>
 </html>
