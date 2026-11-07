@@ -17,8 +17,14 @@ h1,h2{font-family:"Noto Kufi Arabic","IBM Plex Sans Arabic",sans-serif;margin:0}
 h1{font-size:clamp(26px,4vw,38px)}h2{font-size:20px;margin-bottom:10px}
 .kicker{color:var(--cold);font-weight:600;margin:0 0 4px}.sub{color:var(--muted);margin:6px 0 18px}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:20px;margin-bottom:18px;box-shadow:0 6px 24px rgba(80,40,160,.06)}
-.btn{border:0;border-radius:999px;padding:10px 22px;font:inherit;font-weight:600;cursor:pointer;background:var(--chip);color:var(--ink)}
-.btn.pri{background:var(--cold);color:#fff}.btn.hot{background:var(--hot);color:#fff}.btn.ghost{background:transparent;border:1px solid var(--line)}.btn.sm{padding:6px 14px;font-size:14px}
+.btn{border:0;border-radius:999px;padding:10px 22px;font:inherit;font-weight:600;cursor:pointer;background:var(--chip);color:var(--ink);transition:background .2s,opacity .2s,transform .15s}
+.btn:hover{opacity:.95;transform:translateY(-1px)}
+.btn:focus-visible{outline:2px solid #5145B8;outline-offset:2px}
+.btn.pri{background:var(--cold);color:#fff}
+.btn.hot{background:var(--hot);color:#fff}
+.btn.ghost{background:var(--surface2);border:1.5px solid var(--line);color:var(--ink)}
+.btn.ghost:hover{background:var(--chip);opacity:1}
+.btn.sm{padding:6px 14px;font-size:14px}
 input[type=password],input[type=text],textarea,select{font:inherit;color:var(--ink);background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
 textarea{width:100%;min-height:110px;direction:ltr;font-size:12px}
 .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
@@ -39,10 +45,12 @@ td.n{font-variant-numeric:tabular-nums;direction:ltr;text-align:right}
 .del{background:none;border:0;color:var(--bad);cursor:pointer;font-size:16px}
 /* ---------- شريط التنقل السفلي ---------- */
 .ch-bottom-nav{display:flex;gap:12px;justify-content:center;align-items:center;margin:32px 0 10px;padding:14px 18px;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:0 6px 20px rgba(60,30,140,.05);flex-wrap:wrap}
-.ch-nav-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 20px;border-radius:999px;font:inherit;font-size:14.5px;font-weight:700;text-decoration:none;cursor:pointer;border:1.5px solid var(--line);background:var(--surface2);color:var(--ink);transition:background .2s,border-color .2s,transform .15s}
-.ch-nav-btn:hover{background:var(--chip);border-color:var(--mid);transform:translateY(-1px)}
-.ch-nav-btn.primary{background:linear-gradient(90deg,var(--cold),var(--mid));color:#fff;border-color:transparent}
-.ch-nav-btn.primary:hover{opacity:.95;transform:translateY(-1px)}
+.ch-nav-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 20px;border-radius:999px;font:inherit;font-size:14.5px;font-weight:700;text-decoration:none;cursor:pointer;border:none;background:#EA762E;color:#FFFFFF;transition:background .2s,opacity .2s,transform .15s}
+.ch-nav-btn:hover{background:#D46320;color:#FFFFFF;transform:translateY(-1px)}
+.ch-nav-btn:focus-visible{outline:2px solid #EA762E;outline-offset:2px}
+.ch-nav-btn.primary{background:#2563EB;color:#FFFFFF;border:none}
+.ch-nav-btn.primary:hover{background:#1D4ED8;color:#FFFFFF;opacity:1;transform:translateY(-1px)}
+.ch-nav-btn.primary:focus-visible{outline:2px solid #2563EB;outline-offset:2px}
 @media (max-width:480px){.ch-bottom-nav{flex-direction:column;gap:8px;padding:12px}.ch-nav-btn{width:100%}}
 </style>
 </head>

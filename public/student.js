@@ -32,9 +32,12 @@
   .wm .wm-note{font-size:12.5px;color:#8a83a3;text-align:center;margin:12px 0 0}
   .st-chip{display:inline-flex;align-items:center;gap:6px;background:rgba(124,77,214,.1);border:1px solid rgba(124,77,214,.25);color:inherit;border-radius:999px;padding:4px 6px 4px 12px;font:inherit;font-size:13.5px;font-weight:600;max-width:320px}
   .st-chip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .st-chip button{border:0;background:rgba(124,77,214,.18);color:inherit;border-radius:999px;padding:2px 9px;font:inherit;font-size:12.5px;cursor:pointer}
-  .st-chip button.st-logout{background:rgba(199,54,42,.12);color:#C7362A}
-  .st-chip button.st-logout:hover{background:rgba(199,54,42,.22)}
+  .st-chip button{border:0;background:rgba(124,77,214,.18);color:inherit;border-radius:999px;padding:2px 9px;font:inherit;font-size:12.5px;cursor:pointer;transition:background .2s,transform .1s}
+  .st-chip button:hover{background:rgba(124,77,214,.3)}
+  .st-chip button:focus-visible{outline:2px solid #5145B8;outline-offset:2px}
+  .st-chip button.st-logout{background:#C2414B;color:#FFFFFF;font-weight:700}
+  .st-chip button.st-logout:hover{background:#A8323B}
+  .st-chip button.st-logout:focus-visible{outline:2px solid #C2414B;outline-offset:2px}
   .st-chip.empty{background:#2763D8;color:#fff;border-color:#2763D8;cursor:pointer;padding:5px 14px}
   @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .wm{background:#211A3A;color:#EEE9FB}:root:not([data-theme="light"]) .wm input,:root:not([data-theme="light"]) .wm select{background:#1B1531;color:#EEE9FB;border-color:#3A3060}:root:not([data-theme="light"]) .wm .wm-later{background:transparent;color:#B4ABD0;border-color:#3A3060}:root:not([data-theme="light"]) .wm p.wm-t{color:#B4ABD0}}
   :root[data-theme="dark"] .wm{background:#211A3A;color:#EEE9FB}:root[data-theme="dark"] .wm input,:root[data-theme="dark"] .wm select{background:#1B1531;color:#EEE9FB;border-color:#3A3060}:root[data-theme="dark"] .wm .wm-later{background:transparent;color:#B4ABD0;border-color:#3A3060}:root[data-theme="dark"] .wm p.wm-t{color:#B4ABD0}
