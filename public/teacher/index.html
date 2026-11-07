@@ -43,7 +43,7 @@ td.n{font-variant-numeric:tabular-nums;direction:ltr;text-align:right}
 <div class="wrap">
  <p class="kicker">للمعلمة</p>
  <h1>لوحة المتابعة الشاملة</h1>
- <p class="sub">تعرض نتائج الطالبات في الفصول الستة لمقرر كيمياء 2-2 مجمّعة في جدول واحد، ومصدرها قاعدة البيانات المرتبطة بالمنصات، إضافة إلى رموز التقدم التي ترسلها الطالبات.</p>
+ <p class="sub">تعرض نتائج الطالبات في الفصول الستة لمقرر كيمياء 2-2 مجمّعة في جدول واحد، ومصدرها قاعدة بيانات Cloudflare D1 تلقائيًا فور حفظ الطالبات لتقدمهن.</p>
 
  <section class="card" id="gate">
   <div class="row"><label for="pw">الرمز السري:</label><input type="password" id="pw" inputmode="numeric" autocomplete="off"><button type="button" class="btn pri" id="pwGo">عرض النتائج</button></div>
@@ -52,11 +52,15 @@ td.n{font-variant-numeric:tabular-nums;direction:ltr;text-align:right}
 
  <div id="dash" class="hide">
   <section class="card">
-   <h2>📥 إضافة رموز الطالبات</h2>
-   <p class="sub" style="margin-top:0">تنشئ الطالبة رمز التقدم من قسم «تقرير التقدم للمعلمة» في الصفحة الرئيسة لكل منصة وترسله لك. الصقي رمزًا واحدًا أو عدة رموز (كل رمز في سطر)، ثم اضغطي «إضافة». يُحتفظ بأحدث رمز لكل طالبة في كل فصل.</p>
-   <textarea id="codes" placeholder="KIM-..."></textarea>
-   <div class="row" style="margin-top:10px"><button type="button" class="btn pri" id="refresh">🔄 تحديث من قاعدة البيانات</button><button type="button" class="btn hot" id="add">➕ إضافة الرموز</button><button type="button" class="btn ghost sm" id="csv">⬇️ تنزيل النتائج (CSV)</button><button type="button" class="btn ghost sm" id="clear">🗑️ مسح كل البيانات</button><button type="button" class="btn ghost sm" id="lock">🔒 قفل اللوحة</button></div>
-   <div id="addMsg"></div><div class="notice" id="srcMsg" style="display:none"></div>
+   <div class="row" style="justify-content:space-between">
+    <div class="row">
+     <button type="button" class="btn pri" id="refresh">🔄 تحديث من قاعدة البيانات</button>
+     <button type="button" class="btn ghost sm" id="csv">⬇️ تنزيل النتائج (CSV)</button>
+     <button type="button" class="btn ghost sm" id="clear">🗑️ مسح كل البيانات</button>
+     <button type="button" class="btn ghost sm" id="lock">🔒 قفل اللوحة</button>
+    </div>
+   </div>
+   <div class="notice" id="srcMsg" style="display:none"></div>
   </section>
 
   <section class="card">
@@ -87,8 +91,6 @@ window.__DBG=()=>DB;
 const load=()=>{try{DB=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){DB={};}};
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(DB));}catch(e){}};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-function hash(str){let h=7;for(const c of str)h=(h*31+c.codePointAt(0))%1000003;return h;}
-function parse(code){const m=code.trim().match(/^KIM-([A-Za-z0-9+/]+)-([0-9a-z]+)$/);if(!m)return null;try{const body=decodeURIComponent(escape(atob(m[1])));if(hash(body).toString(36)!==m[2])return null;const p=JSON.parse(body);if(!p.n||!(p.c>=1&&p.c<=6))return null;return p;}catch(e){return null;}}
 const keyOf=n=>n.replace(/\s+/g,' ').trim();
 async function fetchServer(pw){try{const r=await fetch('/api/results',{headers:{'x-teacher-password':pw},cache:'no-store'});if(r.status===401)return 'bad';if(!r.ok)return 'off';const d=await r.json();SRV={};SKEY={};SMETA={};(d.rows||[]).forEach(x=>{const k=`${keyOf(x.name)} (${x.grade} · ${x.section})`;SRV[k]=SRV[k]||{};SKEY[k]=x.student_key;SMETA[k]={g:x.grade,s:x.section};if(x.chapter)SRV[k][x.chapter]={d:x.lessons_done,t:x.lessons_total,f:x.final_score,s:x.stars,m:x.max_stars,ts:Date.parse((x.updated_at||'').replace(' ','T')+'Z')||0,srv:1};});ONLINE=true;return 'ok';}catch(e){return 'off';}}
 function view(){const V=JSON.parse(JSON.stringify(DB));Object.entries(SRV).forEach(([n,chs])=>{V[n]=V[n]||{};Object.entries(chs).forEach(([c,r])=>{if(!V[n][c]||r.ts>=V[n][c].ts)V[n][c]=r;});});return V;}
@@ -100,9 +102,6 @@ $('#pw').addEventListener('keydown',e=>{if(e.key==='Enter')$('#pwGo').click();})
 $('#lock').addEventListener('click',()=>{sessionStorage.removeItem(KEY+'-pw');SRV={};ONLINE=false;$('#dash').classList.add('hide');$('#gate').classList.remove('hide');$('#pw').value='';const m=$('#pwMsg');m.className='notice';m.textContent='يُرجى إدخال الرمز السري للوحة المتابعة.';});
 try{const p=sessionStorage.getItem(KEY+'-pw');if(p)unlock(p);}catch(e){}
 $('#refresh').addEventListener('click',async()=>{await fetchServer(PWV);render();srcNote();});
-$('#add').addEventListener('click',()=>{const lines=$('#codes').value.split(/[\s\n]+/).filter(Boolean);let ok=0,bad=0,upd=0;
-  lines.forEach(c=>{const p=parse(c);if(!p){bad++;return;}const k=keyOf(p.n);DB[k]=DB[k]||{};const old=DB[k][p.c];if(!old||p.ts>=old.ts){if(old)upd++;DB[k][p.c]={d:p.d,t:p.t,f:p.f,s:p.s,m:p.m,ts:p.ts};}ok++;});
-  save();render();$('#codes').value='';$('#addMsg').innerHTML=`<div class="notice ${bad?'bad':'ok'}">أُضيف ${ok} رمز${upd?` (منها ${upd} تحديث لنتيجة سابقة)`:''}.${bad?` تعذّرت قراءة ${bad} رمز: تأكدي أنه منسوخ كاملًا دون تعديل.`:''}</div>`;});
 $('#clear').addEventListener('click',async()=>{if(confirm('هل تريدين مسح جميع نتائج الطالبات؟ سيُحذف ذلك من قاعدة البيانات أيضًا ولا يمكن التراجع.')){DB={};save();if(ONLINE){try{await fetch('/api/results?all=1',{method:'DELETE',headers:{'x-teacher-password':PWV}});}catch(e){}SRV={};}render();}});
 $('#q').addEventListener('input',render);$('#fg').addEventListener('change',render);$('#fs').addEventListener('change',render);
 function tag(f){if(f==null)return '<span class="d">—</span>';const c=f>=80?'g':f>=60?'m':'r';return `<span class="tag ${c}">${f}%</span>`;}
@@ -115,7 +114,7 @@ function render(){const DB=view();const names=Object.keys(DB).sort((a,b)=>a.loca
   const q=$('#q').value.trim(),fg=$('#fg').value,fs=$('#fs').value;const shown=names.filter(n=>(!q||n.includes(q))&&(!fg||(SMETA[n]&&SMETA[n].g===fg))&&(!fs||(SMETA[n]&&SMETA[n].s===fs)));
   $('#stT').innerHTML=`<thead><tr><th>الطالبة</th>${CH.map(c=>`<th><span class="chn" style="color:${c.c}">${c.n}</span>${c.t.split(' ')[0]}${c.t.split(' ').length>1?' …':''}</th>`).join('')}<th>المجموع</th><th></th></tr></thead><tbody>${shown.length?shown.map(n=>{const R=DB[n];let tl=0,ts=0;
     const cells=CH.map(c=>{const r=R[c.n];if(!r)return '<td class="cell empty">لم يُرسل</td>';tl+=r.d;ts+=r.s;return `<td class="cell"><div>📘 ${r.d}/${r.t} <span class="d">دروس</span></div><div class="bar"><i style="width:${Math.round(r.d/r.t*100)}%"></i></div><div>📝 ${tag(r.f)} · ⭐ ${r.s}</div></td>`;}).join('');
-    return `<tr><td><b>${esc(n)}</b></td>${cells}<td class="cell"><div>📘 ${tl}/${totalL}</div><div>⭐ ${ts}</div></td><td><button class="del" data-n="${esc(n)}" title="حذف الطالبة" aria-label="حذف ${esc(n)}">✕</button></td></tr>`;}).join(''):`<tr><td colspan="${CH.length+3}" style="color:var(--muted);text-align:center;padding:24px">${names.length?'لا توجد نتائج مطابقة للبحث.':'لم تُضف رموز بعد. الصقي رموز الطالبات في الأعلى.'}</td></tr>`}</tbody>`;
+    return `<tr><td><b>${esc(n)}</b></td>${cells}<td class="cell"><div>📘 ${tl}/${totalL}</div><div>⭐ ${ts}</div></td><td><button class="del" data-n="${esc(n)}" title="حذف الطالبة" aria-label="حذف ${esc(n)}">✕</button></td></tr>`;}).join(''):`<tr><td colspan="${CH.length+3}" style="color:var(--muted);text-align:center;padding:24px">${names.length?'لا توجد نتائج مطابقة للبحث.':'لا توجد نتائج مسجلة حتى الآن في قاعدة البيانات.'}</td></tr>`}</tbody>`;
   document.querySelectorAll('.del').forEach(b=>b.addEventListener('click',async()=>{const n=b.dataset.n;if(confirm('حذف نتائج '+n+'؟')){delete DBL()[n];save();if(ONLINE&&SKEY[n]){try{await fetch('/api/results?key='+encodeURIComponent(SKEY[n]),{method:'DELETE',headers:{'x-teacher-password':PWV}});}catch(e){}delete SRV[n];}render();}}));}
 function DBL(){return window.__DBG();}
 $('#csv').addEventListener('click',async()=>{const DB=view();const names=Object.keys(DB).sort((a,b)=>a.localeCompare(b,'ar'));const head=['الطالبة',...CH.flatMap(c=>[`ف${c.n} دروس`,`ف${c.n} الختامي %`,`ف${c.n} نجوم`])];

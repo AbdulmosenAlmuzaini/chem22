@@ -205,7 +205,7 @@ section.sec{padding:70px 0 10px}
  <section class="sec teacher-sec" id="teacher-section">
   <p class="eyebrow">لوحة المتابعة</p>
   <h2>لوحة المتابعة الشاملة للمعلمة</h2>
-  <p class="sub">تعرض نتائج الطالبات في فصول كيمياء 2-2 مجمّعة في جدول واحد مباشرة من قاعدة بيانات السحابة (Cloudflare D1)، مع إمكانية إضافة رموز التقدم يدويًا.</p>
+  <p class="sub">تعرض نتائج الطالبات في فصول كيمياء 2-2 مجمّعة في جدول واحد مباشرة من قاعدة بيانات السحابة (Cloudflare D1) تلقائيًا.</p>
 
   <div class="t-card" id="t-gate">
    <div class="t-row">
@@ -218,17 +218,14 @@ section.sec{padding:70px 0 10px}
 
   <div id="t-dash" class="t-hide">
    <div class="t-card">
-    <h3 style="margin-bottom:8px">📥 إضافة رموز الطالبات والتحكم</h3>
-    <p class="sub" style="margin-top:0">تنشئ الطالبة رمز التقدم من صفحة الفصل وترسله لكِ. الصقي الرموز هنا ثم اضغطي «إضافة»:</p>
-    <textarea id="t-codes" placeholder="KIM-..."></textarea>
-    <div class="t-row" style="margin-top:12px">
-     <button type="button" class="t-btn pri" id="t-refresh">🔄 تحديث من قاعدة البيانات</button>
-     <button type="button" class="t-btn hot" id="t-add">➕ إضافة الرموز</button>
-     <button type="button" class="t-btn ghost sm" id="t-csv">⬇️ تنزيل النتائج (CSV)</button>
-     <button type="button" class="t-btn ghost sm" id="t-clear">🗑️ مسح كل البيانات</button>
-     <button type="button" class="t-btn ghost sm" id="t-lock">🔒 قفل اللوحة</button>
+    <div class="t-row" style="justify-content:space-between">
+     <div class="t-row">
+      <button type="button" class="t-btn pri" id="t-refresh">🔄 تحديث من قاعدة البيانات</button>
+      <button type="button" class="t-btn ghost sm" id="t-csv">⬇️ تنزيل النتائج (CSV)</button>
+      <button type="button" class="t-btn ghost sm" id="t-clear">🗑️ مسح كل البيانات</button>
+      <button type="button" class="t-btn ghost sm" id="t-lock">🔒 قفل اللوحة</button>
+     </div>
     </div>
-    <div id="t-addMsg"></div>
     <div class="t-notice" id="t-srcMsg" style="display:none"></div>
    </div>
 
@@ -387,18 +384,6 @@ let T_DB = {}, T_SRV = {}, T_SKEY = {}, T_SMETA = {}, T_PWV = '', T_ONLINE = fal
 const tLoad = () => { try { T_DB = JSON.parse(localStorage.getItem(T_KEY) || '{}') || {}; } catch(e) { T_DB = {}; } };
 const tSave = () => { try { localStorage.setItem(T_KEY, JSON.stringify(T_DB)); } catch(e) {} };
 const tEsc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-function tHash(str) { let h = 7; for (const c of str) h = (h * 31 + c.codePointAt(0)) % 1000003; return h; }
-function tParse(code) {
-  const m = code.trim().match(/^KIM-([A-Za-z0-9+/]+)-([0-9a-z]+)$/);
-  if (!m) return null;
-  try {
-    const body = decodeURIComponent(escape(atob(m[1])));
-    if (tHash(body).toString(36) !== m[2]) return null;
-    const p = JSON.parse(body);
-    if (!p.n || !(p.c >= 1 && p.c <= 6)) return null;
-    return p;
-  } catch(e) { return null; }
-}
 const tKeyOf = n => n.replace(/\s+/g, ' ').trim();
 
 async function tFetchServer(pw) {
@@ -501,7 +486,7 @@ function tRender() {
       return `<td class="cell"><div>📘 ${r.d}/${r.t} <span class="d">دروس</span></div><div class="bar"><i style="width:${Math.round(r.d/r.t*100)}%"></i></div><div>📝 ${tTag(r.f)} · ⭐ ${r.s}</div></td>`;
     }).join('');
     return `<tr><td><b>${tEsc(n)}</b></td>${cells}<td class="cell"><div>📘 ${tl}/${totalL}</div><div>⭐ ${ts}</div></td><td><button class="t-del" data-n="${tEsc(n)}" title="حذف الطالبة" aria-label="حذف ${tEsc(n)}">✕</button></td></tr>`;
-  }).join('') : `<tr><td colspan="${CH.length + 3}" style="color:var(--muted);text-align:center;padding:24px">${names.length ? 'لا توجد نتائج مطابقة للبحث.' : 'لم تُضف رموز أو بيانات بعد.'}</td></tr>`}</tbody>`;
+  }).join('') : `<tr><td colspan="${CH.length + 3}" style="color:var(--muted);text-align:center;padding:24px">${names.length ? 'لا توجد نتائج مطابقة للبحث.' : 'لا توجد نتائج مسجلة حتى الآن في قاعدة البيانات.'}</td></tr>`}</tbody>`;
 
   document.querySelectorAll('.t-del').forEach(b => b.addEventListener('click', async () => {
     const n = b.dataset.n;
@@ -575,27 +560,6 @@ $('#t-refresh').addEventListener('click', async () => {
   await tFetchServer(T_PWV);
   tRender();
   tSrcNote();
-});
-
-$('#t-add').addEventListener('click', () => {
-  const lines = $('#t-codes').value.split(/[\s\n]+/).filter(Boolean);
-  let ok = 0, bad = 0, upd = 0;
-  lines.forEach(c => {
-    const p = tParse(c);
-    if (!p) { bad++; return; }
-    const k = tKeyOf(p.n);
-    T_DB[k] = T_DB[k] || {};
-    const old = T_DB[k][p.c];
-    if (!old || p.ts >= old.ts) {
-      if (old) upd++;
-      T_DB[k][p.c] = { d: p.d, t: p.t, f: p.f, s: p.s, m: p.m, ts: p.ts };
-    }
-    ok++;
-  });
-  tSave();
-  tRender();
-  $('#t-codes').value = '';
-  $('#t-addMsg').innerHTML = `<div class="t-notice ${bad ? 'bad' : 'ok'}">أُضيف ${ok} رمز${upd ? ` (منها ${upd} تحديث لنتيجة سابقة)` : ''}.${bad ? ` تعذّرت قراءة ${bad} رمز.` : ''}</div>`;
 });
 
 $('#t-clear').addEventListener('click', async () => {

@@ -126,10 +126,20 @@
   }
 
   // إعادة إرسال التسجيل إن حُفظ دون اتصال
-  async function retry() { const p = get(); if (p && !p.synced) { const ok = await register(p); if (ok) { p.synced = true; try { localStorage.setItem(KEY, JSON.stringify(p)); } catch (e) {} } } }
+  async function retry() {
+    const p = get();
+    if (p && !p.synced) {
+      const ok = await register(p);
+      if (ok) {
+        p.synced = true;
+        try { localStorage.setItem(KEY, JSON.stringify(p)); } catch (e) {}
+      }
+    }
+  }
 
   function init() {
     injectCss(); mountChipInHeader(); renderChip(); retry();
+    window.addEventListener('online', retry);
     let later = false; try { later = sessionStorage.getItem(LATER) === '1'; } catch (e) {}
     if (!get() && !later) setTimeout(() => open(), 500);
   }

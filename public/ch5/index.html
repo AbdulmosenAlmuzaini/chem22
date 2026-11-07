@@ -938,28 +938,47 @@ function lessonMax(L){return L.tasks.length+3+3;}
 const CH_NO=5;
 /* ---------- progress report code for the teacher ---------- */
 const RKEY=LS+'-name';
-function repHash(str){let h=7;for(const c of str)h=(h*31+c.codePointAt(0))%1000003;return h;}
-function repCode(name){const total=LESSONS.length;const done=LESSONS.filter(L=>S.done[L.n]).length;const max=LESSONS.reduce((a,L)=>a+lessonMax(L),0)+5;
-  const p={v:1,c:CH_NO,n:name.trim(),d:done,t:total,f:S.final==null?null:S.final,s:totalStars(),m:max,ts:Date.now()};const body=JSON.stringify(p);
-  return 'KIM-'+btoa(unescape(encodeURIComponent(body))).replace(/=+$/,'')+'-'+repHash(body).toString(36);}
 function reportHTML(){const p=window.Chem22Student&&Chem22Student.get();
-  return `<section class="final-band report-band"><div class="rb-in"><div><h3>👩‍🎓 بياناتي وتقدمي</h3>${p?`<p>مسجلة باسم <b>${esc(p.name)}</b> · ${esc(p.grade)} · الشعبة ${esc(p.section)}. يُحفظ تقدمك لدى المعلمة تلقائيًا كلما أنجزتِ درسًا أو اختبارًا، وتجدينه على أي جهاز إذا أدخلتِ البيانات نفسها.</p>`:'<p>سجّلي اسمك الثلاثي وصفك وشعبتك ليُحفظ تقدمك لدى المعلمة، وتجديه على أي جهاز.</p>'}</div>
-   <div class="rb-row">${p?'<button type="button" class="btn hot" id="repSync">☁️ حفظ تقدمي الآن</button><button type="button" class="btn" id="repEdit">✏️ تعديل بياناتي</button><button type="button" class="btn cold" id="repGo">رمز التقدم</button>':'<button type="button" class="btn hot" id="repEdit">👩‍🎓 سجّلي بياناتك</button>'}</div>
-   <div id="repOut"></div></div></section>`;}
-function bindReport(){const ed=$('#repEdit');if(!ed)return;ed.addEventListener('click',()=>Chem22Student.open());
-  const sy=$('#repSync');if(sy)sy.addEventListener('click',async()=>{const out=$('#repOut');out.innerHTML='<p class="fb">جارٍ الحفظ…</p>';try{await syncProgress(true);out.innerHTML='<p class="fb ok">✓ حُفظ تقدمك لدى المعلمة.</p>';}catch(e){out.innerHTML='<p class="fb bad">تعذّر الحفظ الآن. تحققي من الاتصال بالإنترنت، أو أنشئي رمز التقدم وأرسليه لمعلمتك.</p>';}});
-  const go=$('#repGo');if(go)go.addEventListener('click',()=>{const p=Chem22Student.get();if(!p)return;const code=repCode(p.name+' ('+p.grade+' - '+p.section+')');const done=LESSONS.filter(L=>S.done[L.n]).length;
-    $('#repOut').innerHTML=`<div class="rb-code"><code class="ltr" id="repCode">${code}</code><button type="button" class="btn sm" id="repCopy">📋 انسخي الرمز</button></div><p class="rb-sum">الدروس المنجزة: <b>${done} من ${LESSONS.length}</b> | الاختبار الختامي: <b>${S.final==null?'لم يُنجز':S.final+'%'}</b> | النجوم: <b>${totalStars()}</b></p>`;
-    $('#repCopy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(code);toast('تم نسخ الرمز ✓');}catch(e){toast('حدّدي الرمز وانسخيه يدويًا');}});});}
-/* ---------- مزامنة التقدم مع قاعدة البيانات (Cloudflare D1) ---------- */
+  return `<section class="final-band report-band"><div class="rb-in"><div><h3>👩‍🎓 بياناتي وتقدمي</h3>${p?`<p>مسجلة باسم <b>${esc(p.name)}</b> · ${esc(p.grade)} · الشعبة ${esc(p.section)}. يُحفظ تقدمك ونتائجك تلقائيًا في قاعدة بيانات السحابة دون الحاجة لأي إجراء يدوي، وتجدينها على أي جهاز بمجرد تسجيل البيانات نفسها.</p>`:'<p>سجّلي اسمك الثلاثي وصفك وشعبتك ليُحفظ تقدمك واختباراتك تلقائيًا في السحابة وتجديها على أي جهاز.</p>'}</div>
+   <div class="rb-row">${p?'<button type="button" class="btn" id="repEdit">✏️ تعديل بياناتي</button>':'<button type="button" class="btn hot" id="repEdit">👩‍🎓 سجّلي بياناتك</button>'}</div>
+   <div id="repOut"><p class="fb ok" id="syncStatus" style="margin:6px 0 0;font-size:13.5px">✓ التقدم متزامن تلقائيًا مع السحابة</p></div></div></section>`;}
+function bindReport(){const ed=$('#repEdit');if(!ed)return;ed.addEventListener('click',()=>Chem22Student.open());}
+/* ---------- مزامنة التقدم التلقائية مع Cloudflare D1 ---------- */
 let _syncT=null;
-async function syncProgress(manual){const p=window.Chem22Student&&Chem22Student.get();if(!p)return false;
+const QUEUE_KEY='chem22-pending-sync-v1';
+function getPendingSync(){try{return JSON.parse(localStorage.getItem(QUEUE_KEY)||'{}');}catch(e){return {};}}
+function setPendingSync(q){try{localStorage.setItem(QUEUE_KEY,JSON.stringify(q));}catch(e){}}
+
+async function syncProgress(manual){
+  const p=window.Chem22Student&&Chem22Student.get();if(!p)return false;
   const list=LESSONS.filter(L=>S.done[L.n]).map(L=>L.n),max=LESSONS.reduce((a,L)=>a+lessonMax(L),0)+5;
-  try{const r=await fetch('/api/progress',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:p.name,grade:p.grade,section:p.section,chapter:CH_NO,done:list.length,done_list:list,total:LESSONS.length,final:S.final==null?null:S.final,stars:totalStars(),max})});
-    if(!r.ok)throw 0;return true;}catch(e){if(manual)throw e;return false;}}
-function autoSync(){if(!(window.Chem22Student&&Chem22Student.get()))return;clearTimeout(_syncT);_syncT=setTimeout(()=>syncProgress(false),2500);}
-/* استرجاع التقدم من قاعدة البيانات عند الدخول من جهاز آخر */
-async function restoreProgress(){const p=window.Chem22Student&&Chem22Student.get();if(!p)return;
+  const payload={name:p.name,grade:p.grade,section:p.section,chapter:CH_NO,done:list.length,done_list:list,total:LESSONS.length,final:S.final==null?null:S.final,stars:totalStars(),max};
+  try{
+    const r=await fetch('/api/progress',{method:'POST',headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+    if(!r.ok)throw new Error('status '+r.status);
+    const q=getPendingSync();if(q[CH_NO]){delete q[CH_NO];setPendingSync(q);}
+    const stEl=$('#syncStatus');if(stEl){stEl.className='fb ok';stEl.textContent='✓ حُفظ تقدمك تلقائيًا في السحابة';}
+    if(manual)toast('✓ حُفظ تقدمك في السحابة');
+    return true;
+  }catch(e){
+    const q=getPendingSync();q[CH_NO]=payload;setPendingSync(q);
+    const stEl=$('#syncStatus');if(stEl){stEl.className='fb';stEl.textContent='☁️ حُفظ التقدم محليًا، وتتم المزامنة تلقائيًا عند توفر الاتصال';}
+    if(manual)toast('حُفظ تقدمك على هذا الجهاز، وستتم المزامنة عند توفر الاتصال');
+    return false;
+  }
+}
+function autoSync(delay){
+  if(!(window.Chem22Student&&Chem22Student.get()))return;
+  clearTimeout(_syncT);
+  const ms=typeof delay==='number'?delay:500;
+  _syncT=setTimeout(()=>syncProgress(false),ms);
+}
+async function flushPendingSync(){
+  const p=window.Chem22Student&&Chem22Student.get();if(!p)return;
+  const q=getPendingSync();
+  if(q[CH_NO])await syncProgress(false);
+}
+window.addEventListener('online',()=>{flushPendingSync();restoreProgress();});async function restoreProgress(){const p=window.Chem22Student&&Chem22Student.get();if(!p)return;
   try{const q=new URLSearchParams({name:p.name,grade:p.grade,section:p.section,chapter:CH_NO});const r=await fetch('/api/student?'+q);if(!r.ok)return;const d=await r.json();const row=(d.rows||[])[0];if(!row)return syncProgress(false);
     let changed=false;String(row.done_list||'').split(',').map(Number).filter(Boolean).forEach(n=>{if(!S.done[n]){S.done[n]=true;changed=true;}});
     if(row.final_score!=null&&(S.final==null||row.final_score>S.final)){S.final=row.final_score;changed=true;}
