@@ -326,8 +326,8 @@ input.ans{width:150px;direction:ltr;text-align:center}
 .simple{font-size:18px;background:var(--chip);border-radius:12px;padding:12px 16px;margin:4px 0 14px;line-height:1.8}
 .navlink{text-decoration:none;font-weight:600;font-size:15px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 14px;color:var(--ink)}
 /* bot */
-.bot-fab{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));inset-inline-end:16px;z-index:40;display:none;align-items:center;gap:8px;border:0;border-radius:999px;padding:12px 18px;background:var(--green);color:#fff;font-weight:600;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.22)}
-.bot-fab .em{font-size:20px}
+.bot-fab{position:fixed;bottom:calc(14px + env(safe-area-inset-bottom,0px));inset-inline-end:14px;z-index:40;display:none;align-items:center;gap:6px;border:0;border-radius:999px;min-height:44px;padding:9px 14px;background:var(--green);color:#fff;font-weight:600;font-size:14px;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.2)}
+.bot-fab .em{font-size:16px}
 .bot-panel{position:fixed;bottom:calc(78px + env(safe-area-inset-bottom,0px));inset-inline-end:16px;z-index:41;width:min(400px,calc(100vw - 24px));height:min(580px,calc(100vh - 120px));display:none;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:0 12px 40px rgba(0,0,0,.25);overflow:hidden}
 .bot-panel.open{display:flex}
 .bot-head{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:var(--green);color:#fff}
@@ -392,6 +392,14 @@ input.ans{width:150px;direction:ltr;text-align:center}
 @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
 .report-band .rb-in{display:flex;flex-direction:column;gap:10px;width:100%}.rb-row{display:flex;gap:8px;flex-wrap:wrap}.rb-row input{flex:1;min-width:180px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit}
 .rb-code{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px dashed var(--mid);border-radius:12px;padding:8px 10px}.rb-code code{flex:1;word-break:break-all;font-size:12px;user-select:all}.rb-sum{margin:6px 0 0;font-size:14px}
+
+/* ---------- شريط التنقل السفلي في الفصول ---------- */
+.ch-bottom-nav{display:flex;gap:12px;justify-content:center;align-items:center;margin:32px 0 10px;padding:14px 18px;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:0 6px 20px rgba(60,30,140,.05);flex-wrap:wrap}
+.ch-nav-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 20px;border-radius:999px;font:inherit;font-size:14.5px;font-weight:700;text-decoration:none;cursor:pointer;border:1.5px solid var(--line);background:var(--surface2);color:var(--ink);transition:background .2s,border-color .2s,transform .15s}
+.ch-nav-btn:hover{background:var(--wall);border-color:var(--mid);transform:translateY(-1px)}
+.ch-nav-btn.primary{background:linear-gradient(90deg,var(--cold),var(--mid));color:#fff;border-color:transparent}
+.ch-nav-btn.primary:hover{opacity:.95;transform:translateY(-1px)}
+@media (max-width:480px){.ch-bottom-nav{flex-direction:column;gap:8px;padding:12px}.ch-nav-btn{width:100%}}
 </style>
 </head>
 <body>
@@ -404,6 +412,14 @@ input.ans{width:150px;direction:ltr;text-align:center}
     </div>
   </header>
   <main id="app"></main>
+    <nav class="ch-bottom-nav" aria-label="التنقل السفلي">
+    <button type="button" class="ch-nav-btn" id="btnNavBack" aria-label="العودة للصفحة السابقة">
+      <span>→</span> السابق
+    </button>
+    <a href="/" class="ch-nav-btn primary" id="btnNavHome" aria-label="الانتقال إلى الصفحة الرئيسية">
+      <span>🏠</span> الصفحة الرئيسية
+    </a>
+  </nav>
   <footer class="foot" style="font-size:12.5px">إعداد المعلمة: صباح داخل الأحمدي - الثانوية السادسة والثلاثون بالمدينة المنورة</footer>
 </div>
 <div id="toast" aria-live="polite"></div>
@@ -1426,6 +1442,22 @@ initBot();
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{applyTheme();window.dispatchEvent(new Event('themechange'));});
 route();
 if(window.Chem22Student){restoreProgress();Chem22Student.onChange(()=>{if(!location.hash||location.hash==="#home")route();restoreProgress();});}
+
+const btnBack = document.getElementById('btnNavBack');
+if (btnBack) {
+  btnBack.addEventListener('click', () => {
+    if (location.hash && location.hash !== '#home') {
+      location.hash = '#home';
+      return;
+    }
+    const hasInternalReferrer = document.referrer && (document.referrer.includes(location.host) || document.referrer.includes('chem22'));
+    if (window.history.length > 1 && hasInternalReferrer) {
+      window.history.back();
+    } else {
+      window.location.href = '/';
+    }
+  });
+}
 </script>
 </body>
 </html>
