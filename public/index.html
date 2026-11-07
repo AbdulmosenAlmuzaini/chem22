@@ -100,6 +100,51 @@ section.sec{padding:70px 0 10px}
 .rrow a{color:var(--c);font-weight:700;text-decoration:none;text-align:center;border:1.5px solid var(--c);border-radius:999px;padding:3px 6px;font-size:14px}
 .note{color:var(--muted);font-size:13px;margin-top:8px}
 .foot{text-align:center;color:var(--muted);font-size:13px;padding:40px 0 30px}
+/* Teacher Section Styles */
+.teacher-sec{margin-top:10px}
+.t-card{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:24px;box-shadow:0 12px 36px rgba(60,30,140,.07);margin-bottom:18px}
+.t-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.t-btn{border:0;border-radius:999px;padding:10px 22px;font:inherit;font-weight:700;font-size:15px;cursor:pointer;background:linear-gradient(90deg,#5148E0,#7C4DD6);color:#fff;transition:transform .2s,opacity .2s}
+.t-btn:hover{opacity:.95;transform:translateY(-1px)}
+.t-btn.pri{background:linear-gradient(90deg,#2763D8,#5148E0);color:#fff}
+.t-btn.hot{background:#DE4527;color:#fff}
+.t-btn.ghost{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+.t-btn.sm{padding:6px 14px;font-size:13.5px}
+.teacher-sec input[type=password],.teacher-sec input[type=text],.teacher-sec textarea,.teacher-sec select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.teacher-sec input:focus,.teacher-sec textarea:focus,.teacher-sec select:focus{outline:none;border-color:#7C4DD6;box-shadow:0 0 0 3px rgba(124,77,214,.15)}
+.teacher-sec textarea{width:100%;min-height:100px;direction:ltr;font-size:12.5px}
+.t-notice{background:var(--wall);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin-top:14px;font-size:14.5px}
+.t-notice.bad{background:#FBE5E1;color:#9b2a1f;border-color:rgba(222,69,39,.3)}
+.t-notice.ok{background:#E3F6EE;color:#12916A;border-color:rgba(18,145,106,.3)}
+.t-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:18px}
+.t-stat{border:1px solid var(--line);border-radius:18px;padding:14px 16px;background:var(--bg)}
+.t-stat b{display:block;font-size:28px;font-family:"Noto Kufi Arabic",sans-serif;line-height:1.2}
+.t-stat span{color:var(--muted);font-size:13.5px}
+.t-tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.t-table{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px}
+.t-table th{color:var(--muted);font-weight:600;text-align:start;padding:10px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+.t-table td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+.t-table td.n{font-variant-numeric:tabular-nums;direction:ltr;text-align:right}
+.t-table .chn{font-weight:700;margin-inline-end:6px}
+.t-table .cell{font-size:13px;line-height:1.5;white-space:nowrap}
+.t-table .cell .d{color:var(--muted)}
+.t-table .cell.empty{color:var(--muted)}
+.t-table .bar{height:7px;border-radius:9px;background:var(--line);overflow:hidden;width:86px;margin-top:3px}
+.t-table .bar i{display:block;height:100%;background:var(--bench)}
+.t-tag{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:700}
+.t-tag.g{background:#E3F6EE;color:#12916A}
+.t-tag.m{background:#FFF3D6;color:#9a6a00}
+.t-tag.r{background:#FBE5E1;color:#9b2a1f}
+.t-del{background:none;border:0;color:#C7362A;cursor:pointer;font-size:16px;padding:4px 8px;border-radius:6px}
+.t-del:hover{background:rgba(199,54,42,.1)}
+.t-hide{display:none !important}
+/* Section Highlight Animations */
+.section-highlight{animation:glowHighlight 2s ease-out forwards}
+@keyframes glowHighlight{
+  0%{box-shadow:0 0 0 0 rgba(124,77,214,0);border-color:var(--line)}
+  25%{box-shadow:0 0 0 6px rgba(124,77,214,.35), 0 20px 40px rgba(124,77,214,.18);border-color:#7C4DD6}
+  100%{box-shadow:0 0 0 0 rgba(124,77,214,0);border-color:var(--line)}
+}
 @media (max-width:760px){.labgrid{grid-template-columns:1fr}.panel{margin-bottom:24px}.shelfwrap{padding-bottom:0}}
 @media (max-width:1000px){.stations{grid-template-columns:repeat(3,minmax(0,1fr))}.rstats{grid-template-columns:repeat(2,minmax(0,1fr))}.tools{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:620px){.flasks{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:14px}.bench{display:none}.stations,.tools{grid-template-columns:1fr 1fr}.hex span{font-size:10.5px}.rrow{grid-template-columns:minmax(0,1fr) 70px;row-gap:6px}.rrow .cyl{grid-column:1/-1;grid-row:2}.rstats{grid-template-columns:1fr 1fr}}
@@ -118,7 +163,7 @@ section.sec{padding:70px 0 10px}
    <div class="hexes"><div class="hex"><b>6</b><span>فصول</span></div><div class="hex"><b>24</b><span>درسًا</span></div><div class="hex"><b>6</b><span>اختبارات ختامية</span></div><div class="hex"><b>504</b><span>سؤالًا تحصيليًا</span></div></div>
    <div class="greet" id="greet">💡 مرّري على أي قارورة لتري اسم الفصل، واضغطي عليها للدخول.</div>
    <div class="who"><span class="seal"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M15 6h10M17 6v10L8 32a3 3 0 0 0 3 4h18a3 3 0 0 0 3-4L23 16V6" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"/><path d="M11.5 27h17l2.5 5a2 2 0 0 1-2 3H11a2 2 0 0 1-2-3z" fill="#fff" opacity=".85"/></svg></span><div><small>إعداد المعلمة:</small><br><b>صباح داخل الأحمدي</b></div></div>
-   <div class="btns"><a href="#path-sec">مسار التفاعل ↓</a><a class="o" href="#results">سجل نتائجي</a><a class="o" href="/teacher/" target="_self">لوحة المتابعة</a></div>
+   <div class="btns"><a href="#path-sec">مسار التفاعل ↓</a><a class="o" href="#results" id="btn-progress">سجل التقدم</a><a class="o" href="#teacher-section" id="btn-teacher">لوحة المتابعة</a></div>
   </div>
   <div class="shelfwrap">
    <div class="shelf-title">🧪 رف المختبر: مستوى السائل في كل قارورة = نسبة ما أنجزتِه من دروس الفصل</div>
@@ -151,10 +196,79 @@ section.sec{padding:70px 0 10px}
  </section>
 
  <section class="sec" id="results">
-  <p class="eyebrow">سجل النتائج</p>
-  <h2>نتائج تجاربي</h2>
+  <p class="eyebrow">سجل التقدم والنتائج</p>
+  <h2>تقدّم الطالبة في الفصول السبعة</h2>
   <p class="sub">يُسجَّل تقدمك تلقائيًا من هذا الجهاز: كل مخبار يمتلئ بقدر ما أنجزتِه من دروس الفصل، وبجانبه أعلى نتيجة لك في الاختبار الختامي.</p>
   <div class="results"><div class="rstats" id="rstats"></div><div class="rack" id="rack"></div><p class="note" id="nbnote"></p></div>
+ </section>
+
+ <section class="sec teacher-sec" id="teacher-section">
+  <p class="eyebrow">لوحة المتابعة</p>
+  <h2>لوحة المتابعة الشاملة للمعلمة</h2>
+  <p class="sub">تعرض نتائج الطالبات في فصول كيمياء 2-2 مجمّعة في جدول واحد مباشرة من قاعدة بيانات السحابة (Cloudflare D1)، مع إمكانية إضافة رموز التقدم يدويًا.</p>
+
+  <div class="t-card" id="t-gate">
+   <div class="t-row">
+    <label for="t-pw" style="font-weight:600">الرمز السري للمعلمة:</label>
+    <input type="password" id="t-pw" inputmode="numeric" autocomplete="off" placeholder="أدخلي الرمز السري">
+    <button type="button" class="t-btn pri" id="t-pwGo">عرض النتائج</button>
+   </div>
+   <div class="t-notice" id="t-pwMsg">يُرجى إدخال الرمز السري للوحة المتابعة والتحقق عبر الخادم.</div>
+  </div>
+
+  <div id="t-dash" class="t-hide">
+   <div class="t-card">
+    <h3 style="margin-bottom:8px">📥 إضافة رموز الطالبات والتحكم</h3>
+    <p class="sub" style="margin-top:0">تنشئ الطالبة رمز التقدم من صفحة الفصل وترسله لكِ. الصقي الرموز هنا ثم اضغطي «إضافة»:</p>
+    <textarea id="t-codes" placeholder="KIM-..."></textarea>
+    <div class="t-row" style="margin-top:12px">
+     <button type="button" class="t-btn pri" id="t-refresh">🔄 تحديث من قاعدة البيانات</button>
+     <button type="button" class="t-btn hot" id="t-add">➕ إضافة الرموز</button>
+     <button type="button" class="t-btn ghost sm" id="t-csv">⬇️ تنزيل النتائج (CSV)</button>
+     <button type="button" class="t-btn ghost sm" id="t-clear">🗑️ مسح كل البيانات</button>
+     <button type="button" class="t-btn ghost sm" id="t-lock">🔒 قفل اللوحة</button>
+    </div>
+    <div id="t-addMsg"></div>
+    <div class="t-notice" id="t-srcMsg" style="display:none"></div>
+   </div>
+
+   <div class="t-card">
+    <div class="t-stats" id="t-stats"></div>
+    <h3 style="margin-bottom:8px">📚 ملخص الفصول</h3>
+    <div class="t-tw"><table class="t-table" id="t-chT"></table></div>
+   </div>
+
+   <div class="t-card">
+    <div class="t-row" style="justify-content:space-between;margin-bottom:12px">
+     <h3 style="margin:0">👩‍🎓 نتائج الطالبات</h3>
+     <div class="t-row">
+      <select id="t-fg" aria-label="تصفية حسب الصف">
+       <option value="">كل الصفوف</option>
+       <option>الأول الثانوي</option>
+       <option>الثاني الثانوي</option>
+       <option>الثالث الثانوي</option>
+      </select>
+      <select id="t-fs" aria-label="تصفية حسب الشعبة">
+       <option value="">كل الشعب</option>
+       <option value="1">الشعبة 1</option>
+       <option value="2">الشعبة 2</option>
+       <option value="3">الشعبة 3</option>
+       <option value="4">الشعبة 4</option>
+       <option value="5">الشعبة 5</option>
+       <option value="6">الشعبة 6</option>
+       <option value="7">الشعبة 7</option>
+       <option value="8">الشعبة 8</option>
+       <option value="9">الشعبة 9</option>
+       <option value="10">الشعبة 10</option>
+       <option value="11">الشعبة 11</option>
+       <option value="12">الشعبة 12</option>
+      </select>
+      <input type="text" id="t-q" placeholder="ابحثي باسم الطالبة">
+     </div>
+    </div>
+    <div class="t-tw"><table class="t-table" id="t-stT"></table></div>
+   </div>
+  </div>
  </section>
 </main>
 <p class="foot">إعداد المعلمة: صباح داخل الأحمدي - الثانوية السادسة والثلاثون بالمدينة المنورة</p>
@@ -223,6 +337,304 @@ $('#nbnote').textContent=P.some(Boolean)?'':'لم تبدئي أي فصل على 
 /* theme */
 const tb=$('#theme');const setT=t=>{document.documentElement.dataset.theme=t;tb.textContent=t==='dark'?'☀️ الوضع النهاري':'🌙 الوضع الليلي';try{localStorage.setItem('chem22-hub-theme',t);}catch(e){}};
 try{const t=localStorage.getItem('chem22-hub-theme');if(t)setT(t);}catch(e){}tb.addEventListener('click',()=>setT(document.documentElement.dataset.theme==='dark'?'light':'dark'));
+
+/* Navigation & Smooth Scroll with Highlights */
+function highlightEl(el){
+  if(!el)return;
+  el.classList.remove('section-highlight');
+  void el.offsetWidth;
+  el.classList.add('section-highlight');
+  setTimeout(()=>{el.classList.remove('section-highlight');},2100);
+}
+
+function smoothScrollTo(targetEl){
+  if(!targetEl)return;
+  const isReduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  targetEl.scrollIntoView({
+    behavior: isReduced ? 'auto' : 'smooth',
+    block: 'start'
+  });
+  highlightEl(targetEl);
+}
+
+const btnProgress = $('#btn-progress');
+if(btnProgress){
+  btnProgress.addEventListener('click', e => {
+    e.preventDefault();
+    const sec = $('#results');
+    smoothScrollTo(sec);
+  });
+}
+
+const btnTeacher = $('#btn-teacher');
+if(btnTeacher){
+  btnTeacher.addEventListener('click', e => {
+    e.preventDefault();
+    const sec = $('#teacher-section');
+    smoothScrollTo(sec);
+    setTimeout(()=>{
+      const pwInp = $('#t-pw');
+      if(pwInp && !$('#t-gate').classList.contains('t-hide')){
+        pwInp.focus();
+      }
+    }, 500);
+  });
+}
+
+/* Teacher Dashboard Logic */
+const T_KEY = 'chem22-teacher-dashboard-v1';
+let T_DB = {}, T_SRV = {}, T_SKEY = {}, T_SMETA = {}, T_PWV = '', T_ONLINE = false;
+const tLoad = () => { try { T_DB = JSON.parse(localStorage.getItem(T_KEY) || '{}') || {}; } catch(e) { T_DB = {}; } };
+const tSave = () => { try { localStorage.setItem(T_KEY, JSON.stringify(T_DB)); } catch(e) {} };
+const tEsc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function tHash(str) { let h = 7; for (const c of str) h = (h * 31 + c.codePointAt(0)) % 1000003; return h; }
+function tParse(code) {
+  const m = code.trim().match(/^KIM-([A-Za-z0-9+/]+)-([0-9a-z]+)$/);
+  if (!m) return null;
+  try {
+    const body = decodeURIComponent(escape(atob(m[1])));
+    if (tHash(body).toString(36) !== m[2]) return null;
+    const p = JSON.parse(body);
+    if (!p.n || !(p.c >= 1 && p.c <= 6)) return null;
+    return p;
+  } catch(e) { return null; }
+}
+const tKeyOf = n => n.replace(/\s+/g, ' ').trim();
+
+async function tFetchServer(pw) {
+  try {
+    const r = await fetch('/api/results', { headers: { 'x-teacher-password': pw }, cache: 'no-store' });
+    if (r.status === 401) return 'bad';
+    if (!r.ok) return 'off';
+    const d = await r.json();
+    T_SRV = {}; T_SKEY = {}; T_SMETA = {};
+    (d.rows || []).forEach(x => {
+      const k = `${tKeyOf(x.name)} (${x.grade} · ${x.section})`;
+      T_SRV[k] = T_SRV[k] || {};
+      T_SKEY[k] = x.student_key;
+      T_SMETA[k] = { g: x.grade, s: x.section };
+      if (x.chapter) {
+        T_SRV[k][x.chapter] = {
+          d: x.lessons_done,
+          t: x.lessons_total,
+          f: x.final_score,
+          s: x.stars,
+          m: x.max_stars,
+          ts: Date.parse((x.updated_at || '').replace(' ', 'T') + 'Z') || 0,
+          srv: 1
+        };
+      }
+    });
+    T_ONLINE = true;
+    return 'ok';
+  } catch(e) {
+    return 'off';
+  }
+}
+
+function tView() {
+  const V = JSON.parse(JSON.stringify(T_DB));
+  Object.entries(T_SRV).forEach(([n, chs]) => {
+    V[n] = V[n] || {};
+    Object.entries(chs).forEach(([c, r]) => {
+      if (!V[n][c] || r.ts >= V[n][c].ts) V[n][c] = r;
+    });
+  });
+  return V;
+}
+
+function tSrcNote() {
+  const m = $('#t-srcMsg');
+  if(!m)return;
+  m.style.display = 'block';
+  if (T_ONLINE) {
+    m.className = 't-notice ok';
+    m.textContent = '✓ متصلة بقاعدة بيانات Cloudflare D1. آخر تحديث: ' + new Date().toLocaleTimeString('ar-SA');
+  } else {
+    m.className = 't-notice';
+    m.textContent = 'تعمل اللوحة دون اتصال مباشر بالخادم (تظهر الرموز المدخلة يدويًا فقط).';
+  }
+}
+
+function tTag(f) {
+  if (f == null) return '<span class="d">—</span>';
+  const c = f >= 80 ? 'g' : f >= 60 ? 'm' : 'r';
+  return `<span class="t-tag ${c}">${f}%</span>`;
+}
+
+function tRender() {
+  const DB = tView();
+  const names = Object.keys(DB).sort((a,b) => a.localeCompare(b, 'ar'));
+  let lessons = 0, finals = [], stars = 0, doneFinal = 0;
+  names.forEach(n => Object.values(DB[n]).forEach(r => {
+    lessons += r.d;
+    stars += r.s;
+    if (r.f != null) { finals.push(r.f); doneFinal++; }
+  }));
+  const totalL = CH.reduce((a,c) => a + c.L.length, 0);
+
+  $('#t-stats').innerHTML = [
+    [names.length, 'عدد الطالبات'],
+    [names.length ? `${lessons}/${names.length * totalL}` : '0/' + totalL, 'الدروس المنجزة'],
+    [doneFinal, 'الاختبارات الختامية المنجزة'],
+    [finals.length ? Math.round(finals.reduce((a,b)=>a+b,0)/finals.length)+'%' : '—', 'متوسط الاختبار الختامي'],
+    [stars + ' ⭐', 'مجموع النجوم المكتسبة']
+  ].map(([v,l]) => `<div class="t-stat"><b>${v}</b><span>${l}</span></div>`).join('');
+
+  $('#t-chT').innerHTML = `<thead><tr><th>الفصل</th><th>الطالبات المرسِلات</th><th>متوسط الدروس المنجزة</th><th>متوسط الاختبار الختامي</th><th>متوسط النجوم</th><th></th></tr></thead><tbody>${CH.map(c => {
+    const rs = names.map(n => DB[n][c.n]).filter(Boolean);
+    const fs = rs.filter(r => r.f != null).map(r => r.f);
+    const avgD = rs.length ? (rs.reduce((a,r) => a + r.d, 0) / rs.length) : null;
+    return `<tr><td><span class="chn" style="color:${c.c}">${c.n}</span>${c.t}</td><td class="n">${rs.length}</td><td class="n">${avgD == null ? '—' : avgD.toFixed(1) + '/' + c.L.length}</td><td>${fs.length ? tTag(Math.round(fs.reduce((a,b)=>a+b,0)/fs.length)) : '—'}</td><td class="n">${rs.length ? (rs.reduce((a,r)=>a+r.s,0)/rs.length).toFixed(1) : '—'}</td><td><a class="t-btn ghost sm" href="${c.u}" target="_blank" rel="noopener">فتح الفصل</a></td></tr>`;
+  }).join('')}</tbody>`;
+
+  const q = $('#t-q').value.trim(), fg = $('#t-fg').value, fs = $('#t-fs').value;
+  const shown = names.filter(n => (!q || n.includes(q)) && (!fg || (T_SMETA[n] && T_SMETA[n].g === fg)) && (!fs || (T_SMETA[n] && T_SMETA[n].s === fs)));
+
+  $('#t-stT').innerHTML = `<thead><tr><th>الطالبة</th>${CH.map(c => `<th><span class="chn" style="color:${c.c}">${c.n}</span>${c.s}</th>`).join('')}<th>المجموع</th><th></th></tr></thead><tbody>${shown.length ? shown.map(n => {
+    const R = DB[n];
+    let tl = 0, ts = 0;
+    const cells = CH.map(c => {
+      const r = R[c.n];
+      if (!r) return '<td class="cell empty">لم يُرسل</td>';
+      tl += r.d; ts += r.s;
+      return `<td class="cell"><div>📘 ${r.d}/${r.t} <span class="d">دروس</span></div><div class="bar"><i style="width:${Math.round(r.d/r.t*100)}%"></i></div><div>📝 ${tTag(r.f)} · ⭐ ${r.s}</div></td>`;
+    }).join('');
+    return `<tr><td><b>${tEsc(n)}</b></td>${cells}<td class="cell"><div>📘 ${tl}/${totalL}</div><div>⭐ ${ts}</div></td><td><button class="t-del" data-n="${tEsc(n)}" title="حذف الطالبة" aria-label="حذف ${tEsc(n)}">✕</button></td></tr>`;
+  }).join('') : `<tr><td colspan="${CH.length + 3}" style="color:var(--muted);text-align:center;padding:24px">${names.length ? 'لا توجد نتائج مطابقة للبحث.' : 'لم تُضف رموز أو بيانات بعد.'}</td></tr>`}</tbody>`;
+
+  document.querySelectorAll('.t-del').forEach(b => b.addEventListener('click', async () => {
+    const n = b.dataset.n;
+    if (confirm('حذف نتائج الطالبة ' + n + '؟')) {
+      delete T_DB[n];
+      tSave();
+      if (T_ONLINE && T_SKEY[n]) {
+        try {
+          await fetch('/api/results?key=' + encodeURIComponent(T_SKEY[n]), {
+            method: 'DELETE',
+            headers: { 'x-teacher-password': T_PWV }
+          });
+        } catch(e) {}
+        delete T_SRV[n];
+      }
+      tRender();
+    }
+  }));
+}
+
+async function tUnlock(pw) {
+  $('#t-gate').classList.add('t-hide');
+  $('#t-dash').classList.remove('t-hide');
+  tLoad();
+  T_PWV = pw;
+  await tFetchServer(pw);
+  tRender();
+  tSrcNote();
+}
+
+$('#t-pwGo').addEventListener('click', async () => {
+  const pw = $('#t-pw').value.trim();
+  const m = $('#t-pwMsg');
+  if (!pw) {
+    m.className = 't-notice bad';
+    m.textContent = 'يُرجى كتابة الرمز السري أولًا.';
+    return;
+  }
+  m.className = 't-notice';
+  m.textContent = 'جارٍ التحقق من الخادم…';
+  const st = await tFetchServer(pw);
+  if (st === 'ok' || (st === 'off' && pw === '123456')) {
+    try { sessionStorage.setItem(T_KEY + '-pw', pw); } catch(e) {}
+    tUnlock(pw);
+  } else {
+    m.className = 't-notice bad';
+    m.textContent = 'الرمز السري غير صحيح أو تعذّر التحقق.';
+  }
+});
+
+$('#t-pw').addEventListener('keydown', e => { if (e.key === 'Enter') $('#t-pwGo').click(); });
+
+$('#t-lock').addEventListener('click', () => {
+  sessionStorage.removeItem(T_KEY + '-pw');
+  T_SRV = {};
+  T_ONLINE = false;
+  $('#t-dash').classList.add('t-hide');
+  $('#t-gate').classList.remove('t-hide');
+  $('#t-pw').value = '';
+  const m = $('#t-pwMsg');
+  m.className = 't-notice';
+  m.textContent = 'يُرجى إدخال الرمز السري للوحة المتابعة والتحقق عبر الخادم.';
+});
+
+try {
+  const p = sessionStorage.getItem(T_KEY + '-pw');
+  if (p) tUnlock(p);
+} catch(e) {}
+
+$('#t-refresh').addEventListener('click', async () => {
+  await tFetchServer(T_PWV);
+  tRender();
+  tSrcNote();
+});
+
+$('#t-add').addEventListener('click', () => {
+  const lines = $('#t-codes').value.split(/[\s\n]+/).filter(Boolean);
+  let ok = 0, bad = 0, upd = 0;
+  lines.forEach(c => {
+    const p = tParse(c);
+    if (!p) { bad++; return; }
+    const k = tKeyOf(p.n);
+    T_DB[k] = T_DB[k] || {};
+    const old = T_DB[k][p.c];
+    if (!old || p.ts >= old.ts) {
+      if (old) upd++;
+      T_DB[k][p.c] = { d: p.d, t: p.t, f: p.f, s: p.s, m: p.m, ts: p.ts };
+    }
+    ok++;
+  });
+  tSave();
+  tRender();
+  $('#t-codes').value = '';
+  $('#t-addMsg').innerHTML = `<div class="t-notice ${bad ? 'bad' : 'ok'}">أُضيف ${ok} رمز${upd ? ` (منها ${upd} تحديث لنتيجة سابقة)` : ''}.${bad ? ` تعذّرت قراءة ${bad} رمز.` : ''}</div>`;
+});
+
+$('#t-clear').addEventListener('click', async () => {
+  if (confirm('هل تريدين مسح جميع نتائج الطالبات؟ سيُحذف ذلك من قاعدة البيانات أيضًا ولا يمكن التراجع.')) {
+    T_DB = {};
+    tSave();
+    if (T_ONLINE) {
+      try {
+        await fetch('/api/results?all=1', {
+          method: 'DELETE',
+          headers: { 'x-teacher-password': T_PWV }
+        });
+      } catch(e) {}
+      T_SRV = {};
+    }
+    tRender();
+  }
+});
+
+$('#t-q').addEventListener('input', tRender);
+$('#t-fg').addEventListener('change', tRender);
+$('#t-fs').addEventListener('change', tRender);
+
+$('#t-csv').addEventListener('click', async () => {
+  const DB = tView();
+  const names = Object.keys(DB).sort((a,b) => a.localeCompare(b, 'ar'));
+  const head = ['الطالبة', ...CH.flatMap(c => [`ف${c.n} دروس`, `ف${c.n} الختامي %`, `ف${c.n} نجوم`])];
+  const rows = names.map(n => [n, ...CH.flatMap(c => {
+    const r = DB[n][c.n];
+    return r ? [`${r.d}/${r.t}`, r.f == null ? '' : r.f, r.s] : ['', '', ''];
+  })]);
+  const csv = '\ufeff' + [head, ...rows].map(r => r.map(v => `"${String(v).replace(/"/g, '""')}"`).join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
+  a.download = 'نتائج-كيمياء-2-2.csv';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+});
 </script>
 </body>
 </html>
