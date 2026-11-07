@@ -37,6 +37,13 @@ td.n{font-variant-numeric:tabular-nums;direction:ltr;text-align:right}
 .hide{display:none}
 .foot{text-align:center;color:var(--muted);font-size:12.5px;margin-top:24px}
 .del{background:none;border:0;color:var(--bad);cursor:pointer;font-size:16px}
+/* ---------- شريط التنقل السفلي ---------- */
+.ch-bottom-nav{display:flex;gap:12px;justify-content:center;align-items:center;margin:32px 0 10px;padding:14px 18px;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:0 6px 20px rgba(60,30,140,.05);flex-wrap:wrap}
+.ch-nav-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 20px;border-radius:999px;font:inherit;font-size:14.5px;font-weight:700;text-decoration:none;cursor:pointer;border:1.5px solid var(--line);background:var(--surface2);color:var(--ink);transition:background .2s,border-color .2s,transform .15s}
+.ch-nav-btn:hover{background:var(--chip);border-color:var(--mid);transform:translateY(-1px)}
+.ch-nav-btn.primary{background:linear-gradient(90deg,var(--cold),var(--mid));color:#fff;border-color:transparent}
+.ch-nav-btn.primary:hover{opacity:.95;transform:translateY(-1px)}
+@media (max-width:480px){.ch-bottom-nav{flex-direction:column;gap:8px;padding:12px}.ch-nav-btn{width:100%}}
 </style>
 </head>
 <body>
@@ -74,6 +81,16 @@ td.n{font-variant-numeric:tabular-nums;direction:ltr;text-align:right}
    <div class="tw"><table id="stT"></table></div>
   </section>
  </div>
+
+ <nav class="ch-bottom-nav" aria-label="التنقل السفلي">
+  <button type="button" class="ch-nav-btn" id="btnNavBack" aria-label="العودة للصفحة السابقة">
+   <span>→</span> السابق
+  </button>
+  <a href="/" class="ch-nav-btn primary" id="btnNavHome" aria-label="الانتقال إلى الصفحة الرئيسية">
+   <span>🏠</span> الصفحة الرئيسية
+  </a>
+ </nav>
+
  <p class="foot">إعداد المعلمة: صباح داخل الأحمدي - الثانوية السادسة والثلاثون بالمدينة المنورة</p>
 </div>
 <script>
@@ -123,6 +140,18 @@ $('#csv').addEventListener('click',async()=>{const DB=view();const names=Object.
   let dl=null;try{dl=await Promise.race([window.claude&&window.claude.use?window.claude.use('downloads'):Promise.resolve(null),new Promise(r=>setTimeout(()=>r(null),3000))]);}catch(e){}
   if(dl){try{await dl.save({filename:'نتائج-كيمياء-2-2.csv',data:new Blob([csv],{type:'text/csv'})});}catch(e){}}
   else{try{await navigator.clipboard.writeText(csv);alert('نُسخت النتائج، الصقيها في Excel أو جدول Google.');}catch(e){alert('تعذّر التنزيل في هذا العرض.');}}});
+
+const btnBack = document.getElementById('btnNavBack');
+if (btnBack) {
+  btnBack.addEventListener('click', () => {
+    const hasInternalReferrer = document.referrer && (document.referrer.includes(location.host) || document.referrer.includes('chem22'));
+    if (window.history.length > 1 && hasInternalReferrer) {
+      window.history.back();
+    } else {
+      window.location.href = '/';
+    }
+  });
+}
 </script>
 </body>
 </html>

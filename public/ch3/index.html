@@ -432,6 +432,10 @@ input.ans{width:150px;direction:ltr;text-align:center}
 .ch-nav-btn.primary{background:linear-gradient(90deg,var(--cold),var(--mid));color:#fff;border-color:transparent}
 .ch-nav-btn.primary:hover{opacity:.95;transform:translateY(-1px)}
 @media (max-width:480px){.ch-bottom-nav{flex-direction:column;gap:8px;padding:12px}.ch-nav-btn{width:100%}}
+
+/* زر الاختبار الختامي الموحد */
+.btn-final{background:#168A58 !important;color:#FFFFFF !important;border:none !important;box-shadow:0 4px 14px rgba(22,138,88,.28) !important}
+.btn-final:hover{background:#127349 !important;color:#FFFFFF !important;transform:translateY(-1px)}
 </style>
 </head>
 <body>
@@ -720,7 +724,7 @@ function viewHome(){
       <p class="lead">ثلاثة دروس تجرّبين فيها بنفسك: تشغّلين مضختين لتري معنى الاتزان الديناميكي، وتبنين تعابير ثابت الاتزان، وتجرين تجارب لوتشاتلييه في المختبر الافتراضي بالتركيز والضغط والحرارة، وتذيبين الأملاح حتى الإشباع وتتوقعين تكوّن الرواسب. اجمعي النجوم والشارات، وأنجزي مهام كل درس، وتحدّي نفسك في ألعاب الـ45 ثانية. في نهاية كل درس اختبار قصير، وفي آخر الرحلة اختبار ختامي من أسئلة التحصيلي.</p>
       <div class="hero-actions">
         <a class="btn cold" href="#lesson-1">ابدئي الرحلة</a>
-        <a class="btn ghost" href="#final">الاختبار الختامي</a>
+        <a class="btn btn-final" href="#final">الاختبار الختامي</a>
       </div>
       <p class="progress-line">أنجزتِ ${done} من ${LESSONS.length} دروس</p>
     </div>
@@ -741,7 +745,7 @@ function viewHome(){
         <div class="lcode">${L.code}</div>
         <h3>${L.title}</h3>
         <p>${L.blurb}</p>
-        <div class="lmeta"><span class="st">★ ${lessonStars(L)} / ${lessonMax(L)}</span><a class="btn sm ghost" href="#lesson-${L.n}">ادخلي</a></div>
+        <div class="lmeta"><span class="st">★ ${lessonStars(L)} / ${lessonMax(L)}</span><a class="btn sm ghost" href="#lesson-${L.n}">دخول</a></div>
       </article>`).join('')}
     </div>
   </section>
@@ -752,7 +756,7 @@ function viewHome(){
   </section>
   <section class="final-band">
     <div><h3>الاختبار الختامي: تجميعات التحصيلي</h3><p>${TAH.length} سؤالًا من اختبارات التحصيلي السابقة في الاتزان الكيميائي، مع تصحيح فوري وشرح لكل إجابة.${S.final!=null?' أفضل نتيجة لك: '+S.final+'%':''}</p></div>
-    <a class="btn hot" href="#final">ابدئي الاختبار</a>
+    <a class="btn btn-final" href="#final">ابدئي الاختبار</a>
   </section>
   <section class="final-band task-band"><div class="tb-in"><span class="ti">📝</span><div><h3>مهمة أدائية</h3><p>اقرئي المهمة وارفعي إجابتها من خلال النموذج.</p></div></div>${TASK_FORM?`<a class="btn cold" href="${TASK_FORM}" target="_blank" rel="noopener">افتحي المهمة</a>`:`<span class="btn ghost" aria-disabled="true" style="opacity:.6;cursor:default">يُضاف الرابط قريبًا</span>`}</section>
   ${reportHTML()}`;
@@ -787,7 +791,7 @@ function viewLesson(n){
       <section class="panel" id="quiz"><span class="tag">اختبار الدرس ${L.code}</span><h3>اختبار قصير</h3><p class="desc">خمسة أسئلة. أجيبي عن أربعة منها أو أكثر بشكل صحيح لتحصلي على شارة الدرس و3 نجوم.${S.quiz[n]!=null?' أفضل نتيجة لك: '+S.quiz[n]+' من 5.':''}</p><div id="quizBox"></div></section>
       <div class="row" style="justify-content:space-between">
         ${n>1?`<a class="btn ghost" href="#lesson-${n-1}">الدرس السابق</a>`:'<span></span>'}
-        ${n<LESSONS.length?`<a class="btn cold" href="#lesson-${n+1}">الدرس التالي</a>`:`<a class="btn hot" href="#final">إلى الاختبار الختامي</a>`}
+        ${n<LESSONS.length?`<a class="btn cold" href="#lesson-${n+1}">الدرس التالي</a>`:`<a class="btn btn-final" href="#final">إلى الاختبار الختامي</a>`}
       </div>
     </div>
   </div>`;
