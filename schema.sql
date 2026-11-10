@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS student_progress (
   lessons_done   INTEGER NOT NULL DEFAULT 0,
   lessons_total  INTEGER NOT NULL DEFAULT 0,
   done_list      TEXT    NOT NULL DEFAULT '',   -- أرقام الدروس المنجزة مثل 1,3
+  pre_score      INTEGER,                       -- نتيجة الاختبار القبلي (-1 أو NULL تعني لم يُنجز)
   final_score    INTEGER NOT NULL DEFAULT -1,   -- -1 = لم يُنجز الاختبار الختامي
   stars          INTEGER NOT NULL DEFAULT 0,
   max_stars      INTEGER NOT NULL DEFAULT 0,

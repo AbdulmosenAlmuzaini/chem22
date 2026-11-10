@@ -448,7 +448,7 @@ input.ans{width:150px;direction:ltr;text-align:center}
 const $=(s,r=document)=>r.querySelector(s);
 const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
 const LS='thermo22-sabah-v1';
-let S={tasks:{},games:{},quiz:{},done:{},final:null,theme:null};
+let S={tasks:{},games:{},quiz:{},done:{},pre:null,final:null,theme:null};
 try{const raw=localStorage.getItem(LS);if(raw)S=Object.assign(S,JSON.parse(raw));}catch(e){}
 function save(){try{localStorage.setItem(LS,JSON.stringify(S));}catch(e){}try{autoSync();}catch(e){}}
 const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -629,6 +629,7 @@ function route(){
   cleanups.forEach(f=>{try{f();}catch(e){}});cleanups=[];
   const h=location.hash.replace('#','');
   if(/^lesson-[1-4]$/.test(h))viewLesson(+h.slice(7));
+  else if(h==='pre')viewPre();
   else if(h==='final')viewFinal();
   else viewHome();
   fmAll(app);refreshStars();window.scrollTo(0,0);
@@ -656,7 +657,7 @@ function setPendingSync(q){try{localStorage.setItem(QUEUE_KEY,JSON.stringify(q))
 async function syncProgress(manual){
   const p=window.Chem22Student&&Chem22Student.get();if(!p)return false;
   const list=LESSONS.filter(L=>S.done[L.n]).map(L=>L.n),max=LESSONS.reduce((a,L)=>a+lessonMax(L),0)+5;
-  const payload={name:p.name,grade:p.grade,section:p.section,chapter:CH_NO,done:list.length,done_list:list,total:LESSONS.length,final:S.final==null?null:S.final,stars:totalStars(),max};
+  const payload={name:p.name,grade:p.grade,section:p.section,chapter:CH_NO,done:list.length,done_list:list,total:LESSONS.length,pre:S.pre==null?null:S.pre,final:S.final==null?null:S.final,stars:totalStars(),max};
   try{
     const r=await fetch('/api/progress',{method:'POST',headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
     if(!r.ok)throw new Error('status '+r.status);
@@ -685,6 +686,7 @@ async function flushPendingSync(){
 window.addEventListener('online',()=>{flushPendingSync();restoreProgress();});async function restoreProgress(){const p=window.Chem22Student&&Chem22Student.get();if(!p)return;
   try{const q=new URLSearchParams({name:p.name,grade:p.grade,section:p.section,chapter:CH_NO});const r=await fetch('/api/student?'+q);if(!r.ok)return;const d=await r.json();const row=(d.rows||[])[0];if(!row)return syncProgress(false);
     let changed=false;String(row.done_list||'').split(',').map(Number).filter(Boolean).forEach(n=>{if(!S.done[n]){S.done[n]=true;changed=true;}});
+    if(row.pre_score!=null&&S.pre==null){S.pre=row.pre_score;changed=true;}
     if(row.final_score!=null&&(S.final==null||row.final_score>S.final)){S.final=row.final_score;changed=true;}
     if(changed){try{localStorage.setItem(LS,JSON.stringify(S));}catch(e){}route();toast('استُرجع تقدمك المحفوظ ✓');}
     syncProgress(false);}catch(e){}}
@@ -701,6 +703,7 @@ function viewHome(){
       <p class="lead">أربعة دروس تجرّبين فيها بنفسك: تزلجين لتري حفظ الطاقة، وتسقطين فلزًا ساخنًا في المسعر، وترسمين منحنى تسخين الماء، وتركّبين معادلات قانون هس كالأحجية. اجمعي النجوم والشارات، وأنجزي مهام كل درس، وتحدّي نفسك في ألعاب الـ45 ثانية. في نهاية كل درس اختبار قصير، وفي آخر الرحلة اختبار ختامي من أسئلة التحصيلي.</p>
       <div class="hero-actions">
         <a class="btn cold" href="#lesson-1">ابدئي الرحلة</a>
+        <a class="btn" style="background:#2563EB;color:#fff" href="#pre">الاختبار القبلي</a>
         <a class="btn btn-final" href="#final">الاختبار الختامي</a>
       </div>
       <p class="progress-line">أنجزتِ ${done} من 4 دروس</p>
@@ -1255,6 +1258,39 @@ function quizRunner(el,qs,opt){
 }
 
 /* ---------- final ---------- */
+/* ---------- pre-test (الاختبار القبلي: 10 أسئلة متوازنة) ---------- */
+function getPreQuestions(){
+  const step = Math.max(1, Math.floor(TAH.length / 10));
+  const picked = [];
+  for(let i=0; i<10; i++){
+    const idx = Math.min(i * step, TAH.length - 1);
+    picked.push(TAH[idx]);
+  }
+  return picked;
+}
+function viewPre(){
+  const qs = getPreQuestions();
+  app.innerHTML=`<div class="crumbs"><a href="#home">→ الصفحة الرئيسة</a></div>
+  <header class="lhead"><div class="lnum" style="background:#2563EB">10Q</div><div><h1>الاختبار القبلي</h1><div class="en">قياس المستوى القبلي قبل بدء دراسة الفصل</div>
+   <p class="idea" style="margin:10px 0 0"><strong>تعليمات:</strong> هذا الاختبار يقيس معلوماتك السابقة في موضوعات الفصل قبل دراستها. يتكون الاختبار من 10 أسئلة. تُحفظ نتيجة محاولتك الأولى كدرجة معتمدة لقياس الأثر لدى معلمتك، ويمكنك إعادة التدريب متى شئتِ.${S.pre!=null?' نتيجتك المعتمدة: '+S.pre+'%.':''}</p></div></header>
+  <section class="panel" style="margin-top:24px" id="preBox"></section>`;
+  const box=$('#preBox');
+  quizRunner(box, qs, {
+    extra: '<a class="btn ghost" href="#home">الصفحة الرئيسة</a>',
+    onDone: (sc, tot, pct) => {
+      if (S.pre === null || S.pre === undefined) {
+        S.pre = pct;
+        try{localStorage.setItem(LS, JSON.stringify(S));}catch(e){}
+        refreshStars();
+        autoSync(0);
+        toast('✓ تم اعتماد نتيجتك القبلية: ' + pct + '% وحفظها لدى المعلمة');
+      } else {
+        toast('انتهى التدريب بنتيجة: ' + pct + '% (النتيجة المعتمدة السابقة: ' + S.pre + '%)');
+      }
+    }
+  });
+}
+
 function viewFinal(){
   app.innerHTML=`<div class="crumbs"><a href="#home">→ الصفحة الرئيسة</a></div>
   <header class="lhead"><div class="lnum">ΔH</div><div><h1>الاختبار الختامي</h1><div class="en">تجميعات الاختبار التحصيلي: الطاقة والكيمياء الحرارية</div>

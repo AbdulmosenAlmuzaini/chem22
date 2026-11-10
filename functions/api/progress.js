@@ -12,23 +12,27 @@ export async function onRequestPost({ request, env }) {
   const total = int(b.total, 1, 10) || 1;
   const list = Array.isArray(b.done_list) ? [...new Set(b.done_list.map((x) => int(x, 1, total)).filter(Boolean))].sort((a, c) => a - c) : [];
   const done = Math.max(int(b.done, 0, total) ?? 0, list.length);
+  const pre = b.pre === null || b.pre === undefined ? -1 : int(b.pre, 0, 100);
   const final = b.final === null || b.final === undefined ? -1 : int(b.final, 0, 100);
   const max = int(b.max, 0, 500) || 0;
   const stars = int(b.stars, 0, max || 500) ?? 0;
   await env.DB.batch([
     env.DB.prepare(`INSERT INTO students (student_key, name, grade, section, created_at, updated_at) VALUES (?1, ?2, ?3, ?4, datetime('now'), datetime('now'))
       ON CONFLICT(student_key) DO UPDATE SET updated_at = datetime('now')`).bind(s.key, s.name, s.grade, s.section),
-    env.DB.prepare(`INSERT INTO student_progress (student_key, chapter, name, grade, section, lessons_done, lessons_total, done_list, final_score, stars, max_stars, updated_at)
-      VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, datetime('now'))
+    env.DB.prepare(`INSERT INTO student_progress (student_key, chapter, name, grade, section, lessons_done, lessons_total, done_list, pre_score, final_score, stars, max_stars, updated_at)
+      VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, datetime('now'))
       ON CONFLICT(student_key, chapter) DO UPDATE SET
         name = excluded.name,
         lessons_total = excluded.lessons_total,
         done_list = CASE WHEN length(excluded.done_list) >= length(COALESCE(student_progress.done_list,'')) THEN excluded.done_list ELSE student_progress.done_list END,
         lessons_done = MAX(student_progress.lessons_done, excluded.lessons_done),
+        pre_score = CASE WHEN student_progress.pre_score IS NOT NULL AND student_progress.pre_score >= 0 THEN student_progress.pre_score
+                         WHEN excluded.pre_score >= 0 THEN excluded.pre_score
+                         ELSE student_progress.pre_score END,
         final_score = MAX(COALESCE(student_progress.final_score, -1), excluded.final_score),
         stars = MAX(student_progress.stars, excluded.stars),
         max_stars = excluded.max_stars,
-        updated_at = datetime('now')`).bind(s.key, chapter, s.name, s.grade, s.section, done, total, list.join(","), final, stars, max),
+        updated_at = datetime('now')`).bind(s.key, chapter, s.name, s.grade, s.section, done, total, list.join(","), pre, final, stars, max),
   ]);
   return json({ ok: true });
 }
